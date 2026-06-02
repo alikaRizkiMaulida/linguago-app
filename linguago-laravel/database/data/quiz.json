@@ -1,0 +1,350 @@
+[
+    {
+        "node_title": "ABC Song",
+        "quiz_title": "Quiz Alphabet Dasar",
+        "questions": [
+            {
+                "text": "Manakah yang merupakan huruf vokal?",
+                "explanation": "Huruf vokal terdiri dari A, E, I, O, U.",
+                "options": [
+                    { "text": "A", "is_correct": true },
+                    { "text": "B", "is_correct": false },
+                    { "text": "C", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Berapakah jumlah huruf dalam alfabet bahasa Inggris?",
+                "explanation": "Alfabet A sampai Z berjumlah 26 huruf.",
+                "options": [
+                    { "text": "24", "is_correct": false },
+                    { "text": "26", "is_correct": true },
+                    { "text": "28", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Huruf apakah yang mengikuti A dalam urutan alfabet?",
+                "explanation": "Urutan alfabet: A, B, C, D, ...",
+                "options": [
+                    { "text": "A", "is_correct": false },
+                    { "text": "B", "is_correct": true },
+                    { "text": "C", "is_correct": false }
+                ]
+            }
+        ]
+    },
+    {
+        "node_title": "Phonics Song",
+        "quiz_title": "Quiz Phonics Dasar",
+        "questions": [
+            {
+                "text": "Apa bunyi huruf 'B' dalam phonics?",
+                "explanation": "Huruf B berbunyi /b/ seperti pada kata 'ball'.",
+                "options": [
+                    { "text": "/b/", "is_correct": true },
+                    { "text": "/d/", "is_correct": false },
+                    { "text": "/p/", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Kata 'cat' dimulai dengan huruf apa?",
+                "explanation": "Cat dimulai dengan huruf C yang berbunyi /k/.",
+                "options": [
+                    { "text": "K", "is_correct": false },
+                    { "text": "C", "is_correct": true },
+                    { "text": "Q", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Manakah kata yang memiliki bunyi /ʃ/ (sh)?",
+                "explanation": "Kata 'ship' memiliki bunyi /ʃ/ di awalnya.",
+                "options": [
+                    { "text": "Ship", "is_correct": true },
+                    { "text": "Sip", "is_correct": false },
+                    { "text": "Chip", "is_correct": false }
+                ]
+            }
+        ]
+    },
+    {
+        "node_title": "Top 25 English Phrases",
+        "quiz_title": "Quiz Frasa Sehari-hari",
+        "questions": [
+            {
+                "text": "Bagaimana cara menyapa di pagi hari?",
+                "explanation": "'Good morning' adalah sapaan yang digunakan di pagi hari.",
+                "options": [
+                    { "text": "Good night", "is_correct": false },
+                    { "text": "Good morning", "is_correct": true },
+                    { "text": "Good bye", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Apa arti dari 'How are you?'",
+                "explanation": "'How are you?' berarti 'Apa kabarmu?'",
+                "options": [
+                    { "text": "Siapa kamu?", "is_correct": false },
+                    { "text": "Apa kabarmu?", "is_correct": true },
+                    { "text": "Bagaimana caranya?", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Bagaimana cara mengucapkan terima kasih dalam bahasa Inggris?",
+                "explanation": "'Thank you' adalah ungkapan terima kasih.",
+                "options": [
+                    { "text": "Sorry", "is_correct": false },
+                    { "text": "Please", "is_correct": false },
+                    { "text": "Thank you", "is_correct": true }
+                ]
+            },
+            {
+                "text": "Apa arti dari 'Nice to meet you'?",
+                "explanation": "'Nice to meet you' berarti 'Senang bertemu denganmu'.",
+                "options": [
+                    { "text": "Selamat tinggal", "is_correct": false },
+                    { "text": "Senang bertemu denganmu", "is_correct": true },
+                    { "text": "Sampai jumpa lagi", "is_correct": false }
+                ]
+            }
+        ]
+    },
+    {
+        "node_title": "Introduce Yourself in English",
+        "quiz_title": "Quiz Perkenalan Diri",
+        "questions": [
+            {
+                "text": "Lengkapi kalimat: 'Hello, my name ___ Budi.'",
+                "explanation": "To be 'is' digunakan untuk subjek tunggal (he, she, it, name).",
+                "options": [
+                    { "text": "am", "is_correct": false },
+                    { "text": "is", "is_correct": true },
+                    { "text": "are", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Bagaimana cara menanyakan asal seseorang?",
+                "explanation": "'Where are you from?' berarti 'Dari mana asalmu?'",
+                "options": [
+                    { "text": "Where are you go?", "is_correct": false },
+                    { "text": "Where are you from?", "is_correct": true },
+                    { "text": "Where is you from?", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Apa jawaban yang tepat untuk 'How old are you?'",
+                "explanation": "'I am 20 years old' menjawab pertanyaan tentang umur.",
+                "options": [
+                    { "text": "I am fine", "is_correct": false },
+                    { "text": "I am 20 years old", "is_correct": true },
+                    { "text": "I am from Jakarta", "is_correct": false }
+                ]
+            }
+        ]
+    },
+    {
+        "node_title": "English Grammar for Beginners",
+        "quiz_title": "Quiz Grammar Dasar",
+        "questions": [
+            {
+                "text": "Subject pronoun untuk orang pertama tunggal adalah...",
+                "explanation": "'I' adalah subject pronoun untuk orang pertama tunggal.",
+                "options": [
+                    { "text": "I", "is_correct": true },
+                    { "text": "You", "is_correct": false },
+                    { "text": "We", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Mana kalimat yang menggunakan 'to be' dengan benar?",
+                "explanation": "'She is a doctor' menggunakan 'is' yang tepat untuk she.",
+                "options": [
+                    { "text": "She are a doctor", "is_correct": false },
+                    { "text": "She is a doctor", "is_correct": true },
+                    { "text": "She am a doctor", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Bentuk jamak dari 'child' adalah...",
+                "explanation": "'Children' adalah bentuk jamak tidak beraturan dari child.",
+                "options": [
+                    { "text": "Childs", "is_correct": false },
+                    { "text": "Childes", "is_correct": false },
+                    { "text": "Children", "is_correct": true }
+                ]
+            }
+        ]
+    },
+    {
+        "node_title": "Learn Simple Present Tense",
+        "quiz_title": "Quiz Simple Present Tense",
+        "questions": [
+            {
+                "text": "She ___ to school every day.",
+                "explanation": "Subject she (third person) membutuhkan verb + s/es: goes.",
+                "options": [
+                    { "text": "go", "is_correct": false },
+                    { "text": "goes", "is_correct": true },
+                    { "text": "going", "is_correct": false }
+                ]
+            },
+            {
+                "text": "They ___ English every Monday.",
+                "explanation": "Subject they (plural) menggunakan verb tanpa s: study.",
+                "options": [
+                    { "text": "studies", "is_correct": false },
+                    { "text": "study", "is_correct": true },
+                    { "text": "studying", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Bentuk negatif dari 'He likes coffee' adalah...",
+                "explanation": "Does not (doesn't) + verb tanpa s: He doesn't like coffee.",
+                "options": [
+                    { "text": "He doesn't like coffee", "is_correct": true },
+                    { "text": "He don't like coffee", "is_correct": false },
+                    { "text": "He not likes coffee", "is_correct": false }
+                ]
+            }
+        ]
+    },
+    {
+        "node_title": "Ordering Food in English",
+        "quiz_title": "Quiz Memesan Makanan",
+        "questions": [
+            {
+                "text": "Bagaimana cara memesan makanan dengan sopan?",
+                "explanation": "'I would like...' adalah ungkapan sopan untuk memesan.",
+                "options": [
+                    { "text": "Give me food!", "is_correct": false },
+                    { "text": "I would like a burger, please", "is_correct": true },
+                    { "text": "I want burger now", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Apa arti 'Could I have the bill, please?'",
+                "explanation": "Kalimat ini berarti 'Bisa saya minta tagihannya?' saat ingin membayar.",
+                "options": [
+                    { "text": "Bisa saya minta menunya?", "is_correct": false },
+                    { "text": "Bisa saya minta tagihannya?", "is_correct": true },
+                    { "text": "Bisa saya minta air putih?", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Apa yang dimaksud dengan 'check please' di restoran?",
+                "explanation": "'Check please' berarti minta tagihan untuk membayar.",
+                "options": [
+                    { "text": "Minta menu", "is_correct": false },
+                    { "text": "Minta tagihan", "is_correct": true },
+                    { "text": "Minta air", "is_correct": false }
+                ]
+            }
+        ]
+    },
+    {
+        "node_title": "Belajar Hangul Dasar",
+        "quiz_title": "Quiz Hangul Dasar",
+        "questions": [
+            {
+                "text": "Huruf vokal pertama dalam Hangul adalah...",
+                "explanation": "ㅏ (a) adalah vokal dasar pertama dalam Hangul.",
+                "options": [
+                    { "text": "ㅏ (a)", "is_correct": true },
+                    { "text": "ㅓ (eo)", "is_correct": false },
+                    { "text": "ㅗ (o)", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Apa bunyi dari huruf konsonan 'ㄱ'?",
+                "explanation": "ㄱ berbunyi /g/ atau /k/ tergantung posisinya.",
+                "options": [
+                    { "text": "/n/", "is_correct": false },
+                    { "text": "/g/ atau /k/", "is_correct": true },
+                    { "text": "/m/", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Bagaimana cara menulis 'Halo' dalam Hangul?",
+                "explanation": "Annyeonghaseyo (안녕하세요) adalah sapaan 'Halo' dalam bahasa Korea.",
+                "options": [
+                    { "text": "감사합니다", "is_correct": false },
+                    { "text": "안녕하세요", "is_correct": true },
+                    { "text": "죄송합니다", "is_correct": false }
+                ]
+            }
+        ]
+    },
+    {
+        "node_title": "Salam & Ungkapan Dasar",
+        "quiz_title": "Quiz Salam Bahasa Korea",
+        "questions": [
+            {
+                "text": "Apa arti dari '안녕하세요' (Annyeonghaseyo)?",
+                "explanation": "Annyeonghaseyo berarti 'Halo' dalam bahasa Korea formal.",
+                "options": [
+                    { "text": "Selamat tinggal", "is_correct": false },
+                    { "text": "Halo", "is_correct": true },
+                    { "text": "Terima kasih", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Bagaimana cara mengucapkan terima kasih dalam bahasa Korea?",
+                "explanation": "감사합니다 (Gamsahamnida) adalah ungkapan terima kasih formal.",
+                "options": [
+                    { "text": "감사합니다", "is_correct": true },
+                    { "text": "미안합니다", "is_correct": false },
+                    { "text": "네", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Apa arti '네' (ne) dalam bahasa Korea?",
+                "explanation": "'Ne' berarti 'Ya' dalam bahasa Korea.",
+                "options": [
+                    { "text": "Tidak", "is_correct": false },
+                    { "text": "Ya", "is_correct": true },
+                    { "text": "Mungkin", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Ucapan selamat tinggal dalam bahasa Korea adalah...",
+                "explanation": "안녕히 계세요 (Annyeonghi gyeseyo) untuk saat meninggalkan tempat.",
+                "options": [
+                    { "text": "안녕하세요", "is_correct": false },
+                    { "text": "안녕히 계세요", "is_correct": true },
+                    { "text": "감사합니다", "is_correct": false }
+                ]
+            }
+        ]
+    },
+    {
+        "node_title": "Angka Korea (Sino & Native)",
+        "quiz_title": "Quiz Angka Korea",
+        "questions": [
+            {
+                "text": "Angka 1 dalam sistem angka Sino-Korea adalah...",
+                "explanation": "일 (il) adalah angka 1 dalam Sino-Korea (digunakan untuk tanggal, uang).",
+                "options": [
+                    { "text": "하나 (hana)", "is_correct": false },
+                    { "text": "일 (il)", "is_correct": true },
+                    { "text": "둘 (dul)", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Angka 3 dalam sistem angka asli Korea (Native) adalah...",
+                "explanation": "셋 (set) adalah angka 3 Native Korea (digunakan untuk hitungan benda).",
+                "options": [
+                    { "text": "삼 (sam)", "is_correct": false },
+                    { "text": "셋 (set)", "is_correct": true },
+                    { "text": "넷 (net)", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Untuk menghitung umur, sistem angka apa yang digunakan?",
+                "explanation": "Keduanya bisa digunakan, Native Korea lebih umum untuk hitungan umum.",
+                "options": [
+                    { "text": "Sino-Korea saja", "is_correct": false },
+                    { "text": "Native Korea lebih umum", "is_correct": true },
+                    { "text": "Bahasa Inggris", "is_correct": false }
+                ]
+            }
+        ]
+    }
+]
