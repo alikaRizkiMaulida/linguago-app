@@ -1,0 +1,154 @@
+[
+    {
+        "course_title": "English for Beginners",
+        "language": "English",
+        "description": "Belajar alfabet, vokal, konsonan, dan struktur kalimat dasar Bahasa Inggris.",
+        "thumbnail_url": "https://img.youtube.com/vi/75p-N9YKqNo/0.jpg",
+        "chapters": [
+            {
+                "chapter_number": 1,
+                "chapter_title": "Basic: Alphabet & Pronunciation",
+                "description": "Belajar alfabet A-Z, vokal & konsonan, serta phonics (bunyi huruf).",
+                "lessons": [
+                    {
+                        "title": "ABC Song",
+                        "video_url": "https://youtu.be/CU6x9olTzuo?si=6ACYhW3Nbi-Wgisk"
+                    },
+                    {
+                        "title": "Phonics Song",
+                        "video_url": "https://youtu.be/oVtzNpzuvoA?si=Xx0iO9ailJbHhfAl"
+                    },
+                    {
+                        "title": "Learn the Alphabet",
+                        "video_url": "https://youtu.be/EgzHCuzVKb8?si=aWe_Elm-HrISt5Xa"
+                    },
+                    {
+                        "title": "Phonics Sounds A to Z",
+                        "video_url": "https://youtu.be/Ft17a7tyjMM?si=t4dIgAngqPADyrZD"
+                    }
+                ]
+            },
+            {
+                "chapter_number": 2,
+                "chapter_title": "Vocabulary & Basic Phrases",
+                "description": "Mengenal salam, angka 1-100, perkenalan diri, dan kata benda umum.",
+                "lessons": [
+                    {
+                        "title": "Top 25 English Phrases",
+                        "video_url": "https://youtu.be/vrReXV3GlXA?si=IvfE6_fuOPkm6pI8"
+                    },
+                    {
+                        "title": "100 English Words Every Beginner Must Know",
+                        "video_url": "https://youtu.be/oOZLPVG9-9I?si=lztA_wi40MbMxD-k"
+                    },
+                    {
+                        "title": "Introduce Yourself in English",
+                        "video_url": "https://youtu.be/5whkCF7TgZ0?si=bv8QzGXSlEb56hat"
+                    }
+                ]
+            },
+            {
+                "chapter_number": 3,
+                "chapter_title": "Basic Grammar",
+                "description": "Belajar struktur S-V-O, pronouns (I, You, We, They), dan To Be.",
+                "lessons": [
+                    {
+                        "title": "English Grammar for Beginners",
+                        "video_url": "https://youtu.be/QXVzmzhxWWc?si=hXQKfJMlwiMhvHB0"
+                    },
+                    {
+                        "title": "Basic English Sentence Structure",
+                        "video_url": "https://youtu.be/4dr5lN1jqRE?si=8sPBkFd3s_3zbP33"
+                    },
+                    {
+                        "title": "Learn Simple Present Tense",
+                        "video_url": "https://youtu.be/Z19NAX_gWxI?si=BtL_29qbb-Qi-dWD"
+                    }
+                ]
+            },
+            {
+                "chapter_number": 4,
+                "chapter_title": "Daily Conversation",
+                "description": "Praktek memesan makanan, bertanya arah, dan percakapan harian.",
+                "lessons": [
+                    {
+                        "title": "Daily English Conversations",
+                        "video_url": "https://youtu.be/h_KUklZdq5w?si=gnCYh3AD0inXRr5B"
+                    },
+                    {
+                        "title": "Ordering Food in English",
+                        "video_url": "https://youtu.be/bgfdqVmVjfk?si=Gmf8JlxxMrB4m71i"
+                    },
+                    {
+                        "title": "Asking Directions in English",
+                        "video_url": "https://youtu.be/DPYJQSA-x50?si=N8SHiVUEltn_osAn"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "course_title": "Bahasa Korea Dasar",
+        "language": "Korean",
+        "description": "Belajar Hangul, tata bahasa S-O-V, dan percakapan sehari-hari Korea.",
+        "thumbnail_url": "https://img.youtube.com/vi/PLSMQH6cfoHMZ/0.jpg",
+        "chapters": [
+            {
+                "chapter_number": 1,
+                "chapter_title": "Dasar: Huruf & Pelafalan",
+                "description": "Mengenal Hangul, vokal & konsonan, serta cara menulis dan membaca.",
+                "lessons": [
+                    {
+                        "title": "Belajar Hangul Dasar",
+                        "video_url": "https://youtu.be/pCht9llEugM?si=5XcKW4yF3x8InyDW"
+                    },
+                    {
+                        "title": "Vokal & Konsonan Korea",
+                        "video_url": "https://youtu.be/HX_LSjwmwWI?si=8OnFzVUUPxd5haRk"
+                    }
+                ]
+            },
+            {
+                "chapter_number": 2,
+                "chapter_title": "Kosakata & Frasa Dasar",
+                "description": "Belajar salam, angka Korea (1-100), dan perkenalan diri.",
+                "lessons": [
+                    {
+                        "title": "Salam & Ungkapan Dasar",
+                        "video_url": "https://youtu.be/nF2Lptz7IRE?si=f19srQaTMNEoyb86"
+                    },
+                    {
+                        "title": "Angka Korea (Sino & Native)",
+                        "video_url": "https://youtu.be/bNIBir9a-3g?si=iLcxRLHf8atfKjfv"
+                    }
+                ]
+            },
+            {
+                "chapter_number": 3,
+                "chapter_title": "Tata Bahasa Dasar",
+                "description": "Struktur kalimat S-O-V, partikel 은/는, 이/가, dan bentuk sopan.",
+                "lessons": [
+                    {
+                        "title": "Struktur Kalimat & Partikel Dasar korea",
+                        "video_url": "https://youtu.be/3ldXXRLW9go?si=vvovtIV2uOt2cLEm"
+                    },
+                    {
+                        "title": "Kata Kerja & Akhiran Sopan korea",
+                        "video_url": "https://youtu.be/0IjzDtUBiBM?si=aFIeLYsEVZ6fRL5i"
+                    }
+                ]
+            },
+            {
+                "chapter_number": 4,
+                "chapter_title": "Percakapan Sehari-hari",
+                "description": "Latihan memesan makanan, bertanya arah, dan ekspresi harian.",
+                "lessons": [
+                    {
+                        "title": "Percakapan di Restoran & Jalan",
+                        "video_url": "https://youtu.be/2CXwo_O7xCg?si=oOHeM6X9dwFCJT4u"
+                    }
+                ]
+            }
+        ]
+    }
+]
