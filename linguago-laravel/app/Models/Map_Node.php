@@ -32,4 +32,19 @@ class Map_Node extends Model
     {
         return $this->hasMany(Quizzes::class, 'node_id');
     }
+
+    public function shadowingExercise()
+    {
+        return $this->hasOne(ShadowingExercise::class, 'node_id');
+    }
+
+    public function writingExercise()
+    {
+        return $this->hasOne(WritingExercise::class, 'node_id');
+    }
+
+    public function nodeProgresses()
+    {
+        return $this->hasMany(UserNodeProgress::class, 'node_id');
+    }
 }

@@ -14,6 +14,7 @@ class UserQuizAttempt extends Model
         'correct_count',
         'wrong_count',
         'xp_earned',
+        'is_passed',
         'started_at',
         'finished_at',
     ];
