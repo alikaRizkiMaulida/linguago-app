@@ -21,5 +21,7 @@ class Quizzes extends Model
         return $this->hasMany(Questions::class, 'quiz_id');
     }
 
-    
+    public function attempts(){
+        return $this->hasMany(UserQuizAttempt::class, 'quiz_id');
+    }
 }
