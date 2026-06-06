@@ -1,6 +1,8 @@
+import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:linguago_flutter/core/constants/colors.dart';
-import 'package:linguago_flutter/ui/screens/leaderboard/chat_screen.dart';
+import 'package:linguago_flutter/core/constants/chat_store.dart';
+import 'package:linguago_flutter/ui/pages/chat_page.dart';
 
 // ─── Model ───────────────────────────────────────────────────────────────────
 class _Player {
@@ -37,45 +39,44 @@ class _Friend {
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 const _worldPlayers = [
-  _Player(rank: 1, name: '1009-eism',    avatarUrl: 'https://i.pravatar.cc/150?img=1',  level: 56, exp: 85278),
-  _Player(rank: 2, name: 'sunofllers',   avatarUrl: 'https://i.pravatar.cc/150?img=2',  level: 56, exp: 81653),
-  _Player(rank: 3, name: 'milk.도토리',   avatarUrl: 'https://i.pravatar.cc/150?img=3',  level: 51, exp: 83692, isMe: true),
-  _Player(rank: 4, name: 'heesour',      avatarUrl: 'https://i.pravatar.cc/150?img=4',  level: 40, exp: 80718),
-  _Player(rank: 5, name: 'riklusiier',   avatarUrl: 'https://i.pravatar.cc/150?img=5',  level: 40, exp: 80631),
-  _Player(rank: 6, name: 'jwonusie',     avatarUrl: 'https://i.pravatar.cc/150?img=6',  level: 41, exp: 80094),
-  _Player(rank: 7, name: 'ciellunooo',   avatarUrl: 'https://i.pravatar.cc/150?img=7',  level: 38, exp: 80076),
-  _Player(rank: 8, name: 'Potato_9595',  avatarUrl: 'https://i.pravatar.cc/150?img=8',  level: 33, exp: 77420),
-  _Player(rank: 9, name: 'ikeufie',      avatarUrl: 'https://i.pravatar.cc/150?img=9',  level: 33, exp: 64279),
+  _Player(rank: 1, name: '1009-eism',   avatarUrl: 'https://i.pravatar.cc/150?img=1', level: 56, exp: 85278),
+  _Player(rank: 2, name: 'sunofllers',  avatarUrl: 'https://i.pravatar.cc/150?img=2', level: 56, exp: 81653),
+  _Player(rank: 3, name: 'milk.도토리',  avatarUrl: 'https://i.pravatar.cc/150?img=3', level: 51, exp: 83692, isMe: true),
+  _Player(rank: 4, name: 'heesour',     avatarUrl: 'https://i.pravatar.cc/150?img=4', level: 40, exp: 80718),
+  _Player(rank: 5, name: 'riklusiier',  avatarUrl: 'https://i.pravatar.cc/150?img=5', level: 40, exp: 80631),
+  _Player(rank: 6, name: 'jwonusie',    avatarUrl: 'https://i.pravatar.cc/150?img=6', level: 41, exp: 80094),
+  _Player(rank: 7, name: 'ciellunooo',  avatarUrl: 'https://i.pravatar.cc/150?img=7', level: 38, exp: 80076),
+  _Player(rank: 8, name: 'Potato_9595', avatarUrl: 'https://i.pravatar.cc/150?img=8', level: 33, exp: 77420),
+  _Player(rank: 9, name: 'ikeufie',     avatarUrl: 'https://i.pravatar.cc/150?img=9', level: 33, exp: 64279),
 ];
 
 const _friendPlayers = [
-  _Player(rank: 1, name: '1009-eism',    avatarUrl: 'https://i.pravatar.cc/150?img=1',  level: 56, exp: 85278),
-  _Player(rank: 2, name: 'sunofllers',   avatarUrl: 'https://i.pravatar.cc/150?img=2',  level: 56, exp: 81653),
-  _Player(rank: 3, name: 'milk.도토리',   avatarUrl: 'https://i.pravatar.cc/150?img=3',  level: 31, exp: 83692, isMe: true),
-  _Player(rank: 4, name: 'heesour',      avatarUrl: 'https://i.pravatar.cc/150?img=4',  level: 40, exp: 80718),
-  _Player(rank: 5, name: 'riklusiier',   avatarUrl: 'https://i.pravatar.cc/150?img=5',  level: 40, exp: 80631),
-  _Player(rank: 6, name: 'jwonusie',     avatarUrl: 'https://i.pravatar.cc/150?img=6',  level: 41, exp: 80094),
-  _Player(rank: 7, name: 'ciellunooo',   avatarUrl: 'https://i.pravatar.cc/150?img=7',  level: 38, exp: 80076),
-  _Player(rank: 8, name: 'Potato_9595',  avatarUrl: 'https://i.pravatar.cc/150?img=8',  level: 35, exp: 77420),
+  _Player(rank: 1, name: '1009-eism',   avatarUrl: 'https://i.pravatar.cc/150?img=1', level: 56, exp: 85278),
+  _Player(rank: 2, name: 'sunofllers',  avatarUrl: 'https://i.pravatar.cc/150?img=2', level: 56, exp: 81653),
+  _Player(rank: 3, name: 'milk.도토리',  avatarUrl: 'https://i.pravatar.cc/150?img=3', level: 31, exp: 83692, isMe: true),
+  _Player(rank: 4, name: 'heesour',     avatarUrl: 'https://i.pravatar.cc/150?img=4', level: 40, exp: 80718),
+  _Player(rank: 5, name: 'riklusiier',  avatarUrl: 'https://i.pravatar.cc/150?img=5', level: 40, exp: 80631),
+  _Player(rank: 6, name: 'jwonusie',    avatarUrl: 'https://i.pravatar.cc/150?img=6', level: 41, exp: 80094),
+  _Player(rank: 7, name: 'ciellunooo',  avatarUrl: 'https://i.pravatar.cc/150?img=7', level: 38, exp: 80076),
+  _Player(rank: 8, name: 'Potato_9595', avatarUrl: 'https://i.pravatar.cc/150?img=8', level: 35, exp: 77420),
 ];
 
-// Mutable list — changed to regular list so isFriend can be toggled
 final _allFriends = [
-  _Friend(name: '1009-eism',    avatarUrl: 'https://i.pravatar.cc/150?img=1',  level: 40, isFriend: true),
-  _Friend(name: 'sunooflers',   avatarUrl: 'https://i.pravatar.cc/150?img=2',  level: 40, isFriend: true),
-  _Friend(name: 'milk.도토리',   avatarUrl: 'https://i.pravatar.cc/150?img=3',  level: 8,  isFriend: true),
-  _Friend(name: 'heesour',      avatarUrl: 'https://i.pravatar.cc/150?img=4',  level: 40, isFriend: true),
-  _Friend(name: 'rikiusier',    avatarUrl: 'https://i.pravatar.cc/150?img=5',  level: 40, isFriend: true),
-  _Friend(name: 'jwonusie',     avatarUrl: 'https://i.pravatar.cc/150?img=6',  level: 40, isFriend: true),
-  _Friend(name: 'ciellunoo',    avatarUrl: 'https://i.pravatar.cc/150?img=7',  level: 40, isFriend: true),
-  _Friend(name: 'Potato_9595',  avatarUrl: 'https://i.pravatar.cc/150?img=8',  level: 40, isFriend: false),
-  _Friend(name: 'ikeufie',      avatarUrl: 'https://i.pravatar.cc/150?img=9',  level: 40, isFriend: false),
-  _Friend(name: 'hoonst4rs',    avatarUrl: 'https://i.pravatar.cc/150?img=10', level: 40, isFriend: false),
-  _Friend(name: 'jung.jpeg',    avatarUrl: 'https://i.pravatar.cc/150?img=11', level: 40, isFriend: false),
-  _Friend(name: 'bleujay',      avatarUrl: 'https://i.pravatar.cc/150?img=12', level: 40, isFriend: false),
-  _Friend(name: 'RICKY 泫奕',   avatarUrl: 'https://i.pravatar.cc/150?img=13', level: 40, isFriend: false),
-  _Friend(name: '_paewswhis',   avatarUrl: 'https://i.pravatar.cc/150?img=14', level: 40, isFriend: false),
-  _Friend(name: 'jayvvhns',     avatarUrl: 'https://i.pravatar.cc/150?img=15', level: 40, isFriend: false),
+  _Friend(name: '1009-eism',   avatarUrl: 'https://i.pravatar.cc/150?img=1',  level: 40, isFriend: true),
+  _Friend(name: 'sunooflers',  avatarUrl: 'https://i.pravatar.cc/150?img=2',  level: 40, isFriend: true),
+  _Friend(name: 'milk.도토리',  avatarUrl: 'https://i.pravatar.cc/150?img=3',  level: 8,  isFriend: true),
+  _Friend(name: 'heesour',     avatarUrl: 'https://i.pravatar.cc/150?img=4',  level: 40, isFriend: true),
+  _Friend(name: 'rikiusier',   avatarUrl: 'https://i.pravatar.cc/150?img=5',  level: 40, isFriend: true),
+  _Friend(name: 'jwonusie',    avatarUrl: 'https://i.pravatar.cc/150?img=6',  level: 40, isFriend: true),
+  _Friend(name: 'ciellunoo',   avatarUrl: 'https://i.pravatar.cc/150?img=7',  level: 40, isFriend: true),
+  _Friend(name: 'Potato_9595', avatarUrl: 'https://i.pravatar.cc/150?img=8',  level: 40, isFriend: false),
+  _Friend(name: 'ikeufie',     avatarUrl: 'https://i.pravatar.cc/150?img=9',  level: 40, isFriend: false),
+  _Friend(name: 'hoonst4rs',   avatarUrl: 'https://i.pravatar.cc/150?img=10', level: 40, isFriend: false),
+  _Friend(name: 'jung.jpeg',   avatarUrl: 'https://i.pravatar.cc/150?img=11', level: 40, isFriend: false),
+  _Friend(name: 'bleujay',     avatarUrl: 'https://i.pravatar.cc/150?img=12', level: 40, isFriend: false),
+  _Friend(name: 'RICKY 泫奕',  avatarUrl: 'https://i.pravatar.cc/150?img=13', level: 40, isFriend: false),
+  _Friend(name: '_paewswhis',  avatarUrl: 'https://i.pravatar.cc/150?img=14', level: 40, isFriend: false),
+  _Friend(name: 'jayvvhns',    avatarUrl: 'https://i.pravatar.cc/150?img=15', level: 40, isFriend: false),
 ];
 
 final _recommendations = [
@@ -142,11 +143,9 @@ class _LeaderboardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Column(
       children: [
         const SizedBox(height: 16),
-        // ── Title ──────────────────────────────────────────────────
         Text(
           'Leadboard',
           style: TextStyle(
@@ -157,7 +156,7 @@ class _LeaderboardPage extends StatelessWidget {
         ),
         const SizedBox(height: 20),
 
-        // ── Tab Bar ────────────────────────────────────────────────
+        // Tab Bar
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 80),
           child: Container(
@@ -175,7 +174,7 @@ class _LeaderboardPage extends StatelessWidget {
               ),
               indicatorSize: TabBarIndicatorSize.tab,
               dividerColor: Colors.transparent,
-              labelStyle: TextStyle(
+              labelStyle: const TextStyle(
                 fontSize: 13,
                 fontWeight: FontWeight.w700,
               ),
@@ -190,7 +189,6 @@ class _LeaderboardPage extends StatelessWidget {
         ),
         const SizedBox(height: 20),
 
-        // ── List ───────────────────────────────────────────────────
         Expanded(
           child: TabBarView(
             controller: tabController,
@@ -237,11 +235,10 @@ class _RankRow extends StatelessWidget {
     final isTop3 = player.rank <= 3;
     final isMe = player.isMe;
 
-    // Medal colors
     final medalColors = [
-      const Color(0xFFFFCC00), // gold
-      const Color(0xFFB0BEC5), // silver
-      const Color(0xFFCD7F32), // bronze
+      const Color(0xFFFFCC00),
+      const Color(0xFFB0BEC5),
+      const Color(0xFFCD7F32),
     ];
 
     return GestureDetector(
@@ -251,15 +248,15 @@ class _RankRow extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
         decoration: BoxDecoration(
           color: isMe
-              ? AppColors.primaryPurple.withOpacity(0.10)
+              ? AppColors.primaryPurple.withValues(alpha: 0.10)
               : Colors.white,
           borderRadius: BorderRadius.circular(16),
           border: isMe
-              ? Border.all(color: AppColors.primaryPurple.withOpacity(0.4), width: 1)
+              ? Border.all(color: AppColors.primaryPurple.withValues(alpha: 0.4), width: 1)
               : null,
           boxShadow: [
             BoxShadow(
-              color: AppColors.primaryPurple.withOpacity(0.05),
+              color: AppColors.primaryPurple.withValues(alpha: 0.05),
               blurRadius: 10,
               offset: const Offset(0, 3),
             ),
@@ -267,7 +264,6 @@ class _RankRow extends StatelessWidget {
         ),
         child: Row(
           children: [
-            // Rank / Medal
             SizedBox(
               width: 30,
               child: isTop3
@@ -285,8 +281,6 @@ class _RankRow extends StatelessWidget {
                     ),
             ),
             const SizedBox(width: 8),
-
-            // Avatar
             Container(
               width: 44,
               height: 44,
@@ -305,8 +299,6 @@ class _RankRow extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 12),
-
-            // Name & Level
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -331,8 +323,6 @@ class _RankRow extends StatelessWidget {
                 ],
               ),
             ),
-
-            // Exp
             Text(
               'Exp ${player.exp.toString().replaceAllMapped(
                     RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
@@ -362,20 +352,28 @@ class _FriendListPage extends StatefulWidget {
 }
 
 class _FriendListPageState extends State<_FriendListPage> {
-  // Local mutable copy so toggles persist within the page session
   late final List<_Friend> _friends;
   late final List<_Friend> _recs;
 
   @override
   void initState() {
     super.initState();
-    // Deep-copy so global list isn't shared
-    _friends = _allFriends.map((f) => _Friend(
-      name: f.name, avatarUrl: f.avatarUrl, level: f.level, isFriend: f.isFriend,
-    )).toList();
-    _recs = _recommendations.map((f) => _Friend(
-      name: f.name, avatarUrl: f.avatarUrl, level: f.level, isFriend: f.isFriend,
-    )).toList();
+    _friends = _allFriends
+        .map((f) => _Friend(
+              name: f.name,
+              avatarUrl: f.avatarUrl,
+              level: f.level,
+              isFriend: f.isFriend,
+            ))
+        .toList();
+    _recs = _recommendations
+        .map((f) => _Friend(
+              name: f.name,
+              avatarUrl: f.avatarUrl,
+              level: f.level,
+              isFriend: f.isFriend,
+            ))
+        .toList();
   }
 
   void _toggleFriend(_Friend friend) {
@@ -384,15 +382,67 @@ class _FriendListPageState extends State<_FriendListPage> {
     });
   }
 
+  // ── Profile card: muncul dari atas dengan animasi bounce/tuing ─────────────
   void _showProfileCard(BuildContext ctx, _Friend friend) {
-    showModalBottomSheet(
+    showGeneralDialog(
       context: ctx,
-      backgroundColor: Colors.transparent,
-      isScrollControlled: true,
-      builder: (_) => _ProfileCard(
-        friend: friend,
-        onToggleFriend: () => _toggleFriend(friend),
-      ),
+      barrierDismissible: true,
+      barrierLabel: 'profile',
+      barrierColor: Colors.black.withValues(alpha: 0.4),
+      transitionDuration: const Duration(milliseconds: 500),
+      pageBuilder: (dialogCtx, anim1, anim2) {
+        return _ProfileCard(
+          friend: friend,
+          onToggleFriend: () => _toggleFriend(friend),
+          onChatTap: () {
+            // Daftar ke ChatStore supaya masuk ke ChatPage
+            ChatStore.instance.getOrCreate(
+              friendName: friend.name,
+              friendAvatarUrl: friend.avatarUrl,
+              avatarColor: AppColors.primaryPurple,
+              initial: friend.name.isNotEmpty
+                  ? friend.name[0].toUpperCase()
+                  : '?',
+            );
+            Navigator.of(dialogCtx).pop();
+            Navigator.push(
+              ctx,
+              MaterialPageRoute<void>(
+                builder: (_) => ChatDetailPage(
+                  friendName: friend.name,
+                  friendAvatarUrl: friend.avatarUrl,
+                  avatarColor: AppColors.primaryPurple,
+                  initial: friend.name.isNotEmpty
+                      ? friend.name[0].toUpperCase()
+                      : '?',
+                ),
+              ),
+            );
+          },
+        );
+      },
+      transitionBuilder: (ctx, anim1, anim2, child) {
+        // Slide dari atas + spring bounce (tuing!)
+        final slideAnim = Tween<Offset>(
+          begin: const Offset(0, -1.3),
+          end: Offset.zero,
+        ).animate(
+          CurvedAnimation(
+            parent: anim1,
+            curve: const _SpringBounceCurve(),
+          ),
+        );
+        final fadeAnim = Tween<double>(begin: 0.0, end: 1.0).animate(
+          CurvedAnimation(
+            parent: anim1,
+            curve: const Interval(0.0, 0.35, curve: Curves.easeIn),
+          ),
+        );
+        return FadeTransition(
+          opacity: fadeAnim,
+          child: SlideTransition(position: slideAnim, child: child),
+        );
+      },
     );
   }
 
@@ -400,7 +450,7 @@ class _FriendListPageState extends State<_FriendListPage> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // ── App bar ──────────────────────────────────────────────
+        // App bar
         Padding(
           padding: const EdgeInsets.fromLTRB(16, 16, 20, 0),
           child: Row(
@@ -430,26 +480,39 @@ class _FriendListPageState extends State<_FriendListPage> {
         ),
         const SizedBox(height: 16),
 
-        // ── List ───────────────────────────────────────────────────
         Expanded(
           child: ListView(
             padding: const EdgeInsets.fromLTRB(20, 0, 20, 120),
             children: [
-              // Friends
+              // Friend rows
               ..._friends.map((f) => _FriendRow(
-                friend: f,
-                onToggleFriend: () => _toggleFriend(f),
-                onAvatarTap: () => _showProfileCard(context, f),
-                onChatTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => ChatScreen(
-                      friendName: f.name,
-                      friendAvatarUrl: f.avatarUrl,
-                    ),
-                  ),
-                ),
-              )),
+                    friend: f,
+                    onToggleFriend: () => _toggleFriend(f),
+                    onAvatarTap: () => _showProfileCard(context, f),
+                    onChatTap: () {
+                      ChatStore.instance.getOrCreate(
+                        friendName: f.name,
+                        friendAvatarUrl: f.avatarUrl,
+                        avatarColor: AppColors.primaryPurple,
+                        initial: f.name.isNotEmpty
+                            ? f.name[0].toUpperCase()
+                            : '?',
+                      );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (_) => ChatDetailPage(
+                            friendName: f.name,
+                            friendAvatarUrl: f.avatarUrl,
+                            avatarColor: AppColors.primaryPurple,
+                            initial: f.name.isNotEmpty
+                                ? f.name[0].toUpperCase()
+                                : '?',
+                          ),
+                        ),
+                      );
+                    },
+                  )),
 
               // Recommendations
               const SizedBox(height: 16),
@@ -473,7 +536,6 @@ class _FriendListPageState extends State<_FriendListPage> {
               ),
               const SizedBox(height: 12),
 
-              // Recommendation avatars row
               SizedBox(
                 height: 64,
                 child: ListView.separated(
@@ -544,7 +606,7 @@ class _FriendRow extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 12),
       child: Row(
         children: [
-          // Avatar — tap to show profile card
+          // Avatar
           GestureDetector(
             onTap: onAvatarTap,
             child: Container(
@@ -562,7 +624,7 @@ class _FriendRow extends StatelessWidget {
           ),
           const SizedBox(width: 12),
 
-          // Name & level — also tap to show profile card
+          // Name & level
           Expanded(
             child: GestureDetector(
               onTap: onAvatarTap,
@@ -590,11 +652,9 @@ class _FriendRow extends StatelessWidget {
             ),
           ),
 
-          // Friend / Unfriend / Add Friend button
+          // Friend / Unfriend button
           GestureDetector(
-            onTap: isFriend
-                ? onToggleFriend   // Unfriend
-                : onToggleFriend,  // Add Friend
+            onTap: onToggleFriend,
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 200),
               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
@@ -625,12 +685,17 @@ class _FriendRow extends StatelessWidget {
   }
 }
 
-// ─── Profile Card Bottom Sheet ────────────────────────────────────────────────
+// ─── Profile Card (muncul dari atas, animasi bounce/tuing) ────────────────────
 class _ProfileCard extends StatefulWidget {
   final _Friend friend;
   final VoidCallback onToggleFriend;
+  final VoidCallback? onChatTap;
 
-  const _ProfileCard({required this.friend, required this.onToggleFriend});
+  const _ProfileCard({
+    required this.friend,
+    required this.onToggleFriend,
+    this.onChatTap,
+  });
 
   @override
   State<_ProfileCard> createState() => _ProfileCardState();
@@ -647,226 +712,254 @@ class _ProfileCardState extends State<_ProfileCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.fromLTRB(16, 0, 16, 32),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(28),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.primaryPurple.withOpacity(0.12),
-            blurRadius: 24,
-            offset: const Offset(0, -4),
-          ),
-        ],
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          // Drag handle
-          const SizedBox(height: 10),
-          Container(
-            width: 40,
-            height: 4,
+    return Align(
+      alignment: Alignment.topCenter,
+      child: Padding(
+        padding: EdgeInsets.only(
+          top: MediaQuery.of(context).padding.top + 16,
+          left: 16,
+          right: 16,
+          bottom: 32,
+        ),
+        child: Material(
+          color: Colors.transparent,
+          child: Container(
             decoration: BoxDecoration(
-              color: AppColors.disableBorder,
-              borderRadius: BorderRadius.circular(2),
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(28),
+              boxShadow: [
+                BoxShadow(
+                  color: AppColors.primaryPurple.withValues(alpha: 0.18),
+                  blurRadius: 28,
+                  offset: const Offset(0, 8),
+                ),
+              ],
             ),
-          ),
-          const SizedBox(height: 20),
-
-          // Header row: avatar + name/uid/bio + stats
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                // Avatar
+                // Handle bar
+                const SizedBox(height: 12),
                 Container(
-                  width: 72,
-                  height: 72,
+                  width: 40,
+                  height: 4,
                   decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: AppColors.primaryPurple.withOpacity(0.5),
-                      width: 2.5,
-                    ),
-                    image: DecorationImage(
-                      image: NetworkImage(widget.friend.avatarUrl),
-                      fit: BoxFit.cover,
-                    ),
+                    color: AppColors.disableBorder,
+                    borderRadius: BorderRadius.circular(2),
                   ),
                 ),
-                const SizedBox(width: 14),
+                const SizedBox(height: 20),
 
-                // Name + UID + bio
-                Expanded(
-                  child: Column(
+                // Header: avatar + info + stats
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // "Main Page" label
+                      // Avatar
                       Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 2),
+                        width: 72,
+                        height: 72,
                         decoration: BoxDecoration(
-                          color: AppColors.backgroundSoft,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Text(
-                          'Main Page',
-                          style: TextStyle(
-                            fontSize: 9,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.secondaryText,
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: AppColors.primaryPurple.withValues(alpha: 0.5),
+                            width: 2.5,
+                          ),
+                          image: DecorationImage(
+                            image: NetworkImage(widget.friend.avatarUrl),
+                            fit: BoxFit.cover,
                           ),
                         ),
                       ),
-                      const SizedBox(height: 6),
-                      Text(
-                        widget.friend.name,
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w800,
-                          color: AppColors.primaryText,
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      // UID row
-                      Row(
-                        children: [
-                          Text(
-                            'UID : 1009012',
-                            style: TextStyle(
-                              fontSize: 10,
-                              color: AppColors.secondaryText,
+                      const SizedBox(width: 14),
+
+                      // Name + UID + bio
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 8, vertical: 2),
+                              decoration: BoxDecoration(
+                                color: AppColors.backgroundSoft,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Text(
+                                'Main Page',
+                                style: TextStyle(
+                                  fontSize: 9,
+                                  fontWeight: FontWeight.w600,
+                                  color: AppColors.secondaryText,
+                                ),
+                              ),
                             ),
+                            const SizedBox(height: 6),
+                            Text(
+                              widget.friend.name,
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w800,
+                                color: AppColors.primaryText,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            Row(
+                              children: [
+                                Text(
+                                  'UID : 1009012',
+                                  style: TextStyle(
+                                    fontSize: 10,
+                                    color: AppColors.secondaryText,
+                                  ),
+                                ),
+                                const SizedBox(width: 4),
+                                const Icon(Icons.copy_rounded,
+                                    size: 11,
+                                    color: AppColors.secondaryText),
+                              ],
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              'lagi gaming anak',
+                              style: TextStyle(
+                                fontSize: 10,
+                                color: AppColors.disableText,
+                                fontStyle: FontStyle.italic,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      // Stats
+                      Column(
+                        children: [
+                          _MiniStat(
+                            icon: '🌍',
+                            label: 'World Level',
+                            value: '${widget.friend.level}',
                           ),
-                          const SizedBox(width: 4),
-                          const Icon(Icons.copy_rounded,
-                              size: 11, color: AppColors.secondaryText),
+                          const SizedBox(height: 10),
+                          const _MiniStat(
+                            icon: '🏆',
+                            label: 'Achievement',
+                            value: '2',
+                          ),
                         ],
                       ),
-                      const SizedBox(height: 4),
-                      Text(
-                        'lagi gaming anak',
-                        style: TextStyle(
-                          fontSize: 10,
-                          color: AppColors.disableText,
-                          fontStyle: FontStyle.italic,
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 20),
+
+                // Action buttons
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 24),
+                  child: Row(
+                    children: [
+                      // Friend / Unfriend
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _isFriend = !_isFriend;
+                              widget.friend.isFriend = _isFriend;
+                            });
+                            widget.onToggleFriend();
+                          },
+                          child: AnimatedContainer(
+                            duration: const Duration(milliseconds: 200),
+                            height: 44,
+                            decoration: BoxDecoration(
+                              color: _isFriend
+                                  ? Colors.red.withValues(alpha: 0.08)
+                                  : AppColors.primaryPurple.withValues(alpha: 0.12),
+                              borderRadius: BorderRadius.circular(24),
+                              border: Border.all(
+                                color: _isFriend
+                                    ? Colors.red.withValues(alpha: 0.25)
+                                    : AppColors.primaryPurple.withValues(alpha: 0.30),
+                              ),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  _isFriend
+                                      ? Icons.person_remove_rounded
+                                      : Icons.person_add_rounded,
+                                  size: 16,
+                                  color: _isFriend
+                                      ? Colors.red
+                                      : AppColors.primaryPurple,
+                                ),
+                                const SizedBox(width: 6),
+                                Text(
+                                  _isFriend ? 'Unfriend' : 'Add Friend',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w700,
+                                    color: _isFriend
+                                        ? Colors.red
+                                        : AppColors.primaryPurple,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+
+                      // Chat button — buka ChatDetailPage via ChatStore
+                      GestureDetector(
+                        onTap: widget.onChatTap,
+                        child: Container(
+                          width: 44,
+                          height: 44,
+                          decoration: BoxDecoration(
+                            color: AppColors.primaryPurple,
+                            shape: BoxShape.circle,
+                            boxShadow: [
+                              BoxShadow(
+                                color: AppColors.primaryPurple.withValues(alpha: 0.4),
+                                blurRadius: 8,
+                                offset: const Offset(0, 3),
+                              ),
+                            ],
+                          ),
+                          child: const Icon(
+                            Icons.chat_bubble_outline_rounded,
+                            size: 18,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ],
                   ),
                 ),
-
-                // Stats column
-                Column(
-                  children: [
-                    _MiniStat(icon: '🌍', label: 'World Level', value: '${widget.friend.level}'),
-                    const SizedBox(height: 10),
-                    _MiniStat(icon: '🏆', label: 'Achievement', value: '2'),
-                  ],
-                ),
               ],
             ),
           ),
-          const SizedBox(height: 20),
-
-          // Action buttons
-          Padding(
-            padding: const EdgeInsets.fromLTRB(20, 0, 20, 24),
-            child: Row(
-              children: [
-                // Friend / Unfriend / Add Friend button
-                Expanded(
-                  child: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        _isFriend = !_isFriend;
-                        // Sync back to the list
-                        widget.friend.isFriend = _isFriend;
-                      });
-                      widget.onToggleFriend();
-                    },
-                    child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 200),
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: _isFriend
-                            ? Colors.red.withValues(alpha: 0.08)
-                            : AppColors.primaryPurple.withValues(alpha: 0.12),
-                        borderRadius: BorderRadius.circular(24),
-                        border: Border.all(
-                          color: _isFriend
-                              ? Colors.red.withValues(alpha: 0.25)
-                              : AppColors.primaryPurple.withValues(alpha: 0.30),
-                        ),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            _isFriend ? Icons.person_remove_rounded : Icons.person_add_rounded,
-                            size: 16,
-                            color: _isFriend ? Colors.red : AppColors.primaryPurple,
-                          ),
-                          const SizedBox(width: 6),
-                          Text(
-                            _isFriend ? 'Unfriend' : 'Add Friend',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
-                              color: _isFriend ? Colors.red : AppColors.primaryPurple,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 12),
-                // Chat button
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => ChatScreen(
-                          friendName: widget.friend.name,
-                          friendAvatarUrl: widget.friend.avatarUrl,
-                        ),
-                      ),
-                    );
-                  },
-                  child: Container(
-                    width: 40,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      color: AppColors.primaryPurple,
-                      shape: BoxShape.circle,
-                    ),
-                    child: const Icon(
-                      Icons.chat_bubble_outline_rounded,
-                      size: 18,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
 }
 
+// ─── Mini Stat ────────────────────────────────────────────────────────────────
 class _MiniStat extends StatelessWidget {
   final String icon;
   final String label;
   final String value;
-  const _MiniStat({required this.icon, required this.label, required this.value});
+
+  const _MiniStat({
+    required this.icon,
+    required this.label,
+    required this.value,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -891,5 +984,20 @@ class _MiniStat extends StatelessWidget {
         ),
       ],
     );
+  }
+}
+
+// ─── Spring Bounce Curve ──────────────────────────────────────────────────────
+/// Animasi: slide dari atas + tuing/bounce di akhir
+class _SpringBounceCurve extends Curve {
+  const _SpringBounceCurve();
+
+  @override
+  double transformInternal(double t) {
+    const c4 = (2 * math.pi) / 3;
+    if (t == 0) return 0;
+    if (t == 1) return 1;
+    return -(math.pow(2, 10 * t - 10).toDouble() *
+        math.sin((t * 10 - 10.75) * c4));
   }
 }

@@ -126,8 +126,32 @@ class _CoursePageState extends State<CoursePage> with SingleTickerProviderStateM
                           showArrow: isStartNode,
                           onTap: () {
                             if (!isLocked) {
-                              if (index == 3) {
-                                // Level 4: Fun Fact Screen
+                              if (index == 0) {
+                                // Node 1: Lesson Summary
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute<void>(
+                                    builder: (_) => const LessonDetailScreen(part: 1),
+                                  ),
+                                ).then((_) => setState(() {}));
+                              } else if (index == 1) {
+                                // Node 2: View Basic (Quiz Part 1)
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute<void>(
+                                    builder: (_) => const QuizScreen(part: 1),
+                                  ),
+                                ).then((_) => setState(() {}));
+                              } else if (index == 2) {
+                                // Node 3: Listening (Quiz Part 2)
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute<void>(
+                                    builder: (_) => const QuizScreen(part: 2),
+                                  ),
+                                ).then((_) => setState(() {}));
+                              } else if (index == 3) {
+                                // Node 4: Fun Fact Screen
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute<void>(
@@ -135,7 +159,7 @@ class _CoursePageState extends State<CoursePage> with SingleTickerProviderStateM
                                   ),
                                 ).then((_) => setState(() {}));
                               } else if (index == 4) {
-                                // Level 5: Final Quiz
+                                // Node 5: Final Quiz (Quiz Part 5)
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute<void>(
@@ -143,27 +167,12 @@ class _CoursePageState extends State<CoursePage> with SingleTickerProviderStateM
                                   ),
                                 ).then((_) => setState(() {}));
                               } else {
-                                // Levels 1, 2, 3: Lesson Detail Screen
-                                Navigator.push(
-                                  context,
-                                  PageRouteBuilder<void>(
-                                    pageBuilder: (context, animation, secondaryAnimation) =>
-                                        LessonDetailScreen(part: index + 1),
-                                    transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                                      return FadeTransition(
-                                        opacity: animation,
-                                        child: ScaleTransition(
-                                          scale: Tween<double>(begin: 0.95, end: 1.0).animate(
-                                            CurvedAnimation(parent: animation, curve: Curves.easeOutCubic),
-                                          ),
-                                          child: child,
-                                        ),
-                                      );
-                                    },
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Level 2 is coming soon! Stay tuned!'),
+                                    behavior: SnackBarBehavior.floating,
                                   ),
-                                ).then((_) {
-                                  setState(() {});
-                                });
+                                );
                               }
                             }
                           },
@@ -191,14 +200,35 @@ class _CoursePageState extends State<CoursePage> with SingleTickerProviderStateM
                           child: GestureDetector(
                             onTap: () {
                               final int unlocked = QuizProgress.unlockedPart;
-                              if (unlocked == 4) {
+                              if (unlocked == 1) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute<void>(
+                                    builder: (_) => const LessonDetailScreen(part: 1),
+                                  ),
+                                ).then((_) => setState(() {}));
+                              } else if (unlocked == 2) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute<void>(
+                                    builder: (_) => const QuizScreen(part: 1),
+                                  ),
+                                ).then((_) => setState(() {}));
+                              } else if (unlocked == 3) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute<void>(
+                                    builder: (_) => const QuizScreen(part: 2),
+                                  ),
+                                ).then((_) => setState(() {}));
+                              } else if (unlocked == 4) {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute<void>(
                                     builder: (_) => const FunFactScreen(part: 4),
                                   ),
                                 ).then((_) => setState(() {}));
-                              } else if (unlocked >= 5) {
+                              } else if (unlocked == 5) {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute<void>(
@@ -206,12 +236,12 @@ class _CoursePageState extends State<CoursePage> with SingleTickerProviderStateM
                                   ),
                                 ).then((_) => setState(() {}));
                               } else {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute<void>(
-                                    builder: (_) => LessonDetailScreen(part: unlocked),
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('All parts completed! Level 2 coming soon!'),
+                                    behavior: SnackBarBehavior.floating,
                                   ),
-                                ).then((_) => setState(() {}));
+                                );
                               }
                             },
                             child: Stack(

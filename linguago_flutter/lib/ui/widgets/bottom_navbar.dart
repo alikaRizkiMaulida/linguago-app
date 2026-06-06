@@ -19,7 +19,7 @@ class BottomNavbar extends StatelessWidget {
       label: 'Home',
     ),
     _NavItem(
-      svgAsset: 'assets/material-symbols_book-6-rounded.svg', 
+      svgAsset: 'assets/material-symbols_book-6-rounded.svg',
       label: 'Course',
     ),
     _NavItem(
@@ -27,8 +27,8 @@ class BottomNavbar extends StatelessWidget {
       label: 'Rank',
     ),
     _NavItem(
-      svgAsset: 'assets/icon-park-outline_setting-two.svg',
-      label: 'Setting',
+      svgAsset: 'assets/fluent_chat-28-filled.svg',
+      label: 'Chat',
     ),
     _NavItem(
       svgAsset: 'assets/gg_profile.svg',

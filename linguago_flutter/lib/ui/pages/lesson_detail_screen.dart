@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:linguago_flutter/core/constants/colors.dart';
+import 'package:linguago_flutter/core/constants/quiz_state.dart';
 import 'package:linguago_flutter/ui/screens/quiz/quiz_screen.dart';
 
 class LessonDetailScreen extends StatelessWidget {
@@ -325,16 +326,13 @@ class LessonDetailScreen extends StatelessWidget {
                           ),
                         ),
                         onPressed: () {
-                          // Navigate directly to Quiz Screen
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute<void>(
-                              builder: (_) => QuizScreen(part: part),
-                            ),
-                          );
+                          if (QuizProgress.unlockedPart == 1) {
+                            QuizProgress.setUnlockedPart(2);
+                          }
+                          Navigator.pop(context);
                         },
                         child: const Text(
-                          'Start Quiz!',
+                          'Complete Lesson',
                           style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w800,

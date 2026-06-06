@@ -11,7 +11,6 @@ import 'package:linguago_flutter/ui/home/intro/new_password_screen.dart';
 import 'package:linguago_flutter/ui/home/intro/onboarding_screen.dart';
 import 'package:linguago_flutter/ui/home/intro/otp_screen.dart';
 import 'package:linguago_flutter/ui/home/intro/register_screen.dart';
-import 'package:linguago_flutter/ui/home/intro/splash_screen.dart';
 import 'package:linguago_flutter/ui/home/intro/verification_email_screen.dart';
 
 import 'package:linguago_flutter/core/constants/quiz_state.dart';
@@ -21,7 +20,8 @@ void main() async {
   // Pakai font lokal dari pubspec.yaml — jangan download dari internet.
   GoogleFonts.config.allowRuntimeFetching = false;
   await QuizProgress.loadProgress();
-  runApp(const MyApp());
+  runApp(const MyApp());   
+  
 }
 
 class MyApp extends StatelessWidget {

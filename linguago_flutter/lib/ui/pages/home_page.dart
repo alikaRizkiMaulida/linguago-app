@@ -6,6 +6,9 @@ import 'package:linguago_flutter/ui/screens/streak/streak_screen.dart';
 import 'package:linguago_flutter/ui/screens/listening/listening_category_screen.dart' as linguago_flutter_listening;
 import 'package:linguago_flutter/ui/screens/script/script_category_screen.dart' as linguago_flutter_script;
 import 'package:linguago_flutter/ui/screens/quiz/quiz_intro_screen.dart';
+import 'package:linguago_flutter/ui/pages/lesson_detail_screen.dart';
+import 'package:linguago_flutter/ui/screens/quiz/fun_fact_screen.dart';
+import 'package:linguago_flutter/ui/screens/quiz/quiz_screen.dart';
 
 /// Home Page — konten tab pertama di HomeScreen.
 /// Dipisah dari home_screen.dart supaya lebih mudah dibaca dan dikelola.
@@ -515,7 +518,7 @@ class _ContinueStudyingCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Continue Studying',
+                const Text('Continue Studying',
                     style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w800,
@@ -537,15 +540,14 @@ class _ContinueStudyingCard extends StatelessWidget {
             ),
             child: Row(
               children: [
-                Container(
-                  width: 80,
-                  height: 80,
-                  decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.15),
-                    borderRadius: BorderRadius.circular(12),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: SvgPicture.asset(
+                    'assets/Frame 1000002206.svg',
+                    width: 80,
+                    height: 80,
+                    fit: BoxFit.cover,
                   ),
-                  child: const Center(
-                      child: Text('💬', style: TextStyle(fontSize: 36))),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
@@ -554,19 +556,19 @@ class _ContinueStudyingCard extends StatelessWidget {
                     children: [
                       Container(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 3),
+                            horizontal: 10, vertical: 3),
                         decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.25),
+                          color: Colors.white,
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        child: Text('Lesson 3',
+                        child: const Text('Lesson 3',
                             style: TextStyle(
                                 fontSize: 10,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white)),
+                                fontWeight: FontWeight.w700,
+                                color: AppColors.primaryPurple)),
                       ),
                       const SizedBox(height: 6),
-                      Text('Daily Conversation',
+                      const Text('Daily Conversation',
                           style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w800,
@@ -578,7 +580,7 @@ class _ContinueStudyingCard extends StatelessWidget {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(4),
                               child: LinearProgressIndicator(
-                                value: 0.30,
+                                value: 0.50,
                                 minHeight: 5,
                                 backgroundColor:
                                     Colors.white.withOpacity(0.25),
@@ -588,16 +590,55 @@ class _ContinueStudyingCard extends StatelessWidget {
                               ),
                             ),
                           ),
-                          const SizedBox(width: 6),
-                          Text('30%',
+                          const SizedBox(width: 8),
+                          Text('50% complete',
                               style: TextStyle(
                                   fontSize: 10,
+                                  fontWeight: FontWeight.w600,
                                   color: Colors.white.withOpacity(0.85))),
                         ],
                       ),
                       const SizedBox(height: 8),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          final int unlocked = QuizProgress.unlockedPart;
+                          if (unlocked == 1) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute<void>(
+                                builder: (_) => const LessonDetailScreen(part: 1),
+                              ),
+                            );
+                          } else if (unlocked == 2) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute<void>(
+                                builder: (_) => const QuizScreen(part: 1),
+                              ),
+                            );
+                          } else if (unlocked == 3) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute<void>(
+                                builder: (_) => const QuizScreen(part: 2),
+                              ),
+                            );
+                          } else if (unlocked == 4) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute<void>(
+                                builder: (_) => const FunFactScreen(part: 4),
+                              ),
+                            );
+                          } else {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute<void>(
+                                builder: (_) => const QuizScreen(part: 5),
+                              ),
+                            );
+                          }
+                        },
                         child: Container(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 14, vertical: 6),
@@ -900,8 +941,105 @@ class _QuickActionCard extends StatelessWidget {
 // ─────────────────────────────────────────────────────────────────────────────
 // LEVEL MAP CARD
 // ─────────────────────────────────────────────────────────────────────────────
-class _LevelMapCard extends StatelessWidget {
+class _LevelMapCard extends StatefulWidget {
   const _LevelMapCard();
+
+  @override
+  State<_LevelMapCard> createState() => _LevelMapCardState();
+}
+
+class _LevelMapCardState extends State<_LevelMapCard>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _bobbingController;
+  late Animation<double> _bobbingAnimation;
+
+  // Labels for each node (shown on long press or as tooltip)
+  static const List<String> _nodeLabels = [
+    'Lesson Summary',
+    'Basic Quiz',
+    'Listening Quiz',
+    'Fun Fact',
+    'Final Quiz',
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    _bobbingController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 900),
+    )..repeat(reverse: true);
+
+    _bobbingAnimation = Tween<double>(begin: -4.0, end: 4.0).animate(
+      CurvedAnimation(parent: _bobbingController, curve: Curves.easeInOut),
+    );
+  }
+
+  @override
+  void dispose() {
+    _bobbingController.dispose();
+    super.dispose();
+  }
+
+  void _onNodeTap(BuildContext context, int nodeIndex) {
+    final int unlocked = QuizProgress.unlockedPart;
+    final int levelNum = nodeIndex + 1;
+
+    if (levelNum > unlocked) {
+      // Node is locked — show snackbar
+      final String requiredLabel = _nodeLabels[nodeIndex - 1];
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Complete "$requiredLabel" first to unlock this!'),
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+      return;
+    }
+
+    // Navigate based on node index
+    if (nodeIndex == 0) {
+      // Node 1 → Lesson Summary
+      Navigator.push(
+        context,
+        MaterialPageRoute<void>(
+          builder: (_) => const LessonDetailScreen(part: 1),
+        ),
+      ).then((_) => setState(() {}));
+    } else if (nodeIndex == 1) {
+      // Node 2 → Basic Quiz (Part 1)
+      Navigator.push(
+        context,
+        MaterialPageRoute<void>(
+          builder: (_) => const QuizScreen(part: 1),
+        ),
+      ).then((_) => setState(() {}));
+    } else if (nodeIndex == 2) {
+      // Node 3 → Listening Quiz (Part 2)
+      Navigator.push(
+        context,
+        MaterialPageRoute<void>(
+          builder: (_) => const QuizScreen(part: 2),
+        ),
+      ).then((_) => setState(() {}));
+    } else if (nodeIndex == 3) {
+      // Node 4 → Fun Fact
+      Navigator.push(
+        context,
+        MaterialPageRoute<void>(
+          builder: (_) => const FunFactScreen(part: 4),
+        ),
+      ).then((_) => setState(() {}));
+    } else if (nodeIndex == 4) {
+      // Node 5 → Final Quiz (Part 5)
+      Navigator.push(
+        context,
+        MaterialPageRoute<void>(
+          builder: (_) => const QuizScreen(part: 5),
+        ),
+      ).then((_) => setState(() {}));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -924,6 +1062,7 @@ class _LevelMapCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // ── Header ──────────────────────────────────────────────────────
           Row(
             children: [
               const Text('📘', style: TextStyle(fontSize: 20)),
@@ -960,79 +1099,106 @@ class _LevelMapCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 20),
+
+          // ── Nodes Row ────────────────────────────────────────────────────
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: List.generate(totalLevels, (i) {
               final levelNum = i + 1;
-              final isActive = levelNum == currentLevel;
-              final isLocked = levelNum > currentLevel;
+              final bool isActive = levelNum == currentLevel;
+              final bool isLocked = levelNum > currentLevel;
 
-              return Column(
-                children: [
-                  if (isActive)
-                    SvgPicture.asset('assets/Group_111.svg',
-                        width: 36, height: 36)
-                  else
-                    const SizedBox(height: 36),
-                  const SizedBox(height: 4),
-                  AnimatedContainer(
-                    duration: const Duration(milliseconds: 300),
-                    width: isActive ? 48 : 40,
-                    height: isActive ? 48 : 40,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: isLocked
-                          ? AppColors.backgroundAlt
-                          : isActive
-                              ? AppColors.primaryPurple
-                              : AppColors.primaryPurple.withOpacity(0.35),
-                      border: isActive
-                          ? Border.all(color: Colors.white, width: 3)
-                          : null,
-                      boxShadow: isActive
-                          ? [
-                              BoxShadow(
-                                color: AppColors.primaryPurple.withOpacity(0.40),
-                                blurRadius: 10,
-                                offset: const Offset(0, 4),
+              return GestureDetector(
+                onTap: () => _onNodeTap(context, i),
+                child: Column(
+                  children: [
+                    // ── Mascot (bobbing on active node) ─────────────────
+                    if (isActive)
+                      AnimatedBuilder(
+                        animation: _bobbingAnimation,
+                        builder: (context, child) {
+                          return Transform.translate(
+                            offset: Offset(0, _bobbingAnimation.value),
+                            child: child,
+                          );
+                        },
+                        child: SvgPicture.asset(
+                          'assets/Group_111.svg',
+                          width: 36,
+                          height: 36,
+                        ),
+                      )
+                    else
+                      const SizedBox(height: 36),
+                    const SizedBox(height: 4),
+
+                    // ── Circle Node ──────────────────────────────────────
+                    AnimatedContainer(
+                      duration: const Duration(milliseconds: 300),
+                      width: isActive ? 48 : 40,
+                      height: isActive ? 48 : 40,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: isLocked
+                            ? AppColors.backgroundAlt
+                            : isActive
+                                ? AppColors.primaryPurple
+                                : AppColors.primaryPurple.withOpacity(0.35),
+                        border: isActive
+                            ? Border.all(color: Colors.white, width: 3)
+                            : null,
+                        boxShadow: isActive
+                            ? [
+                                BoxShadow(
+                                  color: AppColors.primaryPurple.withOpacity(0.40),
+                                  blurRadius: 10,
+                                  offset: const Offset(0, 4),
+                                ),
+                              ]
+                            : null,
+                      ),
+                      child: Center(
+                        child: isLocked
+                            ? const Icon(Icons.lock_outline,
+                                color: AppColors.navInActive, size: 18)
+                            : Text(
+                                '$levelNum',
+                                style: TextStyle(
+                                    fontSize: isActive ? 17 : 14,
+                                    fontWeight: FontWeight.w800,
+                                    color: Colors.white),
                               ),
-                            ]
-                          : null,
+                      ),
                     ),
-                    child: Center(
-                      child: isLocked
-                          ? const Icon(Icons.lock_outline,
-                              color: AppColors.navInActive, size: 18)
-                          : Text('$levelNum',
-                              style: TextStyle(
-                                  fontSize: isActive ? 17 : 14,
-                                  fontWeight: FontWeight.w800,
-                                  color: Colors.white)),
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               );
             }),
           ),
           const SizedBox(height: 16),
+
+          // ── Progress Footer ─────────────────────────────────────────────
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Level $currentLevel',
-                  style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.secondaryText)),
+              Text(
+                currentLevel <= 5 ? 'Level 1' : 'Level 2',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.secondaryText,
+                ),
+              ),
               Text(
                 currentLevel == 1
                     ? '200/1000'
                     : currentLevel == 2
                         ? '400/1000'
                         : currentLevel == 3
-                            ? '700/1000'
+                            ? '600/1000'
                             : currentLevel == 4
-                                ? '900/1000'
+                                ? '800/1000'
                                 : '1000/1000',
                 style: const TextStyle(
                     fontSize: 12,
@@ -1050,9 +1216,9 @@ class _LevelMapCard extends StatelessWidget {
                   : currentLevel == 2
                       ? 0.4
                       : currentLevel == 3
-                          ? 0.7
+                          ? 0.6
                           : currentLevel == 4
-                              ? 0.9
+                              ? 0.8
                               : 1.0,
               minHeight: 8,
               backgroundColor: const Color(0xFFE5E0EF),
