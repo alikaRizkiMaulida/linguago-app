@@ -14,6 +14,12 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
   final TextEditingController _emailController = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+    _emailController.text = 'evanganteng@gmail.com';
+  }
+
+  @override
   void dispose() {
     _emailController.dispose();
     super.dispose();
@@ -39,7 +45,7 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
           icon: const Icon(Icons.chevron_left_rounded, color: AppColors.primaryText),
           onPressed: () => Navigator.pop(context),
         ),
-        title: Text(
+        title: const Text(
           'Delete Account',
           style: TextStyle(
             fontSize: 18,
@@ -56,15 +62,15 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
           children: [
             // Warning header
             Row(
-              children: [
-                const Icon(Icons.warning_rounded, color: Colors.redAccent, size: 20),
-                const SizedBox(width: 8),
+              children: const [
+                Icon(Icons.warning_rounded, color: Color(0xFFFA7070), size: 24),
+                SizedBox(width: 8),
                 Text(
                   'If you delete your account:',
                   style: TextStyle(
-                    fontSize: 13,
+                    fontSize: 15,
                     fontWeight: FontWeight.w700,
-                    color: Colors.redAccent,
+                    color: Color(0xFFFA7070),
                   ),
                 ),
               ],
@@ -72,24 +78,24 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
             const SizedBox(height: 12),
 
             // Bullet points
-            _buildBulletPoint('Your Linguago account will be permanently deleted.'),
-            _buildBulletPoint('Your learning progress and quiz history will be erased.'),
-            _buildBulletPoint('Your streaks, XP, badges, and rewards will be removed.'),
-            _buildBulletPoint('You will be removed from all leaderboard activities.'),
-            _buildBulletPoint('Saved listening activities and course progress will be deleted.'),
-            _buildBulletPoint('Any active subscriptions linked to this account will be canceled.'),
+            _buildBulletPoint('Your Linguago account will be permanently deleted'),
+            _buildBulletPoint('Your learning progress and quiz history will be erased'),
+            _buildBulletPoint('Your streaks, XP, badges, and rewards will be removed'),
+            _buildBulletPoint('You will be removed from all leaderboard activities'),
+            _buildBulletPoint('Saved listening activities and course progress will be deleted'),
+            _buildBulletPoint('Any active subscriptions linked to this account will be canceled'),
 
             const SizedBox(height: 24),
 
             // Change email instead section
             Row(
-              children: [
-                const Icon(Icons.swap_horiz_rounded, color: AppColors.primaryText, size: 20),
-                const SizedBox(width: 8),
+              children: const [
+                Icon(Icons.phone_iphone_rounded, color: AppColors.primaryText, size: 22),
+                SizedBox(width: 8),
                 Text(
                   'Change email instead?',
                   style: TextStyle(
-                    fontSize: 13,
+                    fontSize: 15,
                     fontWeight: FontWeight.w700,
                     color: AppColors.primaryText,
                   ),
@@ -116,7 +122,7 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
                   ),
                   elevation: 0,
                 ),
-                child: Text(
+                child: const Text(
                   'Change Email Address',
                   style: TextStyle(
                     fontSize: 14,
@@ -130,10 +136,10 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
             const SizedBox(height: 24),
 
             // Confirm email label
-            Text(
+            const Text(
               'To delete your account, confirm your email address below.',
               style: TextStyle(
-                fontSize: 12,
+                fontSize: 12.5,
                 color: AppColors.secondaryText,
                 height: 1.5,
               ),
@@ -142,11 +148,11 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
             const SizedBox(height: 16),
 
             // Country label
-            Text(
+            const Text(
               'Country',
               style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
+                fontSize: 13,
+                fontWeight: FontWeight.w700,
                 color: AppColors.primaryText,
               ),
             ),
@@ -157,7 +163,7 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(16),
                 border: Border.all(color: AppColors.disableBorder),
               ),
               child: DropdownButtonHideUnderline(
@@ -176,7 +182,7 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
                       value: value,
                       child: Text(
                         value,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                           color: AppColors.primaryText,
@@ -198,11 +204,11 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
             const SizedBox(height: 16),
 
             // Email Address label
-            Text(
+            const Text(
               'Email Address',
               style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
+                fontSize: 13,
+                fontWeight: FontWeight.w700,
                 color: AppColors.primaryText,
               ),
             ),
@@ -212,18 +218,18 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
             Container(
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(16),
                 border: Border.all(color: AppColors.disableBorder),
               ),
               child: TextField(
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
                   color: AppColors.primaryText,
                 ),
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'evanganteng@gmail.com',
                   hintStyle: TextStyle(
                     fontSize: 14,
@@ -231,7 +237,7 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
                     color: AppColors.disableText,
                   ),
                   border: InputBorder.none,
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                 ),
               ),
             ),
@@ -244,14 +250,14 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
               child: ElevatedButton(
                 onPressed: _showLeavingLinguagoDialog,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFE53935),
+                  backgroundColor: const Color(0xFFFA7070),
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
                   elevation: 0,
                 ),
-                child: Text(
+                child: const Text(
                   'Delete Account',
                   style: TextStyle(
                     fontSize: 14,
@@ -271,7 +277,7 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
 
   Widget _buildBulletPoint(String text) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 6, left: 8),
+      padding: const EdgeInsets.only(bottom: 8, left: 12),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -287,10 +293,11 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
           Expanded(
             child: Text(
               text,
-              style: TextStyle(
-                fontSize: 12,
+              style: const TextStyle(
+                fontSize: 12.5,
+                fontWeight: FontWeight.w500,
                 color: AppColors.primaryText,
-                height: 1.5,
+                height: 1.4,
               ),
             ),
           ),

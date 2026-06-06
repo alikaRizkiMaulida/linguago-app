@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:linguago_flutter/core/constants/colors.dart';
+import 'package:linguago_flutter/ui/pages/chat_page.dart';
 import 'package:linguago_flutter/ui/pages/course_page.dart';
 import 'package:linguago_flutter/ui/pages/home_page.dart';
 import 'package:linguago_flutter/ui/pages/profile_page.dart';
-import 'package:linguago_flutter/ui/pages/setting_page.dart';
 import 'package:linguago_flutter/ui/screens/leaderboard/leaderboard_screen.dart';
 import 'package:linguago_flutter/ui/widgets/bottom_navbar.dart';
 
@@ -31,11 +31,11 @@ class _HomeScreenState extends State<HomeScreen> {
             IndexedStack(
               index: _tabIndex,
               children: const [
-                HomePage(),
-                const CoursePage(),
-                const LeaderboardScreen(),
-                SettingPage(),
-                ProfilePage(),
+                HomePage(),          // 0 - Home
+                CoursePage(),        // 1 - Course
+                LeaderboardScreen(), // 2 - Rank
+                ChatPage(),          // 3 - Chat
+                ProfilePage(),       // 4 - Profile
               ],
             ),
             // Floating Bottom Navbar

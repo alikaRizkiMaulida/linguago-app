@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:linguago_flutter/core/constants/colors.dart';
 import 'package:linguago_flutter/core/constants/quiz_state.dart';
+import 'package:linguago_flutter/ui/pages/lesson_detail_screen.dart';
 import 'package:linguago_flutter/ui/screens/quiz/fun_fact_screen.dart';
 import 'package:linguago_flutter/ui/screens/quiz/quiz_screen.dart';
 
@@ -154,23 +155,27 @@ class _QuizIntroScreenState extends State<QuizIntroScreen> {
                             children: [
                               _QuizSectionCard(
                                 partNum: 'Part 1',
-                                isActive: true,
-                                description: 'Review basic Hangul sounds and words!',
+                                isActive: unlocked == 2,
+                                isCompleted: unlocked >= 3,
+                                description: 'Review basic Hangul vowels and consonants',
                                 svgAsset: 'assets/mingcute_game-2-fill.svg',
-                                onBtnTap: () => Navigator.push(
+                                btnText: unlocked >= 3 ? 'Finish' : (unlocked == 2 ? 'Start' : 'Locked'),
+                                onBtnTap: unlocked >= 2 ? () => Navigator.push(
                                   context,
                                   MaterialPageRoute<void>(builder: (_) => const QuizScreen(part: 1)),
                                 ).then((_) {
                                   setState(() {});
-                                }),
+                                }) : () {},
                               ),
                               const SizedBox(width: 12),
                               _QuizSectionCard(
                                 partNum: 'Part 2',
-                                isActive: unlocked >= 2,
-                                description: 'Practice reading, listening, and Korean patterns!',
+                                isActive: unlocked == 3,
+                                isCompleted: unlocked >= 4,
+                                description: 'Practice reading, listening, and Hangul patterns!',
                                 svgAsset: 'assets/material-symbols_book-6-rounded.svg',
-                                onBtnTap: unlocked >= 2 ? () => Navigator.push(
+                                btnText: unlocked >= 4 ? 'Finish' : (unlocked == 3 ? 'Start' : 'Locked'),
+                                onBtnTap: unlocked >= 3 ? () => Navigator.push(
                                   context,
                                   MaterialPageRoute<void>(builder: (_) => const QuizScreen(part: 2)),
                                 ).then((_) {
@@ -180,35 +185,11 @@ class _QuizIntroScreenState extends State<QuizIntroScreen> {
                               const SizedBox(width: 12),
                               _QuizSectionCard(
                                 partNum: 'Part 3',
-                                isActive: unlocked >= 3,
+                                isActive: unlocked == 5,
+                                isCompleted: unlocked >= 6,
                                 description: 'Complete mixed Hangul quizzes and challenges!',
                                 svgAsset: 'assets/icon-park-outline_love-and-help.svg',
-                                onBtnTap: unlocked >= 3 ? () => Navigator.push(
-                                  context,
-                                  MaterialPageRoute<void>(builder: (_) => const QuizScreen(part: 3)),
-                                ).then((_) {
-                                  setState(() {});
-                                }) : () {},
-                              ),
-                              const SizedBox(width: 12),
-                              _QuizSectionCard(
-                                partNum: 'Part 4',
-                                isActive: unlocked >= 4,
-                                description: 'Learn interesting fun facts about Korea!',
-                                svgAsset: 'assets/game-icons_achievement.svg',
-                                onBtnTap: unlocked >= 4 ? () => Navigator.push(
-                                  context,
-                                  MaterialPageRoute<void>(builder: (_) => const FunFactScreen(part: 4)),
-                                ).then((_) {
-                                  setState(() {});
-                                }) : () {},
-                              ),
-                              const SizedBox(width: 12),
-                              _QuizSectionCard(
-                                partNum: 'Part 5',
-                                isActive: unlocked >= 5,
-                                description: 'Test your knowledge in the Final Quiz!',
-                                svgAsset: 'assets/mingcute_fire-fill.svg',
+                                btnText: unlocked >= 6 ? 'Finish' : (unlocked == 5 ? 'Start' : 'Locked'),
                                 onBtnTap: unlocked >= 5 ? () => Navigator.push(
                                   context,
                                   MaterialPageRoute<void>(builder: (_) => const QuizScreen(part: 5)),
@@ -273,21 +254,38 @@ class _QuizIntroScreenState extends State<QuizIntroScreen> {
                         ),
                         onPressed: () {
                           final int unlocked = QuizProgress.unlockedPart;
-                          if (unlocked == 4) {
+                          if (unlocked == 1) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute<void>(builder: (_) => const LessonDetailScreen(part: 1)),
+                            ).then((_) => setState(() {}));
+                          } else if (unlocked == 2) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute<void>(builder: (_) => const QuizScreen(part: 1)),
+                            ).then((_) => setState(() {}));
+                          } else if (unlocked == 3) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute<void>(builder: (_) => const QuizScreen(part: 2)),
+                            ).then((_) => setState(() {}));
+                          } else if (unlocked == 4) {
                             Navigator.push(
                               context,
                               MaterialPageRoute<void>(builder: (_) => const FunFactScreen(part: 4)),
                             ).then((_) => setState(() {}));
-                          } else if (unlocked >= 5) {
+                          } else if (unlocked == 5) {
                             Navigator.push(
                               context,
                               MaterialPageRoute<void>(builder: (_) => const QuizScreen(part: 5)),
                             ).then((_) => setState(() {}));
                           } else {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute<void>(builder: (_) => QuizScreen(part: unlocked)),
-                            ).then((_) => setState(() {}));
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('All parts completed! Level 2 coming soon!'),
+                                behavior: SnackBarBehavior.floating,
+                              ),
+                            );
                           }
                         },
                         child: Text(
@@ -315,20 +313,27 @@ class _QuizIntroScreenState extends State<QuizIntroScreen> {
 class _QuizSectionCard extends StatelessWidget {
   final String partNum;
   final bool isActive;
+  final bool isCompleted;
   final String description;
   final String svgAsset;
   final VoidCallback onBtnTap;
+  final String btnText;
 
   const _QuizSectionCard({
     required this.partNum,
     required this.isActive,
+    required this.isCompleted,
     required this.description,
     required this.svgAsset,
     required this.onBtnTap,
+    required this.btnText,
   });
 
   @override
   Widget build(BuildContext context) {
+    // All cards always show purple theme; lock icon still appears if not active/completed
+    const bool isPurple = true;
+    final bool isLocked = !isActive && !isCompleted;
     return SizedBox(
       width: 115,
       child: Container(
@@ -352,7 +357,7 @@ class _QuizSectionCard extends StatelessWidget {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
               decoration: BoxDecoration(
-                color: isActive ? const Color(0xFFF3EEFB) : const Color(0xFFF0F0F0),
+                color: isPurple ? const Color(0xFFF3EEFB) : const Color(0xFFF0F0F0),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Text(
@@ -360,7 +365,7 @@ class _QuizSectionCard extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 10,
                   fontWeight: FontWeight.w800,
-                  color: isActive ? AppColors.primaryPurple : AppColors.secondaryText,
+                  color: isPurple ? AppColors.primaryPurple : AppColors.secondaryText,
                 ),
               ),
             ),
@@ -379,7 +384,7 @@ class _QuizSectionCard extends StatelessWidget {
                   width: 22,
                   height: 22,
                   colorFilter: ColorFilter.mode(
-                    isActive ? AppColors.primaryPurple : AppColors.secondaryText,
+                    isPurple ? AppColors.primaryPurple : AppColors.secondaryText,
                     BlendMode.srcIn,
                   ),
                 ),
@@ -407,20 +412,20 @@ class _QuizSectionCard extends StatelessWidget {
                 width: double.infinity,
                 padding: const EdgeInsets.symmetric(vertical: 6),
                 decoration: BoxDecoration(
-                  color: isActive ? AppColors.primaryPurple : const Color(0xFFDCD8E2),
+                  color: isPurple ? AppColors.primaryPurple : const Color(0xFFDCD8E2),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    if (!isActive)
+                    if (isLocked)
                       const Icon(Icons.lock_rounded, color: Colors.white, size: 10)
                     else
                       const SizedBox.shrink(),
-                    if (!isActive) const SizedBox(width: 4) else const SizedBox.shrink(),
+                    if (isLocked) const SizedBox(width: 4) else const SizedBox.shrink(),
                     Text(
-                      isActive ? 'Start' : 'Locked',
-                      style: TextStyle(
+                      btnText,
+                      style: const TextStyle(
                         fontSize: 10,
                         fontWeight: FontWeight.w800,
                         color: Colors.white,

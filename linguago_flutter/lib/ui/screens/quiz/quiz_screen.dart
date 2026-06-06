@@ -23,7 +23,7 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
   bool _isAnswerCorrect = false;
   int _hearts = 5;
   int _correctCount = 0;
-  final List<String> _selectedArrangeLetters = [];
+  final List<int> _selectedArrangeIndices = [];
 
   late AnimationController _progressController;
   late final List<Map<String, dynamic>> _questions;
@@ -242,13 +242,13 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
     });
   }
 
-  void _onLetterTap(String letter) {
+  void _onLetterTap(int index) {
     if (_hasChecked) return;
     setState(() {
-      if (_selectedArrangeLetters.contains(letter)) {
-        _selectedArrangeLetters.remove(letter);
+      if (_selectedArrangeIndices.contains(index)) {
+        _selectedArrangeIndices.remove(index);
       } else {
-        _selectedArrangeLetters.add(letter);
+        _selectedArrangeIndices.add(index);
       }
     });
   }
@@ -314,7 +314,7 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
     setState(() {
       _currentQuestionIndex = 0;
       _selectedOptionIndex = null;
-      _selectedArrangeLetters.clear();
+      _selectedArrangeIndices.clear();
       _hasChecked = false;
       _isAnswerCorrect = false;
       _hearts = 5;
@@ -331,8 +331,9 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
 
     bool isCorrect = false;
     if (isArrange) {
-      if (_selectedArrangeLetters.isEmpty) return;
-      final String constructed = _combineLetters(_selectedArrangeLetters);
+      if (_selectedArrangeIndices.isEmpty) return;
+      final List<String> letters = _selectedArrangeIndices.map((idx) => qData['letters'][idx] as String).toList();
+      final String constructed = _combineLetters(letters);
       isCorrect = constructed == qData['correctAnswer'];
     } else {
       if (_selectedOptionIndex == null) return;
@@ -372,16 +373,20 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
       setState(() {
         _currentQuestionIndex++;
         _selectedOptionIndex = null;
-        _selectedArrangeLetters.clear();
+        _selectedArrangeIndices.clear();
         _hasChecked = false;
       });
       // Animate progress to the new question
       final double targetProgress = (_currentQuestionIndex + 1) / _questions.length;
       _progressController.animateTo(targetProgress, curve: Curves.easeOut);
     } else {
-      // Unlock next quiz parts dynamically
-      if (widget.part == QuizProgress.unlockedPart) {
-        QuizProgress.setUnlockedPart(widget.part + 1);
+      // Unlock next parts on the map
+      if (widget.part == 1 && QuizProgress.unlockedPart == 2) {
+        QuizProgress.setUnlockedPart(3);
+      } else if (widget.part == 2 && QuizProgress.unlockedPart == 3) {
+        QuizProgress.setUnlockedPart(4);
+      } else if (widget.part == 5 && QuizProgress.unlockedPart == 5) {
+        QuizProgress.setUnlockedPart(6);
       }
 
       Navigator.push(
@@ -575,12 +580,12 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
 
                 // ── Arrange Target ───────────────────────────────────────────
                 if (isArrange) ...[
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 16),
                   Text(
                     '"${qData['target']}"',
-                    style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.w800,
+                    style: const TextStyle(
+                      fontSize: 36,
+                      fontWeight: FontWeight.w900,
                       color: AppColors.primaryPurple,
                     ),
                   ),
@@ -610,31 +615,35 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
                           onTap: () {
                             if (!_hasChecked) {
                               setState(() {
-                                _selectedArrangeLetters.clear();
+                                _selectedArrangeIndices.clear();
                               });
                             }
                           },
                           child: Container(
                             height: 60,
                             alignment: Alignment.bottomCenter,
-                            child: Text(
-                              _combineLetters(_selectedArrangeLetters).isEmpty
-                                  ? ' '
-                                  : _combineLetters(_selectedArrangeLetters),
-                              style: TextStyle(
-                                fontSize: 38,
-                                fontWeight: FontWeight.w800,
-                                color: AppColors.primaryText,
-                                letterSpacing: 2,
-                              ),
+                            child: Builder(
+                              builder: (context) {
+                                final List<String> letters = _selectedArrangeIndices.map((idx) => qData['letters'][idx] as String).toList();
+                                final String constructed = _combineLetters(letters);
+                                return Text(
+                                  constructed.isEmpty ? ' ' : constructed,
+                                  style: const TextStyle(
+                                    fontSize: 44,
+                                    fontWeight: FontWeight.w800,
+                                    color: AppColors.primaryText,
+                                    letterSpacing: 2,
+                                  ),
+                                );
+                              }
                             ),
                           ),
                         ),
                         const SizedBox(height: 8),
                         Container(
-                          width: screenWidth * 0.7,
-                          height: 2.2,
-                          color: const Color(0xFFDCD8E2),
+                          width: screenWidth * 0.75,
+                          height: 2.0,
+                          color: const Color(0xFFE5E5EA),
                         ),
                         const Spacer(),
                       ],
@@ -757,17 +766,17 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
                               children: [
                                 Row(
                                   children: [
-                                    Expanded(child: _buildArrangeOptionCard(letters.isNotEmpty ? letters[0] : '')),
+                                    Expanded(child: _buildArrangeOptionCard(0, letters.isNotEmpty ? letters[0] : '')),
                                     const SizedBox(width: 14),
-                                    Expanded(child: _buildArrangeOptionCard(letters.length > 1 ? letters[1] : '')),
+                                    Expanded(child: _buildArrangeOptionCard(1, letters.length > 1 ? letters[1] : '')),
                                   ],
                                 ),
                                 const SizedBox(height: 14),
                                 Row(
                                   children: [
-                                    Expanded(child: _buildArrangeOptionCard(letters.length > 2 ? letters[2] : '')),
+                                    Expanded(child: _buildArrangeOptionCard(2, letters.length > 2 ? letters[2] : '')),
                                     const SizedBox(width: 14),
-                                    Expanded(child: _buildArrangeOptionCard(letters.length > 3 ? letters[3] : '')),
+                                    Expanded(child: _buildArrangeOptionCard(3, letters.length > 3 ? letters[3] : '')),
                                   ],
                                 ),
                               ],
@@ -808,30 +817,30 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
                   padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
                   child: SizedBox(
                     width: double.infinity,
-                    height: 50,
+                    height: 56,
                     child: Builder(
                       builder: (context) {
                         final bool isBtnEnabled = isArrange
-                            ? _selectedArrangeLetters.isNotEmpty
+                            ? _selectedArrangeIndices.isNotEmpty
                             : _selectedOptionIndex != null;
 
                         return ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: isBtnEnabled
-                                ? AppColors.primaryPurple
-                                : const Color(0xFFDCD8E2),
+                            backgroundColor: AppColors.primaryPurple,
+                            foregroundColor: Colors.white,
+                            disabledBackgroundColor: const Color(0xFFF3EEFB),
+                            disabledForegroundColor: const Color(0xFFC8B6F9),
                             elevation: 0,
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16),
+                              borderRadius: BorderRadius.circular(24),
                             ),
                           ),
                           onPressed: isBtnEnabled && !_hasChecked ? _checkAnswer : null,
-                          child: Text(
+                          child: const Text(
                             'Check Answer',
                             style: TextStyle(
-                              fontSize: 14,
+                              fontSize: 16,
                               fontWeight: FontWeight.w800,
-                              color: isBtnEnabled ? Colors.white : const Color(0xFF9E95B2),
                             ),
                           ),
                         );
@@ -912,21 +921,21 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
     );
   }
 
-  Widget _buildArrangeOptionCard(String letter) {
+  Widget _buildArrangeOptionCard(int index, String letter) {
     if (letter.isEmpty) {
-      return const SizedBox(height: 52);
+      return const SizedBox(height: 72);
     }
-    final bool isSelected = _selectedArrangeLetters.contains(letter);
+    final bool isSelected = _selectedArrangeIndices.contains(index);
     return GestureDetector(
-      onTap: () => _onLetterTap(letter),
+      onTap: () => _onLetterTap(index),
       child: Container(
-        height: 52,
+        height: 72,
         decoration: BoxDecoration(
-          color: isSelected ? Colors.transparent : Colors.white,
-          borderRadius: BorderRadius.circular(14),
+          color: isSelected ? const Color(0xFFF5F3FA) : Colors.white,
+          borderRadius: BorderRadius.circular(20),
           border: Border.all(
-            color: isSelected ? AppColors.primaryPurple : const Color(0xFFEDE7F8),
-            width: isSelected ? 2.2 : 1.5,
+            color: isSelected ? const Color(0xFFE4D9F6) : const Color(0xFFEDE7F8),
+            width: isSelected ? 2.0 : 1.5,
           ),
           boxShadow: isSelected
               ? []
@@ -940,11 +949,11 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
         ),
         child: Center(
           child: Text(
-            isSelected ? '' : letter,
+            letter,
             style: TextStyle(
-              fontSize: 16,
+              fontSize: 20,
               fontWeight: FontWeight.w800,
-              color: AppColors.primaryText,
+              color: isSelected ? AppColors.disableText : AppColors.primaryText,
             ),
           ),
         ),

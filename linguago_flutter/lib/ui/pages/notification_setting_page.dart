@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:linguago_flutter/core/constants/colors.dart';
 
 class NotificationSettingPage extends StatefulWidget {
@@ -100,30 +101,41 @@ class _NotificationSettingPageState extends State<NotificationSettingPage> {
           ),
           GestureDetector(
             onTap: () => onChanged(!value),
-            child: Container(
-              width: 50,
-              height: 28,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: value ? AppColors.disableBorder : Colors.grey[300],
-              ),
+            child: SizedBox(
+              width: 78,
+              height: 31,
               child: Stack(
+                clipBehavior: Clip.none,
                 children: [
-                  AnimatedPositioned(
-                    duration: const Duration(milliseconds: 200),
-                    left: value ? 22 : 2,
-                    top: 2,
-                    child: Container(
-                      width: 24,
-                      height: 24,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: AppColors.primaryPurple,
-                      ),
-                      child: Center(
-                        child: Text(value ? '🦇' : '💤', style: const TextStyle(fontSize: 12)),
+                  Positioned(
+                    left: 12.11,
+                    top: 4.11,
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 200),
+                      width: 48,
+                      height: 22,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(11),
+                        color: value
+                            ? AppColors.disableBorder
+                            : const Color(0xFFC9C6CF),
                       ),
                     ),
+                  ),
+                  TweenAnimationBuilder<double>(
+                    tween: Tween<double>(begin: 0, end: value ? 26.0 : 0.0),
+                    duration: const Duration(milliseconds: 200),
+                    curve: Curves.easeInOut,
+                    builder: (context, offset, child) {
+                      return Transform.translate(
+                        offset: Offset(offset, 0),
+                        child: SvgPicture.asset(
+                          'assets/bat_mascot.svg',
+                          width: 78,
+                          height: 31,
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),

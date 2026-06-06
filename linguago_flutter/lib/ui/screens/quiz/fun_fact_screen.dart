@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:linguago_flutter/core/constants/colors.dart';
 import 'package:linguago_flutter/core/constants/quiz_state.dart';
-import 'package:linguago_flutter/ui/screens/quiz/quiz_screen.dart';
 
 class FunFactData {
   final String title;
@@ -98,7 +97,6 @@ class _FunFactScreenState extends State<FunFactScreen>
           ),
         );
 
-    // Fix: Rebuild widget while swipe animation runs to prevent freezing
     _swipeAnimationController.addListener(() {
       setState(() {});
     });
@@ -106,7 +104,9 @@ class _FunFactScreenState extends State<FunFactScreen>
     _swipeAnimationController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         setState(() {
-          _currentIndex++;
+          if (_currentIndex < _facts.length) {
+            _currentIndex++;
+          }
           _dragOffset = Offset.zero;
         });
         _swipeAnimationController.reset();
@@ -129,8 +129,9 @@ class _FunFactScreenState extends State<FunFactScreen>
 
   void _onPanUpdate(DragUpdateDetails details) {
     if (_swipeAnimationController.isAnimating ||
-        _resetAnimationController.isAnimating)
+        _resetAnimationController.isAnimating) {
       return;
+    }
     setState(() {
       _dragOffset += details.delta;
     });
@@ -138,12 +139,12 @@ class _FunFactScreenState extends State<FunFactScreen>
 
   void _onPanEnd(DragEndDetails details) {
     if (_swipeAnimationController.isAnimating ||
-        _resetAnimationController.isAnimating)
+        _resetAnimationController.isAnimating) {
       return;
+    }
 
     final velocity = details.velocity.pixelsPerSecond.dx;
     if (_dragOffset.dx > 120.0 || velocity > 800.0) {
-      // Swipe Right
       _swipeAnimation =
           Tween<Offset>(
             begin: _dragOffset,
@@ -159,7 +160,6 @@ class _FunFactScreenState extends State<FunFactScreen>
           );
       _swipeAnimationController.forward();
     } else if (_dragOffset.dx < -120.0 || velocity < -800.0) {
-      // Swipe Left
       _swipeAnimation =
           Tween<Offset>(
             begin: _dragOffset,
@@ -175,7 +175,6 @@ class _FunFactScreenState extends State<FunFactScreen>
           );
       _swipeAnimationController.forward();
     } else {
-      // Reset position
       _resetAnimation = Tween<Offset>(begin: _dragOffset, end: Offset.zero)
           .animate(
             CurvedAnimation(
@@ -187,10 +186,21 @@ class _FunFactScreenState extends State<FunFactScreen>
     }
   }
 
+  void _goToNext() {
+    if (_currentIndex < _facts.length - 1) {
+      setState(() {
+        _currentIndex++;
+      });
+    } else {
+      // Last card → complete
+      setState(() {
+        _currentIndex = _facts.length;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final double screenWidth = MediaQuery.of(context).size.width;
-    final double cardWidth = screenWidth * 0.85;
     final bool isCompleted = _currentIndex >= _facts.length;
 
     // Calculate drag progress
@@ -202,130 +212,94 @@ class _FunFactScreenState extends State<FunFactScreen>
     }
 
     return Scaffold(
-      backgroundColor: const Color(0xFFFBF9FF),
-      body: SafeArea(
-        child: Column(
-          children: [
-            // ── Top Navigation / App Bar ─────────────────────────────────────
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
-              child: Row(
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.chevron_left_rounded, size: 30),
-                    color: AppColors.primaryText,
-                    onPressed: () => Navigator.pop(context),
-                  ),
-                  const Expanded(
-                    child: Column(
-                      children: [
-                        Text(
-                          'Fun Fact',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w800,
-                            color: AppColors.primaryText,
+      body: Container(
+        // Soft gradient purple background — matching the screenshot
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color(0xFFEDE7F8),
+              Color(0xFFF7F3FD),
+              Color(0xFFFBF9FF),
+            ],
+            stops: [0.0, 0.45, 1.0],
+          ),
+        ),
+        child: SafeArea(
+          child: Column(
+            children: [
+              // ── Top Header ───────────────────────────────────────────────────
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+                child: Row(
+                  children: [
+                    GestureDetector(
+                      onTap: () => Navigator.pop(context),
+                      child: Container(
+                        width: 38,
+                        height: 38,
+                        decoration: BoxDecoration(
+                          color: Colors.white.withValues(alpha: 0.8),
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                            color: AppColors.disableBorder,
+                            width: 1.0,
                           ),
                         ),
-                        SizedBox(height: 2),
-                        Text(
-                          'Lets learn interesting things about korea ✨',
-                          style: TextStyle(
-                            fontSize: 11,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.primaryPurple,
-                          ),
+                        child: const Icon(
+                          Icons.chevron_left_rounded,
+                          size: 26,
+                          color: AppColors.primaryText,
                         ),
-                      ],
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 48), // Match back button width
-                ],
+                    const SizedBox(width: 12),
+                    const Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Fun Fact',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w800,
+                              color: AppColors.primaryText,
+                            ),
+                          ),
+                          Text(
+                            'Lets learn interesting things about korea ✨',
+                            style: TextStyle(
+                              fontSize: 11,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.primaryPurple,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
 
-            const SizedBox(height: 20),
+              const SizedBox(height: 20),
 
-            // ── Interactive Card Stack or Completion view ─────────────────────
-            Expanded(
-              child: Center(
+              // ── Card Stack or Completion View ────────────────────────────────
+              Expanded(
                 child: isCompleted
                     ? _buildCompletionView(context)
-                    : SizedBox(
-                        width: cardWidth,
-                        height: 440,
+                    : Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Stack(
                           clipBehavior: Clip.none,
                           children: _buildCards(progress),
                         ),
                       ),
               ),
-            ),
 
-            const SizedBox(height: 20),
-
-            // ── Indicators and Button (only when not completed) ──────────────
-            if (!isCompleted) ...[
-              // Progress Dot Indicators
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(_facts.length, (index) {
-                  final bool isActive = index == _currentIndex;
-                  return AnimatedContainer(
-                    duration: const Duration(milliseconds: 300),
-                    margin: const EdgeInsets.symmetric(horizontal: 4),
-                    width: isActive ? 24 : 8,
-                    height: 8,
-                    decoration: BoxDecoration(
-                      color: isActive
-                          ? AppColors.primaryPurple
-                          : AppColors.primaryPurple.withOpacity(0.2),
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                  );
-                }),
-              ),
-
-              const SizedBox(height: 30),
-
-              // Bottom Action Button
-              Padding(
-                padding: const EdgeInsets.fromLTRB(24, 0, 24, 24),
-                child: SizedBox(
-                  width: double.infinity,
-                  height: 52,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.primaryPurple,
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    ),
-                    onPressed: () {
-                      QuizProgress.setUnlockedPart(5);
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute<void>(
-                          builder: (_) => const QuizScreen(part: 5),
-                        ),
-                      );
-                    },
-                    child: const Text(
-                      'Continue to Final Quiz!',
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w800,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ] else ...[
               const SizedBox(height: 24),
             ],
-          ],
+          ),
         ),
       ),
     );
@@ -348,8 +322,8 @@ class _FunFactScreenState extends State<FunFactScreen>
           currentOffset = _swipeAnimation.value;
         }
 
-        // Calculate card rotation based on drag offset dx
-        final double rotation = (currentOffset.dx / 1000.0).clamp(-0.15, 0.15);
+        final double rotation =
+            (currentOffset.dx / 1000.0).clamp(-0.15, 0.15);
 
         cards.add(
           Positioned.fill(
@@ -360,17 +334,20 @@ class _FunFactScreenState extends State<FunFactScreen>
                 offset: currentOffset,
                 child: Transform.rotate(
                   angle: rotation,
-                  child: _buildCardContent(fact, isTopCard: true),
+                  child: _buildCardContent(
+                    fact,
+                    isTopCard: true,
+                    factIndex: factIndex,
+                  ),
                 ),
               ),
             ),
           ),
         );
       } else if (i == 1) {
-        // MIDDLE CARD (reveals as top card slides away)
-        final double scale = 0.94 + (progress * 0.06);
-        final double translateY = 16.0 - (progress * 16.0);
-        final double opacity = (0.85 + (progress * 0.15)).clamp(0.0, 1.0);
+        final double scale = 0.95 + (progress * 0.05);
+        final double translateY = 14.0 - (progress * 14.0);
+        final double opacity = (0.88 + (progress * 0.12)).clamp(0.0, 1.0);
 
         cards.add(
           Positioned.fill(
@@ -381,17 +358,20 @@ class _FunFactScreenState extends State<FunFactScreen>
                 alignment: Alignment.bottomCenter,
                 child: Opacity(
                   opacity: opacity,
-                  child: _buildCardContent(fact, isTopCard: false),
+                  child: _buildCardContent(
+                    fact,
+                    isTopCard: false,
+                    factIndex: factIndex,
+                  ),
                 ),
               ),
             ),
           ),
         );
       } else if (i == 2) {
-        // BOTTOM CARD
-        final double scale = 0.88 + (progress * 0.06);
-        final double translateY = 32.0 - (progress * 16.0);
-        final double opacity = (0.5 + (progress * 0.35)).clamp(0.0, 1.0);
+        final double scale = 0.90 + (progress * 0.05);
+        final double translateY = 28.0 - (progress * 14.0);
+        final double opacity = (0.55 + (progress * 0.33)).clamp(0.0, 1.0);
 
         cards.add(
           Positioned.fill(
@@ -402,7 +382,11 @@ class _FunFactScreenState extends State<FunFactScreen>
                 alignment: Alignment.bottomCenter,
                 child: Opacity(
                   opacity: opacity,
-                  child: _buildCardContent(fact, isTopCard: false),
+                  child: _buildCardContent(
+                    fact,
+                    isTopCard: false,
+                    factIndex: factIndex,
+                  ),
                 ),
               ),
             ),
@@ -414,68 +398,179 @@ class _FunFactScreenState extends State<FunFactScreen>
     return cards;
   }
 
-  Widget _buildCardContent(FunFactData fact, {required bool isTopCard}) {
+  Widget _buildCardContent(
+    FunFactData fact, {
+    required bool isTopCard,
+    required int factIndex,
+  }) {
+    final bool isLastCard = factIndex == _facts.length - 1;
+
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(24),
+        borderRadius: BorderRadius.circular(28),
         border: Border.all(
-          color: AppColors.primaryPurple.withOpacity(isTopCard ? 0.25 : 0.15),
-          width: isTopCard ? 2.0 : 1.0,
+          color: AppColors.primaryPurple
+              .withValues(alpha: isTopCard ? 0.18 : 0.08),
+          width: isTopCard ? 1.5 : 1.0,
         ),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.primaryPurple.withOpacity(isTopCard ? 0.15 : 0.06),
-            blurRadius: isTopCard ? 24 : 12,
-            spreadRadius: isTopCard ? 4 : 0,
-            offset: const Offset(0, 8),
-          ),
-          BoxShadow(
-            color: AppColors.primaryPurple.withOpacity(isTopCard ? 0.08 : 0.03),
-            blurRadius: isTopCard ? 12 : 6,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        boxShadow: isTopCard
+            ? [
+                BoxShadow(
+                  color: AppColors.primaryPurple.withValues(alpha: 0.12),
+                  blurRadius: 28,
+                  spreadRadius: 2,
+                  offset: const Offset(0, 10),
+                ),
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.04),
+                  blurRadius: 8,
+                  offset: const Offset(0, 4),
+                ),
+              ]
+            : [
+                BoxShadow(
+                  color: AppColors.primaryPurple.withValues(alpha: 0.06),
+                  blurRadius: 12,
+                  offset: const Offset(0, 6),
+                ),
+              ],
       ),
-      padding: const EdgeInsets.all(24),
       child: Column(
         children: [
-          // Illustration Box
+          // ── Illustration Area ─────────────────────────────────────────────
           Expanded(
             flex: 5,
-            child: Center(
-              child: SvgPicture.asset(fact.svgAsset, fit: BoxFit.contain),
-            ),
-          ),
-          const SizedBox(height: 16),
-          // Fact Title
-          Text(
-            fact.title,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w800,
-              color: AppColors.primaryText,
-              height: 1.3,
-            ),
-          ),
-          const SizedBox(height: 12),
-          // Fact Description
-          Expanded(
-            flex: 4,
-            child: Scrollbar(
-              child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
-                child: Text(
-                  fact.description,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 12.5,
-                    fontWeight: FontWeight.w500,
-                    color: AppColors.secondaryText,
-                    height: 1.5,
+            child: ClipRRect(
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(28),
+              ),
+              child: Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: const Color(0xFFF3EEFB),
+                  borderRadius: const BorderRadius.vertical(
+                    top: Radius.circular(28),
                   ),
                 ),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 20,
+                ),
+                child: Center(
+                  child: SvgPicture.asset(
+                    fact.svgAsset,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ),
+            ),
+          ),
+
+          // ── Text Content + Button ─────────────────────────────────────────
+          Expanded(
+            flex: 4,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(20, 16, 20, 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  // Dot Indicators
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List.generate(_facts.length, (index) {
+                      final bool isActive = index == factIndex;
+                      return AnimatedContainer(
+                        duration: const Duration(milliseconds: 300),
+                        margin: const EdgeInsets.symmetric(horizontal: 3),
+                        width: isActive ? 20 : 7,
+                        height: 7,
+                        decoration: BoxDecoration(
+                          color: isActive
+                              ? AppColors.primaryPurple
+                              : const Color(0xFFD4C8FA),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                      );
+                    }),
+                  ),
+
+                  const SizedBox(height: 12),
+
+                  // Fact Title
+                  Text(
+                    fact.title,
+                    textAlign: TextAlign.center,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w800,
+                      color: AppColors.primaryText,
+                      height: 1.3,
+                    ),
+                  ),
+
+                  const SizedBox(height: 8),
+
+                  // Fact Description
+                  Expanded(
+                    child: SingleChildScrollView(
+                      physics: const BouncingScrollPhysics(),
+                      child: Text(
+                        fact.description,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                          color: AppColors.secondaryText,
+                          height: 1.55,
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 12),
+
+                  // ── Bottom Button ────────────────────────────────────────
+                  SizedBox(
+                    width: double.infinity,
+                    height: 46,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.primaryPurple,
+                        foregroundColor: Colors.white,
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18),
+                        ),
+                      ),
+                      onPressed: isTopCard
+                          ? () {
+                              if (isLastCard) {
+                                if (QuizProgress.unlockedPart == 4) {
+                                  QuizProgress.setUnlockedPart(5);
+                                }
+                                setState(() {
+                                  _currentIndex = _facts.length;
+                                });
+                              } else {
+                                _goToNext();
+                              }
+                            }
+                          : null,
+                      child: Text(
+                        isLastCard
+                            ? 'Continue to Final Quiz'
+                            : 'Continue to Final Quiz',
+                        style: const TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -485,188 +580,207 @@ class _FunFactScreenState extends State<FunFactScreen>
   }
 
   Widget _buildCompletionView(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 24),
-      padding: const EdgeInsets.all(24),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(24),
-        border: Border.all(
-          color: AppColors.primaryPurple.withOpacity(0.2),
-          width: 1.5,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.primaryPurple.withOpacity(0.08),
-            blurRadius: 20,
-            offset: const Offset(0, 8),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: Container(
+        padding: const EdgeInsets.all(24),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(28),
+          border: Border.all(
+            color: AppColors.primaryPurple.withValues(alpha: 0.15),
+            width: 1.5,
           ),
-        ],
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              // Mascot Image on left
-              Image.asset(
-                'assets/Mascot Mascot.png',
-                width: 80,
-                height: 80,
-                fit: BoxFit.contain,
-                errorBuilder: (context, error, stackTrace) {
-                  return const Text('🐰', style: TextStyle(fontSize: 48));
-                },
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.primaryPurple.withValues(alpha: 0.1),
+              blurRadius: 24,
+              offset: const Offset(0, 8),
+            ),
+          ],
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // Illustration top area
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(vertical: 24),
+              decoration: BoxDecoration(
+                color: const Color(0xFFF3EEFB),
+                borderRadius: BorderRadius.circular(20),
               ),
-              const SizedBox(width: 16),
-              // Congratulations Text on right
-              const Expanded(
-                child: Text(
-                  'Great! You discovered 5 Korean Fun Facts!',
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w800,
-                    color: AppColors.primaryText,
-                    height: 1.3,
+              child: Column(
+                children: [
+                  Image.asset(
+                    'assets/Mascot Mascot.png',
+                    width: 100,
+                    height: 100,
+                    fit: BoxFit.contain,
+                    errorBuilder: (context, error, stackTrace) {
+                      return const Text('🎉', style: TextStyle(fontSize: 64));
+                    },
+                  ),
+                  const SizedBox(height: 12),
+                  const Text(
+                    'You\'re Amazing! 🎉',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w900,
+                      color: AppColors.primaryText,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            const SizedBox(height: 20),
+
+            const Text(
+              'Great! You discovered 5 Korean Fun Facts!',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w700,
+                color: AppColors.secondaryText,
+                height: 1.4,
+              ),
+            ),
+
+            const SizedBox(height: 20),
+
+            // Rewards row
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
+              decoration: BoxDecoration(
+                color: const Color(0xFFF3EEFB),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Row(
+                    children: [
+                      SvgPicture.asset(
+                        'assets/Vector 46.svg',
+                        width: 20,
+                        height: 20,
+                        colorFilter: const ColorFilter.mode(
+                          Color(0xFFFFB300),
+                          BlendMode.srcIn,
+                        ),
+                      ),
+                      const SizedBox(width: 6),
+                      const Text(
+                        '+20 XP',
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w800,
+                          color: AppColors.primaryText,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Container(
+                    width: 1,
+                    height: 20,
+                    color: AppColors.disableBorder,
+                  ),
+                  Row(
+                    children: [
+                      SvgPicture.asset(
+                        'assets/game-icons_achievement.svg',
+                        width: 20,
+                        height: 20,
+                        colorFilter: const ColorFilter.mode(
+                          AppColors.primaryPurple,
+                          BlendMode.srcIn,
+                        ),
+                      ),
+                      const SizedBox(width: 6),
+                      const Text(
+                        '+1 Badge',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w800,
+                          color: AppColors.primaryText,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+
+            const SizedBox(height: 24),
+
+            // Buttons
+            Row(
+              children: [
+                Expanded(
+                  flex: 3,
+                  child: SizedBox(
+                    height: 48,
+                    child: OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        side: const BorderSide(
+                          color: AppColors.primaryPurple,
+                          width: 1.5,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _currentIndex = _facts.length - 1;
+                        });
+                      },
+                      child: const Text(
+                        'Back',
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w800,
+                          color: AppColors.primaryPurple,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 24),
-
-          // Rewards container
-          Container(
-            padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
-            decoration: BoxDecoration(
-              color: const Color(0xFFF3EEFB),
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                // XP Reward
-                Row(
-                  children: [
-                    SvgPicture.asset(
-                      'assets/Vector 46.svg',
-                      width: 20,
-                      height: 20,
-                      colorFilter: const ColorFilter.mode(
-                        Color(0xFFFFB300),
-                        BlendMode.srcIn,
+                const SizedBox(width: 12),
+                Expanded(
+                  flex: 7,
+                  child: SizedBox(
+                    height: 48,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.primaryPurple,
+                        foregroundColor: Colors.white,
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                      ),
+                      onPressed: () {
+                        if (QuizProgress.unlockedPart == 4) {
+                          QuizProgress.setUnlockedPart(5);
+                        }
+                        Navigator.pop(context);
+                      },
+                      child: const Text(
+                        'Continue to Final Quiz',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w800,
+                        ),
                       ),
                     ),
-                    const SizedBox(width: 6),
-                    const Text(
-                      '+20 XP',
-                      style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w800,
-                        color: AppColors.primaryText,
-                      ),
-                    ),
-                  ],
-                ),
-                Container(width: 1, height: 20, color: AppColors.disableBorder),
-                // Badge Reward
-                Row(
-                  children: [
-                    SvgPicture.asset(
-                      'assets/game-icons_achievement.svg',
-                      width: 20,
-                      height: 20,
-                      colorFilter: const ColorFilter.mode(
-                        AppColors.primaryPurple,
-                        BlendMode.srcIn,
-                      ),
-                    ),
-                    const SizedBox(width: 6),
-                    const Text(
-                      '+1 Badge',
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w800,
-                        color: AppColors.primaryText,
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ],
             ),
-          ),
-          const SizedBox(height: 32),
-
-          // Action Buttons: Back & Continue to Final Quiz
-          Row(
-            children: [
-              Expanded(
-                flex: 3,
-                child: SizedBox(
-                  height: 48,
-                  child: OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      side: const BorderSide(
-                        color: AppColors.primaryPurple,
-                        width: 1.5,
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        _currentIndex = 4; // Reset to show the last card
-                      });
-                    },
-                    child: const Text(
-                      'Back',
-                      style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w800,
-                        color: AppColors.primaryPurple,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                flex: 7,
-                child: SizedBox(
-                  height: 48,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.primaryPurple,
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                    ),
-                    onPressed: () {
-                      QuizProgress.setUnlockedPart(5);
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute<void>(
-                          builder: (_) => const QuizScreen(part: 5),
-                        ),
-                      );
-                    },
-                    child: const Text(
-                      'Continue to Final Quiz',
-                      style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w800,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
