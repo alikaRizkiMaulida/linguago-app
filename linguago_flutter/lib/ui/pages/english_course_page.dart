@@ -1,26 +1,27 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
-import 'package:linguago_flutter/core/constants/colors.dart';
 import 'package:linguago_flutter/core/constants/quiz_state.dart';
-import 'package:linguago_flutter/ui/pages/lesson_detail_screen.dart';
+import 'package:linguago_flutter/ui/pages/english_lesson_detail_screen.dart';
 import 'package:linguago_flutter/ui/screens/quiz/fun_fact_screen.dart';
 import 'package:linguago_flutter/ui/screens/quiz/quiz_intro_screen.dart';
 
-class CoursePage extends StatefulWidget {
-  const CoursePage({super.key});
+/// Course page for English — same isometric map layout as the Korean one
+/// but with English-themed colours (blue accent) and English lesson screens.
+class EnglishCoursePage extends StatefulWidget {
+  const EnglishCoursePage({super.key});
 
   @override
-  State<CoursePage> createState() => _CoursePageState();
+  State<EnglishCoursePage> createState() => _EnglishCoursePageState();
 }
 
-class _CoursePageState extends State<CoursePage> with SingleTickerProviderStateMixin {
+class _EnglishCoursePageState extends State<EnglishCoursePage>
+    with SingleTickerProviderStateMixin {
   late ScrollController _scrollController;
   late AnimationController _pinFloatController;
 
   @override
   void initState() {
     super.initState();
-    // Scroll to the bottom after layout to show START
     _scrollController = ScrollController();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (_scrollController.hasClients) {
@@ -28,7 +29,6 @@ class _CoursePageState extends State<CoursePage> with SingleTickerProviderStateM
       }
     });
 
-    // Pin floating animation
     _pinFloatController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 1000),
@@ -42,6 +42,7 @@ class _CoursePageState extends State<CoursePage> with SingleTickerProviderStateM
     super.dispose();
   }
 
+
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
@@ -50,23 +51,21 @@ class _CoursePageState extends State<CoursePage> with SingleTickerProviderStateM
     const int totalSteps = 13;
 
     return Container(
-      color: AppColors.backgroundSoft, // matching #F3EEFB
+      color: const Color(0xFFF0F4FF), // English blue-tinted background
       child: SafeArea(
         bottom: false,
         child: Stack(
           children: [
             SingleChildScrollView(
               controller: _scrollController,
-              padding: const EdgeInsets.only(bottom: 120, top: 40), // extra padding for bottom nav
+              padding: const EdgeInsets.only(bottom: 120, top: 40),
               child: SizedBox(
                 height: 1250,
                 width: screenWidth,
                 child: Stack(
                   clipBehavior: Clip.none,
                   children: [
-                    // ─────────────────────────────────────────────────────────
-                    // START TEXT & DIVIDER LINES (Below the first tile)
-                    // ─────────────────────────────────────────────────────────
+                    // ── START label ──────────────────────────────────────────
                     Positioned(
                       bottom: 40,
                       left: 0,
@@ -77,16 +76,16 @@ class _CoursePageState extends State<CoursePage> with SingleTickerProviderStateM
                           Container(
                             width: screenWidth * 0.3,
                             height: 1.5,
-                            color: const Color(0xFFD4C4F0),
+                            color: const Color(0xFFB8C7F0),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 16),
                             child: Text(
                               'START',
                               style: TextStyle(
                                 fontSize: 13,
                                 fontWeight: FontWeight.w800,
-                                color: AppColors.secondaryText,
+                                color: Color(0xFF8FA3D0),
                                 letterSpacing: 1.5,
                               ),
                             ),
@@ -94,21 +93,18 @@ class _CoursePageState extends State<CoursePage> with SingleTickerProviderStateM
                           Container(
                             width: screenWidth * 0.3,
                             height: 1.5,
-                            color: const Color(0xFFD4C4F0),
+                            color: const Color(0xFFB8C7F0),
                           ),
                         ],
                       ),
                     ),
 
-                    // ─────────────────────────────────────────────────────────
-                    // ZIG-ZAG STEPPING STONES PATH
-                    // ─────────────────────────────────────────────────────────
+                    // ── Zig-zag tiles ────────────────────────────────────────
                     ...List.generate(totalSteps, (index) {
-                      // Calculate path positions using a math curve
                       final double y = 1100 - (index * 82.0);
-                      // Zig-zag offset function
                       final double xOffset = math.sin(index * 0.8) * 85.0;
-                      final double x = (screenWidth / 2) - (tileWidth / 2) + xOffset;
+                      final double x =
+                          (screenWidth / 2) - (tileWidth / 2) + xOffset;
 
                       final int unlockedPart = QuizProgress.unlockedPart;
                       final int mapUnlocked = QuizProgress.getMapUnlocked(unlockedPart);
@@ -120,7 +116,7 @@ class _CoursePageState extends State<CoursePage> with SingleTickerProviderStateM
                       return Positioned(
                         left: x,
                         top: y,
-                        child: _InteractiveTile(
+                        child: _EnglishTile(
                           width: tileWidth,
                           height: tileHeight,
                           isLocked: isLocked,
@@ -129,47 +125,35 @@ class _CoursePageState extends State<CoursePage> with SingleTickerProviderStateM
                           onTap: () {
                             if (!isLocked) {
                               if (index == 0) {
-                                // Node 1: Lesson Summary
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute<void>(
-                                    builder: (_) => const LessonDetailScreen(part: 1),
-                                  ),
+                                      builder: (_) => const EnglishLessonDetailScreen(part: 1)),
                                 ).then((_) => setState(() {}));
                               } else if (index == 1) {
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute<void>(
-                                    builder: (_) => const QuizIntroScreen(boxLevel: 2),
-                                  ),
+                                  MaterialPageRoute<void>(builder: (_) => const QuizIntroScreen(boxLevel: 2)),
                                 ).then((_) => setState(() {}));
                               } else if (index == 2) {
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute<void>(
-                                    builder: (_) => const QuizIntroScreen(boxLevel: 3),
-                                  ),
+                                  MaterialPageRoute<void>(builder: (_) => const QuizIntroScreen(boxLevel: 3)),
                                 ).then((_) => setState(() {}));
                               } else if (index == 3) {
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute<void>(
-                                    builder: (_) => const FunFactScreen(part: 4),
-                                  ),
+                                  MaterialPageRoute<void>(builder: (_) => const FunFactScreen(part: 4)),
                                 ).then((_) => setState(() {}));
                               } else if (index == 4) {
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute<void>(
-                                    builder: (_) => const QuizIntroScreen(boxLevel: 5),
-                                  ),
+                                  MaterialPageRoute<void>(builder: (_) => const QuizIntroScreen(boxLevel: 5)),
                                 ).then((_) => setState(() {}));
                               } else if (index == 5) {
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute<void>(
-                                    builder: (_) => const QuizIntroScreen(boxLevel: 6),
-                                  ),
+                                  MaterialPageRoute<void>(builder: (_) => const QuizIntroScreen(boxLevel: 6)),
                                 ).then((_) => setState(() {}));
                               } else {
                                 ScaffoldMessenger.of(context).showSnackBar(
@@ -185,9 +169,7 @@ class _CoursePageState extends State<CoursePage> with SingleTickerProviderStateM
                       );
                     }),
 
-                    // ─────────────────────────────────────────────────────────
-                    // BOBBING MAP PIN MARKER (On the active Level 1 node)
-                    // ─────────────────────────────────────────────────────────
+                    // ── Bobbing map pin ──────────────────────────────────────
                     AnimatedBuilder(
                       animation: _pinFloatController,
                       builder: (context, child) {
@@ -196,58 +178,48 @@ class _CoursePageState extends State<CoursePage> with SingleTickerProviderStateM
                         final int pinIndex = mapUnlocked - 1;
 
                         final double y = 1100 - (pinIndex * 82.0);
-                        final double xOffset = math.sin(pinIndex * 0.8) * 85.0;
+                        final double xOffset =
+                            math.sin(pinIndex * 0.8) * 85.0;
                         final double x = (screenWidth / 2) + xOffset;
-
-                        // Bobbing offset
-                        final floatOffset = math.sin(_pinFloatController.value * math.pi) * 8.0;
+                        final floatOffset =
+                            math.sin(_pinFloatController.value * math.pi) *
+                                8.0;
 
                         return Positioned(
-                          left: x - 18, // center horizontally on tile (half of 36)
-                          top: y - 36 + floatOffset, // sit right on the tile
+                          left: x - 18,
+                          top: y - 36 + floatOffset,
                           child: GestureDetector(
                             onTap: () {
                               if (unlocked == 1) {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute<void>(
-                                    builder: (_) => const LessonDetailScreen(part: 1),
-                                  ),
+                                      builder: (_) => const EnglishLessonDetailScreen(part: 1)),
                                 ).then((_) => setState(() {}));
                               } else if (unlocked >= 2 && unlocked <= 4) {
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute<void>(
-                                    builder: (_) => const QuizIntroScreen(boxLevel: 2),
-                                  ),
+                                  MaterialPageRoute<void>(builder: (_) => const QuizIntroScreen(boxLevel: 2)),
                                 ).then((_) => setState(() {}));
                               } else if (unlocked >= 5 && unlocked <= 7) {
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute<void>(
-                                    builder: (_) => const QuizIntroScreen(boxLevel: 3),
-                                  ),
+                                  MaterialPageRoute<void>(builder: (_) => const QuizIntroScreen(boxLevel: 3)),
                                 ).then((_) => setState(() {}));
                               } else if (unlocked == 8) {
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute<void>(
-                                    builder: (_) => const FunFactScreen(part: 4),
-                                  ),
+                                  MaterialPageRoute<void>(builder: (_) => const FunFactScreen(part: 4)),
                                 ).then((_) => setState(() {}));
                               } else if (unlocked >= 9 && unlocked <= 11) {
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute<void>(
-                                    builder: (_) => const QuizIntroScreen(boxLevel: 5),
-                                  ),
+                                  MaterialPageRoute<void>(builder: (_) => const QuizIntroScreen(boxLevel: 5)),
                                 ).then((_) => setState(() {}));
                               } else if (unlocked >= 12 && unlocked <= 14) {
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute<void>(
-                                    builder: (_) => const QuizIntroScreen(boxLevel: 6),
-                                  ),
+                                  MaterialPageRoute<void>(builder: (_) => const QuizIntroScreen(boxLevel: 6)),
                                 ).then((_) => setState(() {}));
                               } else {
                                 ScaffoldMessenger.of(context).showSnackBar(
@@ -264,7 +236,7 @@ class _CoursePageState extends State<CoursePage> with SingleTickerProviderStateM
                                 const Icon(
                                   Icons.location_on_rounded,
                                   size: 36,
-                                  color: AppColors.primaryPurple,
+                                  color: Color(0xFF3B5BDB),
                                 ),
                                 Positioned(
                                   top: 7,
@@ -294,7 +266,10 @@ class _CoursePageState extends State<CoursePage> with SingleTickerProviderStateM
   }
 }
 
-class _InteractiveTile extends StatefulWidget {
+// ─────────────────────────────────────────────────────────────────────────────
+// English tile — same geometry as Korean but with blue palette
+// ─────────────────────────────────────────────────────────────────────────────
+class _EnglishTile extends StatefulWidget {
   final double width;
   final double height;
   final bool isLocked;
@@ -302,7 +277,7 @@ class _InteractiveTile extends StatefulWidget {
   final bool showArrow;
   final VoidCallback onTap;
 
-  const _InteractiveTile({
+  const _EnglishTile({
     required this.width,
     required this.height,
     required this.isLocked,
@@ -312,45 +287,44 @@ class _InteractiveTile extends StatefulWidget {
   });
 
   @override
-  State<_InteractiveTile> createState() => _InteractiveTileState();
+  State<_EnglishTile> createState() => _EnglishTileState();
 }
 
-class _InteractiveTileState extends State<_InteractiveTile> with SingleTickerProviderStateMixin {
-  late AnimationController _pressController;
-  late Animation<double> _scaleAnimation;
+class _EnglishTileState extends State<_EnglishTile>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _pressCtrl;
+  late Animation<double> _scale;
 
   @override
   void initState() {
     super.initState();
-    _pressController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 100),
-    );
-    _scaleAnimation = Tween<double>(begin: 1.0, end: 0.92).animate(_pressController);
+    _pressCtrl = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 100));
+    _scale = Tween<double>(begin: 1.0, end: 0.92).animate(_pressCtrl);
   }
 
   @override
   void dispose() {
-    _pressController.dispose();
+    _pressCtrl.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return ScaleTransition(
-      scale: _scaleAnimation,
+      scale: _scale,
       child: GestureDetector(
-        onTapDown: (_) => widget.isLocked ? null : _pressController.forward(),
+        onTapDown: (_) => widget.isLocked ? null : _pressCtrl.forward(),
         onTapUp: (_) {
           if (!widget.isLocked) {
-            _pressController.reverse();
+            _pressCtrl.reverse();
             widget.onTap();
           }
         },
-        onTapCancel: () => widget.isLocked ? null : _pressController.reverse(),
+        onTapCancel: () => widget.isLocked ? null : _pressCtrl.reverse(),
         child: CustomPaint(
-          size: Size(widget.width, widget.height + 15), // add extra height for 3D depth
-          painter: _IsometricTilePainter(
+          size: Size(widget.width, widget.height + 15),
+          painter: _EnglishTilePainter(
             isLocked: widget.isLocked,
             isActive: widget.isActive,
             showArrow: widget.showArrow,
@@ -361,12 +335,12 @@ class _InteractiveTileState extends State<_InteractiveTile> with SingleTickerPro
   }
 }
 
-class _IsometricTilePainter extends CustomPainter {
+class _EnglishTilePainter extends CustomPainter {
   final bool isLocked;
   final bool isActive;
   final bool showArrow;
 
-  _IsometricTilePainter({
+  const _EnglishTilePainter({
     required this.isLocked,
     required this.isActive,
     required this.showArrow,
@@ -375,64 +349,62 @@ class _IsometricTilePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final double w = size.width;
-    final double h = size.height - 12; // reserving 12px for depth
+    final double h = size.height - 12;
     final double depth = 10;
     final double cX = w / 2;
     final double cY = h / 2;
 
-    // Define colors based on state
     Color topColor;
     Color sideLeftColor;
     Color sideRightColor;
 
     if (isLocked) {
-      // Locked/grey tile matching the mockup exactly
-      topColor = const Color(0xFFC0B9D1);
-      sideLeftColor = const Color(0xFFAEA7C0);
-      sideRightColor = const Color(0xFF9E97B1);
+      // Grey-blue locked tiles
+      topColor = const Color(0xFFBEC8E4);
+      sideLeftColor = const Color(0xFFADB8D4);
+      sideRightColor = const Color(0xFF9DAAC4);
     } else {
-      // Unlocked or start/active node tile matching the mockup exactly
-      topColor = const Color(0xFFB9ACE3);
-      sideLeftColor = const Color(0xFFA79AD1);
-      sideRightColor = const Color(0xFF9689C0);
+      // Unlocked — blue palette
+      topColor = const Color(0xFF7FA7E8);
+      sideLeftColor = const Color(0xFF6090D4);
+      sideRightColor = const Color(0xFF5080C0);
     }
 
-    final Paint fillPaint = Paint()..style = PaintingStyle.fill;
-    
-    // Glowing border styles (neon styling)
-    final Paint borderPaint = Paint()
+    final fillPaint = Paint()..style = PaintingStyle.fill;
+    final borderPaint = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1.5
       ..strokeJoin = StrokeJoin.round
       ..color = Colors.white.withOpacity(0.95);
-
-    final Paint edgeGlowPaint = Paint()
+    final edgeGlowPaint = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = 3.5
       ..strokeJoin = StrokeJoin.round
-      ..color = const Color(0xFFE4D9F6).withOpacity(0.6)
+      ..color = const Color(0xFFADC8F6).withOpacity(0.6)
       ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 1.5);
 
-    // ── Ambient Glow (Active/Unlocked) ───────────────────────────────────────
+    // Ambient glow for unlocked tiles
     if (!isLocked) {
-      final Paint glowPaint = Paint()
-        ..color = const Color(0xFFB9ACE3).withOpacity(0.45)
-        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 14);
       canvas.drawOval(
-        Rect.fromCenter(center: Offset(cX, cY + 4), width: w * 1.15, height: h * 1.15),
-        glowPaint,
+        Rect.fromCenter(
+            center: Offset(cX, cY + 4), width: w * 1.15, height: h * 1.15),
+        Paint()
+          ..color = const Color(0xFF5B8AE8).withOpacity(0.35)
+          ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 14),
       );
     }
 
-    // ── Drop Shadow (Standard) ───────────────────────────────────────────────
-    final Paint shadowPaint = Paint()..color = const Color(0xFF1C1135).withOpacity(0.06);
+    // Drop shadow
     canvas.drawOval(
-      Rect.fromCenter(center: Offset(cX, cY + depth + 4), width: w * 0.95, height: h * 0.95),
-      shadowPaint,
+      Rect.fromCenter(
+          center: Offset(cX, cY + depth + 4),
+          width: w * 0.95,
+          height: h * 0.95),
+      Paint()..color = const Color(0xFF1C1135).withOpacity(0.06),
     );
 
-    // ── Left Side Face (3D Depth) ────────────────────────────────────────────
-    final Path leftSide = Path()
+    // Left side
+    final leftSide = Path()
       ..moveTo(0, cY)
       ..lineTo(cX, h)
       ..lineTo(cX, h + depth)
@@ -441,8 +413,8 @@ class _IsometricTilePainter extends CustomPainter {
     fillPaint.color = sideLeftColor;
     canvas.drawPath(leftSide, fillPaint);
 
-    // ── Right Side Face (3D Depth) ───────────────────────────────────────────
-    final Path rightSide = Path()
+    // Right side
+    final rightSide = Path()
       ..moveTo(cX, h)
       ..lineTo(w, cY)
       ..lineTo(w, cY + depth)
@@ -451,8 +423,8 @@ class _IsometricTilePainter extends CustomPainter {
     fillPaint.color = sideRightColor;
     canvas.drawPath(rightSide, fillPaint);
 
-    // ── Top Face Rhombus ─────────────────────────────────────────────────────
-    final Path topFace = Path()
+    // Top face
+    final topFace = Path()
       ..moveTo(cX, 0)
       ..lineTo(w, cY)
       ..lineTo(cX, h)
@@ -460,62 +432,56 @@ class _IsometricTilePainter extends CustomPainter {
       ..close();
     fillPaint.color = topColor;
     canvas.drawPath(topFace, fillPaint);
-    
-    // Draw neon border glow first, then sharp border on top
     canvas.drawPath(topFace, edgeGlowPaint);
     canvas.drawPath(topFace, borderPaint);
 
-    // ── Draw Bottom Glowing Highlight Edge ────────────────────────────────────
-    final Paint bottomGlowPaint = Paint()
+    // Bottom highlight
+    final bottomHL = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = 4.0
-      ..strokeJoin = StrokeJoin.round
       ..strokeCap = StrokeCap.round
       ..color = isLocked
-          ? const Color(0xFFD6D3DF).withOpacity(0.2)
-          : const Color(0xFFE4D9F6).withOpacity(0.5)
+          ? const Color(0xFFD6DCEC).withOpacity(0.2)
+          : const Color(0xFFADC8F6).withOpacity(0.5)
       ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 2.0);
-
-    final Paint highlightPaint = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 2.0
-      ..strokeJoin = StrokeJoin.round
-      ..strokeCap = StrokeCap.round
-      ..color = isLocked
-          ? const Color(0xFFD6D3DF).withOpacity(0.4)
-          : const Color(0xFFE4D9F6).withOpacity(0.9);
-
-    final Path bottomHighlight = Path()
+    final bottomLine = Path()
       ..moveTo(0, cY + depth)
       ..lineTo(cX, h + depth)
       ..lineTo(w, cY + depth);
+    canvas.drawPath(bottomLine, bottomHL);
+    canvas.drawPath(
+      bottomLine,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 2.0
+        ..strokeCap = StrokeCap.round
+        ..color = isLocked
+            ? const Color(0xFFD6DCEC).withOpacity(0.4)
+            : const Color(0xFFADC8F6).withOpacity(0.9),
+    );
 
-    // Draw neon bottom glow, then sharp highlight line on top
-    canvas.drawPath(bottomHighlight, bottomGlowPaint);
-    canvas.drawPath(bottomHighlight, highlightPaint);
-
-    // ── Draw Double Chevron inside first tile ─────────────────────────────────
+    // Chevron arrows on start tile
     if (showArrow) {
-      final Paint arrowPaint = Paint()
+      final arrowPaint = Paint()
         ..color = Colors.white
         ..style = PaintingStyle.stroke
         ..strokeWidth = 3.5
         ..strokeCap = StrokeCap.round
         ..strokeJoin = StrokeJoin.round;
-
-      // Draw outer chevron pointing up-right
-      final Path chevron1 = Path()
-        ..moveTo(cX - 1, cY - 7)
-        ..lineTo(cX + 7, cY - 3)
-        ..lineTo(cX + 3, cY + 5);
-      canvas.drawPath(chevron1, arrowPaint);
-
-      // Draw inner chevron pointing up-right (nested behind)
-      final Path chevron2 = Path()
-        ..moveTo(cX - 9, cY - 3)
-        ..lineTo(cX - 1, cY + 1)
-        ..lineTo(cX - 5, cY + 9);
-      canvas.drawPath(chevron2, arrowPaint);
+      canvas.drawPath(
+        Path()
+          ..moveTo(cX - 1, cY - 7)
+          ..lineTo(cX + 7, cY - 3)
+          ..lineTo(cX + 3, cY + 5),
+        arrowPaint,
+      );
+      canvas.drawPath(
+        Path()
+          ..moveTo(cX - 9, cY - 3)
+          ..lineTo(cX - 1, cY + 1)
+          ..lineTo(cX - 5, cY + 9),
+        arrowPaint,
+      );
     }
   }
 

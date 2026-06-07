@@ -1,46 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:linguago_flutter/core/constants/colors.dart';
-import 'package:linguago_flutter/core/constants/language_preference.dart';
 import 'package:linguago_flutter/core/constants/quiz_state.dart';
-import 'package:linguago_flutter/ui/pages/home_page_english.dart';
 import 'package:linguago_flutter/ui/screens/streak/streak_screen.dart';
-import 'package:linguago_flutter/ui/screens/listening/listening_category_screen.dart' as linguago_flutter_listening;
-import 'package:linguago_flutter/ui/screens/script/script_category_screen.dart' as linguago_flutter_script;
+import 'package:linguago_flutter/ui/screens/listening/english_listening_category_screen.dart';
+import 'package:linguago_flutter/ui/screens/script/english_script_category_screen.dart';
 import 'package:linguago_flutter/ui/screens/quiz/quiz_intro_screen.dart';
-import 'package:linguago_flutter/ui/pages/lesson_detail_screen.dart';
+import 'package:linguago_flutter/ui/pages/english_lesson_detail_screen.dart';
 import 'package:linguago_flutter/ui/screens/quiz/fun_fact_screen.dart';
 import 'package:linguago_flutter/ui/screens/quiz/quiz_screen.dart';
 
-/// Home Page — reactive wrapper yang switch antara English & Korean homepage
-/// berdasarkan LanguagePreference. Default: English (untuk user baru).
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+/// English Homepage — shown when learning language is set to English.
+class HomePageEnglish extends StatefulWidget {
+  const HomePageEnglish({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return ValueListenableBuilder<String>(
-      valueListenable: LanguagePreference.learningLanguage,
-      builder: (context, lang, _) {
-        if (lang == 'Korean') {
-          return const _KoreanHomePage();
-        }
-        // Default: English
-        return const HomePageEnglish();
-      },
-    );
-  }
+  State<HomePageEnglish> createState() => _HomePageEnglishState();
 }
 
-/// Korean homepage content (original homepage).
-class _KoreanHomePage extends StatefulWidget {
-  const _KoreanHomePage();
-
-  @override
-  State<_KoreanHomePage> createState() => _KoreanHomePageState();
-}
-
-class _KoreanHomePageState extends State<_KoreanHomePage> {
+class _HomePageEnglishState extends State<HomePageEnglish> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -49,17 +27,17 @@ class _KoreanHomePageState extends State<_KoreanHomePage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: 16),
-          _UserHeader(context: context),
+          _UserHeaderEn(context: context),
           const SizedBox(height: 12),
-          const _ExpBar(current: 400, total: 1000),
+          const _ExpBarEn(current: 400, total: 1000),
           const SizedBox(height: 16),
-          const _StatsRow(),
+          const _StatsRowEn(),
           const SizedBox(height: 16),
-          const _DailyCheckInCard(),
+          const _DailyCheckInCardEn(),
           const SizedBox(height: 16),
-          const _ContinueStudyingCard(),
+          const _ContinueStudyingCardEn(),
           const SizedBox(height: 24),
-          _SectionHeader(
+          _SectionHeaderEn(
             title: 'Friends',
             action: const Icon(
               Icons.chevron_right_rounded,
@@ -68,13 +46,13 @@ class _KoreanHomePageState extends State<_KoreanHomePage> {
             ),
           ),
           const SizedBox(height: 12),
-          const _FriendsList(),
+          const _FriendsListEn(),
           const SizedBox(height: 24),
-          _SectionHeader(title: 'Quick Actions'),
+          _SectionHeaderEn(title: 'Quick Actions'),
           const SizedBox(height: 12),
-          _QuickActions(onRefresh: () => setState(() {})),
+          _QuickActionsEn(onRefresh: () => setState(() {})),
           const SizedBox(height: 24),
-          const _LevelMapCard(),
+          const _LevelMapCardEn(),
           const SizedBox(height: 8),
         ],
       ),
@@ -83,11 +61,11 @@ class _KoreanHomePageState extends State<_KoreanHomePage> {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// USER HEADER
+// USER HEADER (English)
 // ─────────────────────────────────────────────────────────────────────────────
-class _UserHeader extends StatelessWidget {
+class _UserHeaderEn extends StatelessWidget {
   final BuildContext context;
-  const _UserHeader({required this.context});
+  const _UserHeaderEn({required this.context});
 
   @override
   Widget build(BuildContext _) {
@@ -133,10 +111,10 @@ class _UserHeader extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 6),
-                  const Text('🎧', style: TextStyle(fontSize: 16)),
-                  const Text('♪',
+                  const Text('📚', style: TextStyle(fontSize: 16)),
+                  const Text('✦',
                       style: TextStyle(fontSize: 14, color: Color(0xFF9B75DC))),
-                  const Text(' ☆',
+                  const Text(' ★',
                       style: TextStyle(
                           fontSize: 14, color: Color(0xFFFFB300))),
                 ],
@@ -161,7 +139,8 @@ class _UserHeader extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 6),
-                  const Text('🇰🇷', style: TextStyle(fontSize: 16)),
+                  // English flag
+                  const Text('🇬🇧', style: TextStyle(fontSize: 16)),
                 ],
               ),
             ],
@@ -218,13 +197,13 @@ class _UserHeader extends StatelessWidget {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// EXP BAR
+// EXP BAR (English)
 // ─────────────────────────────────────────────────────────────────────────────
-class _ExpBar extends StatelessWidget {
+class _ExpBarEn extends StatelessWidget {
   final int current;
   final int total;
 
-  const _ExpBar({required this.current, required this.total});
+  const _ExpBarEn({required this.current, required this.total});
 
   @override
   Widget build(BuildContext context) {
@@ -280,10 +259,10 @@ class _ExpBar extends StatelessWidget {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// STATS ROW
+// STATS ROW (English)
 // ─────────────────────────────────────────────────────────────────────────────
-class _StatsRow extends StatelessWidget {
-  const _StatsRow();
+class _StatsRowEn extends StatelessWidget {
+  const _StatsRowEn();
 
   @override
   Widget build(BuildContext context) {
@@ -309,21 +288,21 @@ class _StatsRow extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            _StatChip(
+            _StatChipEn(
               icon: '❤️',
               label: 'Heart',
               value: '5 / 5',
               iconBg: const Color(0xFFFFF0F0),
             ),
-            _VertDivider(),
-            _StatChip(
+            _VertDividerEn(),
+            _StatChipEn(
               icon: '🔥',
               label: 'Streak',
               value: '1 Days',
               iconBg: const Color(0xFFFFF4EC),
             ),
-            _VertDivider(),
-            _StatChip(
+            _VertDividerEn(),
+            _StatChipEn(
               icon: '🪙',
               label: 'Reward',
               value: '10 Coins',
@@ -336,13 +315,13 @@ class _StatsRow extends StatelessWidget {
   }
 }
 
-class _StatChip extends StatelessWidget {
+class _StatChipEn extends StatelessWidget {
   final String icon;
   final String label;
   final String value;
   final Color iconBg;
 
-  const _StatChip({
+  const _StatChipEn({
     required this.icon,
     required this.label,
     required this.value,
@@ -379,17 +358,17 @@ class _StatChip extends StatelessWidget {
   }
 }
 
-class _VertDivider extends StatelessWidget {
+class _VertDividerEn extends StatelessWidget {
   @override
   Widget build(BuildContext context) =>
       Container(width: 1, height: 36, color: AppColors.disableBorder);
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// DAILY CHECK-IN CARD
+// DAILY CHECK-IN CARD (English)
 // ─────────────────────────────────────────────────────────────────────────────
-class _DailyCheckInCard extends StatelessWidget {
-  const _DailyCheckInCard();
+class _DailyCheckInCardEn extends StatelessWidget {
+  const _DailyCheckInCardEn();
 
   static const List<Map<String, dynamic>> _days = [
     {'day': 'Day 1', 'reward': '10 XP', 'icon': '🪙', 'done': true},
@@ -442,7 +421,7 @@ class _DailyCheckInCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: _days
-                .map((d) => _DayTile(
+                .map((d) => _DayTileEn(
                       day: d['day'] as String,
                       reward: d['reward'] as String,
                       icon: d['icon'] as String,
@@ -456,13 +435,13 @@ class _DailyCheckInCard extends StatelessWidget {
   }
 }
 
-class _DayTile extends StatelessWidget {
+class _DayTileEn extends StatelessWidget {
   final String day;
   final String reward;
   final String icon;
   final bool done;
 
-  const _DayTile(
+  const _DayTileEn(
       {required this.day,
       required this.reward,
       required this.icon,
@@ -508,24 +487,25 @@ class _DayTile extends StatelessWidget {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// CONTINUE STUDYING CARD
+// CONTINUE STUDYING CARD (English)
 // ─────────────────────────────────────────────────────────────────────────────
-class _ContinueStudyingCard extends StatelessWidget {
-  const _ContinueStudyingCard();
+class _ContinueStudyingCardEn extends StatelessWidget {
+  const _ContinueStudyingCardEn();
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
+        // Blue-ish gradient for English to visually differ from Korean purple
         gradient: const LinearGradient(
-          colors: [Color(0xFF8C65D1), Color(0xFFAA86E7)],
+          colors: [Color(0xFF5B7BE1), Color(0xFF7B9AEE)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(22),
         boxShadow: [
           BoxShadow(
-            color: AppColors.primaryPurple.withOpacity(0.35),
+            color: const Color(0xFF5B7BE1).withOpacity(0.35),
             blurRadius: 16,
             offset: const Offset(0, 6),
           ),
@@ -561,13 +541,16 @@ class _ContinueStudyingCard extends StatelessWidget {
             ),
             child: Row(
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(12),
-                  child: SvgPicture.asset(
-                    'assets/Frame 1000002206.svg',
-                    width: 80,
-                    height: 80,
-                    fit: BoxFit.cover,
+                // English-themed thumbnail placeholder
+                Container(
+                  width: 80,
+                  height: 80,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    color: Colors.white.withOpacity(0.22),
+                  ),
+                  child: const Center(
+                    child: Text('🇬🇧', style: TextStyle(fontSize: 38)),
                   ),
                 ),
                 const SizedBox(width: 12),
@@ -586,7 +569,7 @@ class _ContinueStudyingCard extends StatelessWidget {
                             style: TextStyle(
                                 fontSize: 10,
                                 fontWeight: FontWeight.w700,
-                                color: AppColors.primaryPurple)),
+                                color: Color(0xFF5B7BE1))),
                       ),
                       const SizedBox(height: 6),
                       const Text('Daily Conversation',
@@ -627,7 +610,8 @@ class _ContinueStudyingCard extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute<void>(
-                                builder: (_) => const LessonDetailScreen(part: 1),
+                                builder: (_) =>
+                                    const EnglishLessonDetailScreen(part: 1),
                               ),
                             );
                           } else if (unlocked == 2) {
@@ -744,10 +728,10 @@ class _ContinueStudyingCard extends StatelessWidget {
                                   style: TextStyle(
                                       fontSize: 11,
                                       fontWeight: FontWeight.w700,
-                                      color: AppColors.primaryPurple)),
+                                      color: const Color(0xFF5B7BE1))),
                               const SizedBox(width: 4),
                               const Icon(Icons.play_arrow_rounded,
-                                  color: AppColors.primaryPurple, size: 14),
+                                  color: Color(0xFF5B7BE1), size: 14),
                             ],
                           ),
                         ),
@@ -765,13 +749,13 @@ class _ContinueStudyingCard extends StatelessWidget {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// SECTION HEADER
+// SECTION HEADER (English)
 // ─────────────────────────────────────────────────────────────────────────────
-class _SectionHeader extends StatelessWidget {
+class _SectionHeaderEn extends StatelessWidget {
   final String title;
   final Widget? action;
 
-  const _SectionHeader({required this.title, this.action});
+  const _SectionHeaderEn({required this.title, this.action});
 
   @override
   Widget build(BuildContext context) {
@@ -792,10 +776,10 @@ class _SectionHeader extends StatelessWidget {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// FRIENDS LIST
+// FRIENDS LIST (English)
 // ─────────────────────────────────────────────────────────────────────────────
-class _FriendsList extends StatelessWidget {
-  const _FriendsList();
+class _FriendsListEn extends StatelessWidget {
+  const _FriendsListEn();
 
   static const List<Map<String, dynamic>> _friends = [
     {'name': 'nunu', 'color': Color(0xFF9B75DC)},
@@ -816,7 +800,7 @@ class _FriendsList extends StatelessWidget {
         separatorBuilder: (_, __) => const SizedBox(width: 16),
         itemBuilder: (context, i) {
           final f = _friends[i];
-          return _FriendItem(
+          return _FriendItemEn(
             name: f['name'] as String,
             color: f['color'] as Color,
           );
@@ -826,11 +810,11 @@ class _FriendsList extends StatelessWidget {
   }
 }
 
-class _FriendItem extends StatelessWidget {
+class _FriendItemEn extends StatelessWidget {
   final String name;
   final Color color;
 
-  const _FriendItem({required this.name, required this.color});
+  const _FriendItemEn({required this.name, required this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -871,11 +855,11 @@ class _FriendItem extends StatelessWidget {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// QUICK ACTIONS
+// QUICK ACTIONS (English)
 // ─────────────────────────────────────────────────────────────────────────────
-class _QuickActions extends StatelessWidget {
+class _QuickActionsEn extends StatelessWidget {
   final VoidCallback onRefresh;
-  const _QuickActions({required this.onRefresh});
+  const _QuickActionsEn({required this.onRefresh});
 
   @override
   Widget build(BuildContext context) {
@@ -884,7 +868,7 @@ class _QuickActions extends StatelessWidget {
     return Row(
       children: [
         Expanded(
-            child: _QuickActionCard(
+            child: _QuickActionCardEn(
                 icon: 'assets/material-symbols_mic.svg',
                 title: 'Listening',
                 subtitle: 'Listening Practice',
@@ -893,7 +877,8 @@ class _QuickActions extends StatelessWidget {
                   if (isListeningLocked) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
-                        content: Text('Please complete the Basic Quiz (Part 1) to unlock Listening!'),
+                        content: Text(
+                            'Please complete the Basic Quiz (Part 1) to unlock Listening!'),
                         behavior: SnackBarBehavior.floating,
                       ),
                     );
@@ -901,24 +886,26 @@ class _QuickActions extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute<void>(
-                          builder: (_) => const linguago_flutter_listening.ListeningCategoryScreen()),
+                          builder: (_) =>
+                              const EnglishListeningCategoryScreen()),
                     ).then((_) => onRefresh());
                   }
                 })),
         const SizedBox(width: 12),
         Expanded(
-            child: _QuickActionCard(
+            child: _QuickActionCardEn(
                 icon: 'assets/material-symbols_id-card-rounded.svg',
                 title: 'Script',
                 subtitle: 'Learning Letters',
                 onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute<void>(
-                          builder: (_) => const linguago_flutter_script.ScriptCategoryScreen()),
+                          builder: (_) =>
+                              const EnglishScriptCategoryScreen()),
                     ).then((_) => onRefresh()))),
         const SizedBox(width: 12),
         Expanded(
-            child: _QuickActionCard(
+            child: _QuickActionCardEn(
                 icon: 'assets/mingcute_game-2-fill.svg',
                 title: 'Quiz',
                 subtitle: 'Practice Test',
@@ -932,14 +919,14 @@ class _QuickActions extends StatelessWidget {
   }
 }
 
-class _QuickActionCard extends StatelessWidget {
+class _QuickActionCardEn extends StatelessWidget {
   final String icon;
   final String title;
   final String subtitle;
   final bool isLocked;
   final VoidCallback onTap;
 
-  const _QuickActionCard({
+  const _QuickActionCardEn({
     required this.icon,
     required this.title,
     required this.subtitle,
@@ -987,7 +974,9 @@ class _QuickActionCard extends StatelessWidget {
                           width: 26,
                           height: 26,
                           colorFilter: ColorFilter.mode(
-                              isLocked ? AppColors.secondaryText : AppColors.primaryPurple,
+                              isLocked
+                                  ? AppColors.secondaryText
+                                  : AppColors.primaryPurple,
                               BlendMode.srcIn)),
                     ),
                   ),
@@ -1016,7 +1005,9 @@ class _QuickActionCard extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 13,
                     fontWeight: FontWeight.w700,
-                    color: isLocked ? AppColors.secondaryText : AppColors.primaryText)),
+                    color: isLocked
+                        ? AppColors.secondaryText
+                        : AppColors.primaryText)),
             const SizedBox(height: 2),
             Text(isLocked ? 'Locked' : subtitle,
                 textAlign: TextAlign.center,
@@ -1030,21 +1021,20 @@ class _QuickActionCard extends StatelessWidget {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// LEVEL MAP CARD
+// LEVEL MAP CARD (English)
 // ─────────────────────────────────────────────────────────────────────────────
-class _LevelMapCard extends StatefulWidget {
-  const _LevelMapCard();
+class _LevelMapCardEn extends StatefulWidget {
+  const _LevelMapCardEn();
 
   @override
-  State<_LevelMapCard> createState() => _LevelMapCardState();
+  State<_LevelMapCardEn> createState() => _LevelMapCardEnState();
 }
 
-class _LevelMapCardState extends State<_LevelMapCard>
+class _LevelMapCardEnState extends State<_LevelMapCardEn>
     with SingleTickerProviderStateMixin {
   late AnimationController _bobbingController;
   late Animation<double> _bobbingAnimation;
 
-  // Labels for each node (shown on long press or as tooltip)
   static const List<String> _nodeLabels = [
     'Lesson Summary',
     'Level 2 Quiz',
@@ -1097,7 +1087,6 @@ class _LevelMapCardState extends State<_LevelMapCard>
     final int unlocked = QuizProgress.unlockedPart;
 
     if (_isNodeLocked(nodeIndex, unlocked)) {
-      // Node is locked — show snackbar
       final String requiredLabel = _nodeLabels[nodeIndex - 1];
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -1108,13 +1097,11 @@ class _LevelMapCardState extends State<_LevelMapCard>
       return;
     }
 
-    // Navigate based on node index
     if (nodeIndex == 0) {
-      // Node 1 → Lesson Summary
       Navigator.push(
         context,
         MaterialPageRoute<void>(
-          builder: (_) => const LessonDetailScreen(part: 1),
+          builder: (_) => const EnglishLessonDetailScreen(part: 1),
         ),
       ).then((_) => setState(() {}));
     } else if (nodeIndex == 1) {
@@ -1132,7 +1119,6 @@ class _LevelMapCardState extends State<_LevelMapCard>
         ),
       ).then((_) => setState(() {}));
     } else if (nodeIndex == 3) {
-      // Node 4 → Fun Fact
       Navigator.push(
         context,
         MaterialPageRoute<void>(
@@ -1180,7 +1166,7 @@ class _LevelMapCardState extends State<_LevelMapCard>
           // ── Header ──────────────────────────────────────────────────────
           Row(
             children: [
-              const Text('📘', style: TextStyle(fontSize: 20)),
+              const Text('📖', style: TextStyle(fontSize: 20)),
               const SizedBox(width: 8),
               Expanded(
                 child: Column(
@@ -1229,7 +1215,6 @@ class _LevelMapCardState extends State<_LevelMapCard>
                 onTap: () => _onNodeTap(context, i),
                 child: Column(
                   children: [
-                    // ── Mascot (bobbing on active node) ─────────────────
                     if (isActive)
                       AnimatedBuilder(
                         animation: _bobbingAnimation,
@@ -1249,7 +1234,6 @@ class _LevelMapCardState extends State<_LevelMapCard>
                       const SizedBox(height: 36),
                     const SizedBox(height: 4),
 
-                    // ── Circle Node ──────────────────────────────────────
                     AnimatedContainer(
                       duration: const Duration(milliseconds: 300),
                       width: isActive ? 48 : 40,
@@ -1267,7 +1251,8 @@ class _LevelMapCardState extends State<_LevelMapCard>
                         boxShadow: isActive
                             ? [
                                 BoxShadow(
-                                  color: AppColors.primaryPurple.withOpacity(0.40),
+                                  color:
+                                      AppColors.primaryPurple.withOpacity(0.40),
                                   blurRadius: 10,
                                   offset: const Offset(0, 4),
                                 ),
