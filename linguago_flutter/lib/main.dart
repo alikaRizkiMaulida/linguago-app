@@ -20,7 +20,7 @@ void main() async {
   // Pakai font lokal dari pubspec.yaml — jangan download dari internet.
   GoogleFonts.config.allowRuntimeFetching = false;
   await QuizProgress.loadProgress();
-  runApp(const MyApp());   
+  runApp(const MyApp());
   
 }
 
