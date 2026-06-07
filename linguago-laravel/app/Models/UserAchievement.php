@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class UserAchievement extends Model
 {
     protected $table = 'user_achievements';
+    public $timestamps = false;
 
     protected $fillable = [
         'user_id',

@@ -1,350 +1,1086 @@
 [
-    {
-        "node_title": "ABC Song",
-        "quiz_title": "Quiz Alphabet Dasar",
-        "questions": [
-            {
-                "text": "Manakah yang merupakan huruf vokal?",
-                "explanation": "Huruf vokal terdiri dari A, E, I, O, U.",
-                "options": [
-                    { "text": "A", "is_correct": true },
-                    { "text": "B", "is_correct": false },
-                    { "text": "C", "is_correct": false }
-                ]
-            },
-            {
-                "text": "Berapakah jumlah huruf dalam alfabet bahasa Inggris?",
-                "explanation": "Alfabet A sampai Z berjumlah 26 huruf.",
-                "options": [
-                    { "text": "24", "is_correct": false },
-                    { "text": "26", "is_correct": true },
-                    { "text": "28", "is_correct": false }
-                ]
-            },
-            {
-                "text": "Huruf apakah yang mengikuti A dalam urutan alfabet?",
-                "explanation": "Urutan alfabet: A, B, C, D, ...",
-                "options": [
-                    { "text": "A", "is_correct": false },
-                    { "text": "B", "is_correct": true },
-                    { "text": "C", "is_correct": false }
-                ]
-            }
+  {
+    "node_title": "Quiz Level 1",
+    "quiz_title": "Quiz Level 1",
+    "questions": [
+      {
+        "text": "What is the common sound of the letter A in \"name\"?",
+        "explanation": "Huruf A pada kata \"name\" dibaca /eɪ/ (Ey).",
+        "options": [
+          { "text": "Ah", "is_correct": false },
+          { "text": "Ey", "is_correct": true },
+          { "text": "Ee", "is_correct": false },
+          { "text": "Oh", "is_correct": false }
         ]
-    },
-    {
-        "node_title": "Phonics Song",
-        "quiz_title": "Quiz Phonics Dasar",
-        "questions": [
-            {
-                "text": "Apa bunyi huruf 'B' dalam phonics?",
-                "explanation": "Huruf B berbunyi /b/ seperti pada kata 'ball'.",
-                "options": [
-                    { "text": "/b/", "is_correct": true },
-                    { "text": "/d/", "is_correct": false },
-                    { "text": "/p/", "is_correct": false }
-                ]
-            },
-            {
-                "text": "Kata 'cat' dimulai dengan huruf apa?",
-                "explanation": "Cat dimulai dengan huruf C yang berbunyi /k/.",
-                "options": [
-                    { "text": "K", "is_correct": false },
-                    { "text": "C", "is_correct": true },
-                    { "text": "Q", "is_correct": false }
-                ]
-            },
-            {
-                "text": "Manakah kata yang memiliki bunyi /ʃ/ (sh)?",
-                "explanation": "Kata 'ship' memiliki bunyi /ʃ/ di awalnya.",
-                "options": [
-                    { "text": "Ship", "is_correct": true },
-                    { "text": "Sip", "is_correct": false },
-                    { "text": "Chip", "is_correct": false }
-                ]
-            }
+      },
+      {
+        "text": "Which word has the A sound like in \"can\"?",
+        "explanation": "Kata \"bad\" memiliki bunyi vokal /æ/ yang sama dengan \"can\".",
+        "options": [
+          { "text": "care", "is_correct": false },
+          { "text": "car", "is_correct": false },
+          { "text": "bad", "is_correct": true },
+          { "text": "name", "is_correct": false }
         ]
-    },
-    {
-        "node_title": "Top 25 English Phrases",
-        "quiz_title": "Quiz Frasa Sehari-hari",
-        "questions": [
-            {
-                "text": "Bagaimana cara menyapa di pagi hari?",
-                "explanation": "'Good morning' adalah sapaan yang digunakan di pagi hari.",
-                "options": [
-                    { "text": "Good night", "is_correct": false },
-                    { "text": "Good morning", "is_correct": true },
-                    { "text": "Good bye", "is_correct": false }
-                ]
-            },
-            {
-                "text": "Apa arti dari 'How are you?'",
-                "explanation": "'How are you?' berarti 'Apa kabarmu?'",
-                "options": [
-                    { "text": "Siapa kamu?", "is_correct": false },
-                    { "text": "Apa kabarmu?", "is_correct": true },
-                    { "text": "Bagaimana caranya?", "is_correct": false }
-                ]
-            },
-            {
-                "text": "Bagaimana cara mengucapkan terima kasih dalam bahasa Inggris?",
-                "explanation": "'Thank you' adalah ungkapan terima kasih.",
-                "options": [
-                    { "text": "Sorry", "is_correct": false },
-                    { "text": "Please", "is_correct": false },
-                    { "text": "Thank you", "is_correct": true }
-                ]
-            },
-            {
-                "text": "Apa arti dari 'Nice to meet you'?",
-                "explanation": "'Nice to meet you' berarti 'Senang bertemu denganmu'.",
-                "options": [
-                    { "text": "Selamat tinggal", "is_correct": false },
-                    { "text": "Senang bertemu denganmu", "is_correct": true },
-                    { "text": "Sampai jumpa lagi", "is_correct": false }
-                ]
-            }
+      },
+      {
+        "text": "The letter C can sound like \"S\".",
+        "explanation": "Benar (True), huruf C dibaca /s/ (soft C) ketika diikuti e, i, atau y (contoh: city, cell).",
+        "options": [
+          { "text": "True", "is_correct": true },
+          { "text": "False", "is_correct": false }
         ]
-    },
-    {
-        "node_title": "Introduce Yourself in English",
-        "quiz_title": "Quiz Perkenalan Diri",
-        "questions": [
-            {
-                "text": "Lengkapi kalimat: 'Hello, my name ___ Budi.'",
-                "explanation": "To be 'is' digunakan untuk subjek tunggal (he, she, it, name).",
-                "options": [
-                    { "text": "am", "is_correct": false },
-                    { "text": "is", "is_correct": true },
-                    { "text": "are", "is_correct": false }
-                ]
-            },
-            {
-                "text": "Bagaimana cara menanyakan asal seseorang?",
-                "explanation": "'Where are you from?' berarti 'Dari mana asalmu?'",
-                "options": [
-                    { "text": "Where are you go?", "is_correct": false },
-                    { "text": "Where are you from?", "is_correct": true },
-                    { "text": "Where is you from?", "is_correct": false }
-                ]
-            },
-            {
-                "text": "Apa jawaban yang tepat untuk 'How old are you?'",
-                "explanation": "'I am 20 years old' menjawab pertanyaan tentang umur.",
-                "options": [
-                    { "text": "I am fine", "is_correct": false },
-                    { "text": "I am 20 years old", "is_correct": true },
-                    { "text": "I am from Jakarta", "is_correct": false }
-                ]
-            }
+      },
+      {
+        "text": "Which word has a silent \"K\"?",
+        "explanation": "Pada kata \"know\", huruf K tidak dibaca (silent K).",
+        "options": [
+          { "text": "king", "is_correct": false },
+          { "text": "kite", "is_correct": false },
+          { "text": "kid", "is_correct": false },
+          { "text": "know", "is_correct": true }
         ]
-    },
-    {
-        "node_title": "English Grammar for Beginners",
-        "quiz_title": "Quiz Grammar Dasar",
-        "questions": [
-            {
-                "text": "Subject pronoun untuk orang pertama tunggal adalah...",
-                "explanation": "'I' adalah subject pronoun untuk orang pertama tunggal.",
-                "options": [
-                    { "text": "I", "is_correct": true },
-                    { "text": "You", "is_correct": false },
-                    { "text": "We", "is_correct": false }
-                ]
-            },
-            {
-                "text": "Mana kalimat yang menggunakan 'to be' dengan benar?",
-                "explanation": "'She is a doctor' menggunakan 'is' yang tepat untuk she.",
-                "options": [
-                    { "text": "She are a doctor", "is_correct": false },
-                    { "text": "She is a doctor", "is_correct": true },
-                    { "text": "She am a doctor", "is_correct": false }
-                ]
-            },
-            {
-                "text": "Bentuk jamak dari 'child' adalah...",
-                "explanation": "'Children' adalah bentuk jamak tidak beraturan dari child.",
-                "options": [
-                    { "text": "Childs", "is_correct": false },
-                    { "text": "Childes", "is_correct": false },
-                    { "text": "Children", "is_correct": true }
-                ]
-            }
+      },
+      {
+        "text": "What sound can the letter \"C\" make?",
+        "explanation": "Huruf C dapat berbunyi /k/ (hard C seperti \"cat\") atau /s/ (soft C seperti \"city\").",
+        "options": [
+          { "text": "k/s", "is_correct": true },
+          { "text": "b/d", "is_correct": false },
+          { "text": "f/v", "is_correct": false },
+          { "text": "t/h", "is_correct": false }
         ]
-    },
-    {
-        "node_title": "Learn Simple Present Tense",
-        "quiz_title": "Quiz Simple Present Tense",
-        "questions": [
-            {
-                "text": "She ___ to school every day.",
-                "explanation": "Subject she (third person) membutuhkan verb + s/es: goes.",
-                "options": [
-                    { "text": "go", "is_correct": false },
-                    { "text": "goes", "is_correct": true },
-                    { "text": "going", "is_correct": false }
-                ]
-            },
-            {
-                "text": "They ___ English every Monday.",
-                "explanation": "Subject they (plural) menggunakan verb tanpa s: study.",
-                "options": [
-                    { "text": "studies", "is_correct": false },
-                    { "text": "study", "is_correct": true },
-                    { "text": "studying", "is_correct": false }
-                ]
-            },
-            {
-                "text": "Bentuk negatif dari 'He likes coffee' adalah...",
-                "explanation": "Does not (doesn't) + verb tanpa s: He doesn't like coffee.",
-                "options": [
-                    { "text": "He doesn't like coffee", "is_correct": true },
-                    { "text": "He don't like coffee", "is_correct": false },
-                    { "text": "He not likes coffee", "is_correct": false }
-                ]
-            }
+      }
+    ]
+  },
+  {
+    "node_title": "Quiz Level 2",
+    "quiz_title": "Quiz Level 2",
+    "questions": [
+      {
+        "text": "Which word has the \"SH\" sound?",
+        "explanation": "Kata \"show\" memiliki bunyi /ʃ/ (SH).",
+        "options": [
+          { "text": "show", "is_correct": true },
+          { "text": "sun", "is_correct": false },
+          { "text": "rose", "is_correct": false },
+          { "text": "bag", "is_correct": false }
         ]
-    },
-    {
-        "node_title": "Ordering Food in English",
-        "quiz_title": "Quiz Memesan Makanan",
-        "questions": [
-            {
-                "text": "Bagaimana cara memesan makanan dengan sopan?",
-                "explanation": "'I would like...' adalah ungkapan sopan untuk memesan.",
-                "options": [
-                    { "text": "Give me food!", "is_correct": false },
-                    { "text": "I would like a burger, please", "is_correct": true },
-                    { "text": "I want burger now", "is_correct": false }
-                ]
-            },
-            {
-                "text": "Apa arti 'Could I have the bill, please?'",
-                "explanation": "Kalimat ini berarti 'Bisa saya minta tagihannya?' saat ingin membayar.",
-                "options": [
-                    { "text": "Bisa saya minta menunya?", "is_correct": false },
-                    { "text": "Bisa saya minta tagihannya?", "is_correct": true },
-                    { "text": "Bisa saya minta air putih?", "is_correct": false }
-                ]
-            },
-            {
-                "text": "Apa yang dimaksud dengan 'check please' di restoran?",
-                "explanation": "'Check please' berarti minta tagihan untuk membayar.",
-                "options": [
-                    { "text": "Minta menu", "is_correct": false },
-                    { "text": "Minta tagihan", "is_correct": true },
-                    { "text": "Minta air", "is_correct": false }
-                ]
-            }
+      },
+      {
+        "text": "How is \"PH\" usually pronounced?",
+        "explanation": "Gabungan huruf \"PH\" biasanya dibaca /f/ seperti pada kata \"phone\".",
+        "options": [
+          { "text": "p", "is_correct": false },
+          { "text": "h", "is_correct": false },
+          { "text": "f", "is_correct": true },
+          { "text": "v", "is_correct": false }
         ]
-    },
-    {
-        "node_title": "Belajar Hangul Dasar",
-        "quiz_title": "Quiz Hangul Dasar",
-        "questions": [
-            {
-                "text": "Huruf vokal pertama dalam Hangul adalah...",
-                "explanation": "ㅏ (a) adalah vokal dasar pertama dalam Hangul.",
-                "options": [
-                    { "text": "ㅏ (a)", "is_correct": true },
-                    { "text": "ㅓ (eo)", "is_correct": false },
-                    { "text": "ㅗ (o)", "is_correct": false }
-                ]
-            },
-            {
-                "text": "Apa bunyi dari huruf konsonan 'ㄱ'?",
-                "explanation": "ㄱ berbunyi /g/ atau /k/ tergantung posisinya.",
-                "options": [
-                    { "text": "/n/", "is_correct": false },
-                    { "text": "/g/ atau /k/", "is_correct": true },
-                    { "text": "/m/", "is_correct": false }
-                ]
-            },
-            {
-                "text": "Bagaimana cara menulis 'Halo' dalam Hangul?",
-                "explanation": "Annyeonghaseyo (안녕하세요) adalah sapaan 'Halo' dalam bahasa Korea.",
-                "options": [
-                    { "text": "감사합니다", "is_correct": false },
-                    { "text": "안녕하세요", "is_correct": true },
-                    { "text": "죄송합니다", "is_correct": false }
-                ]
-            }
+      },
+      {
+        "text": "Complete the word with the correct letter sound: \"___iolin\" (Violin)",
+        "explanation": "Kata \"violin\" diawali dengan huruf V.",
+        "options": [
+          { "text": "s", "is_correct": false },
+          { "text": "b", "is_correct": false },
+          { "text": "v", "is_correct": true },
+          { "text": "g", "is_correct": false }
         ]
-    },
-    {
-        "node_title": "Salam & Ungkapan Dasar",
-        "quiz_title": "Quiz Salam Bahasa Korea",
-        "questions": [
-            {
-                "text": "Apa arti dari '안녕하세요' (Annyeonghaseyo)?",
-                "explanation": "Annyeonghaseyo berarti 'Halo' dalam bahasa Korea formal.",
-                "options": [
-                    { "text": "Selamat tinggal", "is_correct": false },
-                    { "text": "Halo", "is_correct": true },
-                    { "text": "Terima kasih", "is_correct": false }
-                ]
-            },
-            {
-                "text": "Bagaimana cara mengucapkan terima kasih dalam bahasa Korea?",
-                "explanation": "감사합니다 (Gamsahamnida) adalah ungkapan terima kasih formal.",
-                "options": [
-                    { "text": "감사합니다", "is_correct": true },
-                    { "text": "미안합니다", "is_correct": false },
-                    { "text": "네", "is_correct": false }
-                ]
-            },
-            {
-                "text": "Apa arti '네' (ne) dalam bahasa Korea?",
-                "explanation": "'Ne' berarti 'Ya' dalam bahasa Korea.",
-                "options": [
-                    { "text": "Tidak", "is_correct": false },
-                    { "text": "Ya", "is_correct": true },
-                    { "text": "Mungkin", "is_correct": false }
-                ]
-            },
-            {
-                "text": "Ucapan selamat tinggal dalam bahasa Korea adalah...",
-                "explanation": "안녕히 계세요 (Annyeonghi gyeseyo) untuk saat meninggalkan tempat.",
-                "options": [
-                    { "text": "안녕하세요", "is_correct": false },
-                    { "text": "안녕히 계세요", "is_correct": true },
-                    { "text": "감사합니다", "is_correct": false }
-                ]
-            }
+      },
+      {
+        "text": "What sound does the letter \"G\" make in \"page\"?",
+        "explanation": "Huruf G pada kata \"page\" dibaca /dʒ/ (soft G/J sound).",
+        "options": [
+          { "text": "g", "is_correct": false },
+          { "text": "j", "is_correct": true },
+          { "text": "k", "is_correct": false },
+          { "text": "s", "is_correct": false }
         ]
-    },
-    {
-        "node_title": "Angka Korea (Sino & Native)",
-        "quiz_title": "Quiz Angka Korea",
-        "questions": [
-            {
-                "text": "Angka 1 dalam sistem angka Sino-Korea adalah...",
-                "explanation": "일 (il) adalah angka 1 dalam Sino-Korea (digunakan untuk tanggal, uang).",
-                "options": [
-                    { "text": "하나 (hana)", "is_correct": false },
-                    { "text": "일 (il)", "is_correct": true },
-                    { "text": "둘 (dul)", "is_correct": false }
-                ]
-            },
-            {
-                "text": "Angka 3 dalam sistem angka asli Korea (Native) adalah...",
-                "explanation": "셋 (set) adalah angka 3 Native Korea (digunakan untuk hitungan benda).",
-                "options": [
-                    { "text": "삼 (sam)", "is_correct": false },
-                    { "text": "셋 (set)", "is_correct": true },
-                    { "text": "넷 (net)", "is_correct": false }
-                ]
-            },
-            {
-                "text": "Untuk menghitung umur, sistem angka apa yang digunakan?",
-                "explanation": "Keduanya bisa digunakan, Native Korea lebih umum untuk hitungan umum.",
-                "options": [
-                    { "text": "Sino-Korea saja", "is_correct": false },
-                    { "text": "Native Korea lebih umum", "is_correct": true },
-                    { "text": "Bahasa Inggris", "is_correct": false }
-                ]
-            }
+      },
+      {
+        "text": "English letter \"R\" is pronounced strongly like Indonesian R.",
+        "explanation": "Salah (False). Huruf R dalam Bahasa Inggris dilafalkan lembut tanpa getaran lidah yang kuat seperti R Bahasa Indonesia.",
+        "options": [
+          { "text": "True", "is_correct": false },
+          { "text": "False", "is_correct": true }
         ]
-    }
+      }
+    ]
+  },
+  {
+    "node_title": "Quiz Final",
+    "quiz_title": "Quiz Final Chapter 1",
+    "questions": [
+      {
+        "text": "Which word has the \"ai\" sound?",
+        "explanation": "Kata \"fine\" dilafalkan dengan bunyi vokal panjang /aɪ/ (ai).",
+        "options": [
+          { "text": "bed", "is_correct": false },
+          { "text": "sin", "is_correct": false },
+          { "text": "run", "is_correct": false },
+          { "text": "fine", "is_correct": true }
+        ]
+      },
+      {
+        "text": "What sound does \"ph\" make?",
+        "explanation": "Kombinasi \"ph\" menghasilkan bunyi /f/.",
+        "options": [
+          { "text": "f", "is_correct": true },
+          { "text": "p", "is_correct": false },
+          { "text": "h", "is_correct": false },
+          { "text": "sh", "is_correct": false }
+        ]
+      },
+      {
+        "text": "Which word contains a silent H?",
+        "explanation": "Pada kata \"hour\", huruf H tidak dilafalkan (dibaca /aʊə/).",
+        "options": [
+          { "text": "home", "is_correct": false },
+          { "text": "happy", "is_correct": false },
+          { "text": "hour", "is_correct": true },
+          { "text": "hat", "is_correct": false }
+        ]
+      },
+      {
+        "text": "Which word has the \"Z\" sound?",
+        "explanation": "Huruf s pada kata \"rose\" dilafalkan dengan bunyi /z/.",
+        "options": [
+          { "text": "show", "is_correct": false },
+          { "text": "rose", "is_correct": true },
+          { "text": "sun", "is_correct": false },
+          { "text": "think", "is_correct": false }
+        ]
+      },
+      {
+        "text": "What is the pronunciation of the letter \"v\"?",
+        "explanation": "Huruf v dibaca dengan menempelkan gigi atas ke bibir bawah (using lips and tooth).",
+        "options": [
+          { "text": "like f", "is_correct": false },
+          { "text": "silent", "is_correct": false },
+          { "text": "like b", "is_correct": false },
+          { "text": "using lips and tooth", "is_correct": true }
+        ]
+      },
+      {
+        "text": "Which word has a long E sound?",
+        "explanation": "Kata \"bee\" memiliki bunyi vokal panjang /iː/ (long E).",
+        "options": [
+          { "text": "bed", "is_correct": false },
+          { "text": "bee", "is_correct": true },
+          { "text": "run", "is_correct": false },
+          { "text": "full", "is_correct": false }
+        ]
+      },
+      {
+        "text": "What sound does \"th\" make in \"think\"?",
+        "explanation": "Kombinasi \"th\" pada \"think\" berbunyi /θ/ (voiceless th).",
+        "options": [
+          { "text": "t", "is_correct": false },
+          { "text": "d", "is_correct": false },
+          { "text": "th", "is_correct": true },
+          { "text": "f", "is_correct": false }
+        ]
+      },
+      {
+        "text": "Which word has the \"ou\" sound?",
+        "explanation": "Huruf o pada kata \"rose\" dibaca dengan bunyi glide /oʊ/ (ou).",
+        "options": [
+          { "text": "full", "is_correct": false },
+          { "text": "sin", "is_correct": false },
+          { "text": "cool", "is_correct": false },
+          { "text": "rose", "is_correct": true }
+        ]
+      },
+      {
+        "text": "The letter \"c\" can sound like \"ch\".",
+        "explanation": "Salah (False). Huruf C umumnya dibaca /k/ atau /s/. Bunyi /tʃ/ (ch) dihasilkan dari kombinasi \"ch\".",
+        "options": [
+          { "text": "True", "is_correct": false },
+          { "text": "False", "is_correct": true }
+        ]
+      },
+      {
+        "text": "Which word is pronounced with a silent k?",
+        "explanation": "Kata \"knee\" diawali dengan silent K.",
+        "options": [
+          { "text": "kid", "is_correct": false },
+          { "text": "king", "is_correct": false },
+          { "text": "knee", "is_correct": true },
+          { "text": "kite", "is_correct": false }
+        ]
+      }
+    ]
+  },
+  {
+    "node_title": "Quiz Level 2.1",
+    "quiz_title": "Quiz Level 2.1",
+    "questions": [
+      {
+        "text": "What number is 5?",
+        "explanation": "Angka 5 dalam Bahasa Inggris adalah Five.",
+        "options": [
+          { "text": "Four", "is_correct": false },
+          { "text": "Five", "is_correct": true },
+          { "text": "Six", "is_correct": false },
+          { "text": "Seven", "is_correct": false }
+        ]
+      },
+      {
+        "text": "What number is 10?",
+        "explanation": "Angka 10 dalam Bahasa Inggris adalah Ten.",
+        "options": [
+          { "text": "Eight", "is_correct": false },
+          { "text": "Nine", "is_correct": false },
+          { "text": "Ten", "is_correct": true },
+          { "text": "Eleven", "is_correct": false }
+        ]
+      },
+      {
+        "text": "Which number comes after 7?",
+        "explanation": "Angka setelah 7 adalah 8 (Eight).",
+        "options": [
+          { "text": "Six", "is_correct": false },
+          { "text": "Eight", "is_correct": true },
+          { "text": "Nine", "is_correct": false },
+          { "text": "Ten", "is_correct": false }
+        ]
+      },
+      {
+        "text": "What number is 3?",
+        "explanation": "Angka 3 dalam Bahasa Inggris adalah Three.",
+        "options": [
+          { "text": "Three", "is_correct": true },
+          { "text": "Two", "is_correct": false },
+          { "text": "Four", "is_correct": false },
+          { "text": "Five", "is_correct": false }
+        ]
+      },
+      {
+        "text": "Which number comes before 9?",
+        "explanation": "Angka sebelum 9 adalah 8 (Eight).",
+        "options": [
+          { "text": "Seven", "is_correct": false },
+          { "text": "Ten", "is_correct": false },
+          { "text": "Eight", "is_correct": true },
+          { "text": "Six", "is_correct": false }
+        ]
+      }
+    ]
+  },
+  {
+    "node_title": "Quiz Level 2.2",
+    "quiz_title": "Quiz Level 2.2",
+    "questions": [
+      {
+        "text": "What number is 15?",
+        "explanation": "Angka 15 dalam Bahasa Inggris adalah Fifteen.",
+        "options": [
+          { "text": "Fourteen", "is_correct": false },
+          { "text": "Fifteen", "is_correct": true },
+          { "text": "Sixteen", "is_correct": false },
+          { "text": "Seventeen", "is_correct": false }
+        ]
+      },
+      {
+        "text": "What number is 20?",
+        "explanation": "Angka 20 dalam Bahasa Inggris adalah Twenty.",
+        "options": [
+          { "text": "Twenty", "is_correct": true },
+          { "text": "Thirty", "is_correct": false },
+          { "text": "Forty", "is_correct": false },
+          { "text": "Fifty", "is_correct": false }
+        ]
+      },
+      {
+        "text": "How do you read 35?",
+        "explanation": "Angka 35 dibaca Thirty-five.",
+        "options": [
+          { "text": "Thirty-five", "is_correct": true },
+          { "text": "Thirty-four", "is_correct": false },
+          { "text": "Forty-five", "is_correct": false },
+          { "text": "Twenty-five", "is_correct": false }
+        ]
+      },
+      {
+        "text": "What number is 80?",
+        "explanation": "Angka 80 dalam Bahasa Inggris adalah Eighty.",
+        "options": [
+          { "text": "Seventy", "is_correct": false },
+          { "text": "Eighty", "is_correct": true },
+          { "text": "Ninety", "is_correct": false },
+          { "text": "Sixty", "is_correct": false }
+        ]
+      },
+      {
+        "text": "How do you read 99?",
+        "explanation": "Angka 99 dibaca Ninety-nine.",
+        "options": [
+          { "text": "Ninety-eight", "is_correct": false },
+          { "text": "Ninety-nine", "is_correct": true },
+          { "text": "Eighty-nine", "is_correct": false },
+          { "text": "One hundred", "is_correct": false }
+        ]
+      }
+    ]
+  },
+  {
+    "node_title": "Quiz Final Level 2",
+    "quiz_title": "Quiz Final Level 2",
+    "questions": [
+      {
+        "text": "What number is 12?",
+        "explanation": "Angka 12 dalam Bahasa Inggris adalah Twelve.",
+        "options": [
+          { "text": "Ten", "is_correct": false },
+          { "text": "Eleven", "is_correct": false },
+          { "text": "Twelve", "is_correct": true },
+          { "text": "Thirteen", "is_correct": false }
+        ]
+      },
+      {
+        "text": "How do you read 25?",
+        "explanation": "Angka 25 dibaca Twenty-five.",
+        "options": [
+          { "text": "Twenty-five", "is_correct": true },
+          { "text": "Twenty-four", "is_correct": false },
+          { "text": "Thirty-five", "is_correct": false },
+          { "text": "Fifteen", "is_correct": false }
+        ]
+      },
+      {
+        "text": "What number is 50?",
+        "explanation": "Angka 50 dalam Bahasa Inggris adalah Fifty.",
+        "options": [
+          { "text": "Forty", "is_correct": false },
+          { "text": "Fifty", "is_correct": true },
+          { "text": "Sixty", "is_correct": false },
+          { "text": "Seventy", "is_correct": false }
+        ]
+      },
+      {
+        "text": "Which number comes after 29?",
+        "explanation": "Angka setelah 29 adalah 30 (Thirty).",
+        "options": [
+          { "text": "Twenty-eight", "is_correct": false },
+          { "text": "Thirty", "is_correct": true },
+          { "text": "Thirty-one", "is_correct": false },
+          { "text": "Twenty-seven", "is_correct": false }
+        ]
+      },
+      {
+        "text": "How do you read 73?",
+        "explanation": "Angka 73 dibaca Seventy-three.",
+        "options": [
+          { "text": "Seventy-two", "is_correct": false },
+          { "text": "Seventy-three", "is_correct": true },
+          { "text": "Sixty-three", "is_correct": false },
+          { "text": "Eighty-three", "is_correct": false }
+        ]
+      },
+      {
+        "text": "What number is 90?",
+        "explanation": "Angka 90 dalam Bahasa Inggris adalah Ninety.",
+        "options": [
+          { "text": "Eighty", "is_correct": false },
+          { "text": "Ninety", "is_correct": true },
+          { "text": "Seventy", "is_correct": false },
+          { "text": "One Hundred", "is_correct": false }
+        ]
+      },
+      {
+        "text": "How do you read 41?",
+        "explanation": "Angka 41 dibaca Forty-one.",
+        "options": [
+          { "text": "Forty-one", "is_correct": true },
+          { "text": "Forty-two", "is_correct": false },
+          { "text": "Fifty-one", "is_correct": false },
+          { "text": "Thirty-one", "is_correct": false }
+        ]
+      },
+      {
+        "text": "What number is 18?",
+        "explanation": "Angka 18 dalam Bahasa Inggris adalah Eighteen.",
+        "options": [
+          { "text": "Sixteen", "is_correct": false },
+          { "text": "Seventeen", "is_correct": false },
+          { "text": "Eighteen", "is_correct": true },
+          { "text": "Nineteen", "is_correct": false }
+        ]
+      },
+      {
+        "text": "Which number comes before 100?",
+        "explanation": "Angka sebelum 100 adalah 99 (Ninety-nine).",
+        "options": [
+          { "text": "Ninety-seven", "is_correct": false },
+          { "text": "Ninety-eight", "is_correct": false },
+          { "text": "Ninety-nine", "is_correct": true },
+          { "text": "One Hundred One", "is_correct": false }
+        ]
+      },
+      {
+        "text": "How do you read 68?",
+        "explanation": "Angka 68 dibaca Sixty-eight.",
+        "options": [
+          { "text": "Sixty-eight", "is_correct": true },
+          { "text": "Sixty-seven", "is_correct": false },
+          { "text": "Seventy-eight", "is_correct": false },
+          { "text": "Fifty-eight", "is_correct": false }
+        ]
+      }
+    ]
+  },
+  {
+    "node_title": "Quiz Level 3.1",
+    "quiz_title": "Quiz Level 3.1",
+    "questions": [
+      {
+        "text": "How do you read January 1?",
+        "explanation": "Tanggal 1 Januari dibaca sebagai January First menggunakan ordinal number.",
+        "options": [
+          { "text": "January One", "is_correct": false },
+          { "text": "January First", "is_correct": true },
+          { "text": "January Ten", "is_correct": false },
+          { "text": "January Eleven", "is_correct": false }
+        ]
+      },
+      {
+        "text": "What is the ordinal form of 2?",
+        "explanation": "Bentuk ordinal dari 2 adalah Second.",
+        "options": [
+          { "text": "Two", "is_correct": false },
+          { "text": "Second", "is_correct": true },
+          { "text": "Twoth", "is_correct": false },
+          { "text": "Twelfth", "is_correct": false }
+        ]
+      },
+      {
+        "text": "What is the ordinal form of 3?",
+        "explanation": "Bentuk ordinal dari 3 adalah Third.",
+        "options": [
+          { "text": "Third", "is_correct": true },
+          { "text": "Three", "is_correct": false },
+          { "text": "Threeth", "is_correct": false },
+          { "text": "Thirtieth", "is_correct": false }
+        ]
+      },
+      {
+        "text": "What is the ordinal form of 5?",
+        "explanation": "Bentuk ordinal dari 5 adalah Fifth.",
+        "options": [
+          { "text": "Fifth", "is_correct": true },
+          { "text": "Fiveth", "is_correct": false },
+          { "text": "Five", "is_correct": false },
+          { "text": "Fifteenth", "is_correct": false }
+        ]
+      },
+      {
+        "text": "What is the ordinal form of 10?",
+        "explanation": "Bentuk ordinal dari 10 adalah Tenth.",
+        "options": [
+          { "text": "Ten", "is_correct": false },
+          { "text": "Tenth", "is_correct": true },
+          { "text": "Teneth", "is_correct": false },
+          { "text": "Tentieth", "is_correct": false }
+        ]
+      }
+    ]
+  },
+  {
+    "node_title": "Quiz Level 3.2",
+    "quiz_title": "Quiz Level 3.2",
+    "questions": [
+      {
+        "text": "How do you read March 15?",
+        "explanation": "Tanggal 15 Maret dibaca March Fifteenth.",
+        "options": [
+          { "text": "March Fifteenth", "is_correct": true },
+          { "text": "March Fifteen", "is_correct": false },
+          { "text": "March Fifty", "is_correct": false },
+          { "text": "March Fifth", "is_correct": false }
+        ]
+      },
+      {
+        "text": "How do you read July 20?",
+        "explanation": "Tanggal 20 Juli dibaca July Twentieth.",
+        "options": [
+          { "text": "July Twenty", "is_correct": false },
+          { "text": "July Twentieth", "is_correct": true },
+          { "text": "July Two", "is_correct": false },
+          { "text": "July Twelfth", "is_correct": false }
+        ]
+      },
+      {
+        "text": "Which date is read as December Twenty-fifth?",
+        "explanation": "December Twenty-fifth ditulis December 25.",
+        "options": [
+          { "text": "December 15", "is_correct": false },
+          { "text": "December 20", "is_correct": false },
+          { "text": "December 25", "is_correct": true },
+          { "text": "December 30", "is_correct": false }
+        ]
+      },
+      {
+        "text": "What is the ordinal form of 21?",
+        "explanation": "Bentuk ordinal dari 21 adalah Twenty-first.",
+        "options": [
+          { "text": "Twenty-one", "is_correct": false },
+          { "text": "Twenty-first", "is_correct": true },
+          { "text": "Twenty-oneth", "is_correct": false },
+          { "text": "Twenty-third", "is_correct": false }
+        ]
+      },
+      {
+        "text": "How do you read October 31?",
+        "explanation": "Tanggal 31 Oktober dibaca October Thirty-first.",
+        "options": [
+          { "text": "October Thirty", "is_correct": false },
+          { "text": "October Thirty-one", "is_correct": false },
+          { "text": "October Thirty-first", "is_correct": true },
+          { "text": "October Thirteen", "is_correct": false }
+        ]
+      }
+    ]
+  },
+  {
+    "node_title": "Quiz Final Level 3",
+    "quiz_title": "Quiz Final Level 3",
+    "questions": [
+      {
+        "text": "What is the ordinal form of 1?",
+        "explanation": "Bentuk ordinal dari 1 adalah First.",
+        "options": [
+          { "text": "One", "is_correct": false },
+          { "text": "First", "is_correct": true },
+          { "text": "Oneth", "is_correct": false },
+          { "text": "Tenth", "is_correct": false }
+        ]
+      },
+      {
+        "text": "How do you read February 14?",
+        "explanation": "Tanggal 14 Februari dibaca February Fourteenth.",
+        "options": [
+          { "text": "February Fourteen", "is_correct": false },
+          { "text": "February Forty", "is_correct": false },
+          { "text": "February Fourteenth", "is_correct": true },
+          { "text": "February Fourth", "is_correct": false }
+        ]
+      },
+      {
+        "text": "What is the ordinal form of 22?",
+        "explanation": "Bentuk ordinal dari 22 adalah Twenty-second.",
+        "options": [
+          { "text": "Twenty-two", "is_correct": false },
+          { "text": "Twenty-second", "is_correct": true },
+          { "text": "Twenty-third", "is_correct": false },
+          { "text": "Twenty-twoth", "is_correct": false }
+        ]
+      },
+      {
+        "text": "Which date is read as May Tenth?",
+        "explanation": "May Tenth ditulis May 10.",
+        "options": [
+          { "text": "May 1", "is_correct": false },
+          { "text": "May 5", "is_correct": false },
+          { "text": "May 10", "is_correct": true },
+          { "text": "May 15", "is_correct": false }
+        ]
+      },
+      {
+        "text": "How do you read August 8?",
+        "explanation": "Tanggal 8 Agustus dibaca August Eighth.",
+        "options": [
+          { "text": "August Eight", "is_correct": false },
+          { "text": "August Eighth", "is_correct": true },
+          { "text": "August Eighteen", "is_correct": false },
+          { "text": "August Eighty", "is_correct": false }
+        ]
+      },
+      {
+        "text": "What is the ordinal form of 31?",
+        "explanation": "Bentuk ordinal dari 31 adalah Thirty-first.",
+        "options": [
+          { "text": "Thirty-one", "is_correct": false },
+          { "text": "Thirty-oneth", "is_correct": false },
+          { "text": "Thirty-first", "is_correct": true },
+          { "text": "Thirty-third", "is_correct": false }
+        ]
+      },
+      {
+        "text": "Which date is read as November Twenty-second?",
+        "explanation": "November Twenty-second ditulis November 22.",
+        "options": [
+          { "text": "November 20", "is_correct": false },
+          { "text": "November 21", "is_correct": false },
+          { "text": "November 22", "is_correct": true },
+          { "text": "November 23", "is_correct": false }
+        ]
+      },
+      {
+        "text": "How do you read September 3?",
+        "explanation": "Tanggal 3 September dibaca September Third.",
+        "options": [
+          { "text": "September Three", "is_correct": false },
+          { "text": "September Third", "is_correct": true },
+          { "text": "September Thirty", "is_correct": false },
+          { "text": "September Thirteen", "is_correct": false }
+        ]
+      },
+      {
+        "text": "What is the ordinal form of 12?",
+        "explanation": "Bentuk ordinal dari 12 adalah Twelfth.",
+        "options": [
+          { "text": "Twelve", "is_correct": false },
+          { "text": "Twelveth", "is_correct": false },
+          { "text": "Twelfth", "is_correct": true },
+          { "text": "Twentieth", "is_correct": false }
+        ]
+      },
+      {
+        "text": "How do you read December 31?",
+        "explanation": "Tanggal 31 Desember dibaca December Thirty-first.",
+        "options": [
+          { "text": "December Thirty-one", "is_correct": false },
+          { "text": "December Thirty-first", "is_correct": true },
+          { "text": "December Thirteen", "is_correct": false },
+          { "text": "December First", "is_correct": false }
+        ]
+      }
+    ]
+  },
+  {
+    "node_title": "Quiz Level 4.1",
+    "quiz_title": "Quiz Level 4.1",
+    "questions": [
+      {
+        "text": "How many days are there in a week?",
+        "explanation": "Ada 7 hari dalam satu minggu.",
+        "options": [
+          { "text": "Five", "is_correct": false },
+          { "text": "Six", "is_correct": false },
+          { "text": "Seven", "is_correct": true },
+          { "text": "Eight", "is_correct": false }
+        ]
+      },
+      {
+        "text": "What day comes after Monday?",
+        "explanation": "Hari setelah Senin adalah Selasa (Tuesday).",
+        "options": [
+          { "text": "Sunday", "is_correct": false },
+          { "text": "Tuesday", "is_correct": true },
+          { "text": "Wednesday", "is_correct": false },
+          { "text": "Friday", "is_correct": false }
+        ]
+      },
+      {
+        "text": "What day comes before Friday?",
+        "explanation": "Hari sebelum Jumat adalah Kamis (Thursday).",
+        "options": [
+          { "text": "Thursday", "is_correct": true },
+          { "text": "Wednesday", "is_correct": false },
+          { "text": "Saturday", "is_correct": false },
+          { "text": "Sunday", "is_correct": false }
+        ]
+      },
+      {
+        "text": "Which day is usually the first day of the weekend?",
+        "explanation": "Hari Sabtu (Saturday) biasanya merupakan hari pertama akhir pekan.",
+        "options": [
+          { "text": "Friday", "is_correct": false },
+          { "text": "Saturday", "is_correct": true },
+          { "text": "Sunday", "is_correct": false },
+          { "text": "Monday", "is_correct": false }
+        ]
+      },
+      {
+        "text": "Which of these is a weekday?",
+        "explanation": "Tuesday (Selasa) adalah hari kerja (weekday), sedangkan Saturday dan Sunday adalah akhir pekan (weekend).",
+        "options": [
+          { "text": "Sunday", "is_correct": false },
+          { "text": "Saturday", "is_correct": false },
+          { "text": "Tuesday", "is_correct": true },
+          { "text": "Weekend", "is_correct": false }
+        ]
+      }
+    ]
+  },
+  {
+    "node_title": "Quiz Level 4.2",
+    "quiz_title": "Quiz Level 4.2",
+    "questions": [
+      {
+        "text": "Complete the sentence:\n\n\"I have English class ___ Monday.\"",
+        "explanation": "Kata depan (preposition) yang tepat untuk hari adalah \"on\".",
+        "options": [
+          { "text": "at", "is_correct": false },
+          { "text": "in", "is_correct": false },
+          { "text": "on", "is_correct": true },
+          { "text": "by", "is_correct": false }
+        ]
+      },
+      {
+        "text": "Which day comes after Thursday?",
+        "explanation": "Hari setelah Kamis adalah Jumat (Friday).",
+        "options": [
+          { "text": "Wednesday", "is_correct": false },
+          { "text": "Friday", "is_correct": true },
+          { "text": "Saturday", "is_correct": false },
+          { "text": "Sunday", "is_correct": false }
+        ]
+      },
+      {
+        "text": "Which pair belongs to the weekend?",
+        "explanation": "Akhir pekan terdiri dari Sabtu dan Minggu (Saturday & Sunday).",
+        "options": [
+          { "text": "Monday & Tuesday", "is_correct": false },
+          { "text": "Wednesday & Thursday", "is_correct": false },
+          { "text": "Saturday & Sunday", "is_correct": true },
+          { "text": "Thursday & Friday", "is_correct": false }
+        ]
+      },
+      {
+        "text": "What day comes before Sunday?",
+        "explanation": "Hari sebelum Minggu adalah Sabtu (Saturday).",
+        "options": [
+          { "text": "Friday", "is_correct": false },
+          { "text": "Saturday", "is_correct": true },
+          { "text": "Monday", "is_correct": false },
+          { "text": "Thursday", "is_correct": false }
+        ]
+      },
+      {
+        "text": "Choose the correct sentence.",
+        "explanation": "Kalimat yang benar menggunakan kata depan \"on\" sebelum nama hari.",
+        "options": [
+          { "text": "I play football in Saturday.", "is_correct": false },
+          { "text": "I play football on Saturday.", "is_correct": true },
+          { "text": "I play football at Saturday.", "is_correct": false },
+          { "text": "I play football Saturdays.", "is_correct": false }
+        ]
+      }
+    ]
+  },
+  {
+    "node_title": "Quiz Final Level 4",
+    "quiz_title": "Quiz Final Level 4",
+    "questions": [
+      {
+        "text": "What day comes after Saturday?",
+        "explanation": "Hari setelah Sabtu adalah Minggu (Sunday).",
+        "options": [
+          { "text": "Monday", "is_correct": false },
+          { "text": "Friday", "is_correct": false },
+          { "text": "Sunday", "is_correct": true },
+          { "text": "Tuesday", "is_correct": false }
+        ]
+      },
+      {
+        "text": "How many weekdays are there?",
+        "explanation": "Ada 5 hari kerja (weekdays) yaitu Senin sampai Jumat.",
+        "options": [
+          { "text": "Four", "is_correct": false },
+          { "text": "Five", "is_correct": true },
+          { "text": "Six", "is_correct": false },
+          { "text": "Seven", "is_correct": false }
+        ]
+      },
+      {
+        "text": "Complete the sentence:\n\n\"My birthday is ___ Friday.\"",
+        "explanation": "Gunakan kata depan \"on\" sebelum nama hari.",
+        "options": [
+          { "text": "on", "is_correct": true },
+          { "text": "at", "is_correct": false },
+          { "text": "in", "is_correct": false },
+          { "text": "by", "is_correct": false }
+        ]
+      },
+      {
+        "text": "Which day comes before Tuesday?",
+        "explanation": "Hari sebelum Selasa adalah Senin (Monday).",
+        "options": [
+          { "text": "Monday", "is_correct": true },
+          { "text": "Sunday", "is_correct": false },
+          { "text": "Wednesday", "is_correct": false },
+          { "text": "Thursday", "is_correct": false }
+        ]
+      },
+      {
+        "text": "Which of these is NOT a weekend day?",
+        "explanation": "Rabu (Wednesday) adalah hari kerja, bukan akhir pekan.",
+        "options": [
+          { "text": "Saturday", "is_correct": false },
+          { "text": "Sunday", "is_correct": false },
+          { "text": "Wednesday", "is_correct": true },
+          { "text": "None of the above", "is_correct": false }
+        ]
+      },
+      {
+        "text": "What day comes after Wednesday?",
+        "explanation": "Hari setelah Rabu adalah Kamis (Thursday).",
+        "options": [
+          { "text": "Tuesday", "is_correct": false },
+          { "text": "Friday", "is_correct": false },
+          { "text": "Thursday", "is_correct": true },
+          { "text": "Sunday", "is_correct": false }
+        ]
+      },
+      {
+        "text": "Choose the correct spelling.",
+        "explanation": "Nama hari harus selalu diawali huruf kapital (Monday).",
+        "options": [
+          { "text": "monday", "is_correct": false },
+          { "text": "MONDAY", "is_correct": false },
+          { "text": "Monday", "is_correct": true },
+          { "text": "monDay", "is_correct": false }
+        ]
+      },
+      {
+        "text": "Which day is the last day of the weekend?",
+        "explanation": "Hari terakhir akhir pekan adalah Minggu (Sunday).",
+        "options": [
+          { "text": "Friday", "is_correct": false },
+          { "text": "Sunday", "is_correct": true },
+          { "text": "Saturday", "is_correct": false },
+          { "text": "Monday", "is_correct": false }
+        ]
+      },
+      {
+        "text": "What day comes after Friday?",
+        "explanation": "Hari setelah Jumat adalah Sabtu (Saturday).",
+        "options": [
+          { "text": "Sunday", "is_correct": false },
+          { "text": "Saturday", "is_correct": true },
+          { "text": "Thursday", "is_correct": false },
+          { "text": "Monday", "is_correct": false }
+        ]
+      },
+      {
+        "text": "Complete the sentence:\n\n\"We visit our grandparents ___ Sunday.\"",
+        "explanation": "Gunakan preposisi \"on\" untuk hari Minggu.",
+        "options": [
+          { "text": "in", "is_correct": false },
+          { "text": "at", "is_correct": false },
+          { "text": "on", "is_correct": true },
+          { "text": "by", "is_correct": false }
+        ]
+      }
+    ]
+  },
+  {
+    "node_title": "Quiz Level 5.1",
+    "quiz_title": "Quiz Level 5.1",
+    "questions": [
+      {
+        "text": "How many months are there in a year?",
+        "explanation": "Ada 12 bulan dalam satu tahun.",
+        "options": [
+          { "text": "10", "is_correct": false },
+          { "text": "11", "is_correct": false },
+          { "text": "12", "is_correct": true },
+          { "text": "13", "is_correct": false }
+        ]
+      },
+      {
+        "text": "Which month comes after January?",
+        "explanation": "Bulan setelah Januari adalah Februari (February).",
+        "options": [
+          { "text": "March", "is_correct": false },
+          { "text": "February", "is_correct": true },
+          { "text": "April", "is_correct": false },
+          { "text": "December", "is_correct": false }
+        ]
+      },
+      {
+        "text": "Which month comes before June?",
+        "explanation": "Bulan sebelum Juni adalah Mei (May).",
+        "options": [
+          { "text": "April", "is_correct": false },
+          { "text": "March", "is_correct": false },
+          { "text": "May", "is_correct": true },
+          { "text": "July", "is_correct": false }
+        ]
+      },
+      {
+        "text": "What is the last month of the year?",
+        "explanation": "Bulan terakhir dalam setahun adalah Desember (December).",
+        "options": [
+          { "text": "October", "is_correct": false },
+          { "text": "November", "is_correct": false },
+          { "text": "December", "is_correct": true },
+          { "text": "January", "is_correct": false }
+        ]
+      },
+      {
+        "text": "Which month comes after August?",
+        "explanation": "Bulan setelah Agustus adalah September.",
+        "options": [
+          { "text": "July", "is_correct": false },
+          { "text": "October", "is_correct": false },
+          { "text": "September", "is_correct": true },
+          { "text": "November", "is_correct": false }
+        ]
+      }
+    ]
+  },
+  {
+    "node_title": "Quiz Level 5.2",
+    "quiz_title": "Quiz Level 5.2",
+    "questions": [
+      {
+        "text": "Complete the sentence:\n\n\"My birthday is ___ May.\"",
+        "explanation": "Kata depan (preposition) untuk bulan (tanpa tanggal spesifik) adalah \"in\".",
+        "options": [
+          { "text": "on", "is_correct": false },
+          { "text": "at", "is_correct": false },
+          { "text": "in", "is_correct": true },
+          { "text": "by", "is_correct": false }
+        ]
+      },
+      {
+        "text": "Which month is commonly associated with Christmas?",
+        "explanation": "Hari Natal diperingati pada bulan Desember.",
+        "options": [
+          { "text": "October", "is_correct": false },
+          { "text": "November", "is_correct": false },
+          { "text": "December", "is_correct": true },
+          { "text": "January", "is_correct": false }
+        ]
+      },
+      {
+        "text": "Which month comes after April?",
+        "explanation": "Bulan setelah April adalah Mei (May).",
+        "options": [
+          { "text": "March", "is_correct": false },
+          { "text": "June", "is_correct": false },
+          { "text": "May", "is_correct": true },
+          { "text": "July", "is_correct": false }
+        ]
+      },
+      {
+        "text": "Choose the correct sentence.",
+        "explanation": "Kalimat yang benar menggunakan kata depan \"in\" sebelum nama bulan.",
+        "options": [
+          { "text": "School starts on January.", "is_correct": false },
+          { "text": "School starts in January.", "is_correct": true },
+          { "text": "School starts at January.", "is_correct": false },
+          { "text": "School starts by January.", "is_correct": false }
+        ]
+      },
+      {
+        "text": "Which month comes before September?",
+        "explanation": "Bulan sebelum September adalah Agustus (August).",
+        "options": [
+          { "text": "July", "is_correct": false },
+          { "text": "August", "is_correct": true },
+          { "text": "October", "is_correct": false },
+          { "text": "June", "is_correct": false }
+        ]
+      }
+    ]
+  },
+  {
+    "node_title": "Quiz Final Level 5",
+    "quiz_title": "Quiz Final Level 5",
+    "questions": [
+      {
+        "text": "Which month comes after November?",
+        "explanation": "Bulan setelah November adalah Desember (December).",
+        "options": [
+          { "text": "October", "is_correct": false },
+          { "text": "January", "is_correct": false },
+          { "text": "December", "is_correct": true },
+          { "text": "February", "is_correct": false }
+        ]
+      },
+      {
+        "text": "How many months are there in a year?",
+        "explanation": "Ada 12 bulan dalam setahun.",
+        "options": [
+          { "text": "10", "is_correct": false },
+          { "text": "11", "is_correct": false },
+          { "text": "12", "is_correct": true },
+          { "text": "13", "is_correct": false }
+        ]
+      },
+      {
+        "text": "Complete the sentence:\n\n\"We go on vacation ___ July.\"",
+        "explanation": "Gunakan \"in\" untuk nama bulan.",
+        "options": [
+          { "text": "on", "is_correct": false },
+          { "text": "in", "is_correct": true },
+          { "text": "at", "is_correct": false },
+          { "text": "by", "is_correct": false }
+        ]
+      },
+      {
+        "text": "Which month comes before March?",
+        "explanation": "Bulan sebelum Maret adalah Februari (February).",
+        "options": [
+          { "text": "January", "is_correct": false },
+          { "text": "February", "is_correct": true },
+          { "text": "April", "is_correct": false },
+          { "text": "December", "is_correct": false }
+        ]
+      },
+      {
+        "text": "What is the first month of the year?",
+        "explanation": "Bulan pertama dalam setahun adalah Januari (January).",
+        "options": [
+          { "text": "December", "is_correct": false },
+          { "text": "February", "is_correct": false },
+          { "text": "January", "is_correct": true },
+          { "text": "March", "is_correct": false }
+        ]
+      },
+      {
+        "text": "Which month comes after September?",
+        "explanation": "Bulan setelah September adalah Oktober (October).",
+        "options": [
+          { "text": "August", "is_correct": false },
+          { "text": "November", "is_correct": false },
+          { "text": "October", "is_correct": true },
+          { "text": "December", "is_correct": false }
+        ]
+      },
+      {
+        "text": "Choose the correct spelling.",
+        "explanation": "Nama bulan harus ditulis diawali dengan huruf kapital (January).",
+        "options": [
+          { "text": "january", "is_correct": false },
+          { "text": "February", "is_correct": false },
+          { "text": "January", "is_correct": true },
+          { "text": "janUary", "is_correct": false }
+        ]
+      },
+      {
+        "text": "Which month is the shortest?",
+        "explanation": "Februari (February) adalah bulan terpendek dengan 28 atau 29 hari.",
+        "options": [
+          { "text": "January", "is_correct": false },
+          { "text": "February", "is_correct": true },
+          { "text": "March", "is_correct": false },
+          { "text": "April", "is_correct": false }
+        ]
+      },
+      {
+        "text": "Complete the sentence:\n\n\"My favorite month is ___ October.\"",
+        "explanation": "Gunakan preposisi \"in\" sebelum nama bulan.",
+        "options": [
+          { "text": "on", "is_correct": false },
+          { "text": "at", "is_correct": false },
+          { "text": "in", "is_correct": true },
+          { "text": "by", "is_correct": false }
+        ]
+      },
+      {
+        "text": "Which month is the last month of the year?",
+        "explanation": "Bulan terakhir adalah Desember (December).",
+        "options": [
+          { "text": "November", "is_correct": false },
+          { "text": "October", "is_correct": false },
+          { "text": "December", "is_correct": true },
+          { "text": "January", "is_correct": false }
+        ]
+      }
+    ]
+  }
 ]

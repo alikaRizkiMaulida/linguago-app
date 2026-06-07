@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Api\AchievementController;
 use App\Models\Map_Node;
 use App\Models\QuestionOptions;
 use App\Models\Questions;
@@ -25,9 +26,9 @@ class QuizAttemptController extends Controller
     public function getQuiz(Request $request, $quizId)
     {
         $quiz = Quizzes::with(['questions' => function ($q) {
-            $q->orderBy('sort_order', 'asc');
+            $q->orderBy('soft_order', 'asc');
         }, 'questions.options' => function ($q) {
-            $q->orderBy('sort_order', 'asc');
+            $q->orderBy('soft_order', 'asc');
         }, 'mapNode'])->find($quizId);
 
         if (!$quiz) {
@@ -76,7 +77,7 @@ class QuizAttemptController extends Controller
                             return [
                                 'id'          => $opt->id,
                                 'option_text' => $opt->option_text,
-                                'sort_order'  => $opt->sort_order,
+                                'sort_order'  => $opt->soft_order,
                             ];
                         }),
                     ];
@@ -264,6 +265,10 @@ class QuizAttemptController extends Controller
 
             // f. Update streak di user
             $this->updateStreak($user);
+
+            // g. Cek achievement baru
+            $achievementController = new AchievementController();
+            $newlyEarnedAchievements = $achievementController->evaluateAchievements($user);
         }
 
         // 8. Return JSON response yang informatif untuk frontend
@@ -273,14 +278,15 @@ class QuizAttemptController extends Controller
                 ? 'Selamat! Kamu lulus kuis!'
                 : 'Yah, skor kamu belum cukup. Coba lagi yuk!',
             'data' => [
-                'attempt_id'    => $attempt->id,
-                'score'         => $score,
-                'stars'         => $stars,
-                'correct_count' => $correctCount,
-                'wrong_count'   => $wrongCount,
+                'attempt_id'      => $attempt->id,
+                'score'           => $score,
+                'stars'           => $stars,
+                'correct_count'   => $correctCount,
+                'wrong_count'     => $wrongCount,
                 'total_questions' => $totalQuestions,
-                'xp_earned'     => $xpEarned,
-                'is_passed'     => $isPassed,
+                'xp_earned'       => $xpEarned,
+                'is_passed'       => $isPassed,
+                'newly_earned_achievements' => $isPassed ? ($newlyEarnedAchievements ?? []) : [],
             ],
         ], 200);
     }
