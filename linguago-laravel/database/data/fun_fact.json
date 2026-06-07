@@ -1,0 +1,152 @@
+[
+  {
+    "node_title": "Fun Fact Alphabet",
+    "cards": [
+      {
+        "title": "English has silent letters",
+        "description": "Some English words have letters that are not pronounced, like:\nknee\nhour\nknife\n\nSilent letters are tricky.",
+        "svg_asset": "assets/Frame1000001900.svg"
+      },
+      {
+        "title": "\"e\" is the most used letter",
+        "description": "The letter E is the most commonly used letter in English words. You can find it in words like:\nsee\npeople",
+        "svg_asset": "assets/Frame1000001904.svg"
+      },
+      {
+        "title": "English words from many languages",
+        "description": "English has borrowed words from many languages like French, Latin, Korean, and Japanese. That's why some English words can sound and look very different.",
+        "svg_asset": "assets/Frame1000001909.svg"
+      },
+      {
+        "title": "One letter can have many sounds",
+        "description": "English letters can sound different depending on the word.\n\nExample:\na in \"name\"\na in \"car\"",
+        "svg_asset": "assets/Frame1000001911.svg"
+      },
+      {
+        "title": "English is spoken worldwide",
+        "description": "English is used by millions of people worldwide for communication, school, travel, and entertainment. That's why it is one of the most important international languages today.",
+        "svg_asset": "assets/Frame1000001918.svg"
+      }
+    ]
+  },
+  {
+    "node_title": "Fun Fact Numbers",
+    "cards": [
+      {
+        "title": "Zero Was Not Always Used",
+        "description": "The number zero was not part of many ancient number systems. Today, it is one of the most important numbers in mathematics and technology.",
+        "svg_asset": "assets/Frame1000001900.svg"
+      },
+      {
+        "title": "English Uses Special Number Words",
+        "description": "Some English numbers have unique names that do not follow regular patterns, such as eleven and twelve. This is why they must be memorized.",
+        "svg_asset": "assets/Frame1000001904.svg"
+      },
+      {
+        "title": "Forty Has No \"U\"",
+        "description": "Many learners mistakenly write fourty, but the correct spelling is forty. It is one of the most common spelling mistakes in English.",
+        "svg_asset": "assets/Frame1000001909.svg"
+      },
+      {
+        "title": "Numbers Are Everywhere",
+        "description": "English numbers are used in daily life for telling time, reading prices, sharing phone numbers, and talking about age.",
+        "svg_asset": "assets/Frame1000001911.svg"
+      },
+      {
+        "title": "One Hundred Is a Milestone Number",
+        "description": "The number 100 is often used to represent a complete set, a perfect score, or an important achievement in many countries.",
+        "svg_asset": "assets/Frame1000001918.svg"
+      }
+    ]
+  },
+  {
+    "node_title": "Fun Fact Dates",
+    "cards": [
+      {
+        "title": "English Uses Ordinal Numbers for Dates",
+        "description": "When reading dates, English uses ordinal numbers such as first, second, and third, instead of regular numbers.",
+        "svg_asset": "assets/Frame1000001900.svg"
+      },
+      {
+        "title": "Not All Ordinal Numbers End the Same Way",
+        "description": "Most ordinal numbers end in -th, but some are unique, such as first, second, and third.",
+        "svg_asset": "assets/Frame1000001904.svg"
+      },
+      {
+        "title": "Month Names Always Start with a Capital Letter",
+        "description": "In English, month names like January, April, and December always begin with a capital letter.",
+        "svg_asset": "assets/Frame1000001909.svg"
+      },
+      {
+        "title": "Dates Can Be Written Differently",
+        "description": "Some countries write dates as Month-Day-Year, while others use Day-Month-Year. The pronunciation usually stays the same.",
+        "svg_asset": "assets/Frame1000001911.svg"
+      },
+      {
+        "title": "Dates Are Used Every Day",
+        "description": "People use dates for birthdays, holidays, appointments, school schedules, and many other activities.",
+        "svg_asset": "assets/Frame1000001918.svg"
+      }
+    ]
+  },
+  {
+    "node_title": "Fun Fact Days",
+    "cards": [
+      {
+        "title": "Days Are Always Capitalized",
+        "description": "In English, the names of days always begin with a capital letter, such as Monday, Tuesday, and Sunday.",
+        "svg_asset": "assets/Frame1000001900.svg"
+      },
+      {
+        "title": "Sunday Was Named After the Sun",
+        "description": "The word Sunday comes from the Sun, while Monday comes from the Moon.",
+        "svg_asset": "assets/Frame1000001904.svg"
+      },
+      {
+        "title": "There Are 168 Hours in a Week",
+        "description": "A week has 7 days, and each day has 24 hours, making a total of 168 hours.",
+        "svg_asset": "assets/Frame1000001909.svg"
+      },
+      {
+        "title": "Weekend Traditions Differ Around the World",
+        "description": "In many countries, the weekend is Saturday and Sunday, but some countries have different weekend schedules.",
+        "svg_asset": "assets/Frame1000001911.svg"
+      },
+      {
+        "title": "Days Help Us Organize Time",
+        "description": "People use days of the week to plan school, work, meetings, holidays, and daily activities.",
+        "svg_asset": "assets/Frame1000001918.svg"
+      }
+    ]
+  },
+  {
+    "node_title": "Fun Fact Months",
+    "cards": [
+      {
+        "title": "July and August Are Named After Roman Leaders",
+        "description": "July was named after Julius Caesar, and August was named after Augustus Caesar.",
+        "svg_asset": "assets/Frame1000001900.svg"
+      },
+      {
+        "title": "February Is the Shortest Month",
+        "description": "February usually has 28 days, but it has 29 days during a leap year.",
+        "svg_asset": "assets/Frame1000001904.svg"
+      },
+      {
+        "title": "Month Names Always Start with a Capital Letter",
+        "description": "In English, month names such as January, May, and December always begin with a capital letter.",
+        "svg_asset": "assets/Frame1000001909.svg"
+      },
+      {
+        "title": "There Are Four Seasons in a Year",
+        "description": "Many countries divide the year into four seasons: Spring, Summer, Autumn (Fall), and Winter.",
+        "svg_asset": "assets/Frame1000001911.svg"
+      },
+      {
+        "title": "Some Holidays Are Named After Months",
+        "description": "For example, Halloween is celebrated in October, while Christmas is celebrated in December.",
+        "svg_asset": "assets/Frame1000001918.svg"
+      }
+    ]
+  }
+]
