@@ -12,6 +12,7 @@ class _Player {
   final int level;
   final int exp;
   final bool isMe;
+  final int trend; // +1 for up, -1 for down, 0 for stable
 
   const _Player({
     required this.rank,
@@ -20,6 +21,7 @@ class _Player {
     required this.level,
     required this.exp,
     this.isMe = false,
+    this.trend = 0,
   });
 }
 
@@ -39,26 +41,25 @@ class _Friend {
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 const _worldPlayers = [
-  _Player(rank: 1, name: '1009-eism',   avatarUrl: 'https://i.pravatar.cc/150?img=1', level: 56, exp: 85278),
-  _Player(rank: 2, name: 'sunofllers',  avatarUrl: 'https://i.pravatar.cc/150?img=2', level: 56, exp: 81653),
-  _Player(rank: 3, name: 'milk.도토리',  avatarUrl: 'https://i.pravatar.cc/150?img=3', level: 51, exp: 83692, isMe: true),
-  _Player(rank: 4, name: 'heesour',     avatarUrl: 'https://i.pravatar.cc/150?img=4', level: 40, exp: 80718),
-  _Player(rank: 5, name: 'riklusiier',  avatarUrl: 'https://i.pravatar.cc/150?img=5', level: 40, exp: 80631),
-  _Player(rank: 6, name: 'jwonusie',    avatarUrl: 'https://i.pravatar.cc/150?img=6', level: 41, exp: 80094),
-  _Player(rank: 7, name: 'ciellunooo',  avatarUrl: 'https://i.pravatar.cc/150?img=7', level: 38, exp: 80076),
-  _Player(rank: 8, name: 'Potato_9595', avatarUrl: 'https://i.pravatar.cc/150?img=8', level: 33, exp: 77420),
-  _Player(rank: 9, name: 'ikeufie',     avatarUrl: 'https://i.pravatar.cc/150?img=9', level: 33, exp: 64279),
+  _Player(rank: 1, name: '1009-eism',   avatarUrl: 'https://i.pravatar.cc/150?img=1', level: 58, exp: 85278, trend: 0),
+  _Player(rank: 2, name: 'sunoflers',  avatarUrl: 'https://i.pravatar.cc/150?img=2', level: 56, exp: 83653, trend: 0),
+  _Player(rank: 3, name: 'milk.도토리',  avatarUrl: 'https://i.pravatar.cc/150?img=3', level: 51, exp: 83692, isMe: true, trend: 0),
+  _Player(rank: 4, name: 'heesour',     avatarUrl: 'https://i.pravatar.cc/150?img=4', level: 48, exp: 80716, trend: 1),
+  _Player(rank: 5, name: 'rikiusier',  avatarUrl: 'https://i.pravatar.cc/150?img=5', level: 45, exp: 80631, trend: 1),
+  _Player(rank: 6, name: 'jwonusie',    avatarUrl: 'https://i.pravatar.cc/150?img=6', level: 41, exp: 80094, trend: 1),
+  _Player(rank: 7, name: 'ciellunoo',  avatarUrl: 'https://i.pravatar.cc/150?img=7', level: 36, exp: 80076, trend: -1),
+  _Player(rank: 8, name: 'Potato_9595', avatarUrl: 'https://i.pravatar.cc/150?img=8', level: 33, exp: 77420, trend: 1),
 ];
 
 const _friendPlayers = [
-  _Player(rank: 1, name: '1009-eism',   avatarUrl: 'https://i.pravatar.cc/150?img=1', level: 56, exp: 85278),
-  _Player(rank: 2, name: 'sunofllers',  avatarUrl: 'https://i.pravatar.cc/150?img=2', level: 56, exp: 81653),
-  _Player(rank: 3, name: 'milk.도토리',  avatarUrl: 'https://i.pravatar.cc/150?img=3', level: 31, exp: 83692, isMe: true),
-  _Player(rank: 4, name: 'heesour',     avatarUrl: 'https://i.pravatar.cc/150?img=4', level: 40, exp: 80718),
-  _Player(rank: 5, name: 'riklusiier',  avatarUrl: 'https://i.pravatar.cc/150?img=5', level: 40, exp: 80631),
-  _Player(rank: 6, name: 'jwonusie',    avatarUrl: 'https://i.pravatar.cc/150?img=6', level: 41, exp: 80094),
-  _Player(rank: 7, name: 'ciellunooo',  avatarUrl: 'https://i.pravatar.cc/150?img=7', level: 38, exp: 80076),
-  _Player(rank: 8, name: 'Potato_9595', avatarUrl: 'https://i.pravatar.cc/150?img=8', level: 35, exp: 77420),
+  _Player(rank: 1, name: '1009-eism',   avatarUrl: 'https://i.pravatar.cc/150?img=1', level: 58, exp: 85278, trend: 0),
+  _Player(rank: 2, name: 'sunoflers',  avatarUrl: 'https://i.pravatar.cc/150?img=2', level: 56, exp: 83653, trend: 0),
+  _Player(rank: 3, name: 'milk.도토리',  avatarUrl: 'https://i.pravatar.cc/150?img=3', level: 51, exp: 83692, isMe: true, trend: 0),
+  _Player(rank: 4, name: 'heesour',     avatarUrl: 'https://i.pravatar.cc/150?img=4', level: 48, exp: 80716, trend: 1),
+  _Player(rank: 5, name: 'rikiusier',  avatarUrl: 'https://i.pravatar.cc/150?img=5', level: 45, exp: 80631, trend: 1),
+  _Player(rank: 6, name: 'jwonusie',    avatarUrl: 'https://i.pravatar.cc/150?img=6', level: 41, exp: 80094, trend: 1),
+  _Player(rank: 7, name: 'ciellunoo',  avatarUrl: 'https://i.pravatar.cc/150?img=7', level: 36, exp: 80076, trend: -1),
+  _Player(rank: 8, name: 'Potato_9595', avatarUrl: 'https://i.pravatar.cc/150?img=8', level: 33, exp: 77420, trend: 1),
 ];
 
 final _allFriends = [
@@ -74,9 +75,9 @@ final _allFriends = [
   _Friend(name: 'hoonst4rs',   avatarUrl: 'https://i.pravatar.cc/150?img=10', level: 40, isFriend: false),
   _Friend(name: 'jung.jpeg',   avatarUrl: 'https://i.pravatar.cc/150?img=11', level: 40, isFriend: false),
   _Friend(name: 'bleujay',     avatarUrl: 'https://i.pravatar.cc/150?img=12', level: 40, isFriend: false),
-  _Friend(name: 'RICKY 泫奕',  avatarUrl: 'https://i.pravatar.cc/150?img=13', level: 40, isFriend: false),
+  _Friend(name: 'RICKY沈泉锐',  avatarUrl: 'https://i.pravatar.cc/150?img=13', level: 40, isFriend: false),
   _Friend(name: '_paewswhis',  avatarUrl: 'https://i.pravatar.cc/150?img=14', level: 40, isFriend: false),
-  _Friend(name: 'jayvvhns',    avatarUrl: 'https://i.pravatar.cc/150?img=15', level: 40, isFriend: false),
+  _Friend(name: 'jayvvhxs',    avatarUrl: 'https://i.pravatar.cc/150?img=15', level: 40, isFriend: false),
 ];
 
 final _recommendations = [
@@ -84,7 +85,7 @@ final _recommendations = [
   _Friend(name: 'wonnie', avatarUrl: 'https://i.pravatar.cc/150?img=21', level: 8),
   _Friend(name: 'jakey',  avatarUrl: 'https://i.pravatar.cc/150?img=22', level: 15),
   _Friend(name: 'hoon',   avatarUrl: 'https://i.pravatar.cc/150?img=23', level: 9),
-  _Friend(name: 'ulle',   avatarUrl: 'https://i.pravatar.cc/150?img=24', level: 6),
+  _Friend(name: 'riki',   avatarUrl: 'https://i.pravatar.cc/150?img=24', level: 6),
   _Friend(name: 'jayy',   avatarUrl: 'https://i.pravatar.cc/150?img=25', level: 11),
 ];
 
@@ -101,17 +102,133 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
   late final TabController _tabController;
   bool _showFriendList = false;
 
+  late List<_Friend> _friends;
+  late List<_Friend> _recs;
+
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
     _tabController.addListener(() => setState(() {}));
+
+    _friends = _allFriends
+        .map((f) => _Friend(
+              name: f.name,
+              avatarUrl: f.avatarUrl,
+              level: f.level,
+              isFriend: f.isFriend,
+            ))
+        .toList();
+
+    _recs = _recommendations
+        .map((f) => _Friend(
+              name: f.name,
+              avatarUrl: f.avatarUrl,
+              level: f.level,
+              isFriend: f.isFriend,
+            ))
+        .toList();
   }
 
   @override
   void dispose() {
     _tabController.dispose();
     super.dispose();
+  }
+
+  void _toggleFriend(_Friend friend) {
+    setState(() {
+      friend.isFriend = !friend.isFriend;
+      // Sync back to static list if present to preserve state transitions
+      final idx = _allFriends.indexWhere((element) => element.name == friend.name);
+      if (idx != -1) {
+        _allFriends[idx].isFriend = friend.isFriend;
+      }
+    });
+  }
+
+  void _onPlayerRowTap(BuildContext context, _Player player) {
+    // Look up existing friend state or build temporary
+    final friendIndex = _friends.indexWhere((f) => f.name == player.name);
+    _Friend friend;
+    if (friendIndex != -1) {
+      friend = _friends[friendIndex];
+    } else {
+      final recIndex = _recs.indexWhere((f) => f.name == player.name);
+      if (recIndex != -1) {
+        friend = _recs[recIndex];
+      } else {
+        friend = _Friend(
+          name: player.name,
+          avatarUrl: player.avatarUrl,
+          level: player.level,
+          isFriend: false,
+        );
+      }
+    }
+    _showProfileCard(context, friend);
+  }
+
+  void _showProfileCard(BuildContext ctx, _Friend friend) {
+    showGeneralDialog(
+      context: ctx,
+      barrierDismissible: true,
+      barrierLabel: 'profile',
+      barrierColor: Colors.black.withValues(alpha: 0.4),
+      transitionDuration: const Duration(milliseconds: 500),
+      pageBuilder: (dialogCtx, anim1, anim2) {
+        return _ProfileCard(
+          friend: friend,
+          onToggleFriend: () => _toggleFriend(friend),
+          onChatTap: () {
+            ChatStore.instance.getOrCreate(
+              friendName: friend.name,
+              friendAvatarUrl: friend.avatarUrl,
+              avatarColor: AppColors.primaryPurple,
+              initial: friend.name.isNotEmpty
+                  ? friend.name[0].toUpperCase()
+                  : '?',
+            );
+            Navigator.of(dialogCtx).pop();
+            Navigator.push(
+              ctx,
+              MaterialPageRoute<void>(
+                builder: (_) => ChatDetailPage(
+                  friendName: friend.name,
+                  friendAvatarUrl: friend.avatarUrl,
+                  avatarColor: AppColors.primaryPurple,
+                  initial: friend.name.isNotEmpty
+                      ? friend.name[0].toUpperCase()
+                      : '?',
+                ),
+              ),
+            );
+          },
+        );
+      },
+      transitionBuilder: (ctx, anim1, anim2, child) {
+        // Slide down from offscreen top to screen center with elastic/spring effect
+        final slideAnim = Tween<Offset>(
+          begin: const Offset(0, -1.5),
+          end: Offset.zero,
+        ).animate(
+          CurvedAnimation(
+            parent: anim1,
+            curve: const _SpringBounceCurve(),
+          ),
+        );
+        final fadeAnim = Tween<double>(begin: 0.0, end: 1.0).animate(
+          CurvedAnimation(
+            parent: anim1,
+            curve: const Interval(0.0, 0.35, curve: Curves.easeIn),
+          ),
+        );
+        return FadeTransition(
+          opacity: fadeAnim,
+          child: SlideTransition(position: slideAnim, child: child),
+        );
+      },
+    );
   }
 
   @override
@@ -121,10 +238,17 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
       body: SafeArea(
         bottom: false,
         child: _showFriendList
-            ? _FriendListPage(onBack: () => setState(() => _showFriendList = false))
+            ? _FriendListPage(
+                friends: _friends,
+                recs: _recs,
+                onToggleFriend: _toggleFriend,
+                onShowProfileCard: (f) => _showProfileCard(context, f),
+                onBack: () => setState(() => _showFriendList = false),
+              )
             : _LeaderboardPage(
                 tabController: _tabController,
                 onFriendListTap: () => setState(() => _showFriendList = true),
+                onPlayerTap: (p) => _onPlayerRowTap(context, p),
               ),
       ),
     );
@@ -135,10 +259,12 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
 class _LeaderboardPage extends StatelessWidget {
   final TabController tabController;
   final VoidCallback onFriendListTap;
+  final Function(_Player) onPlayerTap;
 
   const _LeaderboardPage({
     required this.tabController,
     required this.onFriendListTap,
+    required this.onPlayerTap,
   });
 
   @override
@@ -146,7 +272,7 @@ class _LeaderboardPage extends StatelessWidget {
     return Column(
       children: [
         const SizedBox(height: 16),
-        Text(
+        const Text(
           'Leadboard',
           style: TextStyle(
             fontSize: 20,
@@ -193,8 +319,16 @@ class _LeaderboardPage extends StatelessWidget {
           child: TabBarView(
             controller: tabController,
             children: [
-              _RankList(players: _worldPlayers, onFriendListTap: onFriendListTap),
-              _RankList(players: _friendPlayers, onFriendListTap: onFriendListTap),
+              _RankList(
+                players: _worldPlayers,
+                onPlayerTap: onPlayerTap,
+              ),
+              _RankList(
+                players: _friendPlayers,
+                onPlayerTap: onPlayerTap,
+                onFriendListTap: onFriendListTap,
+                isFriendsTab: true,
+              ),
             ],
           ),
         ),
@@ -206,18 +340,94 @@ class _LeaderboardPage extends StatelessWidget {
 // ─── Rank List ────────────────────────────────────────────────────────────────
 class _RankList extends StatelessWidget {
   final List<_Player> players;
-  final VoidCallback onFriendListTap;
+  final Function(_Player) onPlayerTap;
+  final VoidCallback? onFriendListTap;
+  final bool isFriendsTab;
 
-  const _RankList({required this.players, required this.onFriendListTap});
+  const _RankList({
+    required this.players,
+    required this.onPlayerTap,
+    this.onFriendListTap,
+    this.isFriendsTab = false,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final itemCount = players.length + (isFriendsTab ? 1 : 0);
+
     return ListView.builder(
       padding: const EdgeInsets.fromLTRB(20, 0, 20, 120),
-      itemCount: players.length,
+      itemCount: itemCount,
       itemBuilder: (context, index) {
-        final p = players[index];
-        return _RankRow(player: p, onFriendListTap: onFriendListTap);
+        if (isFriendsTab && index == 0) {
+          // Entry point card header for Managing Friends
+          return GestureDetector(
+            onTap: onFriendListTap,
+            child: Container(
+              margin: const EdgeInsets.only(bottom: 14, top: 4),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+              decoration: BoxDecoration(
+                color: AppColors.primaryPurple.withValues(alpha: 0.08),
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(
+                  color: AppColors.primaryPurple.withValues(alpha: 0.15),
+                  width: 1,
+                ),
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: AppColors.primaryPurple.withValues(alpha: 0.15),
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(
+                      Icons.people_alt_rounded,
+                      color: AppColors.primaryPurple,
+                      size: 20,
+                    ),
+                  ),
+                  const SizedBox(width: 14),
+                  const Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Friend Lists & Rekomendations',
+                          style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.primaryText,
+                          ),
+                        ),
+                        SizedBox(height: 2),
+                        Text(
+                          'View all friends and find recommendations',
+                          style: TextStyle(
+                            fontSize: 11,
+                            color: AppColors.secondaryText,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const Icon(
+                    Icons.chevron_right_rounded,
+                    color: AppColors.primaryPurple,
+                    size: 24,
+                  ),
+                ],
+              ),
+            ),
+          );
+        }
+
+        final p = players[isFriendsTab ? index - 1 : index];
+        return _RankRow(
+          player: p,
+          onTap: () => onPlayerTap(p),
+        );
       },
     );
   }
@@ -226,9 +436,9 @@ class _RankList extends StatelessWidget {
 // ─── Rank Row ─────────────────────────────────────────────────────────────────
 class _RankRow extends StatelessWidget {
   final _Player player;
-  final VoidCallback onFriendListTap;
+  final VoidCallback onTap;
 
-  const _RankRow({required this.player, required this.onFriendListTap});
+  const _RankRow({required this.player, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -242,7 +452,7 @@ class _RankRow extends StatelessWidget {
     ];
 
     return GestureDetector(
-      onTap: player.rank == 1 ? onFriendListTap : null,
+      onTap: onTap,
       child: Container(
         margin: const EdgeInsets.only(bottom: 10),
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
@@ -265,19 +475,25 @@ class _RankRow extends StatelessWidget {
         child: Row(
           children: [
             SizedBox(
-              width: 30,
+              width: 32,
               child: isTop3
-                  ? Text(
-                      ['🥇', '🥈', '🥉'][player.rank - 1],
-                      style: const TextStyle(fontSize: 20),
-                    )
-                  : Text(
-                      '${player.rank}',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w700,
-                        color: AppColors.secondaryText,
-                      ),
+                  ? Center(child: _RankMedal(rank: player.rank))
+                  : Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          '${player.rank}',
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w700,
+                            color: AppColors.primaryText,
+                          ),
+                        ),
+                        if (player.trend != 0) ...[
+                          const SizedBox(height: 3),
+                          _TrendTriangle(isUp: player.trend > 0),
+                        ],
+                      ],
                     ),
             ),
             const SizedBox(width: 8),
@@ -305,7 +521,7 @@ class _RankRow extends StatelessWidget {
                 children: [
                   Text(
                     player.name,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.w700,
                       color: AppColors.primaryText,
@@ -315,7 +531,7 @@ class _RankRow extends StatelessWidget {
                   const SizedBox(height: 2),
                   Text(
                     'lv. ${player.level}',
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 11,
                       color: AppColors.secondaryText,
                     ),
@@ -324,14 +540,11 @@ class _RankRow extends StatelessWidget {
               ),
             ),
             Text(
-              'Exp ${player.exp.toString().replaceAllMapped(
-                    RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                    (m) => '${m[1]},',
-                  )}',
-              style: TextStyle(
+              'Exp ${player.exp}',
+              style: const TextStyle(
                 fontSize: 11,
                 fontWeight: FontWeight.w600,
-                color: AppColors.primaryPurple,
+                color: AppColors.secondaryText,
               ),
             ),
           ],
@@ -341,110 +554,149 @@ class _RankRow extends StatelessWidget {
   }
 }
 
-// ─── Friend List Page ─────────────────────────────────────────────────────────
-class _FriendListPage extends StatefulWidget {
-  final VoidCallback onBack;
+// ─── Custom Ribbon Medal ──────────────────────────────────────────────────────
+class _RankMedal extends StatelessWidget {
+  final int rank;
 
-  const _FriendListPage({required this.onBack});
-
-  @override
-  State<_FriendListPage> createState() => _FriendListPageState();
-}
-
-class _FriendListPageState extends State<_FriendListPage> {
-  late final List<_Friend> _friends;
-  late final List<_Friend> _recs;
+  const _RankMedal({required this.rank});
 
   @override
-  void initState() {
-    super.initState();
-    _friends = _allFriends
-        .map((f) => _Friend(
-              name: f.name,
-              avatarUrl: f.avatarUrl,
-              level: f.level,
-              isFriend: f.isFriend,
-            ))
-        .toList();
-    _recs = _recommendations
-        .map((f) => _Friend(
-              name: f.name,
-              avatarUrl: f.avatarUrl,
-              level: f.level,
-              isFriend: f.isFriend,
-            ))
-        .toList();
-  }
+  Widget build(BuildContext context) {
+    final Color medalColor;
+    if (rank == 1) {
+      medalColor = const Color(0xFFF1C40F);
+    } else if (rank == 2) {
+      medalColor = const Color(0xFFBDC3C7);
+    } else {
+      medalColor = const Color(0xFFE67E22);
+    }
 
-  void _toggleFriend(_Friend friend) {
-    setState(() {
-      friend.isFriend = !friend.isFriend;
-    });
-  }
-
-  // ── Profile card: muncul dari atas dengan animasi bounce/tuing ─────────────
-  void _showProfileCard(BuildContext ctx, _Friend friend) {
-    showGeneralDialog(
-      context: ctx,
-      barrierDismissible: true,
-      barrierLabel: 'profile',
-      barrierColor: Colors.black.withValues(alpha: 0.4),
-      transitionDuration: const Duration(milliseconds: 500),
-      pageBuilder: (dialogCtx, anim1, anim2) {
-        return _ProfileCard(
-          friend: friend,
-          onToggleFriend: () => _toggleFriend(friend),
-          onChatTap: () {
-            // Daftar ke ChatStore supaya masuk ke ChatPage
-            ChatStore.instance.getOrCreate(
-              friendName: friend.name,
-              friendAvatarUrl: friend.avatarUrl,
-              avatarColor: AppColors.primaryPurple,
-              initial: friend.name.isNotEmpty
-                  ? friend.name[0].toUpperCase()
-                  : '?',
-            );
-            Navigator.of(dialogCtx).pop();
-            Navigator.push(
-              ctx,
-              MaterialPageRoute<void>(
-                builder: (_) => ChatDetailPage(
-                  friendName: friend.name,
-                  friendAvatarUrl: friend.avatarUrl,
-                  avatarColor: AppColors.primaryPurple,
-                  initial: friend.name.isNotEmpty
-                      ? friend.name[0].toUpperCase()
-                      : '?',
+    return SizedBox(
+      width: 32,
+      height: 36,
+      child: Stack(
+        alignment: Alignment.topCenter,
+        children: [
+          // Ribbon tails behind the medal circle
+          Positioned(
+            bottom: 0,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Transform.rotate(
+                  angle: -0.2,
+                  child: Container(
+                    width: 6,
+                    height: 12,
+                    color: medalColor.withValues(alpha: 0.85),
+                  ),
                 ),
+                const SizedBox(width: 2),
+                Transform.rotate(
+                  angle: 0.2,
+                  child: Container(
+                    width: 6,
+                    height: 12,
+                    color: medalColor.withValues(alpha: 0.85),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          // Circular Medal Body
+          Container(
+            width: 26,
+            height: 26,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: medalColor,
+              border: Border.all(color: Colors.white, width: 1.5),
+              boxShadow: [
+                BoxShadow(
+                  color: medalColor.withValues(alpha: 0.35),
+                  blurRadius: 4,
+                  offset: const Offset(0, 2),
+                ),
+              ],
+            ),
+            alignment: Alignment.center,
+            child: Text(
+              '$rank',
+              style: const TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w900,
+                color: Colors.white,
               ),
-            );
-          },
-        );
-      },
-      transitionBuilder: (ctx, anim1, anim2, child) {
-        // Slide dari atas + spring bounce (tuing!)
-        final slideAnim = Tween<Offset>(
-          begin: const Offset(0, -1.3),
-          end: Offset.zero,
-        ).animate(
-          CurvedAnimation(
-            parent: anim1,
-            curve: const _SpringBounceCurve(),
+            ),
           ),
-        );
-        final fadeAnim = Tween<double>(begin: 0.0, end: 1.0).animate(
-          CurvedAnimation(
-            parent: anim1,
-            curve: const Interval(0.0, 0.35, curve: Curves.easeIn),
-          ),
-        );
-        return FadeTransition(
-          opacity: fadeAnim,
-          child: SlideTransition(position: slideAnim, child: child),
-        );
-      },
+        ],
+      ),
     );
   }
+}
+
+// ─── Trend Triangle ───────────────────────────────────────────────────────────
+class _TrendTriangle extends StatelessWidget {
+  final bool isUp;
+
+  const _TrendTriangle({required this.isUp});
+
+  @override
+  Widget build(BuildContext context) {
+    final color = isUp ? const Color(0xFF7CB342) : const Color(0xFFE53935);
+    return CustomPaint(
+      size: const Size(8, 6),
+      painter: _TrianglePainter(color: color, isUp: isUp),
+    );
+  }
+}
+
+class _TrianglePainter extends CustomPainter {
+  final Color color;
+  final bool isUp;
+
+  _TrianglePainter({required this.color, required this.isUp});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = color
+      ..style = PaintingStyle.fill;
+
+    final path = Path();
+    if (isUp) {
+      path.moveTo(size.width / 2, 0);
+      path.lineTo(size.width, size.height);
+      path.lineTo(0, size.height);
+    } else {
+      path.moveTo(size.width / 2, size.height);
+      path.lineTo(size.width, 0);
+      path.lineTo(0, 0);
+    }
+    path.close();
+
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
+}
+
+// ─── Friend List Page ─────────────────────────────────────────────────────────
+class _FriendListPage extends StatelessWidget {
+  final List<_Friend> friends;
+  final List<_Friend> recs;
+  final Function(_Friend) onToggleFriend;
+  final Function(_Friend) onShowProfileCard;
+  final VoidCallback onBack;
+
+  const _FriendListPage({
+    required this.friends,
+    required this.recs,
+    required this.onToggleFriend,
+    required this.onShowProfileCard,
+    required this.onBack,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -456,14 +708,14 @@ class _FriendListPageState extends State<_FriendListPage> {
           child: Row(
             children: [
               GestureDetector(
-                onTap: widget.onBack,
+                onTap: onBack,
                 child: const Icon(
                   Icons.chevron_left_rounded,
                   size: 30,
                   color: AppColors.primaryText,
                 ),
               ),
-              Expanded(
+              const Expanded(
                 child: Text(
                   'Friend Lists',
                   textAlign: TextAlign.center,
@@ -485,10 +737,10 @@ class _FriendListPageState extends State<_FriendListPage> {
             padding: const EdgeInsets.fromLTRB(20, 0, 20, 120),
             children: [
               // Friend rows
-              ..._friends.map((f) => _FriendRow(
+              ...friends.map((f) => _FriendRow(
                     friend: f,
-                    onToggleFriend: () => _toggleFriend(f),
-                    onAvatarTap: () => _showProfileCard(context, f),
+                    onToggleFriend: () => onToggleFriend(f),
+                    onAvatarTap: () => onShowProfileCard(f),
                     onChatTap: () {
                       ChatStore.instance.getOrCreate(
                         friendName: f.name,
@@ -516,7 +768,7 @@ class _FriendListPageState extends State<_FriendListPage> {
 
               // Recommendations
               const SizedBox(height: 16),
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
@@ -527,7 +779,7 @@ class _FriendListPageState extends State<_FriendListPage> {
                       color: AppColors.primaryText,
                     ),
                   ),
-                  const Icon(
+                  Icon(
                     Icons.chevron_right_rounded,
                     size: 20,
                     color: AppColors.primaryText,
@@ -540,12 +792,12 @@ class _FriendListPageState extends State<_FriendListPage> {
                 height: 64,
                 child: ListView.separated(
                   scrollDirection: Axis.horizontal,
-                  itemCount: _recs.length,
+                  itemCount: recs.length,
                   separatorBuilder: (_, __) => const SizedBox(width: 12),
                   itemBuilder: (context, i) {
-                    final r = _recs[i];
+                    final r = recs[i];
                     return GestureDetector(
-                      onTap: () => _showProfileCard(context, r),
+                      onTap: () => onShowProfileCard(r),
                       child: Column(
                         children: [
                           Container(
@@ -566,7 +818,7 @@ class _FriendListPageState extends State<_FriendListPage> {
                           const SizedBox(height: 4),
                           Text(
                             r.name,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 9,
                               color: AppColors.secondaryText,
                             ),
@@ -633,7 +885,7 @@ class _FriendRow extends StatelessWidget {
                 children: [
                   Text(
                     friend.name,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.w700,
                       color: AppColors.primaryText,
@@ -642,7 +894,7 @@ class _FriendRow extends StatelessWidget {
                   ),
                   Text(
                     'lv. ${friend.level}',
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 11,
                       color: AppColors.secondaryText,
                     ),
@@ -652,9 +904,9 @@ class _FriendRow extends StatelessWidget {
             ),
           ),
 
-          // Friend / Unfriend button
+          // Friend / Profile button
           GestureDetector(
-            onTap: onToggleFriend,
+            onTap: isFriend ? onToggleFriend : onAvatarTap,
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 200),
               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
@@ -670,7 +922,7 @@ class _FriendRow extends StatelessWidget {
                 ),
               ),
               child: Text(
-                isFriend ? 'Unfriend' : 'Add Friend',
+                isFriend ? 'Unfriend' : 'Profile',
                 style: TextStyle(
                   fontSize: 11,
                   fontWeight: FontWeight.w600,
@@ -685,7 +937,7 @@ class _FriendRow extends StatelessWidget {
   }
 }
 
-// ─── Profile Card (muncul dari atas, animasi bounce/tuing) ────────────────────
+// ─── Profile Card (muncul dari atas, animasi bounce/tuing ke tengah) ─────────
 class _ProfileCard extends StatefulWidget {
   final _Friend friend;
   final VoidCallback onToggleFriend;
@@ -713,20 +965,15 @@ class _ProfileCardState extends State<_ProfileCard> {
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: Alignment.topCenter,
+      alignment: Alignment.center, // Center aligned on screen
       child: Padding(
-        padding: EdgeInsets.only(
-          top: MediaQuery.of(context).padding.top + 16,
-          left: 16,
-          right: 16,
-          bottom: 32,
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Material(
           color: Colors.transparent,
           child: Container(
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(28),
+              borderRadius: BorderRadius.circular(24),
               boxShadow: [
                 BoxShadow(
                   color: AppColors.primaryPurple.withValues(alpha: 0.18),
@@ -735,26 +982,17 @@ class _ProfileCardState extends State<_ProfileCard> {
                 ),
               ],
             ),
-            child: Column(
+            padding: const EdgeInsets.all(20),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
-                // Handle bar
-                const SizedBox(height: 12),
-                Container(
-                  width: 40,
-                  height: 4,
-                  decoration: BoxDecoration(
-                    color: AppColors.disableBorder,
-                    borderRadius: BorderRadius.circular(2),
-                  ),
-                ),
-                const SizedBox(height: 20),
-
-                // Header: avatar + info + stats
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                // Left Column (Avatar, Name, UID, Bio) - ALL CENTERED
+                Expanded(
+                  flex: 11,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       // Avatar
                       Container(
@@ -763,8 +1001,8 @@ class _ProfileCardState extends State<_ProfileCard> {
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           border: Border.all(
-                            color: AppColors.primaryPurple.withValues(alpha: 0.5),
-                            width: 2.5,
+                            color: AppColors.disableBorder,
+                            width: 1.5,
                           ),
                           image: DecorationImage(
                             image: NetworkImage(widget.friend.avatarUrl),
@@ -772,170 +1010,168 @@ class _ProfileCardState extends State<_ProfileCard> {
                           ),
                         ),
                       ),
-                      const SizedBox(width: 14),
-
-                      // Name + UID + bio
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 8, vertical: 2),
-                              decoration: BoxDecoration(
-                                color: AppColors.backgroundSoft,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Text(
-                                'Main Page',
-                                style: TextStyle(
-                                  fontSize: 9,
-                                  fontWeight: FontWeight.w600,
-                                  color: AppColors.secondaryText,
-                                ),
-                              ),
+                      const SizedBox(height: 12),
+                      // Name
+                      Text(
+                        widget.friend.name,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w800,
+                          color: AppColors.primaryText,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      const SizedBox(height: 4),
+                      // UID Row
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            'UID : 1009012',
+                            style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.w500,
+                              color: AppColors.secondaryText,
                             ),
-                            const SizedBox(height: 6),
-                            Text(
-                              widget.friend.name,
-                              style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w800,
-                                color: AppColors.primaryText,
-                              ),
-                            ),
-                            const SizedBox(height: 4),
-                            Row(
-                              children: [
-                                Text(
-                                  'UID : 1009012',
-                                  style: TextStyle(
-                                    fontSize: 10,
-                                    color: AppColors.secondaryText,
-                                  ),
-                                ),
-                                const SizedBox(width: 4),
-                                const Icon(Icons.copy_rounded,
-                                    size: 11,
-                                    color: AppColors.secondaryText),
-                              ],
-                            ),
-                            const SizedBox(height: 4),
-                            Text(
-                              'lagi gaming anak',
-                              style: TextStyle(
-                                fontSize: 10,
-                                color: AppColors.disableText,
-                                fontStyle: FontStyle.italic,
-                              ),
-                            ),
-                          ],
+                          ),
+                          const SizedBox(width: 4),
+                          Icon(
+                            Icons.copy_rounded,
+                            size: 11,
+                            color: AppColors.secondaryText.withValues(alpha: 0.7),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 6),
+                      // Bio
+                      Text(
+                        widget.friend.name == 'Potato_9595'
+                            ? 'kentang goreng enak'
+                            : widget.friend.name == 'ikeufie'
+                                ? 'layla lovers'
+                                : widget.friend.name == 'hoonst4rs'
+                                    ? 'hah'
+                                    : widget.friend.name == 'jung.jpeg'
+                                        ? 'kentang goreng enak'
+                                        : 'lagi gaming anak',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 10,
+                          color: AppColors.disableText,
+                          fontStyle: FontStyle.italic,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(width: 12),
+                // Thin vertical divider line (Figma purple/lavender)
+                Container(
+                  height: 110,
+                  width: 1,
+                  color: AppColors.disableBorder.withValues(alpha: 0.5),
+                ),
+                const SizedBox(width: 12),
+                // Right Column (Main Page, Stats, Actions)
+                Expanded(
+                  flex: 12,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      // Header
+                      const Text(
+                        'Main Page',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                          color: AppColors.primaryText,
                         ),
                       ),
-
-                      // Stats
-                      Column(
+                      const SizedBox(height: 12),
+                      // Stats Row
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           _MiniStat(
                             icon: '🌍',
                             label: 'World Level',
                             value: '${widget.friend.level}',
                           ),
-                          const SizedBox(height: 10),
-                          const _MiniStat(
+                          _MiniStat(
                             icon: '🏆',
-                            label: 'Achievement',
-                            value: '2',
+                            label: 'Achivement', // exact spelling as Figma design
+                            value: widget.friend.name == 'ikeufie'
+                                ? '124'
+                                : widget.friend.name == 'hoonst4rs'
+                                    ? '44'
+                                    : widget.friend.name == 'jung.jpeg'
+                                        ? '93'
+                                        : '2',
                           ),
                         ],
                       ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 20),
-
-                // Action buttons
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 24),
-                  child: Row(
-                    children: [
-                      // Friend / Unfriend
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              _isFriend = !_isFriend;
-                              widget.friend.isFriend = _isFriend;
-                            });
-                            widget.onToggleFriend();
-                          },
-                          child: AnimatedContainer(
-                            duration: const Duration(milliseconds: 200),
-                            height: 44,
-                            decoration: BoxDecoration(
-                              color: _isFriend
-                                  ? Colors.red.withValues(alpha: 0.08)
-                                  : AppColors.primaryPurple.withValues(alpha: 0.12),
-                              borderRadius: BorderRadius.circular(24),
-                              border: Border.all(
-                                color: _isFriend
-                                    ? Colors.red.withValues(alpha: 0.25)
-                                    : AppColors.primaryPurple.withValues(alpha: 0.30),
-                              ),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  _isFriend
-                                      ? Icons.person_remove_rounded
-                                      : Icons.person_add_rounded,
-                                  size: 16,
-                                  color: _isFriend
-                                      ? Colors.red
-                                      : AppColors.primaryPurple,
+                      const SizedBox(height: 16),
+                      // Action Row (Button + Chat Icon)
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                _isFriend = !_isFriend;
+                                widget.friend.isFriend = _isFriend;
+                              });
+                              widget.onToggleFriend();
+                            },
+                            child: AnimatedContainer(
+                              duration: const Duration(milliseconds: 200),
+                              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(16),
+                                border: Border.all(
+                                  color: AppColors.secondaryText,
+                                  width: 1.2,
                                 ),
-                                const SizedBox(width: 6),
-                                Text(
-                                  _isFriend ? 'Unfriend' : 'Add Friend',
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w700,
-                                    color: _isFriend
-                                        ? Colors.red
-                                        : AppColors.primaryPurple,
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(
+                                    _isFriend
+                                        ? Icons.remove_rounded
+                                        : Icons.add_rounded,
+                                    size: 12,
+                                    color: AppColors.secondaryText,
                                   ),
-                                ),
-                              ],
+                                  const SizedBox(width: 2),
+                                  Text(
+                                    _isFriend ? 'Unfriend' : 'Add Friend',
+                                    style: const TextStyle(
+                                      fontSize: 9,
+                                      fontWeight: FontWeight.w700,
+                                      color: AppColors.secondaryText,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-
-                      // Chat button — buka ChatDetailPage via ChatStore
-                      GestureDetector(
-                        onTap: widget.onChatTap,
-                        child: Container(
-                          width: 44,
-                          height: 44,
-                          decoration: BoxDecoration(
-                            color: AppColors.primaryPurple,
-                            shape: BoxShape.circle,
-                            boxShadow: [
-                              BoxShadow(
-                                color: AppColors.primaryPurple.withValues(alpha: 0.4),
-                                blurRadius: 8,
-                                offset: const Offset(0, 3),
-                              ),
-                            ],
+                          const SizedBox(width: 8),
+                          // Raw double chat bubbles icon as in Figma
+                          GestureDetector(
+                            onTap: widget.onChatTap,
+                            child: const Icon(
+                              Icons.forum_rounded,
+                              size: 20,
+                              color: AppColors.secondaryText,
+                            ),
                           ),
-                          child: const Icon(
-                            Icons.chat_bubble_outline_rounded,
-                            size: 18,
-                            color: Colors.white,
-                          ),
-                        ),
+                        ],
                       ),
                     ],
                   ),
@@ -948,6 +1184,7 @@ class _ProfileCardState extends State<_ProfileCard> {
     );
   }
 }
+
 
 // ─── Mini Stat ────────────────────────────────────────────────────────────────
 class _MiniStat extends StatelessWidget {
@@ -968,18 +1205,19 @@ class _MiniStat extends StatelessWidget {
         Text(icon, style: const TextStyle(fontSize: 20)),
         const SizedBox(height: 2),
         Text(
+          label,
+          style: const TextStyle(
+            fontSize: 8,
+            color: AppColors.secondaryText,
+          ),
+        ),
+        const SizedBox(height: 1),
+        Text(
           value,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 13,
             fontWeight: FontWeight.w800,
             color: AppColors.primaryText,
-          ),
-        ),
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 8,
-            color: AppColors.secondaryText,
           ),
         ),
       ],
@@ -988,7 +1226,6 @@ class _MiniStat extends StatelessWidget {
 }
 
 // ─── Spring Bounce Curve ──────────────────────────────────────────────────────
-/// Animasi: slide dari atas + tuing/bounce di akhir
 class _SpringBounceCurve extends Curve {
   const _SpringBounceCurve();
 
