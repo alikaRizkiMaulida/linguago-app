@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:linguago_flutter/core/constants/language_preference.dart';
 import 'package:linguago_flutter/core/theme/app_theme.dart';
 import 'package:linguago_flutter/ui/bloc/auth/login/login_bloc.dart';
 import 'package:linguago_flutter/ui/bloc/auth/register/register_bloc.dart';
@@ -21,7 +22,6 @@ void main() async {
   GoogleFonts.config.allowRuntimeFetching = false;
   await QuizProgress.loadProgress();
   runApp(const MyApp());
-  
 }
 
 class MyApp extends StatelessWidget {
@@ -31,12 +31,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<LoginBloc>(
-          create: (context) => LoginBloc(),
-        ),
-        BlocProvider<RegisterBloc>(
-          create: (context) => RegisterBloc(),
-        ),
+        BlocProvider<LoginBloc>(create: (context) => LoginBloc()),
+        BlocProvider<RegisterBloc>(create: (context) => RegisterBloc()),
       ],
       child: MaterialApp(
         title: 'LinguaGo',
@@ -53,8 +49,7 @@ class MyApp extends StatelessWidget {
           '/verification-email': (_) => const VerificationEmailScreen(),
           '/home': (_) => const HomeScreen(),
         },
-      )
+      ),
     );
   }
 }
-

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:linguago_flutter/core/constants/colors.dart';
 import 'package:linguago_flutter/core/constants/quiz_state.dart';
+import 'package:linguago_flutter/core/constants/language_preference.dart';
 
 class FunFactData {
   final String title;
@@ -34,7 +35,9 @@ class _FunFactScreenState extends State<FunFactScreen>
   late Animation<Offset> _swipeAnimation;
   late Animation<Offset> _resetAnimation;
 
-  final List<FunFactData> _facts = const [
+  late final List<FunFactData> _facts;
+
+  static const List<FunFactData> _koreanFacts = [
     FunFactData(
       title: "Hangul Was Created by a King!",
       description:
@@ -67,9 +70,74 @@ class _FunFactScreenState extends State<FunFactScreen>
     ),
   ];
 
+  static const List<FunFactData> _englishFacts = [
+    FunFactData(
+      title: "English Has Silent Letters",
+      description:
+          "Some English words have letters that are not pronounced, like:\n• Knee\n• Hour\n• Knife\n\nSilent letters are tricky.",
+      svgAsset: "assets/Frame1000001918.svg",
+    ),
+    FunFactData(
+      title: "\"E\" Is the Most Used Letter",
+      description:
+          "The letter E is the most commonly used letter in English words.\n\nYou can find it in words like:\n• See\n• People",
+      svgAsset: "assets/Frame1000001904.svg",
+    ),
+    FunFactData(
+      title: "English Words from Many Languages",
+      description:
+          "English has borrowed words from many languages like French, Latin, Korean, and Japanese. That's why some English words can sound and look very different.",
+      svgAsset: "assets/Frame1000001911.svg",
+    ),
+    FunFactData(
+      title: "One Letter Can Have Many Sounds",
+      description:
+          "English letters can sound different depending on the word.\n\nExample:\n• A in \"Name\"\n• A in \"Car\"",
+      svgAsset: "assets/Frame1000001900.svg",
+    ),
+    FunFactData(
+      title: "English Is Spoken Worldwide",
+      description:
+          "English is used by millions of people worldwide for communication, school, travel, and entertainment. That's why it is one of the most important international languages today.",
+      svgAsset: "assets/Frame1000001909.svg",
+    ),
+    FunFactData(
+      title: "Shortest Complete Sentence",
+      description:
+          "The shortest complete sentence in English is \"I am.\" It has a subject (I) and a verb (am) and makes complete sense!",
+      svgAsset: "assets/Frame1000001900.svg",
+    ),
+    FunFactData(
+      title: "Language of the Air",
+      description:
+          "All pilots and flight controllers must speak in English during international flights, regardless of their native country.",
+      svgAsset: "assets/Frame1000001911.svg",
+    ),
+    FunFactData(
+      title: "New Word Every 2 Hours",
+      description:
+          "Dictionary editors add around 4,000 new words to the English dictionary every year! That is about one new word every two hours.",
+      svgAsset: "assets/Frame1000001909.svg",
+    ),
+    FunFactData(
+      title: "The Word \"Set\" Has Many Meanings",
+      description:
+          "The word \"set\" has one of the highest numbers of definitions in the English dictionary, with over 400 different meanings!",
+      svgAsset: "assets/Frame1000001904.svg",
+    ),
+    FunFactData(
+      title: "Pangram Sentence",
+      description:
+          "The sentence \"The quick brown fox jumps over the lazy dog\" is a pangram, which means it uses every single letter of the English alphabet!",
+      svgAsset: "assets/Frame1000001918.svg",
+    ),
+  ];
+
   @override
   void initState() {
     super.initState();
+    final bool isEnglish = LanguagePreference.current == 'English';
+    _facts = isEnglish ? _englishFacts : _koreanFacts;
 
     _swipeAnimationController = AnimationController(
       vsync: this,
@@ -255,11 +323,11 @@ class _FunFactScreenState extends State<FunFactScreen>
                       ),
                     ),
                     const SizedBox(width: 12),
-                    const Expanded(
+                    Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          const Text(
                             'Fun Fact',
                             style: TextStyle(
                               fontSize: 18,
@@ -268,8 +336,10 @@ class _FunFactScreenState extends State<FunFactScreen>
                             ),
                           ),
                           Text(
-                            'Lets learn interesting things about korea ✨',
-                            style: TextStyle(
+                            LanguagePreference.current == 'English'
+                                ? 'Lets learn interesting things about English ✨'
+                                : 'Lets learn interesting things about korea ✨',
+                            style: const TextStyle(
                               fontSize: 11,
                               fontWeight: FontWeight.w600,
                               color: AppColors.primaryPurple,
@@ -548,8 +618,8 @@ class _FunFactScreenState extends State<FunFactScreen>
                       onPressed: isTopCard
                           ? () {
                               if (isLastCard) {
-                                if (QuizProgress.unlockedPart == 4) {
-                                  QuizProgress.setUnlockedPart(5);
+                                if (QuizProgress.unlockedPart == 8) {
+                                  QuizProgress.setUnlockedPart(9);
                                 }
                                 setState(() {
                                   _currentIndex = _facts.length;
@@ -636,10 +706,12 @@ class _FunFactScreenState extends State<FunFactScreen>
 
             const SizedBox(height: 20),
 
-            const Text(
-              'Great! You discovered 5 Korean Fun Facts!',
+            Text(
+              LanguagePreference.current == 'English'
+                  ? 'Great! You discovered 5 English Fun Facts!'
+                  : 'Great! You discovered 5 Korean Fun Facts!',
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w700,
                 color: AppColors.secondaryText,
@@ -762,13 +834,13 @@ class _FunFactScreenState extends State<FunFactScreen>
                         ),
                       ),
                       onPressed: () {
-                        if (QuizProgress.unlockedPart == 4) {
-                          QuizProgress.setUnlockedPart(5);
+                        if (QuizProgress.unlockedPart == 8) {
+                          QuizProgress.setUnlockedPart(9);
                         }
                         Navigator.pop(context);
                       },
                       child: const Text(
-                        'Continue to Final Quiz',
+                        'Finish',
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w800,
