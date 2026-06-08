@@ -253,11 +253,11 @@ class _WelcomeIllustration extends StatelessWidget {
               width: 120,
               height: 16,
               decoration: BoxDecoration(
-                color: Colors.black.withOpacity(0.05),
+                color: Colors.black.withValues(alpha: 0.05),
                 borderRadius: BorderRadius.circular(100),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.08),
+                    color: Colors.black.withValues(alpha: 0.08),
                     blurRadius: 10,
                   ),
                 ],

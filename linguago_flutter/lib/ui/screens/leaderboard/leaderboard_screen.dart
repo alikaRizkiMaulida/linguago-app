@@ -97,19 +97,13 @@ class LeaderboardScreen extends StatefulWidget {
   State<LeaderboardScreen> createState() => _LeaderboardScreenState();
 }
 
-class _LeaderboardScreenState extends State<LeaderboardScreen>
-    with SingleTickerProviderStateMixin {
-  late final TabController _tabController;
-  bool _showFriendList = false;
-
+class _LeaderboardScreenState extends State<LeaderboardScreen> {
   late List<_Friend> _friends;
   late List<_Friend> _recs;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, vsync: this);
-    _tabController.addListener(() => setState(() {}));
 
     _friends = _allFriends
         .map((f) => _Friend(
@@ -128,12 +122,6 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
               isFriend: f.isFriend,
             ))
         .toList();
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
   }
 
   void _toggleFriend(_Friend friend) {
@@ -237,19 +225,9 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
       backgroundColor: const Color(0xFFFBF9FF),
       body: SafeArea(
         bottom: false,
-        child: _showFriendList
-            ? _FriendListPage(
-                friends: _friends,
-                recs: _recs,
-                onToggleFriend: _toggleFriend,
-                onShowProfileCard: (f) => _showProfileCard(context, f),
-                onBack: () => setState(() => _showFriendList = false),
-              )
-            : _LeaderboardPage(
-                tabController: _tabController,
-                onFriendListTap: () => setState(() => _showFriendList = true),
-                onPlayerTap: (p) => _onPlayerRowTap(context, p),
-              ),
+        child: _LeaderboardPage(
+          onPlayerTap: (p) => _onPlayerRowTap(context, p),
+        ),
       ),
     );
   }
@@ -257,13 +235,9 @@ class _LeaderboardScreenState extends State<LeaderboardScreen>
 
 // ─── Leaderboard Page ─────────────────────────────────────────────────────────
 class _LeaderboardPage extends StatelessWidget {
-  final TabController tabController;
-  final VoidCallback onFriendListTap;
   final Function(_Player) onPlayerTap;
 
   const _LeaderboardPage({
-    required this.tabController,
-    required this.onFriendListTap,
     required this.onPlayerTap,
   });
 
@@ -273,7 +247,7 @@ class _LeaderboardPage extends StatelessWidget {
       children: [
         const SizedBox(height: 16),
         const Text(
-          'Leadboard',
+          'Leaderboard',
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w800,
@@ -282,54 +256,10 @@ class _LeaderboardPage extends StatelessWidget {
         ),
         const SizedBox(height: 20),
 
-        // Tab Bar
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 80),
-          child: Container(
-            height: 40,
-            padding: const EdgeInsets.all(4),
-            decoration: BoxDecoration(
-              color: const Color(0xFFF3EEFB),
-              borderRadius: BorderRadius.circular(24),
-            ),
-            child: TabBar(
-              controller: tabController,
-              indicator: BoxDecoration(
-                color: AppColors.primaryPurple,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              indicatorSize: TabBarIndicatorSize.tab,
-              dividerColor: Colors.transparent,
-              labelStyle: const TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w700,
-              ),
-              labelColor: Colors.white,
-              unselectedLabelColor: AppColors.secondaryText,
-              tabs: const [
-                Tab(text: 'World'),
-                Tab(text: 'Friends'),
-              ],
-            ),
-          ),
-        ),
-        const SizedBox(height: 20),
-
         Expanded(
-          child: TabBarView(
-            controller: tabController,
-            children: [
-              _RankList(
-                players: _worldPlayers,
-                onPlayerTap: onPlayerTap,
-              ),
-              _RankList(
-                players: _friendPlayers,
-                onPlayerTap: onPlayerTap,
-                onFriendListTap: onFriendListTap,
-                isFriendsTab: true,
-              ),
-            ],
+          child: _RankList(
+            players: _worldPlayers,
+            onPlayerTap: onPlayerTap,
           ),
         ),
       ],
@@ -341,89 +271,23 @@ class _LeaderboardPage extends StatelessWidget {
 class _RankList extends StatelessWidget {
   final List<_Player> players;
   final Function(_Player) onPlayerTap;
-  final VoidCallback? onFriendListTap;
   final bool isFriendsTab;
 
   const _RankList({
     required this.players,
     required this.onPlayerTap,
-    this.onFriendListTap,
     this.isFriendsTab = false,
   });
 
   @override
   Widget build(BuildContext context) {
-    final itemCount = players.length + (isFriendsTab ? 1 : 0);
+    final itemCount = players.length;
 
     return ListView.builder(
       padding: const EdgeInsets.fromLTRB(20, 0, 20, 120),
       itemCount: itemCount,
       itemBuilder: (context, index) {
-        if (isFriendsTab && index == 0) {
-          // Entry point card header for Managing Friends
-          return GestureDetector(
-            onTap: onFriendListTap,
-            child: Container(
-              margin: const EdgeInsets.only(bottom: 14, top: 4),
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-              decoration: BoxDecoration(
-                color: AppColors.primaryPurple.withValues(alpha: 0.08),
-                borderRadius: BorderRadius.circular(16),
-                border: Border.all(
-                  color: AppColors.primaryPurple.withValues(alpha: 0.15),
-                  width: 1,
-                ),
-              ),
-              child: Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: AppColors.primaryPurple.withValues(alpha: 0.15),
-                      shape: BoxShape.circle,
-                    ),
-                    child: const Icon(
-                      Icons.people_alt_rounded,
-                      color: AppColors.primaryPurple,
-                      size: 20,
-                    ),
-                  ),
-                  const SizedBox(width: 14),
-                  const Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Friend Lists & Rekomendations',
-                          style: TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.primaryText,
-                          ),
-                        ),
-                        SizedBox(height: 2),
-                        Text(
-                          'View all friends and find recommendations',
-                          style: TextStyle(
-                            fontSize: 11,
-                            color: AppColors.secondaryText,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const Icon(
-                    Icons.chevron_right_rounded,
-                    color: AppColors.primaryPurple,
-                    size: 24,
-                  ),
-                ],
-              ),
-            ),
-          );
-        }
-
-        final p = players[isFriendsTab ? index - 1 : index];
+        final p = players[index];
         return _RankRow(
           player: p,
           onTap: () => onPlayerTap(p),
@@ -768,23 +632,37 @@ class _FriendListPage extends StatelessWidget {
 
               // Recommendations
               const SizedBox(height: 16),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Friend rekomendations',
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w700,
+              GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => FriendRecommendationScreen(
+                        recs: recs,
+                        onShowProfileCard: onShowProfileCard,
+                      ),
+                    ),
+                  );
+                },
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Friend Recomendations',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                        color: AppColors.primaryText,
+                      ),
+                    ),
+                    Icon(
+                      Icons.chevron_right_rounded,
+                      size: 20,
                       color: AppColors.primaryText,
                     ),
-                  ),
-                  Icon(
-                    Icons.chevron_right_rounded,
-                    size: 20,
-                    color: AppColors.primaryText,
-                  ),
-                ],
+                  ],
+                ),
               ),
               const SizedBox(height: 12),
 
@@ -793,7 +671,7 @@ class _FriendListPage extends StatelessWidget {
                 child: ListView.separated(
                   scrollDirection: Axis.horizontal,
                   itemCount: recs.length,
-                  separatorBuilder: (_, __) => const SizedBox(width: 12),
+                  separatorBuilder: (context, index) => const SizedBox(width: 12),
                   itemBuilder: (context, i) {
                     final r = recs[i];
                     return GestureDetector(
@@ -843,12 +721,14 @@ class _FriendRow extends StatelessWidget {
   final VoidCallback onToggleFriend;
   final VoidCallback? onAvatarTap;
   final VoidCallback? onChatTap;
+  final bool isRecommendation;
 
   const _FriendRow({
     required this.friend,
     required this.onToggleFriend,
     this.onAvatarTap,
     this.onChatTap,
+    this.isRecommendation = false,
   });
 
   @override
@@ -906,27 +786,22 @@ class _FriendRow extends StatelessWidget {
 
           // Friend / Profile button
           GestureDetector(
-            onTap: isFriend ? onToggleFriend : onAvatarTap,
+            onTap: isRecommendation ? onAvatarTap : onToggleFriend,
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 200),
               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
               decoration: BoxDecoration(
-                color: isFriend
-                    ? Colors.red.withValues(alpha: 0.10)
-                    : AppColors.primaryPurple.withValues(alpha: 0.12),
+                color: AppColors.primaryPurple.withValues(alpha: 0.15),
                 borderRadius: BorderRadius.circular(20),
-                border: Border.all(
-                  color: isFriend
-                      ? Colors.red.withValues(alpha: 0.25)
-                      : AppColors.primaryPurple.withValues(alpha: 0.25),
-                ),
               ),
               child: Text(
-                isFriend ? 'Unfriend' : 'Profile',
-                style: TextStyle(
+                isRecommendation 
+                    ? 'Profile' 
+                    : (isFriend ? 'Unfriend' : 'Add Friend'),
+                style: const TextStyle(
                   fontSize: 11,
                   fontWeight: FontWeight.w600,
-                  color: isFriend ? Colors.red : AppColors.primaryPurple,
+                  color: AppColors.primaryPurple,
                 ),
               ),
             ),
@@ -1236,5 +1111,163 @@ class _SpringBounceCurve extends Curve {
     if (t == 1) return 1;
     return -(math.pow(2, 10 * t - 10).toDouble() *
         math.sin((t * 10 - 10.75) * c4));
+  }
+}
+
+// ─── Public Friend List Screen ────────────────────────────────────────────────
+class FriendListScreen extends StatefulWidget {
+  const FriendListScreen({super.key});
+
+  @override
+  State<FriendListScreen> createState() => _FriendListScreenState();
+}
+
+class _FriendListScreenState extends State<FriendListScreen> {
+  late List<_Friend> _friends;
+  late List<_Friend> _recs;
+
+  @override
+  void initState() {
+    super.initState();
+    _friends = _allFriends
+        .map((f) => _Friend(
+              name: f.name,
+              avatarUrl: f.avatarUrl,
+              level: f.level,
+              isFriend: f.isFriend,
+            ))
+        .toList();
+    _recs = _recommendations
+        .map((f) => _Friend(
+              name: f.name,
+              avatarUrl: f.avatarUrl,
+              level: f.level,
+              isFriend: f.isFriend,
+            ))
+        .toList();
+  }
+
+  void _toggleFriend(_Friend friend) {
+    setState(() {
+      friend.isFriend = !friend.isFriend;
+      // Sync back to static list if present to preserve state transitions
+      final idx = _allFriends.indexWhere((element) => element.name == friend.name);
+      if (idx != -1) {
+        _allFriends[idx].isFriend = friend.isFriend;
+      }
+      final recIdx = _recommendations.indexWhere((element) => element.name == friend.name);
+      if (recIdx != -1) {
+        _recommendations[recIdx].isFriend = friend.isFriend;
+      }
+    });
+  }
+
+  void _showProfileCard(BuildContext ctx, _Friend friend) {
+    showGeneralDialog(
+      context: ctx,
+      barrierDismissible: true,
+      barrierLabel: 'ProfileCard',
+      transitionDuration: const Duration(milliseconds: 300),
+      pageBuilder: (dialogCtx, anim1, anim2) {
+        return _ProfileCard(
+          friend: friend,
+          onToggleFriend: () => _toggleFriend(friend),
+        );
+      },
+      transitionBuilder: (dialogCtx, anim1, anim2, child) {
+        final curve = CurvedAnimation(parent: anim1, curve: const _SpringBounceCurve());
+        return SlideTransition(
+          position: Tween<Offset>(
+            begin: const Offset(0, -1),
+            end: Offset.zero,
+          ).animate(curve),
+          child: child,
+        );
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFFFBF9FF),
+      body: SafeArea(
+        child: _FriendListPage(
+          friends: _friends,
+          recs: _recs,
+          onToggleFriend: _toggleFriend,
+          onShowProfileCard: (f) => _showProfileCard(context, f),
+          onBack: () => Navigator.pop(context),
+        ),
+      ),
+    );
+  }
+}
+
+// ─── Friend Recommendation Screen ──────────────────────────────────────────────
+class FriendRecommendationScreen extends StatelessWidget {
+  final List<_Friend> recs;
+  final Function(_Friend) onShowProfileCard;
+
+  const FriendRecommendationScreen({
+    super.key,
+    required this.recs,
+    required this.onShowProfileCard,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFFFBF9FF),
+      body: SafeArea(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 16, 20, 0),
+              child: Row(
+                children: [
+                  GestureDetector(
+                    onTap: () => Navigator.pop(context),
+                    child: const Icon(
+                      Icons.chevron_left_rounded,
+                      size: 30,
+                      color: AppColors.primaryText,
+                    ),
+                  ),
+                  const Expanded(
+                    child: Text(
+                      'Friend Recomendations',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w800,
+                        color: AppColors.primaryText,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 30),
+                ],
+              ),
+            ),
+            const SizedBox(height: 16),
+            Expanded(
+              child: ListView.builder(
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 120),
+                itemCount: recs.length,
+                itemBuilder: (context, index) {
+                  final r = recs[index];
+                  return _FriendRow(
+                    friend: r,
+                    isRecommendation: true,
+                    onToggleFriend: () {}, // Not used
+                    onAvatarTap: () => onShowProfileCard(r),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

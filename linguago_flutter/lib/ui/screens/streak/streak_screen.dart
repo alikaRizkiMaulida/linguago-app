@@ -191,7 +191,7 @@ class StreakScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(22),
                   boxShadow: [
                     BoxShadow(
-                      color: AppColors.primaryPurple.withOpacity(0.08),
+                      color: AppColors.primaryPurple.withValues(alpha: 0.08),
                       blurRadius: 16,
                       offset: const Offset(0, 4),
                     ),
@@ -240,7 +240,7 @@ class StreakScreen extends StatelessWidget {
                         color: const Color(0xFFFFFDE8),
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
-                          color: const Color(0xFFFFD700).withOpacity(0.4),
+                          color: const Color(0xFFFFD700).withValues(alpha: 0.4),
                         ),
                       ),
                       child: Row(
@@ -298,7 +298,7 @@ class _TaskItem extends StatelessWidget {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: done
-                ? AppColors.primaryPurple.withOpacity(0.10)
+                ? AppColors.primaryPurple.withValues(alpha: 0.10)
                 : const Color(0xFFF0EEF8),
           ),
           child: Center(

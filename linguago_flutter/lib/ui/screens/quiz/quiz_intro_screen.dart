@@ -20,8 +20,11 @@ class _QuizIntroScreenState extends State<QuizIntroScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFFFBF9FF), // matching #FBF9FF background
       body: SafeArea(
-        child: Column(
-          children: [
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 430),
+            child: Column(
+              children: [
             // ── App Bar Header ───────────────────────────────────────────────
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
@@ -45,8 +48,8 @@ class _QuizIntroScreenState extends State<QuizIntroScreen> {
                         ),
                         const SizedBox(height: 2),
                         Text(
-                          'Introduction to Hangul',
-                          style: TextStyle(
+                          QuizProgress.learningLanguage == 'Korea' ? 'Introduction to Hangul' : 'Introduction to English Phonics',
+                          style: const TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w600,
                             color: AppColors.primaryPurple,
@@ -75,7 +78,7 @@ class _QuizIntroScreenState extends State<QuizIntroScreen> {
                         borderRadius: BorderRadius.circular(20),
                         boxShadow: [
                           BoxShadow(
-                            color: AppColors.primaryPurple.withOpacity(0.08),
+                            color: AppColors.primaryPurple.withValues(alpha: 0.08),
                             blurRadius: 16,
                             offset: const Offset(0, 4),
                           ),
@@ -91,15 +94,11 @@ class _QuizIntroScreenState extends State<QuizIntroScreen> {
                               color: Color(0xFFF3EEFB),
                               shape: BoxShape.circle,
                             ),
-                            child: Center(
+                            child: Padding(
+                              padding: const EdgeInsets.all(4.0),
                               child: SvgPicture.asset(
-                                'assets/mingcute_game-2-fill.svg',
-                                width: 28,
-                                height: 28,
-                                colorFilter: const ColorFilter.mode(
-                                  AppColors.primaryPurple,
-                                  BlendMode.srcIn,
-                                ),
+                                'assets/Group 36818.svg',
+                                fit: BoxFit.contain,
                               ),
                             ),
                           ),
@@ -118,8 +117,10 @@ class _QuizIntroScreenState extends State<QuizIntroScreen> {
                                 ),
                                 const SizedBox(height: 4),
                                 Text(
-                                  'Test your understanding of basic Hangul vowels and consonants before starting this quiz challenge!',
-                                  style: TextStyle(
+                                  QuizProgress.learningLanguage == 'Korea'
+                                      ? 'Test your understanding of basic Hangul vowels and consonants before starting this quiz challenge!'
+                                      : 'Test your understanding of basic English vowels and consonants before starting this quiz challenge!',
+                                  style: const TextStyle(
                                     fontSize: 11,
                                     color: AppColors.secondaryText,
                                     height: 1.4,
@@ -157,8 +158,10 @@ class _QuizIntroScreenState extends State<QuizIntroScreen> {
                                 partNum: 'Part 1',
                                 isActive: unlocked == 2,
                                 isCompleted: unlocked >= 3,
-                                description: 'Review basic Hangul vowels and consonants',
-                                svgAsset: 'assets/mingcute_game-2-fill.svg',
+                                description: QuizProgress.learningLanguage == 'Korea'
+                                    ? 'Review basic Hangul vowels and consonants'
+                                    : 'Review basic English vowels and consonants',
+                                svgAsset: 'assets/Group 36852.png',
                                 btnText: unlocked >= 3 ? 'Finish' : (unlocked == 2 ? 'Start' : 'Locked'),
                                 onBtnTap: unlocked >= 2 ? () => Navigator.push(
                                   context,
@@ -172,8 +175,10 @@ class _QuizIntroScreenState extends State<QuizIntroScreen> {
                                 partNum: 'Part 2',
                                 isActive: unlocked == 3,
                                 isCompleted: unlocked >= 4,
-                                description: 'Practice reading, listening, and Hangul patterns!',
-                                svgAsset: 'assets/material-symbols_book-6-rounded.svg',
+                                description: QuizProgress.learningLanguage == 'Korea'
+                                    ? 'Practice reading, listening, and Hangul patterns!'
+                                    : 'Practice reading, listening, and spelling patterns!',
+                                svgAsset: 'assets/Group 36850.png',
                                 btnText: unlocked >= 4 ? 'Finish' : (unlocked == 3 ? 'Start' : 'Locked'),
                                 onBtnTap: unlocked >= 3 ? () => Navigator.push(
                                   context,
@@ -187,8 +192,10 @@ class _QuizIntroScreenState extends State<QuizIntroScreen> {
                                 partNum: 'Part 3',
                                 isActive: unlocked == 5,
                                 isCompleted: unlocked >= 6,
-                                description: 'Complete mixed Hangul quizzes and challenges!',
-                                svgAsset: 'assets/icon-park-outline_love-and-help.svg',
+                                description: QuizProgress.learningLanguage == 'Korea'
+                                    ? 'Complete mixed Hangul quizzes and challenges!'
+                                    : 'Complete mixed English quizzes and challenges!',
+                                svgAsset: 'assets/Group 36850-1.svg',
                                 btnText: unlocked >= 6 ? 'Finish' : (unlocked == 5 ? 'Start' : 'Locked'),
                                 onBtnTap: unlocked >= 5 ? () => Navigator.push(
                                   context,
@@ -217,12 +224,14 @@ class _QuizIntroScreenState extends State<QuizIntroScreen> {
 
                     // ── Reward Row Cards ─────────────────────────────────────
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: const [
-                        _RewardCard(svgAsset: 'assets/Vector 46.svg', value: '20', label: 'XP', iconColor: Color(0xFFFFB300)),
-                        _RewardCard(svgAsset: 'assets/noto_fire.svg', value: '1', label: 'Streak', iconColor: Colors.transparent, useColorFilter: false),
-                        _RewardCard(svgAsset: 'assets/game-icons_achievement.svg', value: '5', label: 'Badges', iconColor: Color(0xFFFFC107)),
-                        _RewardCard(svgAsset: 'assets/icon-park-outline_love-and-help.svg', value: '3', label: 'Heart', iconColor: Color(0xFFE57373)),
+                        Expanded(child: _RewardCard(svgAsset: 'assets/Frame 1000001490.svg', value: '20', label: 'XP', iconColor: Colors.transparent, useColorFilter: false)),
+                        SizedBox(width: 8),
+                        Expanded(child: _RewardCard(svgAsset: 'assets/noto_fire.svg', value: '1', label: 'Streak', iconColor: Colors.transparent, useColorFilter: false)),
+                        SizedBox(width: 8),
+                        Expanded(child: _RewardCard(svgAsset: 'assets/Frame 1000001486.svg', value: '5', label: 'Badges', iconColor: Colors.transparent, useColorFilter: false)),
+                        SizedBox(width: 8),
+                        Expanded(child: _RewardCard(svgAsset: 'assets/noto-v1_heart-suit.svg', value: '3', label: 'Heart', iconColor: Colors.transparent, useColorFilter: false)),
                       ],
                     ),
                     const SizedBox(height: 16),
@@ -305,6 +314,8 @@ class _QuizIntroScreenState extends State<QuizIntroScreen> {
             ),
           ],
         ),
+        ),
+        ),
       ),
     );
   }
@@ -344,7 +355,7 @@ class _QuizSectionCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              color: AppColors.primaryPurple.withOpacity(0.06),
+              color: AppColors.primaryPurple.withValues(alpha: 0.06),
               blurRadius: 12,
               offset: const Offset(0, 4),
             ),
@@ -379,15 +390,9 @@ class _QuizSectionCard extends StatelessWidget {
                 shape: BoxShape.circle,
               ),
               child: Center(
-                child: SvgPicture.asset(
-                  svgAsset,
-                  width: 22,
-                  height: 22,
-                  colorFilter: ColorFilter.mode(
-                    isPurple ? AppColors.primaryPurple : AppColors.secondaryText,
-                    BlendMode.srcIn,
-                  ),
-                ),
+                child: svgAsset.endsWith('.png') 
+                    ? Image.asset(svgAsset, width: 26, height: 26)
+                    : SvgPicture.asset(svgAsset, width: 26, height: 26),
               ),
             ),
 
@@ -460,14 +465,13 @@ class _RewardCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 76,
       padding: const EdgeInsets.symmetric(vertical: 12),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: AppColors.primaryPurple.withOpacity(0.06),
+            color: AppColors.primaryPurple.withValues(alpha: 0.06),
             blurRadius: 10,
             offset: const Offset(0, 3),
           ),

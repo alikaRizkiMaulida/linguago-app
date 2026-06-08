@@ -329,7 +329,7 @@ class _ProfilePageState extends State<ProfilePage> {
               borderRadius: BorderRadius.circular(16),
               boxShadow: [
                 BoxShadow(
-                  color: AppColors.primaryPurple.withOpacity(0.04),
+                  color: AppColors.primaryPurple.withValues(alpha: 0.04),
                   blurRadius: 10,
                   offset: const Offset(0, 4),
                 ),
@@ -367,7 +367,7 @@ class _ProfilePageState extends State<ProfilePage> {
               borderRadius: BorderRadius.circular(16),
               boxShadow: [
                 BoxShadow(
-                  color: AppColors.primaryPurple.withOpacity(0.04),
+                  color: AppColors.primaryPurple.withValues(alpha: 0.04),
                   blurRadius: 10,
                   offset: const Offset(0, 4),
                 ),
@@ -378,7 +378,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 _SettingTile(
                   icon: Icons.person_rounded,
                   iconColor: AppColors.primaryPurple,
-                  iconBgColor: AppColors.primaryPurple.withOpacity(0.1),
+                  iconBgColor: AppColors.primaryPurple.withValues(alpha: 0.1),
                   title: 'Account',
                   subtitle: 'Username, Bio, Email',
                   onTap: () {
@@ -389,7 +389,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 _SettingTile(
                   icon: Icons.notifications_rounded,
                   iconColor: Colors.orange,
-                  iconBgColor: Colors.orange.withOpacity(0.1),
+                  iconBgColor: Colors.orange.withValues(alpha: 0.1),
                   title: 'Notification & Sound',
                   subtitle: 'Activity, Sound, Weekly Reminders',
                   onTap: () {
@@ -400,7 +400,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 _SettingTile(
                   icon: Icons.translate_rounded,
                   iconColor: Colors.pinkAccent,
-                  iconBgColor: Colors.pinkAccent.withOpacity(0.1),
+                  iconBgColor: Colors.pinkAccent.withValues(alpha: 0.1),
                   title: 'Language',
                   subtitle: 'English, Indonesian',
                   onTap: () {
@@ -411,7 +411,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 _SettingTile(
                   icon: Icons.verified_user_rounded,
                   iconColor: Colors.teal,
-                  iconBgColor: Colors.teal.withOpacity(0.1),
+                  iconBgColor: Colors.teal.withValues(alpha: 0.1),
                   title: 'Privacy Policy',
                   subtitle: 'View privacy terms',
                   onTap: () {
@@ -422,7 +422,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 _SettingTile(
                   icon: Icons.delete_outline_rounded,
                   iconColor: Colors.grey,
-                  iconBgColor: Colors.grey.withOpacity(0.1),
+                  iconBgColor: Colors.grey.withValues(alpha: 0.1),
                   title: 'Delete Account',
                   subtitle: 'Permanently remove your account',
                   onTap: () => _showDeleteAccountDialog(context),
@@ -439,7 +439,7 @@ class _ProfilePageState extends State<ProfilePage> {
               borderRadius: BorderRadius.circular(16),
               boxShadow: [
                 BoxShadow(
-                  color: AppColors.primaryPurple.withOpacity(0.04),
+                  color: AppColors.primaryPurple.withValues(alpha: 0.04),
                   blurRadius: 10,
                   offset: const Offset(0, 4),
                 ),
@@ -456,7 +456,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       width: 36,
                       height: 36,
                       decoration: BoxDecoration(
-                        color: Colors.red.withOpacity(0.1),
+                        color: Colors.red.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: const Icon(Icons.logout_rounded, color: Colors.red, size: 18),
@@ -509,7 +509,7 @@ class _StatCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
-              color: AppColors.primaryPurple.withOpacity(0.04),
+              color: AppColors.primaryPurple.withValues(alpha: 0.04),
               blurRadius: 10,
               offset: const Offset(0, 4),
             ),

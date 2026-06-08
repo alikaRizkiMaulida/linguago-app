@@ -311,7 +311,7 @@ class _AccountSettingPageState extends State<AccountSettingPage> {
             borderRadius: BorderRadius.circular(28),
             boxShadow: [
               BoxShadow(
-                color: AppColors.primaryPurple.withOpacity(0.15),
+                color: AppColors.primaryPurple.withValues(alpha: 0.15),
                 blurRadius: 30,
                 offset: const Offset(0, 8),
               ),

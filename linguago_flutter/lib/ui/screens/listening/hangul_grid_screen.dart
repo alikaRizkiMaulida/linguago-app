@@ -90,7 +90,7 @@ class HangulGridScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(18),
                       boxShadow: [
                         BoxShadow(
-                          color: AppColors.primaryPurple.withOpacity(0.06),
+                          color: AppColors.primaryPurple.withValues(alpha: 0.06),
                           blurRadius: 12,
                           offset: const Offset(0, 4),
                         ),

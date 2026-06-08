@@ -5,6 +5,7 @@ import 'package:linguago_flutter/core/constants/quiz_state.dart';
 import 'package:linguago_flutter/ui/pages/lesson_detail_screen.dart';
 import 'package:linguago_flutter/ui/screens/quiz/fun_fact_screen.dart';
 import 'package:linguago_flutter/ui/screens/quiz/quiz_screen.dart';
+import 'package:linguago_flutter/ui/screens/quiz/quiz_intro_screen.dart';
 
 class CoursePage extends StatefulWidget {
   const CoursePage({super.key});
@@ -61,59 +62,61 @@ class _CoursePageState extends State<CoursePage> with SingleTickerProviderStateM
               child: SizedBox(
                 height: 1250,
                 width: screenWidth,
-                child: Stack(
-                  clipBehavior: Clip.none,
-                  children: [
-                    // ─────────────────────────────────────────────────────────
-                    // START TEXT & DIVIDER LINES (Below the first tile)
-                    // ─────────────────────────────────────────────────────────
-                    Positioned(
-                      bottom: 40,
-                      left: 0,
-                      right: 0,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: screenWidth * 0.3,
-                            height: 1.5,
-                            color: const Color(0xFFD4C4F0),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 16),
-                            child: Text(
-                              'START',
-                              style: TextStyle(
-                                fontSize: 13,
-                                fontWeight: FontWeight.w800,
-                                color: AppColors.secondaryText,
-                                letterSpacing: 1.5,
+                child: ValueListenableBuilder<int>(
+                  valueListenable: QuizProgress.unlockedPartNotifier,
+                  builder: (context, unlockedPart, child) {
+                    return Stack(
+                      clipBehavior: Clip.none,
+                      children: [
+                        // ─────────────────────────────────────────────────────────
+                        // START TEXT & DIVIDER LINES (Below the first tile)
+                        // ─────────────────────────────────────────────────────────
+                        Positioned(
+                          bottom: 40,
+                          left: 0,
+                          right: 0,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: screenWidth * 0.3,
+                                height: 1.5,
+                                color: const Color(0xFFD4C4F0),
                               ),
-                            ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 16),
+                                child: Text(
+                                  'START',
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w800,
+                                    color: AppColors.secondaryText,
+                                    letterSpacing: 1.5,
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                width: screenWidth * 0.3,
+                                height: 1.5,
+                                color: const Color(0xFFD4C4F0),
+                              ),
+                            ],
                           ),
-                          Container(
-                            width: screenWidth * 0.3,
-                            height: 1.5,
-                            color: const Color(0xFFD4C4F0),
-                          ),
-                        ],
-                      ),
-                    ),
+                        ),
 
-                    // ─────────────────────────────────────────────────────────
-                    // ZIG-ZAG STEPPING STONES PATH
-                    // ─────────────────────────────────────────────────────────
-                    ...List.generate(totalSteps, (index) {
-                      // Calculate path positions using a math curve
-                      final double y = 1100 - (index * 82.0);
-                      // Zig-zag offset function
-                      final double xOffset = math.sin(index * 0.8) * 85.0;
-                      final double x = (screenWidth / 2) - (tileWidth / 2) + xOffset;
+                        // ─────────────────────────────────────────────────────────
+                        // ZIG-ZAG STEPPING STONES PATH
+                        // ─────────────────────────────────────────────────────────
+                        ...List.generate(totalSteps, (index) {
+                          // Calculate path positions using a math curve
+                          final double y = 1100 - (index * 82.0);
+                          // Zig-zag offset function
+                          final double xOffset = math.sin(index * 0.8) * 85.0;
+                          final double x = (screenWidth / 2) - (tileWidth / 2) + xOffset;
 
-                      final int unlockedPart = QuizProgress.unlockedPart;
-                      final bool isStartNode = index == 0;
-                      final bool isActiveNode = index == (unlockedPart - 1);
-                      final bool isLocked = index >= unlockedPart;
+                          final bool isStartNode = index == 0;
+                          final bool isActiveNode = index == (unlockedPart - 1);
+                          final bool isLocked = index >= unlockedPart;
 
                       return Positioned(
                         left: x,
@@ -139,7 +142,7 @@ class _CoursePageState extends State<CoursePage> with SingleTickerProviderStateM
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute<void>(
-                                    builder: (_) => const QuizScreen(part: 1),
+                                    builder: (_) => const QuizIntroScreen(),
                                   ),
                                 ).then((_) => setState(() {}));
                               } else if (index == 2) {
@@ -147,7 +150,7 @@ class _CoursePageState extends State<CoursePage> with SingleTickerProviderStateM
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute<void>(
-                                    builder: (_) => const QuizScreen(part: 2),
+                                    builder: (_) => const QuizIntroScreen(),
                                   ),
                                 ).then((_) => setState(() {}));
                               } else if (index == 3) {
@@ -163,7 +166,7 @@ class _CoursePageState extends State<CoursePage> with SingleTickerProviderStateM
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute<void>(
-                                    builder: (_) => const QuizScreen(part: 5),
+                                    builder: (_) => const QuizIntroScreen(),
                                   ),
                                 ).then((_) => setState(() {}));
                               } else {
@@ -186,7 +189,7 @@ class _CoursePageState extends State<CoursePage> with SingleTickerProviderStateM
                     AnimatedBuilder(
                       animation: _pinFloatController,
                       builder: (context, child) {
-                        final int pinIndex = (QuizProgress.unlockedPart - 1).clamp(0, totalSteps - 1);
+                        final int pinIndex = (unlockedPart - 1).clamp(0, totalSteps - 1);
                         final double y = 1100 - (pinIndex * 82.0);
                         final double xOffset = math.sin(pinIndex * 0.8) * 85.0;
                         final double x = (screenWidth / 2) + xOffset;
@@ -211,14 +214,14 @@ class _CoursePageState extends State<CoursePage> with SingleTickerProviderStateM
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute<void>(
-                                    builder: (_) => const QuizScreen(part: 1),
+                                    builder: (_) => const QuizIntroScreen(),
                                   ),
                                 ).then((_) => setState(() {}));
                               } else if (unlocked == 3) {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute<void>(
-                                    builder: (_) => const QuizScreen(part: 2),
+                                    builder: (_) => const QuizIntroScreen(),
                                   ),
                                 ).then((_) => setState(() {}));
                               } else if (unlocked == 4) {
@@ -232,7 +235,7 @@ class _CoursePageState extends State<CoursePage> with SingleTickerProviderStateM
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute<void>(
-                                    builder: (_) => const QuizScreen(part: 5),
+                                    builder: (_) => const QuizIntroScreen(),
                                   ),
                                 ).then((_) => setState(() {}));
                               } else {
@@ -269,7 +272,9 @@ class _CoursePageState extends State<CoursePage> with SingleTickerProviderStateM
                         );
                       },
                     ),
-                  ],
+                      ],
+                    );
+                  },
                 ),
               ),
             ),
@@ -390,19 +395,19 @@ class _IsometricTilePainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1.5
       ..strokeJoin = StrokeJoin.round
-      ..color = Colors.white.withOpacity(0.95);
+      ..color = Colors.white.withValues(alpha: 0.95);
 
     final Paint edgeGlowPaint = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = 3.5
       ..strokeJoin = StrokeJoin.round
-      ..color = const Color(0xFFE4D9F6).withOpacity(0.6)
+      ..color = const Color(0xFFE4D9F6).withValues(alpha: 0.6)
       ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 1.5);
 
     // ── Ambient Glow (Active/Unlocked) ───────────────────────────────────────
     if (!isLocked) {
       final Paint glowPaint = Paint()
-        ..color = const Color(0xFFB9ACE3).withOpacity(0.45)
+        ..color = const Color(0xFFB9ACE3).withValues(alpha: 0.45)
         ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 14);
       canvas.drawOval(
         Rect.fromCenter(center: Offset(cX, cY + 4), width: w * 1.15, height: h * 1.15),
@@ -411,7 +416,7 @@ class _IsometricTilePainter extends CustomPainter {
     }
 
     // ── Drop Shadow (Standard) ───────────────────────────────────────────────
-    final Paint shadowPaint = Paint()..color = const Color(0xFF1C1135).withOpacity(0.06);
+    final Paint shadowPaint = Paint()..color = const Color(0xFF1C1135).withValues(alpha: 0.06);
     canvas.drawOval(
       Rect.fromCenter(center: Offset(cX, cY + depth + 4), width: w * 0.95, height: h * 0.95),
       shadowPaint,
@@ -458,8 +463,8 @@ class _IsometricTilePainter extends CustomPainter {
       ..strokeJoin = StrokeJoin.round
       ..strokeCap = StrokeCap.round
       ..color = isLocked
-          ? const Color(0xFFD6D3DF).withOpacity(0.2)
-          : const Color(0xFFE4D9F6).withOpacity(0.5)
+          ? const Color(0xFFD6D3DF).withValues(alpha: 0.2)
+          : const Color(0xFFE4D9F6).withValues(alpha: 0.5)
       ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 2.0);
 
     final Paint highlightPaint = Paint()
@@ -468,8 +473,8 @@ class _IsometricTilePainter extends CustomPainter {
       ..strokeJoin = StrokeJoin.round
       ..strokeCap = StrokeCap.round
       ..color = isLocked
-          ? const Color(0xFFD6D3DF).withOpacity(0.4)
-          : const Color(0xFFE4D9F6).withOpacity(0.9);
+          ? const Color(0xFFD6D3DF).withValues(alpha: 0.4)
+          : const Color(0xFFE4D9F6).withValues(alpha: 0.9);
 
     final Path bottomHighlight = Path()
       ..moveTo(0, cY + depth)

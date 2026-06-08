@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:linguago_flutter/core/constants/colors.dart';
+import 'package:linguago_flutter/core/constants/quiz_state.dart';
 
 class LanguageSettingPage extends StatefulWidget {
   const LanguageSettingPage({super.key});
@@ -10,7 +11,13 @@ class LanguageSettingPage extends StatefulWidget {
 
 class _LanguageSettingPageState extends State<LanguageSettingPage> {
   String _appLanguage = 'Indonesia';
-  String _learningLanguage = 'Korea';
+  late String _learningLanguage;
+
+  @override
+  void initState() {
+    super.initState();
+    _learningLanguage = QuizProgress.learningLanguage;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,9 +84,15 @@ class _LanguageSettingPageState extends State<LanguageSettingPage> {
               ),
               child: Column(
                 children: [
-                  _buildRadioTile('English', _learningLanguage == 'English', () => setState(() => _learningLanguage = 'English')),
+                  _buildRadioTile('English', _learningLanguage == 'English', () {
+                    setState(() => _learningLanguage = 'English');
+                    QuizProgress.setLearningLanguage('English');
+                  }),
                   const Divider(height: 1, indent: 20, endIndent: 20, color: AppColors.backgroundSoft),
-                  _buildRadioTile('Korea', _learningLanguage == 'Korea', () => setState(() => _learningLanguage = 'Korea')),
+                  _buildRadioTile('Korea', _learningLanguage == 'Korea', () {
+                    setState(() => _learningLanguage = 'Korea');
+                    QuizProgress.setLearningLanguage('Korea');
+                  }),
                 ],
               ),
             ),
