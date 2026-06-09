@@ -3,12 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:linguago_flutter/core/constants/colors.dart';
 import 'package:linguago_flutter/core/constants/quiz_state.dart';
+import 'package:linguago_flutter/core/constants/language_preference.dart';
 
 class QuizCompletedScreen extends StatefulWidget {
   final int part;
   final int correctCount;
   final int totalQuestions;
   final int xpEarned;
+  /// Jika true, tombol Exit akan kembali ke level map (popUntil first).
+  /// Jika false (default), tombol Exit hanya pop ke QuizIntroScreen.
+  final bool isLastPart;
 
   const QuizCompletedScreen({
     super.key,
@@ -16,6 +20,7 @@ class QuizCompletedScreen extends StatefulWidget {
     required this.correctCount,
     required this.totalQuestions,
     required this.xpEarned,
+    this.isLastPart = false,
   });
 
   @override
@@ -142,7 +147,9 @@ class _QuizCompletedScreenState extends State<QuizCompletedScreen> with TickerPr
                 ),
                 const SizedBox(height: 2),
                 Text(
-                  'Hangul Concept - Part ${widget.part}',
+                  LanguagePreference.current == 'English'
+                      ? 'English Concept - Part ${widget.part}'
+                      : 'Hangul Concept - Part ${widget.part}',
                   style: TextStyle(
                     fontSize: 11,
                     fontWeight: FontWeight.w700,
@@ -176,10 +183,18 @@ class _QuizCompletedScreenState extends State<QuizCompletedScreen> with TickerPr
                       ),
                     ),
                     onPressed: () {
-                      // Pop dialog
+                      // Pop dialog dulu
                       Navigator.pop(context);
-                      // Return to Course Map/Home page dynamically
-                      Navigator.popUntil(context, (route) => route.isFirst);
+                      if (widget.isLastPart) {
+                        // Part terakhir selesai → kembali ke level map (first route)
+                        Navigator.popUntil(context, (route) => route.isFirst);
+                      } else {
+                        // Part 1 / Part 2 selesai → kembali ke QuizIntroScreen
+                        // Stack: QuizIntroScreen > QuizScreen > QuizCompletedScreen
+                        // Pop QuizCompletedScreen, lalu pop QuizScreen → tiba di QuizIntroScreen
+                        Navigator.pop(context); // pop QuizCompletedScreen
+                        Navigator.pop(context); // pop QuizScreen
+                      }
                     },
                     child: const Text(
                       'Exit',
@@ -304,7 +319,9 @@ class _QuizCompletedScreenState extends State<QuizCompletedScreen> with TickerPr
 
                 // Subtitle Text
                 Text(
-                  'Hangul Concept - Part ${widget.part}',
+                  LanguagePreference.current == 'English'
+                      ? 'English Concept - Part ${widget.part}'
+                      : 'Hangul Concept - Part ${widget.part}',
                   style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w600,

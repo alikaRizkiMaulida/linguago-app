@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:linguago_flutter/core/constants/colors.dart';
 import 'package:linguago_flutter/core/constants/quiz_state.dart';
+import 'package:linguago_flutter/core/constants/language_preference.dart';
 
 class FunFactData {
   final String title;
@@ -49,6 +50,7 @@ class _FunFactScreenState extends State<FunFactScreen>
           "South Korea celebrates Hangul Day every October 9th to honor the Korean alphabet created by King Sejong. Hangul helped many people learn to read and write more easily.",
       svgAsset: "assets/Frame1000001918.svg",
     ),
+  static const List<FunFactData> _koreanFacts = [
     FunFactData(
       title: "Hangul Was Created by a King!",
       description:
@@ -102,12 +104,77 @@ class _FunFactScreenState extends State<FunFactScreen>
     ),
   ];
 
+  static const List<FunFactData> _englishFacts = [
+    FunFactData(
+      title: "English Has Silent Letters",
+      description:
+          "Some English words have letters that are not pronounced, like:\n• Knee\n• Hour\n• Knife\n\nSilent letters are tricky.",
+      svgAsset: "assets/Frame1000001918.svg",
+    ),
+    FunFactData(
+      title: "\"E\" Is the Most Used Letter",
+      description:
+          "The letter E is the most commonly used letter in English words.\n\nYou can find it in words like:\n• See\n• People",
+      svgAsset: "assets/Frame1000001904.svg",
+    ),
+    FunFactData(
+      title: "English Words from Many Languages",
+      description:
+          "English has borrowed words from many languages like French, Latin, Korean, and Japanese. That's why some English words can sound and look very different.",
+      svgAsset: "assets/Frame1000001911.svg",
+    ),
+    FunFactData(
+      title: "One Letter Can Have Many Sounds",
+      description:
+          "English letters can sound different depending on the word.\n\nExample:\n• A in \"Name\"\n• A in \"Car\"",
+      svgAsset: "assets/Frame1000001900.svg",
+    ),
+    FunFactData(
+      title: "English Is Spoken Worldwide",
+      description:
+          "English is used by millions of people worldwide for communication, school, travel, and entertainment. That's why it is one of the most important international languages today.",
+      svgAsset: "assets/Frame1000001909.svg",
+    ),
+    FunFactData(
+      title: "Shortest Complete Sentence",
+      description:
+          "The shortest complete sentence in English is \"I am.\" It has a subject (I) and a verb (am) and makes complete sense!",
+      svgAsset: "assets/Frame1000001900.svg",
+    ),
+    FunFactData(
+      title: "Language of the Air",
+      description:
+          "All pilots and flight controllers must speak in English during international flights, regardless of their native country.",
+      svgAsset: "assets/Frame1000001911.svg",
+    ),
+    FunFactData(
+      title: "New Word Every 2 Hours",
+      description:
+          "Dictionary editors add around 4,000 new words to the English dictionary every year! That is about one new word every two hours.",
+      svgAsset: "assets/Frame1000001909.svg",
+    ),
+    FunFactData(
+      title: "The Word \"Set\" Has Many Meanings",
+      description:
+          "The word \"set\" has one of the highest numbers of definitions in the English dictionary, with over 400 different meanings!",
+      svgAsset: "assets/Frame1000001904.svg",
+    ),
+    FunFactData(
+      title: "Pangram Sentence",
+      description:
+          "The sentence \"The quick brown fox jumps over the lazy dog\" is a pangram, which means it uses every single letter of the English alphabet!",
+      svgAsset: "assets/Frame1000001918.svg",
+    ),
+  ];
+
   @override
   void initState() {
     super.initState();
     _facts = QuizProgress.learningLanguage == 'Korea'
         ? _factsKorea
         : _factsEnglish;
+    final bool isEnglish = LanguagePreference.current == 'English';
+    _facts = isEnglish ? _englishFacts : _koreanFacts;
 
     _swipeAnimationController = AnimationController(
       vsync: this,
@@ -302,6 +369,9 @@ class _FunFactScreenState extends State<FunFactScreen>
                             QuizProgress.learningLanguage == 'Korea'
                                 ? 'Lets learn interesting things about korea ✨'
                                 : 'Lets learn interesting things about English ✨',
+                            LanguagePreference.current == 'English'
+                                ? 'Lets learn interesting things about English ✨'
+                                : 'Lets learn interesting things about korea ✨',
                             style: const TextStyle(
                               fontSize: 11,
                               fontWeight: FontWeight.w600,
@@ -439,6 +509,167 @@ class _FunFactScreenState extends State<FunFactScreen>
           fact.svgAsset,
           fit: BoxFit.contain,
         ),
+        boxShadow: isTopCard
+            ? [
+                BoxShadow(
+                  color: AppColors.primaryPurple.withValues(alpha: 0.12),
+                  blurRadius: 28,
+                  spreadRadius: 2,
+                  offset: const Offset(0, 10),
+                ),
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.04),
+                  blurRadius: 8,
+                  offset: const Offset(0, 4),
+                ),
+              ]
+            : [
+                BoxShadow(
+                  color: AppColors.primaryPurple.withValues(alpha: 0.06),
+                  blurRadius: 12,
+                  offset: const Offset(0, 6),
+                ),
+              ],
+      ),
+      child: Column(
+        children: [
+          // ── Illustration Area ─────────────────────────────────────────────
+          Expanded(
+            flex: 5,
+            child: ClipRRect(
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(28),
+              ),
+              child: Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: const Color(0xFFF3EEFB),
+                  borderRadius: const BorderRadius.vertical(
+                    top: Radius.circular(28),
+                  ),
+                ),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 20,
+                ),
+                child: Center(
+                  child: SvgPicture.asset(
+                    fact.svgAsset,
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ),
+            ),
+          ),
+
+          // ── Text Content + Button ─────────────────────────────────────────
+          Expanded(
+            flex: 4,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(20, 16, 20, 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  // Dot Indicators
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List.generate(_facts.length, (index) {
+                      final bool isActive = index == factIndex;
+                      return AnimatedContainer(
+                        duration: const Duration(milliseconds: 300),
+                        margin: const EdgeInsets.symmetric(horizontal: 3),
+                        width: isActive ? 20 : 7,
+                        height: 7,
+                        decoration: BoxDecoration(
+                          color: isActive
+                              ? AppColors.primaryPurple
+                              : const Color(0xFFD4C8FA),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                      );
+                    }),
+                  ),
+
+                  const SizedBox(height: 12),
+
+                  // Fact Title
+                  Text(
+                    fact.title,
+                    textAlign: TextAlign.center,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w800,
+                      color: AppColors.primaryText,
+                      height: 1.3,
+                    ),
+                  ),
+
+                  const SizedBox(height: 8),
+
+                  // Fact Description
+                  Expanded(
+                    child: SingleChildScrollView(
+                      physics: const BouncingScrollPhysics(),
+                      child: Text(
+                        fact.description,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                          color: AppColors.secondaryText,
+                          height: 1.55,
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 12),
+
+                  // ── Bottom Button ────────────────────────────────────────
+                  SizedBox(
+                    width: double.infinity,
+                    height: 46,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.primaryPurple,
+                        foregroundColor: Colors.white,
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18),
+                        ),
+                      ),
+                      onPressed: isTopCard
+                          ? () {
+                              if (isLastCard) {
+                                if (QuizProgress.unlockedPart == 8) {
+                                  QuizProgress.setUnlockedPart(9);
+                                }
+                                setState(() {
+                                  _currentIndex = _facts.length;
+                                });
+                              } else {
+                                _goToNext();
+                              }
+                            }
+                          : null,
+                      child: Text(
+                        isLastCard
+                            ? 'Continue to Final Quiz'
+                            : 'Continue to Final Quiz',
+                        style: const TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -504,6 +735,9 @@ class _FunFactScreenState extends State<FunFactScreen>
               QuizProgress.learningLanguage == 'Korea'
                   ? 'Great! You discovered 5 Korean Fun Facts!'
                   : 'Great! You discovered 5 English Fun Facts!',
+              LanguagePreference.current == 'English'
+                  ? 'Great! You discovered 5 English Fun Facts!'
+                  : 'Great! You discovered 5 Korean Fun Facts!',
               textAlign: TextAlign.center,
               style: const TextStyle(
                 fontSize: 14,
@@ -631,12 +865,15 @@ class _FunFactScreenState extends State<FunFactScreen>
                       onPressed: () {
                         if (QuizProgress.unlockedPart == widget.part) {
                           QuizProgress.setUnlockedPart(widget.part + 1);
+                        if (QuizProgress.unlockedPart == 8) {
+                          QuizProgress.setUnlockedPart(9);
                         }
                         QuizProgress.setXp(QuizProgress.xp + 20);
                         Navigator.pop(context);
                       },
                       child: const Text(
                         'Start Final Quiz',
+                        'Finish',
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w800,

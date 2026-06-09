@@ -111,6 +111,182 @@ class _CoursePageState extends State<CoursePage> with SingleTickerProviderStateM
                                     color: AppColors.secondaryText,
                                     letterSpacing: 1.5,
                                   ),
+                            ),
+                          ),
+                          Container(
+                            width: screenWidth * 0.3,
+                            height: 1.5,
+                            color: const Color(0xFFD4C4F0),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    // ─────────────────────────────────────────────────────────
+                    // ZIG-ZAG STEPPING STONES PATH
+                    // ─────────────────────────────────────────────────────────
+                    ...List.generate(totalSteps, (index) {
+                      // Calculate path positions using a math curve
+                      final double y = 1100 - (index * 82.0);
+                      // Zig-zag offset function
+                      final double xOffset = math.sin(index * 0.8) * 85.0;
+                      final double x = (screenWidth / 2) - (tileWidth / 2) + xOffset;
+
+                      final int unlockedPart = QuizProgress.unlockedPart;
+                      final int mapUnlocked = QuizProgress.getMapUnlocked(unlockedPart);
+
+                      final bool isStartNode = index == 0;
+                      final bool isActiveNode = index == (mapUnlocked - 1);
+                      final bool isLocked = index >= mapUnlocked;
+
+                      return Positioned(
+                        left: x,
+                        top: y,
+                        child: _InteractiveTile(
+                          width: tileWidth,
+                          height: tileHeight,
+                          isLocked: isLocked,
+                          isActive: isActiveNode,
+                          showArrow: isStartNode,
+                          onTap: () {
+                            if (!isLocked) {
+                              if (index == 0) {
+                                // Node 1: Lesson Summary
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute<void>(
+                                    builder: (_) => const LessonDetailScreen(part: 1),
+                                  ),
+                                ).then((_) => setState(() {}));
+                              } else if (index == 1) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute<void>(
+                                    builder: (_) => const QuizIntroScreen(boxLevel: 2),
+                                  ),
+                                ).then((_) => setState(() {}));
+                              } else if (index == 2) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute<void>(
+                                    builder: (_) => const QuizIntroScreen(boxLevel: 3),
+                                  ),
+                                ).then((_) => setState(() {}));
+                              } else if (index == 3) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute<void>(
+                                    builder: (_) => const FunFactScreen(part: 4),
+                                  ),
+                                ).then((_) => setState(() {}));
+                              } else if (index == 4) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute<void>(
+                                    builder: (_) => const QuizIntroScreen(boxLevel: 5),
+                                  ),
+                                ).then((_) => setState(() {}));
+                              } else if (index == 5) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute<void>(
+                                    builder: (_) => const QuizIntroScreen(boxLevel: 6),
+                                  ),
+                                ).then((_) => setState(() {}));
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Coming soon! Stay tuned!'),
+                                    behavior: SnackBarBehavior.floating,
+                                  ),
+                                );
+                              }
+                            }
+                          },
+                        ),
+                      );
+                    }),
+
+                    // ─────────────────────────────────────────────────────────
+                    // BOBBING MAP PIN MARKER (On the active Level 1 node)
+                    // ─────────────────────────────────────────────────────────
+                    AnimatedBuilder(
+                      animation: _pinFloatController,
+                      builder: (context, child) {
+                        final int unlocked = QuizProgress.unlockedPart;
+                        final int mapUnlocked = QuizProgress.getMapUnlocked(unlocked);
+                        final int pinIndex = mapUnlocked - 1;
+
+                        final double y = 1100 - (pinIndex * 82.0);
+                        final double xOffset = math.sin(pinIndex * 0.8) * 85.0;
+                        final double x = (screenWidth / 2) + xOffset;
+
+                        // Bobbing offset
+                        final floatOffset = math.sin(_pinFloatController.value * math.pi) * 8.0;
+
+                        return Positioned(
+                          left: x - 18, // center horizontally on tile (half of 36)
+                          top: y - 36 + floatOffset, // sit right on the tile
+                          child: GestureDetector(
+                            onTap: () {
+                              if (unlocked == 1) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute<void>(
+                                    builder: (_) => const LessonDetailScreen(part: 1),
+                                  ),
+                                ).then((_) => setState(() {}));
+                              } else if (unlocked >= 2 && unlocked <= 4) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute<void>(
+                                    builder: (_) => const QuizIntroScreen(boxLevel: 2),
+                                  ),
+                                ).then((_) => setState(() {}));
+                              } else if (unlocked >= 5 && unlocked <= 7) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute<void>(
+                                    builder: (_) => const QuizIntroScreen(boxLevel: 3),
+                                  ),
+                                ).then((_) => setState(() {}));
+                              } else if (unlocked == 8) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute<void>(
+                                    builder: (_) => const FunFactScreen(part: 4),
+                                  ),
+                                ).then((_) => setState(() {}));
+                              } else if (unlocked >= 9 && unlocked <= 11) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute<void>(
+                                    builder: (_) => const QuizIntroScreen(boxLevel: 5),
+                                  ),
+                                ).then((_) => setState(() {}));
+                              } else if (unlocked >= 12 && unlocked <= 14) {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute<void>(
+                                    builder: (_) => const QuizIntroScreen(boxLevel: 6),
+                                  ),
+                                ).then((_) => setState(() {}));
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Coming soon! Stay tuned!'),
+                                    behavior: SnackBarBehavior.floating,
+                                  ),
+                                );
+                              }
+                            },
+                            child: Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                const Icon(
+                                  Icons.location_on_rounded,
+                                  size: 36,
+                                  color: AppColors.primaryPurple,
                                 ),
                               ),
                               Container(

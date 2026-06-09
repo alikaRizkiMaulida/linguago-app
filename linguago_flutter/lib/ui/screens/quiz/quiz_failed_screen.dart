@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:linguago_flutter/core/constants/colors.dart';
+import 'package:linguago_flutter/core/constants/language_preference.dart';
 import 'package:linguago_flutter/ui/widgets/mascot_widget.dart';
 
 class QuizFailedScreen extends StatelessWidget {
@@ -69,7 +70,9 @@ class QuizFailedScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40),
               child: Text(
-                'You ran out of lives! Keep practicing basic Hangul concepts and try again.',
+                LanguagePreference.current == 'English'
+                    ? 'You ran out of lives! Keep practicing basic English concepts and try again.'
+                    : 'You ran out of lives! Keep practicing basic Hangul concepts and try again.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 13,
