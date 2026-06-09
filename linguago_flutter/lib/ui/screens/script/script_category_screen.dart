@@ -1,25 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:linguago_flutter/core/constants/colors.dart';
+import 'package:linguago_flutter/core/constants/quiz_state.dart';
+import 'package:linguago_flutter/ui/pages/lesson_detail_screen.dart';
 
 /// Layar Script Category — pilih kategori pelajaran Hangul.
-class ScriptCategoryScreen extends StatelessWidget {
+class ScriptCategoryScreen extends StatefulWidget {
   const ScriptCategoryScreen({super.key});
 
-  static const List<Map<String, dynamic>> _categories = [
+  @override
+  State<ScriptCategoryScreen> createState() => _ScriptCategoryScreenState();
+}
+
+class _ScriptCategoryScreenState extends State<ScriptCategoryScreen> {
+  static const List<Map<String, dynamic>> _categoriesKorea = [
     {
       'title': 'Concept Hangul',
       'desc': 'Discover what Hangul is and how the writing system works.',
       'emoji': '한\n글',
       'bg': Color(0xFFFFB3BA), // Pink
-      'unlocked': true,
-      'lockLevel': null,
+      'textColor': Color(0xFFD61A54),
+      'lockLevel': 1,
     },
     {
       'title': 'Basic Vowels',
       'desc': 'Learn the basic vowel letters in Hangul and how to pronounce them.',
       'emoji': 'ㅗ ㅚ\nㅏ ㅟ',
       'bg': Color(0xFFD4C4F0), // Light Purple
-      'unlocked': false,
+      'textColor': Color(0xFF6C4AB6),
       'lockLevel': 2,
     },
     {
@@ -27,7 +34,7 @@ class ScriptCategoryScreen extends StatelessWidget {
       'desc': 'Learn the basic consonant letters and their sounds in Hangul.',
       'emoji': 'ㄱ ㄷ\nㅂ ㅈ',
       'bg': Color(0xFFFFF0B3), // Yellow
-      'unlocked': false,
+      'textColor': Color(0xFFB37400),
       'lockLevel': 3,
     },
     {
@@ -35,7 +42,7 @@ class ScriptCategoryScreen extends StatelessWidget {
       'desc': 'Combine basic vowels to create new sounds in Hangul.',
       'emoji': 'ㅘ ㅙ\nㅚ ㅝ',
       'bg': Color(0xFFE8E8FF), // Light Blue/Purple
-      'unlocked': false,
+      'textColor': Color(0xFF4D4DFF),
       'lockLevel': 4,
     },
     {
@@ -43,7 +50,7 @@ class ScriptCategoryScreen extends StatelessWidget {
       'desc': 'Learn double consonants that produce stronger and tenser sounds.',
       'emoji': 'ㄲ ㄸ\nㅃ ㅆ',
       'bg': Color(0xFFFFDAB9), // Peach
-      'unlocked': false,
+      'textColor': Color(0xFFD2691E),
       'lockLevel': 5,
     },
     {
@@ -51,82 +58,156 @@ class ScriptCategoryScreen extends StatelessWidget {
       'desc': 'Understand final consonants (받침) in Korean syllables.',
       'emoji': '사\n람',
       'bg': Color(0xFFE0F7FA), // Light Cyan
-      'unlocked': false,
+      'textColor': Color(0xFF00838F),
+      'lockLevel': 6,
+    },
+  ];
+
+  static const List<Map<String, dynamic>> _categoriesEnglish = [
+    {
+      'title': 'Concept Alphabet',
+      'desc': 'Discover what the English Alphabet is and how the writing system works.',
+      'emoji': 'A\nB',
+      'bg': Color(0xFFFFB3BA), // Pink
+      'textColor': Color(0xFFD61A54),
+      'lockLevel': 1,
+    },
+    {
+      'title': 'Basic Vowels',
+      'desc': 'Learn the basic vowel letters in English (A, E, I, O, U) and how to pronounce them.',
+      'emoji': 'A E\nI O',
+      'bg': Color(0xFFD4C4F0), // Light Purple
+      'textColor': Color(0xFF6C4AB6),
+      'lockLevel': 2,
+    },
+    {
+      'title': 'Basic Consonants',
+      'desc': 'Learn basic English consonant letters (B, C, D, F, G...) and their sounds.',
+      'emoji': 'B C\nD F',
+      'bg': Color(0xFFFFF0B3), // Yellow
+      'textColor': Color(0xFFB37400),
+      'lockLevel': 3,
+    },
+    {
+      'title': 'Compound Vowels',
+      'desc': 'Combine basic vowels to create new diphthong sounds in English.',
+      'emoji': 'AI EA\nOU EE',
+      'bg': Color(0xFFE8E8FF), // Light Blue/Purple
+      'textColor': Color(0xFF4D4DFF),
+      'lockLevel': 4,
+    },
+    {
+      'title': 'Double Consonants',
+      'desc': 'Learn double consonant blends (sh, ch, th, ph) that make unique sounds.',
+      'emoji': 'SH CH\nTH PH',
+      'bg': Color(0xFFFFDAB9), // Peach
+      'textColor': Color(0xFFD2691E),
+      'lockLevel': 5,
+    },
+    {
+      'title': 'Final Consonants',
+      'desc': 'Understand silent letters and ending consonant sounds in English.',
+      'emoji': 'SIL\nENT',
+      'bg': Color(0xFFE0F7FA), // Light Cyan
+      'textColor': Color(0xFF00838F),
       'lockLevel': 6,
     },
   ];
 
   @override
   Widget build(BuildContext context) {
+    final bool isKorea = QuizProgress.learningLanguage == 'Korea';
+    final categories = isKorea ? _categoriesKorea : _categoriesEnglish;
+
     return Scaffold(
       backgroundColor: const Color(0xFFFBF9FF),
       body: SafeArea(
-        child: Column(
-          children: [
-            const SizedBox(height: 16),
-            // App bar just has a back chevron
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                children: [
-                  GestureDetector(
-                    onTap: () => Navigator.maybePop(context),
-                    child: const Icon(
-                      Icons.chevron_left_rounded,
-                      size: 30,
-                      color: AppColors.primaryText,
-                    ),
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 500),
+            child: Column(
+              children: [
+                const SizedBox(height: 16),
+                // App bar just has a back chevron
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () => Navigator.maybePop(context),
+                        child: const Icon(
+                          Icons.chevron_left_rounded,
+                          size: 30,
+                          color: AppColors.primaryText,
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 8),
-
-            // ── Header Text ─────────────────────────────────────────
-            Text(
-              "Let's Begin!",
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.w800,
-                color: AppColors.primaryPurple,
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              'Learn Hangul from beginner to advanced! ✨',
-              style: TextStyle(
-                fontSize: 12,
-                color: AppColors.primaryText,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-            const SizedBox(height: 48), // Space for floating circles
-
-            // ── Category grid ─────────────────────────────────────────
-            Expanded(
-              child: GridView.builder(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 16,
-                  mainAxisSpacing: 50, // More space for the floating circle
-                  childAspectRatio: 0.65,
                 ),
-                itemCount: _categories.length,
-                itemBuilder: (context, index) {
-                  final cat = _categories[index];
-                  return _ScriptCard(
-                    title: cat['title'] as String,
-                    desc: cat['desc'] as String,
-                    emoji: cat['emoji'] as String,
-                    bg: cat['bg'] as Color,
-                    unlocked: cat['unlocked'] as bool,
-                    lockLevel: cat['lockLevel'] as int?,
-                  );
-                },
-              ),
+                const SizedBox(height: 8),
+
+                // ── Header Text ─────────────────────────────────────────
+                Text(
+                  "Let's Begin!",
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w800,
+                    color: AppColors.primaryPurple,
+                  ),
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  isKorea
+                      ? 'Learn Hangul from beginner to advanced! ✨'
+                      : 'Learn English from beginner to advanced! ✨',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: AppColors.primaryText,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                const SizedBox(height: 48), // Space for floating circles
+
+                // ── Category grid ─────────────────────────────────────────
+                Expanded(
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      final double width = constraints.maxWidth;
+                      final double columnWidth = (width - 40 - 16) / 2;
+                      final double cardHeight = 256;
+                      final double aspectRatio = columnWidth / cardHeight;
+
+                      return GridView.builder(
+                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 16,
+                          mainAxisSpacing: 50, // More space for the floating circle
+                          childAspectRatio: aspectRatio,
+                        ),
+                        itemCount: categories.length,
+                        itemBuilder: (context, index) {
+                          final cat = categories[index];
+                          final int lockLevel = cat['lockLevel'] as int;
+                          final bool isUnlocked = QuizProgress.unlockedPart >= lockLevel;
+                          return _ScriptCard(
+                            title: cat['title'] as String,
+                            desc: cat['desc'] as String,
+                            emoji: cat['emoji'] as String,
+                            bg: cat['bg'] as Color,
+                            textColor: cat['textColor'] as Color,
+                            unlocked: isUnlocked,
+                            lockLevel: lockLevel,
+                            onRefresh: () => setState(() {}),
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
@@ -138,84 +219,103 @@ class _ScriptCard extends StatelessWidget {
   final String desc;
   final String emoji;
   final Color bg;
+  final Color textColor;
   final bool unlocked;
-  final int? lockLevel;
+  final int lockLevel;
+  final VoidCallback onRefresh;
 
   const _ScriptCard({
     required this.title,
     required this.desc,
     required this.emoji,
     required this.bg,
+    required this.textColor,
     required this.unlocked,
-    this.lockLevel,
+    required this.lockLevel,
+    required this.onRefresh,
   });
+
+  void _navigateToLesson(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => LessonDetailScreen(part: lockLevel),
+      ),
+    ).then((_) {
+      onRefresh();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      clipBehavior: Clip.none,
-      alignment: Alignment.topCenter,
-      children: [
-        // White Card Background
-        Container(
-          margin: const EdgeInsets.only(top: 36),
-          padding: const EdgeInsets.fromLTRB(14, 48, 14, 14),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(20),
-            boxShadow: [
-              BoxShadow(
-                color: AppColors.primaryPurple.withOpacity(0.06),
-                blurRadius: 16,
-                offset: const Offset(0, 4),
-              ),
-            ],
-          ),
-          child: Column(
-            children: [
-              Text(
-                title,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w800,
-                  color: AppColors.primaryText,
+    return GestureDetector(
+      onTap: unlocked ? () => _navigateToLesson(context) : null,
+      child: Stack(
+        clipBehavior: Clip.none,
+        alignment: Alignment.topCenter,
+        children: [
+          // White Card Background
+          Container(
+            margin: const EdgeInsets.only(top: 36),
+            padding: const EdgeInsets.fromLTRB(14, 48, 14, 14),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  color: AppColors.primaryPurple.withValues(alpha: 0.06),
+                  blurRadius: 16,
+                  offset: const Offset(0, 4),
                 ),
-              ),
-              const SizedBox(height: 6),
-              Expanded(
-                child: Text(
-                  desc,
+              ],
+            ),
+            child: Column(
+              children: [
+                Text(
+                  title,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 10,
-                    color: AppColors.secondaryText,
-                    height: 1.4,
+                  style: const TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w800,
+                    color: AppColors.primaryText,
                   ),
-                  overflow: TextOverflow.visible,
                 ),
-              ),
-              const SizedBox(height: 8),
-              // Button / Lock pill
-              if (unlocked)
-                SizedBox(
-                  width: double.infinity,
-                  height: 36,
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.primaryPurple,
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      elevation: 0,
-                      padding: EdgeInsets.zero,
-                    ),
+                const SizedBox(height: 6),
+                Expanded(
+                  child: Center(
                     child: Text(
-                      'start',
+                      desc,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontSize: 11,
+                        color: AppColors.secondaryText,
+                        height: 1.4,
+                      ),
+                      overflow: TextOverflow.visible,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 8),
+                // Button / Lock pill
+                if (unlocked)
+                  SizedBox(
+                    width: double.infinity,
+                    height: 36,
+                    child: ElevatedButton(
+                      onPressed: () => _navigateToLesson(context),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.primaryPurple,
+                        foregroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        elevation: 0,
+                        padding: EdgeInsets.zero,
+                    ),
+                    child: const Text(
+                      'Start',
                       style: TextStyle(
-                        fontSize: 12,
+                        fontSize: 13,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
@@ -226,7 +326,7 @@ class _ScriptCard extends StatelessWidget {
                   width: double.infinity,
                   height: 36,
                   decoration: BoxDecoration(
-                    color: const Color(0xFFF3EEFB),
+                    color: AppColors.backgroundSoft,
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Row(
@@ -237,8 +337,8 @@ class _ScriptCard extends StatelessWidget {
                       const SizedBox(width: 4),
                       Text(
                         'Unlocked at Level $lockLevel',
-                        style: TextStyle(
-                          fontSize: 9,
+                        style: const TextStyle(
+                          fontSize: 10,
                           color: AppColors.navInActive,
                           fontWeight: FontWeight.w700,
                         ),
@@ -264,9 +364,9 @@ class _ScriptCard extends StatelessWidget {
                 emoji,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                  color: const Color(0xFFD61A54), // Hot pink color for text
+                  fontSize: 22,
+                  fontWeight: FontWeight.w800,
+                  color: textColor,
                   height: 1.2,
                 ),
               ),
@@ -274,6 +374,7 @@ class _ScriptCard extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
+    ),
+  );
+}
 }

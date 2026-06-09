@@ -9,6 +9,8 @@ import 'package:linguago_flutter/ui/pages/english_lesson_detail_screen.dart';
 import 'package:linguago_flutter/ui/screens/quiz/quiz_screen.dart';
 
 class QuizIntroScreen extends StatefulWidget {
+  final int level;
+  const QuizIntroScreen({super.key, this.level = 1});
   final int boxLevel; // 2 = Box 2 quizzes, 3 = Box 3 quizzes
   const QuizIntroScreen({super.key, this.boxLevel = 2});
 
@@ -24,8 +26,11 @@ class _QuizIntroScreenState extends State<QuizIntroScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFFFBF9FF), // matching #FBF9FF background
       body: SafeArea(
-        child: Column(
-          children: [
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 430),
+            child: Column(
+              children: [
             // ── App Bar Header ───────────────────────────────────────────────
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
@@ -49,6 +54,8 @@ class _QuizIntroScreenState extends State<QuizIntroScreen> {
                         ),
                         const SizedBox(height: 2),
                         Text(
+                          QuizProgress.learningLanguage == 'Korea' ? 'Introduction to Hangul' : 'Introduction to English Phonics',
+                          style: const TextStyle(
                           isEnglish ? 'English Concept' : 'Introduction to Hangul',
                           style: TextStyle(
                             fontSize: 12,
@@ -79,7 +86,7 @@ class _QuizIntroScreenState extends State<QuizIntroScreen> {
                         borderRadius: BorderRadius.circular(20),
                         boxShadow: [
                           BoxShadow(
-                            color: AppColors.primaryPurple.withOpacity(0.08),
+                            color: AppColors.primaryPurple.withValues(alpha: 0.08),
                             blurRadius: 16,
                             offset: const Offset(0, 4),
                           ),
@@ -95,8 +102,11 @@ class _QuizIntroScreenState extends State<QuizIntroScreen> {
                               color: Color(0xFFF3EEFB),
                               shape: BoxShape.circle,
                             ),
-                            child: Center(
+                            child: Padding(
+                              padding: const EdgeInsets.all(4.0),
                               child: SvgPicture.asset(
+                                'assets/Group 36818.svg',
+                                fit: BoxFit.contain,
                                 'assets/Frame 37056.svg',
                                 width: 32,
                                 height: 32,
@@ -118,6 +128,10 @@ class _QuizIntroScreenState extends State<QuizIntroScreen> {
                                 ),
                                 const SizedBox(height: 4),
                                 Text(
+                                  QuizProgress.learningLanguage == 'Korea'
+                                      ? 'Test your understanding of basic Hangul vowels and consonants before starting this quiz challenge!'
+                                      : 'Test your understanding of basic English vowels and consonants before starting this quiz challenge!',
+                                  style: const TextStyle(
                                   isEnglish
                                       ? 'Test your understanding of basic English letter sounds and pronunciations before starting this quiz challenge!'
                                       : 'Test your understanding of basic Hangul vowels and consonants before starting this quiz challenge!',
@@ -152,6 +166,38 @@ class _QuizIntroScreenState extends State<QuizIntroScreen> {
                       physics: const BouncingScrollPhysics(),
                       child: Builder(
                         builder: (context) {
+                          final int unlocked = QuizProgress.unlockedPart;
+                          final int L = widget.level;
+                          
+                          final int part1Num = (L - 1) * 3 + 1;
+                          final int part2Num = (L - 1) * 3 + 2;
+                          final int part3Num = (L - 1) * 3 + 3;
+
+                          final int part1Target = (L - 1) * 5 + 1;
+                          final int part2Target = (L - 1) * 5 + 2;
+                          final int part3Target = (L - 1) * 5 + 5;
+
+                          final bool part1Active = unlocked == (L - 1) * 5 + 2;
+                          final bool part1Completed = unlocked >= (L - 1) * 5 + 3;
+
+                          final bool part2Active = unlocked == (L - 1) * 5 + 3;
+                          final bool part2Completed = unlocked >= (L - 1) * 5 + 4;
+
+                          final bool part3Active = unlocked == (L - 1) * 5 + 5;
+                          final bool part3Completed = unlocked >= (L - 1) * 5 + 6;
+
+                          return Row(
+                            children: [
+                              _QuizSectionCard(
+                                partNum: 'Part $part1Num',
+                                isActive: part1Active,
+                                isCompleted: part1Completed,
+                                description: QuizProgress.learningLanguage == 'Korea'
+                                    ? 'Review basic Hangul vowels and consonants'
+                                    : 'Review basic English vowels and consonants',
+                                svgAsset: 'assets/Group 36852.png',
+                                btnText: part1Completed ? 'Finish' : (part1Active ? 'Start' : 'Locked'),
+                                onBtnTap: unlocked >= (L - 1) * 5 + 2 ? () => Navigator.push(
                           if (widget.boxLevel == 6) {
                             // ── Box 6 quiz sections ──────────────────────
                             return Row(
@@ -319,13 +365,22 @@ class _QuizIntroScreenState extends State<QuizIntroScreen> {
                                 btnText: unlocked >= 3 ? 'Finish' : (unlocked == 2 ? 'Start' : 'Locked'),
                                 onBtnTap: unlocked >= 2 ? () => Navigator.push(
                                   context,
-                                  MaterialPageRoute<void>(builder: (_) => const QuizScreen(part: 1)),
+                                  MaterialPageRoute<void>(builder: (_) => QuizScreen(part: part1Target)),
                                 ).then((_) {
                                   setState(() {});
                                 }) : () {},
                               ),
                               const SizedBox(width: 12),
                               _QuizSectionCard(
+                                partNum: 'Part $part2Num',
+                                isActive: part2Active,
+                                isCompleted: part2Completed,
+                                description: QuizProgress.learningLanguage == 'Korea'
+                                    ? 'Practice reading, listening, and Hangul patterns!'
+                                    : 'Practice reading, listening, and spelling patterns!',
+                                svgAsset: 'assets/Group 36850.png',
+                                btnText: part2Completed ? 'Finish' : (part2Active ? 'Start' : 'Locked'),
+                                onBtnTap: unlocked >= (L - 1) * 5 + 3 ? () => Navigator.push(
                                 partNum: 'Part 2',
                                 isActive: unlocked == 3,
                                 isCompleted: unlocked >= 4,
@@ -336,13 +391,22 @@ class _QuizIntroScreenState extends State<QuizIntroScreen> {
                                 btnText: unlocked >= 4 ? 'Finish' : (unlocked == 3 ? 'Start' : 'Locked'),
                                 onBtnTap: unlocked >= 3 ? () => Navigator.push(
                                   context,
-                                  MaterialPageRoute<void>(builder: (_) => const QuizScreen(part: 2)),
+                                  MaterialPageRoute<void>(builder: (_) => QuizScreen(part: part2Target)),
                                 ).then((_) {
                                   setState(() {});
                                 }) : () {},
                               ),
                               const SizedBox(width: 12),
                               _QuizSectionCard(
+                                partNum: 'Part $part3Num',
+                                isActive: part3Active,
+                                isCompleted: part3Completed,
+                                description: QuizProgress.learningLanguage == 'Korea'
+                                    ? 'Complete mixed Hangul quizzes and challenges!'
+                                    : 'Complete mixed English quizzes and challenges!',
+                                svgAsset: 'assets/Group 36850-1.svg',
+                                btnText: part3Completed ? 'Finish' : (part3Active ? 'Start' : 'Locked'),
+                                onBtnTap: unlocked >= (L - 1) * 5 + 5 ? () => Navigator.push(
                                 partNum: 'Part 3',
                                 isActive: unlocked == 4,
                                 isCompleted: unlocked >= 5,
@@ -353,7 +417,7 @@ class _QuizIntroScreenState extends State<QuizIntroScreen> {
                                 btnText: unlocked >= 5 ? 'Finish' : (unlocked == 4 ? 'Start' : 'Locked'),
                                 onBtnTap: unlocked >= 4 ? () => Navigator.push(
                                   context,
-                                  MaterialPageRoute<void>(builder: (_) => const QuizScreen(part: 5)),
+                                  MaterialPageRoute<void>(builder: (_) => QuizScreen(part: part3Target)),
                                 ).then((_) {
                                   setState(() {});
                                 }) : () {},
@@ -378,12 +442,14 @@ class _QuizIntroScreenState extends State<QuizIntroScreen> {
 
                     // ── Reward Row Cards ─────────────────────────────────────
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: const [
-                        _RewardCard(svgAsset: 'assets/Vector 46.svg', value: '20', label: 'XP', iconColor: Color(0xFFFFB300)),
-                        _RewardCard(svgAsset: 'assets/noto_fire.svg', value: '1', label: 'Streak', iconColor: Colors.transparent, useColorFilter: false),
-                        _RewardCard(svgAsset: 'assets/game-icons_achievement.svg', value: '5', label: 'Badges', iconColor: Color(0xFFFFC107)),
-                        _RewardCard(svgAsset: 'assets/icon-park-outline_love-and-help.svg', value: '3', label: 'Heart', iconColor: Color(0xFFE57373)),
+                        Expanded(child: _RewardCard(svgAsset: 'assets/Frame 1000001490.svg', value: '20', label: 'XP', iconColor: Colors.transparent, useColorFilter: false)),
+                        SizedBox(width: 8),
+                        Expanded(child: _RewardCard(svgAsset: 'assets/noto_fire.svg', value: '1', label: 'Streak', iconColor: Colors.transparent, useColorFilter: false)),
+                        SizedBox(width: 8),
+                        Expanded(child: _RewardCard(svgAsset: 'assets/Frame 1000001486.svg', value: '5', label: 'Badges', iconColor: Colors.transparent, useColorFilter: false)),
+                        SizedBox(width: 8),
+                        Expanded(child: _RewardCard(svgAsset: 'assets/noto-v1_heart-suit.svg', value: '3', label: 'Heart', iconColor: Colors.transparent, useColorFilter: false)),
                       ],
                     ),
                     const SizedBox(height: 16),
@@ -414,6 +480,41 @@ class _QuizIntroScreenState extends State<QuizIntroScreen> {
                           ),
                         ),
                         onPressed: () {
+                          final int unlocked = QuizProgress.unlockedPart;
+                          final int step = unlocked % 5;
+                          
+                          if (step == 1) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute<void>(builder: (_) => LessonDetailScreen(part: unlocked)),
+                            ).then((_) => setState(() {}));
+                          } else if (step == 2) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute<void>(builder: (_) => QuizScreen(part: unlocked - 1)),
+                            ).then((_) => setState(() {}));
+                          } else if (step == 3) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute<void>(builder: (_) => QuizScreen(part: unlocked - 1)),
+                            ).then((_) => setState(() {}));
+                          } else if (step == 4) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute<void>(builder: (_) => FunFactScreen(part: unlocked)),
+                            ).then((_) => setState(() {}));
+                          } else if (step == 0) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute<void>(builder: (_) => QuizScreen(part: unlocked)),
+                            ).then((_) => setState(() {}));
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('All parts completed! More levels coming soon!'),
+                                behavior: SnackBarBehavior.floating,
+                              ),
+                            );
                           if (widget.boxLevel == 6) {
                             // Box 6 Start Quiz routing
                             if (unlocked == 12) {
@@ -547,6 +648,8 @@ class _QuizIntroScreenState extends State<QuizIntroScreen> {
             ),
           ],
         ),
+        ),
+        ),
       ),
     );
   }
@@ -574,6 +677,7 @@ class _QuizSectionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bool isLocked = !isActive && !isCompleted;
+    final bool isPurple = !isLocked;
     return SizedBox(
       width: 135,
       child: Container(
@@ -592,6 +696,8 @@ class _QuizSectionCard extends StatelessWidget {
           ),
           boxShadow: [
             BoxShadow(
+              color: AppColors.primaryPurple.withValues(alpha: 0.06),
+              blurRadius: 12,
               color: AppColors.primaryPurple.withOpacity(isActive ? 0.08 : 0.04),
               blurRadius: isActive ? 16 : 10,
               offset: const Offset(0, 4),
@@ -620,6 +726,16 @@ class _QuizSectionCard extends StatelessWidget {
 
             // Illustration circle
             Container(
+              width: 48,
+              height: 48,
+              decoration: const BoxDecoration(
+                color: Color(0xFFFBF9FF),
+                shape: BoxShape.circle,
+              ),
+              child: Center(
+                child: svgAsset.endsWith('.png') 
+                    ? Image.asset(svgAsset, width: 26, height: 26)
+                    : SvgPicture.asset(svgAsset, width: 26, height: 26),
               width: 52,
               height: 52,
               alignment: Alignment.center,
@@ -703,6 +819,7 @@ class _RewardCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: const EdgeInsets.symmetric(vertical: 12),
       width: 80,
       padding: const EdgeInsets.symmetric(vertical: 14),
       decoration: BoxDecoration(
@@ -711,6 +828,7 @@ class _RewardCard extends StatelessWidget {
         border: Border.all(color: const Color(0xFFF3EEFB), width: 1.5),
         boxShadow: [
           BoxShadow(
+            color: AppColors.primaryPurple.withValues(alpha: 0.06),
             color: AppColors.primaryPurple.withOpacity(0.04),
             blurRadius: 10,
             offset: const Offset(0, 3),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:linguago_flutter/core/constants/colors.dart';
 import 'package:linguago_flutter/core/constants/language_preference.dart';
@@ -11,6 +12,10 @@ import 'package:linguago_flutter/ui/screens/quiz/quiz_intro_screen.dart';
 import 'package:linguago_flutter/ui/pages/lesson_detail_screen.dart';
 import 'package:linguago_flutter/ui/screens/quiz/fun_fact_screen.dart';
 import 'package:linguago_flutter/ui/screens/quiz/quiz_screen.dart';
+import 'package:linguago_flutter/ui/pages/my_coins_page.dart';
+import 'package:linguago_flutter/ui/screens/leaderboard/leaderboard_screen.dart';
+import 'package:linguago_flutter/data/datasource/auth_local_datasource.dart';
+
 
 /// Home Page — reactive wrapper yang switch antara English & Korean homepage
 /// berdasarkan LanguagePreference. Default: English (untuk user baru).
@@ -51,20 +56,37 @@ class _KoreanHomePageState extends State<_KoreanHomePage> {
           const SizedBox(height: 16),
           _UserHeader(context: context),
           const SizedBox(height: 12),
-          const _ExpBar(current: 400, total: 1000),
+          ValueListenableBuilder<int>(
+            valueListenable: QuizProgress.xpNotifier,
+            builder: (context, xpValue, _) {
+              int displayXp = xpValue % 1000;
+              if (xpValue > 0 && displayXp == 0) displayXp = 1000;
+              return _ExpBar(current: displayXp, total: 1000);
+            },
+          ),
           const SizedBox(height: 16),
-          const _StatsRow(),
+          _StatsRow(onRefresh: () => setState(() {})),
           const SizedBox(height: 16),
-          const _DailyCheckInCard(),
+          _DailyCheckInCard(onRefresh: () => setState(() {})),
           const SizedBox(height: 16),
           const _ContinueStudyingCard(),
           const SizedBox(height: 24),
-          _SectionHeader(
-            title: 'Friends',
-            action: const Icon(
-              Icons.chevron_right_rounded,
-              color: AppColors.primaryText,
-              size: 22,
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute<void>(
+                  builder: (_) => const FriendListScreen(),
+                ),
+              );
+            },
+            child: _SectionHeader(
+              title: 'Friends',
+              action: const Icon(
+                Icons.chevron_right_rounded,
+                color: AppColors.primaryText,
+                size: 22,
+              ),
             ),
           ),
           const SizedBox(height: 12),
@@ -85,12 +107,42 @@ class _KoreanHomePageState extends State<_KoreanHomePage> {
 // ─────────────────────────────────────────────────────────────────────────────
 // USER HEADER
 // ─────────────────────────────────────────────────────────────────────────────
-class _UserHeader extends StatelessWidget {
+class _UserHeader extends StatefulWidget {
   final BuildContext context;
   const _UserHeader({required this.context});
 
   @override
-  Widget build(BuildContext _) {
+  State<_UserHeader> createState() => _UserHeaderState();
+}
+
+class _UserHeaderState extends State<_UserHeader> {
+  String _userName = 'User';
+  String _initial = 'U';
+
+  @override
+  void initState() {
+    super.initState();
+    _loadAuthData();
+  }
+
+  Future<void> _loadAuthData() async {
+    try {
+      final authData = await AuthLocalDatasource().getAuthData();
+      if (authData.user != null && mounted) {
+        setState(() {
+          _userName = authData.user!.name ?? authData.user!.username ?? 'User';
+          if (_userName.isNotEmpty) {
+            _initial = _userName[0].toUpperCase();
+          }
+        });
+      }
+    } catch (e) {
+      debugPrint("Error loading auth data: $e");
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -106,10 +158,10 @@ class _UserHeader extends StatelessWidget {
               end: Alignment.bottomRight,
             ),
           ),
-          child: const Center(
+          child: Center(
             child: Text(
-              'E',
-              style: TextStyle(
+              _initial,
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 20,
                 fontWeight: FontWeight.w800,
@@ -125,8 +177,8 @@ class _UserHeader extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    'evan',
-                    style: TextStyle(
+                    _userName,
+                    style: const TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.w800,
                       color: AppColors.primaryText,
@@ -152,6 +204,7 @@ class _UserHeader extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Text(
+                      'Level ${QuizProgress.unlockedPart}',
                       QuizProgress.unlockedPart <= 5 ? 'Level 1' : 'Level 2',
                       style: const TextStyle(
                         fontSize: 11,
@@ -161,7 +214,15 @@ class _UserHeader extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 6),
-                  const Text('🇰🇷', style: TextStyle(fontSize: 16)),
+                  ValueListenableBuilder<String>(
+                    valueListenable: QuizProgress.learningLanguageNotifier,
+                    builder: (context, language, _) {
+                      return Text(
+                        language == 'Korea' ? '🇰🇷' : '🇬🇧',
+                        style: const TextStyle(fontSize: 16),
+                      );
+                    },
+                  ),
                 ],
               ),
             ],
@@ -178,7 +239,7 @@ class _UserHeader extends StatelessWidget {
               borderRadius: BorderRadius.circular(14),
               boxShadow: [
                 BoxShadow(
-                  color: AppColors.primaryPurple.withOpacity(0.10),
+                  color: AppColors.primaryPurple.withValues(alpha: 0.10),
                   blurRadius: 8,
                   offset: const Offset(0, 2),
                 ),
@@ -234,7 +295,7 @@ class _ExpBar extends StatelessWidget {
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
           decoration: BoxDecoration(
-            color: AppColors.primaryPurple.withOpacity(0.15),
+            color: AppColors.primaryPurple.withValues(alpha: 0.15),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Row(
@@ -283,54 +344,77 @@ class _ExpBar extends StatelessWidget {
 // STATS ROW
 // ─────────────────────────────────────────────────────────────────────────────
 class _StatsRow extends StatelessWidget {
-  const _StatsRow();
+  final VoidCallback onRefresh;
+
+  const _StatsRow({required this.onRefresh});
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => Navigator.push(
-        context,
-        MaterialPageRoute<void>(builder: (_) => const StreakScreen()),
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+      decoration: BoxDecoration(
+        color: AppColors.white,
+        borderRadius: BorderRadius.circular(18),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.primaryPurple.withValues(alpha: 0.08),
+            blurRadius: 14,
+            offset: const Offset(0, 4),
+          ),
+        ],
       ),
-      child: Container(
-        padding:
-            const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-        decoration: BoxDecoration(
-          color: AppColors.white,
-          borderRadius: BorderRadius.circular(18),
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.primaryPurple.withOpacity(0.08),
-              blurRadius: 14,
-              offset: const Offset(0, 4),
-            ),
-          ],
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            _StatChip(
-              icon: '❤️',
-              label: 'Heart',
-              value: '5 / 5',
-              iconBg: const Color(0xFFFFF0F0),
-            ),
-            _VertDivider(),
-            _StatChip(
-              icon: '🔥',
-              label: 'Streak',
-              value: '1 Days',
-              iconBg: const Color(0xFFFFF4EC),
-            ),
-            _VertDivider(),
-            _StatChip(
-              icon: '🪙',
-              label: 'Reward',
-              value: '10 Coins',
-              iconBg: const Color(0xFFFFFBEC),
-            ),
-          ],
-        ),
+      child: AnimatedBuilder(
+        animation: Listenable.merge([
+          QuizProgress.coinsNotifier,
+          QuizProgress.heartsNotifier,
+        ]),
+        builder: (context, child) {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              _StatChip(
+                icon: '❤️',
+                label: 'Heart',
+                value: '${QuizProgress.hearts} / 5',
+                iconBg: const Color(0xFFFFF0F0),
+              ),
+              _VertDivider(),
+              GestureDetector(
+                onTap: () async {
+                  await Navigator.push(
+                    context,
+                    MaterialPageRoute<void>(builder: (_) => const StreakScreen()),
+                  );
+                  onRefresh();
+                },
+                behavior: HitTestBehavior.opaque,
+                child: const _StatChip(
+                  icon: '🔥',
+                  label: 'Streak',
+                  value: '1 Days',
+                  iconBg: Color(0xFFFFF4EC),
+                ),
+              ),
+              _VertDivider(),
+              GestureDetector(
+                onTap: () async {
+                  await Navigator.push(
+                    context,
+                    MaterialPageRoute<void>(builder: (_) => const MyCoinsPage()),
+                  );
+                  onRefresh();
+                },
+                behavior: HitTestBehavior.opaque,
+                child: _StatChip(
+                  icon: '🪙',
+                  label: 'Reward',
+                  value: '${QuizProgress.coins} Coins',
+                  iconBg: const Color(0xFFFFFBEC),
+                ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }
@@ -388,18 +472,72 @@ class _VertDivider extends StatelessWidget {
 // ─────────────────────────────────────────────────────────────────────────────
 // DAILY CHECK-IN CARD
 // ─────────────────────────────────────────────────────────────────────────────
-class _DailyCheckInCard extends StatelessWidget {
-  const _DailyCheckInCard();
+class _DailyCheckInCard extends StatefulWidget {
+  final VoidCallback onRefresh;
 
-  static const List<Map<String, dynamic>> _days = [
-    {'day': 'Day 1', 'reward': '10 XP', 'icon': '🪙', 'done': true},
-    {'day': 'Day 2', 'reward': '1', 'icon': '❤️', 'done': false},
-    {'day': 'Day 3', 'reward': '20 XP', 'icon': '🪙', 'done': false},
-    {'day': 'Day 4', 'reward': '10 XP', 'icon': '🪙', 'done': false},
-    {'day': 'Day 5', 'reward': '1', 'icon': '❤️', 'done': false},
-    {'day': 'Day 6', 'reward': '10 XP', 'icon': '🪙', 'done': false},
-    {'day': 'Day 7', 'reward': '1', 'icon': '❤️', 'done': false},
-  ];
+  const _DailyCheckInCard({required this.onRefresh});
+
+  @override
+  State<_DailyCheckInCard> createState() => _DailyCheckInCardState();
+}
+
+class _DailyCheckInCardState extends State<_DailyCheckInCard> {
+  List<Map<String, dynamic>> get _days {
+    return [
+      {'day': 'Day 1', 'reward': '10 XP', 'icon': '🪙', 'done': QuizProgress.checkInDays >= 1},
+      {'day': 'Day 2', 'reward': '1', 'icon': '❤️', 'done': QuizProgress.checkInDays >= 2},
+      {'day': 'Day 3', 'reward': '20 XP', 'icon': '🪙', 'done': QuizProgress.checkInDays >= 3},
+      {'day': 'Day 4', 'reward': '10 XP', 'icon': '🪙', 'done': QuizProgress.checkInDays >= 4},
+      {'day': 'Day 5', 'reward': '1', 'icon': '❤️', 'done': QuizProgress.checkInDays >= 5},
+      {'day': 'Day 6', 'reward': '10 XP', 'icon': '🪙', 'done': QuizProgress.checkInDays >= 6},
+      {'day': 'Day 7', 'reward': '1', 'icon': '❤️', 'done': QuizProgress.checkInDays >= 7},
+    ];
+  }
+
+  void _claimReward(int index) async {
+    // Hanya bisa claim yang urutannya tepat setelah checkInDays saat ini
+    if (index != QuizProgress.checkInDays) {
+      return; // Sudah diklaim atau belum waktunya
+    }
+
+    // Kasih efek suara dan getaran "cikres"
+    HapticFeedback.heavyImpact();
+    SystemSound.play(SystemSoundType.click);
+
+    await QuizProgress.setCheckInDays(QuizProgress.checkInDays + 1);
+
+    final rewardStr = _days[index]['reward'] as String;
+    final icon = _days[index]['icon'] as String;
+    final amount = int.tryParse(rewardStr.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
+
+    String claimedMsg = '';
+    if (icon == '🪙') {
+      await QuizProgress.setCoins(QuizProgress.coins + amount);
+      claimedMsg = 'Successfully claimed Day ${index + 1} reward: $amount Coins! 🪙';
+    } else if (icon == '❤️') {
+      if (QuizProgress.hearts >= 5) {
+        await QuizProgress.setCoins(QuizProgress.coins + 10);
+        claimedMsg = 'Hearts are already full! Successfully claimed 10 Coins instead! 🪙';
+      } else {
+        await QuizProgress.setHearts(QuizProgress.hearts + amount);
+        claimedMsg = 'Successfully claimed Day ${index + 1} reward: $amount Hearts! ❤️';
+      }
+    }
+
+    setState(() {});
+    widget.onRefresh();
+
+    if (!mounted) return;
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(claimedMsg),
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: AppColors.primaryPurple,
+        duration: const Duration(seconds: 2),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -410,7 +548,7 @@ class _DailyCheckInCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: AppColors.primaryPurple.withOpacity(0.07),
+            color: AppColors.primaryPurple.withValues(alpha: 0.07),
             blurRadius: 14,
             offset: const Offset(0, 4),
           ),
@@ -441,14 +579,19 @@ class _DailyCheckInCard extends StatelessWidget {
           const SizedBox(height: 14),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: _days
-                .map((d) => _DayTile(
-                      day: d['day'] as String,
-                      reward: d['reward'] as String,
-                      icon: d['icon'] as String,
-                      done: d['done'] as bool,
-                    ))
-                .toList(),
+            children: List.generate(_days.length, (index) {
+              final d = _days[index];
+              return GestureDetector(
+                onTap: () => _claimReward(index),
+                child: _DayTile(
+                  day: d['day'] as String,
+                  reward: d['reward'] as String,
+                  icon: d['icon'] as String,
+                  done: d['done'] as bool,
+                  isActive: index == QuizProgress.checkInDays,
+                ),
+              );
+            }),
           ),
         ],
       ),
@@ -461,12 +604,15 @@ class _DayTile extends StatelessWidget {
   final String reward;
   final String icon;
   final bool done;
+  final bool isActive;
 
-  const _DayTile(
-      {required this.day,
-      required this.reward,
-      required this.icon,
-      required this.done});
+  const _DayTile({
+    required this.day,
+    required this.reward,
+    required this.icon,
+    required this.done,
+    required this.isActive,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -475,8 +621,8 @@ class _DayTile extends StatelessWidget {
         Text(day,
             style: TextStyle(
                 fontSize: 9,
-                color: AppColors.secondaryText,
-                fontWeight: FontWeight.w500)),
+                color: done || isActive ? AppColors.primaryText : AppColors.secondaryText,
+                fontWeight: done || isActive ? FontWeight.bold : FontWeight.w500)),
         const SizedBox(height: 6),
         Container(
           width: 34,
@@ -484,12 +630,21 @@ class _DayTile extends StatelessWidget {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: done
-                ? AppColors.primaryPurple.withOpacity(0.12)
-                : AppColors.backgroundSoft,
+                ? AppColors.primaryPurple.withValues(alpha: 0.12)
+                : (isActive ? const Color(0xFFF3EEFB) : AppColors.backgroundSoft),
             border: Border.all(
-              color: done ? AppColors.primaryPurple : AppColors.disableBorder,
-              width: 1.5,
+              color: done
+                  ? AppColors.primaryPurple
+                  : (isActive ? AppColors.primaryPurple : AppColors.disableBorder),
+              width: isActive ? 2.0 : 1.5,
             ),
+            boxShadow: isActive ? [
+              BoxShadow(
+                color: AppColors.primaryPurple.withValues(alpha: 0.2),
+                blurRadius: 6,
+                spreadRadius: 1,
+              )
+            ] : null,
           ),
           child: Center(
               child: Text(icon, style: const TextStyle(fontSize: 16))),
@@ -498,8 +653,8 @@ class _DayTile extends StatelessWidget {
         Text(reward,
             style: TextStyle(
                 fontSize: 9,
-                fontWeight: FontWeight.w600,
-                color: done
+                fontWeight: done || isActive ? FontWeight.bold : FontWeight.w600,
+                color: done || isActive
                     ? AppColors.primaryPurple
                     : AppColors.secondaryText)),
       ],
@@ -525,7 +680,7 @@ class _ContinueStudyingCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(22),
         boxShadow: [
           BoxShadow(
-            color: AppColors.primaryPurple.withOpacity(0.35),
+            color: AppColors.primaryPurple.withValues(alpha: 0.35),
             blurRadius: 16,
             offset: const Offset(0, 6),
           ),
@@ -548,7 +703,7 @@ class _ContinueStudyingCard extends StatelessWidget {
                 Text('Study regularly every day to become better!',
                     style: TextStyle(
                         fontSize: 11,
-                        color: Colors.white.withOpacity(0.80))),
+                        color: Colors.white.withValues(alpha: 0.80))),
               ],
             ),
           ),
@@ -556,7 +711,7 @@ class _ContinueStudyingCard extends StatelessWidget {
             margin: const EdgeInsets.fromLTRB(12, 0, 12, 14),
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.18),
+              color: Colors.white.withValues(alpha: 0.18),
               borderRadius: BorderRadius.circular(16),
             ),
             child: Row(
@@ -604,7 +759,7 @@ class _ContinueStudyingCard extends StatelessWidget {
                                 value: 0.50,
                                 minHeight: 5,
                                 backgroundColor:
-                                    Colors.white.withOpacity(0.25),
+                                    Colors.white.withValues(alpha: 0.25),
                                 valueColor:
                                     const AlwaysStoppedAnimation<Color>(
                                         Colors.white),
@@ -616,7 +771,7 @@ class _ContinueStudyingCard extends StatelessWidget {
                               style: TextStyle(
                                   fontSize: 10,
                                   fontWeight: FontWeight.w600,
-                                  color: Colors.white.withOpacity(0.85))),
+                                  color: Colors.white.withValues(alpha: 0.85))),
                         ],
                       ),
                       const SizedBox(height: 8),
@@ -845,7 +1000,7 @@ class _FriendItem extends StatelessWidget {
             border: Border.all(color: Colors.white, width: 2.5),
             boxShadow: [
               BoxShadow(
-                color: color.withOpacity(0.35),
+                color: color.withValues(alpha: 0.35),
                 blurRadius: 8,
                 offset: const Offset(0, 3),
               ),
@@ -879,38 +1034,31 @@ class _QuickActions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isListeningLocked = QuizProgress.unlockedPart < 2;
-
     return Row(
       children: [
         Expanded(
             child: _QuickActionCard(
-                icon: 'assets/material-symbols_mic.svg',
+                icon: Icons.headset_mic_rounded,
                 title: 'Listening',
                 subtitle: 'Listening Practice',
-                isLocked: isListeningLocked,
+                isLocked: false,
+                circleBgColor: const Color(0xFFFFB3BA),
+                iconColor: const Color(0xFFD61A54),
                 onTap: () {
-                  if (isListeningLocked) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Please complete the Basic Quiz (Part 1) to unlock Listening!'),
-                        behavior: SnackBarBehavior.floating,
-                      ),
-                    );
-                  } else {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute<void>(
-                          builder: (_) => const linguago_flutter_listening.ListeningCategoryScreen()),
-                    ).then((_) => onRefresh());
-                  }
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute<void>(
+                        builder: (_) => const linguago_flutter_listening.ListeningCategoryScreen()),
+                  ).then((_) => onRefresh());
                 })),
         const SizedBox(width: 12),
         Expanded(
             child: _QuickActionCard(
-                icon: 'assets/material-symbols_id-card-rounded.svg',
+                icon: Icons.assignment_add,
                 title: 'Script',
                 subtitle: 'Learning Letters',
+                circleBgColor: const Color(0xFFD4C4F0),
+                iconColor: const Color(0xFF6C4AB6),
                 onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute<void>(
@@ -919,9 +1067,11 @@ class _QuickActions extends StatelessWidget {
         const SizedBox(width: 12),
         Expanded(
             child: _QuickActionCard(
-                icon: 'assets/mingcute_game-2-fill.svg',
+                icon: Icons.quiz_rounded,
                 title: 'Quiz',
                 subtitle: 'Practice Test',
+                circleBgColor: const Color(0xFFFFF0B3),
+                iconColor: const Color(0xFFB37400),
                 onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute<void>(
@@ -933,11 +1083,13 @@ class _QuickActions extends StatelessWidget {
 }
 
 class _QuickActionCard extends StatelessWidget {
-  final String icon;
+  final dynamic icon; // Can be String (SVG asset path) or IconData
   final String title;
   final String subtitle;
   final bool isLocked;
   final VoidCallback onTap;
+  final Color circleBgColor;
+  final Color iconColor;
 
   const _QuickActionCard({
     required this.icon,
@@ -945,30 +1097,65 @@ class _QuickActionCard extends StatelessWidget {
     required this.subtitle,
     this.isLocked = false,
     required this.onTap,
+    required this.circleBgColor,
+    required this.iconColor,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 10),
-        decoration: BoxDecoration(
-          color: isLocked ? const Color(0xFFF5F3F7) : AppColors.white,
-          borderRadius: BorderRadius.circular(18),
-          boxShadow: isLocked
-              ? null
-              : [
-                  BoxShadow(
-                    color: AppColors.primaryPurple.withOpacity(0.07),
-                    blurRadius: 12,
-                    offset: const Offset(0, 4),
+      child: Stack(
+        clipBehavior: Clip.none,
+        alignment: Alignment.topCenter,
+        children: [
+          // White Card Background
+          Container(
+            width: double.infinity,
+            margin: const EdgeInsets.only(top: 26),
+            padding: const EdgeInsets.fromLTRB(8, 38, 8, 14),
+            decoration: BoxDecoration(
+              color: isLocked ? const Color(0xFFF5F3F7) : AppColors.white,
+              borderRadius: BorderRadius.circular(18),
+              boxShadow: isLocked
+                  ? null
+                  : [
+                      BoxShadow(
+                        color: AppColors.primaryPurple.withValues(alpha: 0.07),
+                        blurRadius: 12,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  title,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w800,
+                    color: isLocked ? AppColors.secondaryText : AppColors.primaryText,
                   ),
-                ],
-        ),
-        child: Column(
-          children: [
-            Stack(
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  isLocked ? 'Locked' : subtitle,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 10,
+                    color: AppColors.secondaryText,
+                    height: 1.3,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          // Floating Circle at the top
+          Positioned(
+            top: 0,
+            child: Stack(
               alignment: Alignment.center,
               children: [
                 Container(
@@ -976,19 +1163,35 @@ class _QuickActionCard extends StatelessWidget {
                   height: 52,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: isLocked
-                        ? const Color(0xFFE0DCE4)
-                        : AppColors.primaryPurple.withOpacity(0.12),
+                    color: isLocked ? const Color(0xFFE0DCE4) : circleBgColor,
+                    boxShadow: isLocked
+                        ? null
+                        : [
+                            BoxShadow(
+                              color: circleBgColor.withValues(alpha: 0.2),
+                              blurRadius: 6,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
                   ),
                   child: Center(
                     child: Opacity(
                       opacity: isLocked ? 0.4 : 1.0,
-                      child: SvgPicture.asset(icon,
-                          width: 26,
-                          height: 26,
-                          colorFilter: ColorFilter.mode(
-                              isLocked ? AppColors.secondaryText : AppColors.primaryPurple,
-                              BlendMode.srcIn)),
+                      child: icon is IconData
+                          ? Icon(
+                              icon as IconData,
+                              size: 24,
+                              color: isLocked ? AppColors.secondaryText : iconColor,
+                            )
+                          : SvgPicture.asset(
+                              icon as String,
+                              width: 24,
+                              height: 24,
+                              colorFilter: ColorFilter.mode(
+                                isLocked ? AppColors.secondaryText : iconColor,
+                                BlendMode.srcIn,
+                              ),
+                            ),
                     ),
                   ),
                 ),
@@ -1011,19 +1214,8 @@ class _QuickActionCard extends StatelessWidget {
                   ),
               ],
             ),
-            const SizedBox(height: 10),
-            Text(title,
-                style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
-                    color: isLocked ? AppColors.secondaryText : AppColors.primaryText)),
-            const SizedBox(height: 2),
-            Text(isLocked ? 'Locked' : subtitle,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: 10, color: AppColors.secondaryText)),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -1121,6 +1313,7 @@ class _LevelMapCardState extends State<_LevelMapCard>
       Navigator.push(
         context,
         MaterialPageRoute<void>(
+          builder: (_) => const QuizIntroScreen(),
           builder: (_) => const QuizIntroScreen(boxLevel: 2),
         ),
       ).then((_) => setState(() {}));
@@ -1128,6 +1321,7 @@ class _LevelMapCardState extends State<_LevelMapCard>
       Navigator.push(
         context,
         MaterialPageRoute<void>(
+          builder: (_) => const QuizIntroScreen(),
           builder: (_) => const QuizIntroScreen(boxLevel: 3),
         ),
       ).then((_) => setState(() {}));
@@ -1143,6 +1337,47 @@ class _LevelMapCardState extends State<_LevelMapCard>
       Navigator.push(
         context,
         MaterialPageRoute<void>(
+          builder: (_) => const QuizIntroScreen(),
+        ),
+      ).then((_) => setState(() {}));
+    } else if (nodeIndex == 5) {
+      // Node 6 → Lesson Summary Level 2
+      Navigator.push(
+        context,
+        MaterialPageRoute<void>(
+          builder: (_) => const LessonDetailScreen(part: 6),
+        ),
+      ).then((_) => setState(() {}));
+    } else if (nodeIndex == 6) {
+      // Node 7 → Quiz Level 2
+      Navigator.push(
+        context,
+        MaterialPageRoute<void>(
+          builder: (_) => const QuizIntroScreen(), // Assuming intro screen or just QuizScreen(part: 7)
+        ),
+      ).then((_) => setState(() {}));
+    } else if (nodeIndex == 7) {
+      // Node 8 → Quiz Level 2
+      Navigator.push(
+        context,
+        MaterialPageRoute<void>(
+          builder: (_) => const QuizIntroScreen(),
+        ),
+      ).then((_) => setState(() {}));
+    } else if (nodeIndex == 8) {
+      // Node 9 → Fun Fact Level 2
+      Navigator.push(
+        context,
+        MaterialPageRoute<void>(
+          builder: (_) => const FunFactScreen(part: 9),
+        ),
+      ).then((_) => setState(() {}));
+    } else if (nodeIndex == 9) {
+      // Node 10 → Final Quiz Level 2
+      Navigator.push(
+        context,
+        MaterialPageRoute<void>(
+          builder: (_) => const QuizIntroScreen(),
           builder: (_) => const QuizIntroScreen(boxLevel: 5),
         ),
       ).then((_) => setState(() {}));
@@ -1158,24 +1393,28 @@ class _LevelMapCardState extends State<_LevelMapCard>
 
   @override
   Widget build(BuildContext context) {
+    const int totalLevels = 5;
     final int currentLevel = QuizProgress.unlockedPart;
     const int totalLevels = 6;
 
-    return Container(
-      padding: const EdgeInsets.all(18),
-      decoration: BoxDecoration(
-        color: AppColors.white,
-        borderRadius: BorderRadius.circular(22),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.primaryPurple.withOpacity(0.08),
-            blurRadius: 14,
-            offset: const Offset(0, 4),
+    return ValueListenableBuilder<int>(
+      valueListenable: QuizProgress.unlockedPartNotifier,
+      builder: (context, currentLevel, child) {
+        return Container(
+          padding: const EdgeInsets.all(18),
+          decoration: BoxDecoration(
+            color: AppColors.white,
+            borderRadius: BorderRadius.circular(22),
+            boxShadow: [
+              BoxShadow(
+                color: AppColors.primaryPurple.withValues(alpha: 0.08),
+                blurRadius: 14,
+                offset: const Offset(0, 4),
+              ),
+            ],
           ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // ── Header ──────────────────────────────────────────────────────
           Row(
@@ -1220,13 +1459,17 @@ class _LevelMapCardState extends State<_LevelMapCard>
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: List.generate(totalLevels, (i) {
+              final int startLevel = currentLevel > 5 ? 6 : 1;
+              final levelNum = startLevel + i;
+              final bool isActive = levelNum == currentLevel;
+              final bool isLocked = levelNum > currentLevel;
               final levelNum = i + 1;
               final int activeIndex = _getActiveNodeIndex(currentLevel);
               final bool isActive = i == activeIndex;
               final bool isLocked = _isNodeLocked(i, currentLevel);
 
               return GestureDetector(
-                onTap: () => _onNodeTap(context, i),
+                onTap: () => _onNodeTap(context, levelNum - 1),
                 child: Column(
                   children: [
                     // ── Mascot (bobbing on active node) ─────────────────
@@ -1258,16 +1501,14 @@ class _LevelMapCardState extends State<_LevelMapCard>
                         shape: BoxShape.circle,
                         color: isLocked
                             ? AppColors.backgroundAlt
-                            : isActive
-                                ? AppColors.primaryPurple
-                                : AppColors.primaryPurple.withOpacity(0.35),
+                            : AppColors.primaryPurple,
                         border: isActive
                             ? Border.all(color: Colors.white, width: 3)
                             : null,
                         boxShadow: isActive
                             ? [
                                 BoxShadow(
-                                  color: AppColors.primaryPurple.withOpacity(0.40),
+                                  color: AppColors.primaryPurple.withValues(alpha: 0.40),
                                   blurRadius: 10,
                                   offset: const Offset(0, 4),
                                 ),
@@ -1317,6 +1558,7 @@ class _LevelMapCardState extends State<_LevelMapCard>
                 ),
               ),
               Text(
+                '${((currentLevel > 5 ? currentLevel - 5 : currentLevel) * 200)}/1000',
                 currentLevel == 1
                     ? '160/1000'
                     : (currentLevel >= 2 && currentLevel <= 4)
@@ -1339,6 +1581,7 @@ class _LevelMapCardState extends State<_LevelMapCard>
           ClipRRect(
             borderRadius: BorderRadius.circular(8),
             child: LinearProgressIndicator(
+              value: (currentLevel > 5 ? currentLevel - 5 : currentLevel) * 0.2,
               value: currentLevel == 1
                   ? 0.16
                   : (currentLevel >= 2 && currentLevel <= 4)
@@ -1359,5 +1602,7 @@ class _LevelMapCardState extends State<_LevelMapCard>
         ],
       ),
     );
+  },
+);
   }
 }

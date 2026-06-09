@@ -115,7 +115,7 @@ class MascotPainter extends CustomPainter {
         final double wavePulse = (pulseValue + i / 3.0) % 1.0;
         final double waveRadius = r * 1.2 + (wavePulse * r * 0.6);
         final double opacity = 1.0 - wavePulse;
-        wavePaint.color = const Color(0xFFAA86E7).withOpacity(opacity * 0.6);
+        wavePaint.color = const Color(0xFFAA86E7).withValues(alpha: opacity * 0.6);
 
         // Left ear waves
         canvas.drawArc(

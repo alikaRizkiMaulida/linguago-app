@@ -42,7 +42,7 @@ class SocialButton extends StatelessWidget {
   Widget _buildIcon() {
     switch (type) {
       case SocialType.google:
-        return SvgPicture.asset('assets/ri_google-fill.svg', width: 24, height: 24);
+        return SvgPicture.asset('assets/material-icon-theme_google.svg', width: 24, height: 24);
       case SocialType.apple:
         return SvgPicture.asset('assets/ic_baseline-apple.svg', width: 24, height: 24);
       case SocialType.facebook:

@@ -8,7 +8,7 @@ class LessonDetailScreen extends StatelessWidget {
   final int part;
   const LessonDetailScreen({super.key, this.part = 1});
 
-  static const List<Map<String, dynamic>> _lessonData = [
+  static const List<Map<String, dynamic>> _lessonDataKorea = [
     {
       'number': 1,
       'title': 'Basic Hangul',
@@ -32,9 +32,35 @@ class LessonDetailScreen extends StatelessWidget {
     },
   ];
 
+  static const List<Map<String, dynamic>> _lessonDataEnglish = [
+    {
+      'number': 1,
+      'title': 'Basic Phonics',
+      'desc': 'Learn basic English vowels, consonants, and short sounds.',
+      'ytId': '723QdG9wO8Q',
+      'badge': 'English Class #1',
+    },
+    {
+      'number': 2,
+      'title': 'English Listening',
+      'desc': 'Practice listening to English word sounds and spelling patterns.',
+      'ytId': '723QdG9wO8Q',
+      'badge': 'English Class #2',
+    },
+    {
+      'number': 3,
+      'title': 'English Grammar',
+      'desc': 'Understand basic English sentence structure and pronouns.',
+      'ytId': 'y15m4V_g6a8',
+      'badge': 'English Class #3',
+    },
+  ];
+
   @override
   Widget build(BuildContext context) {
-    final data = _lessonData[(part - 1).clamp(0, 2)];
+    final bool isKorea = QuizProgress.learningLanguage == 'Korea';
+    final dataList = isKorea ? _lessonDataKorea : _lessonDataEnglish;
+    final data = dataList[(part - 1).clamp(0, 2)];
 
     return Scaffold(
       backgroundColor: const Color(0xFFFBF9FF), // matching the #FBF9FF background
@@ -100,7 +126,7 @@ class LessonDetailScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(20),
                         boxShadow: [
                           BoxShadow(
-                            color: AppColors.primaryPurple.withOpacity(0.08),
+                            color: AppColors.primaryPurple.withValues(alpha: 0.08),
                             blurRadius: 16,
                             offset: const Offset(0, 6),
                           ),
@@ -129,7 +155,7 @@ class LessonDetailScreen extends StatelessWidget {
                           ),
                           // Dark Overlay for contrast
                           Container(
-                            color: Colors.black.withOpacity(0.12),
+                            color: Colors.black.withValues(alpha: 0.12),
                           ),
                           // Play Button Overlay
                           Center(
@@ -137,11 +163,11 @@ class LessonDetailScreen extends StatelessWidget {
                               width: 60,
                               height: 60,
                               decoration: BoxDecoration(
-                                color: Colors.white.withOpacity(0.9),
+                                color: Colors.white.withValues(alpha: 0.9),
                                 shape: BoxShape.circle,
                                 boxShadow: [
                                   BoxShadow(
-                                    color: Colors.black.withOpacity(0.15),
+                                    color: Colors.black.withValues(alpha: 0.15),
                                     blurRadius: 12,
                                   ),
                                 ],
@@ -160,7 +186,7 @@ class LessonDetailScreen extends StatelessWidget {
                             child: Container(
                               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                               decoration: BoxDecoration(
-                                color: Colors.black.withOpacity(0.5),
+                                color: Colors.black.withValues(alpha: 0.5),
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               child: Text(
@@ -241,7 +267,7 @@ class LessonDetailScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(24),
                         boxShadow: [
                           BoxShadow(
-                            color: AppColors.primaryPurple.withOpacity(0.04),
+                            color: AppColors.primaryPurple.withValues(alpha: 0.04),
                             blurRadius: 16,
                             offset: const Offset(0, 4),
                           ),
@@ -259,12 +285,17 @@ class LessonDetailScreen extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(height: 8),
-                          const Text(
-                            'In this lesson, the speaker introduces Hangul, the Korean writing system made up of:\n'
-                            ' • Konsonan (contoh: ㄱ, ㄴ, ㄷ)\n'
-                            ' • Vokal (contoh: ㅏ, ㅓ, ㅣ)\n\n'
-                            'The lesson explains that Hangul is not as difficult as it looks because its pronunciation system is quite similar to Indonesian phonetics.',
-                            style: TextStyle(
+                          Text(
+                            isKorea
+                                ? 'In this lesson, the speaker introduces Hangul, the Korean writing system made up of:\n'
+                                  ' • Konsonan (contoh: ㄱ, ㄴ, ㄷ)\n'
+                                  ' • Vokal (contoh: ㅏ, ㅓ, ㅣ)\n\n'
+                                  'The lesson explains that Hangul is not as difficult as it looks because its pronunciation system is quite similar to Indonesian phonetics.'
+                                : 'In this lesson, the speaker introduces English alphabet phonics, the writing system made up of:\n'
+                                  ' • Consonants (e.g. B, C, D)\n'
+                                  ' • Vowels (e.g. A, E, I)\n\n'
+                                  'The lesson explains that English phonics is the foundation for reading and spelling words correctly.',
+                            style: const TextStyle(
                               fontSize: 11,
                               color: AppColors.secondaryText,
                               height: 1.45,
@@ -281,16 +312,24 @@ class LessonDetailScreen extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(height: 8),
-                          _buildBulletPoint('Hangul is the Korean alphabet system'),
-                          _buildBulletPoint('Learning starts by recognizing letter sounds'),
-                          _buildBulletPoint('Korean letters combine to form syllables'),
-                          _buildBulletPoint('Syllables create words and sentences'),
-                          _buildBulletPoint('The key to learning Hangul is understanding patterns and practicing reading'),
+                          if (isKorea) ...[
+                            _buildBulletPoint('Hangul is the Korean alphabet system'),
+                            _buildBulletPoint('Learning starts by recognizing letter sounds'),
+                            _buildBulletPoint('Korean letters combine to form syllables'),
+                            _buildBulletPoint('Syllables create words and sentences'),
+                            _buildBulletPoint('The key to learning Hangul is understanding patterns and practicing reading'),
+                          ] else ...[
+                            _buildBulletPoint('English uses the 26-letter Latin alphabet'),
+                            _buildBulletPoint('Learning starts by recognizing short vowel and consonant sounds'),
+                            _buildBulletPoint('Letters combine to form basic words'),
+                            _buildBulletPoint('Understanding phonics helps in fluent reading and spelling'),
+                            _buildBulletPoint('The key is practicing sounds regularly'),
+                          ],
                           const SizedBox(height: 20),
 
-                          const Text(
-                            '4 Steps to Learn Hangul:',
-                            style: TextStyle(
+                          Text(
+                            isKorea ? '4 Steps to Learn Hangul:' : '4 Steps to Learn English:',
+                            style: const TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w800,
                               color: AppColors.primaryText,
@@ -302,10 +341,30 @@ class LessonDetailScreen extends StatelessWidget {
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Expanded(child: _buildStepItem('1', 'Learn\nconsonants &\nvowels')),
-                              Expanded(child: _buildStepItem('2', 'Read\nsyllables')),
-                              Expanded(child: _buildStepItem('3', 'Read\nvocabulary\nwords')),
-                              Expanded(child: _buildStepItem('4', 'Read simple\nsentences')),
+                              Expanded(
+                                child: _buildStepItem(
+                                  '1',
+                                  isKorea ? 'Learn\nconsonants &\nvowels' : 'Learn\nvowels &\nconsonants',
+                                ),
+                              ),
+                              Expanded(
+                                child: _buildStepItem(
+                                  '2',
+                                  isKorea ? 'Read\nsyllables' : 'Read\nshort words',
+                                ),
+                              ),
+                              Expanded(
+                                child: _buildStepItem(
+                                  '3',
+                                  isKorea ? 'Read\nvocabulary\nwords' : 'Read\ndaily vocab\nwords',
+                                ),
+                              ),
+                              Expanded(
+                                child: _buildStepItem(
+                                  '4',
+                                  isKorea ? 'Read simple\nsentences' : 'Read simple\nsentences',
+                                ),
+                              ),
                             ],
                           ),
                         ],
@@ -326,13 +385,26 @@ class LessonDetailScreen extends StatelessWidget {
                           ),
                         ),
                         onPressed: () {
-                          if (QuizProgress.unlockedPart == 1) {
-                            QuizProgress.setUnlockedPart(2);
+                          // Update level progression if the user completes the lesson for the first time
+                          if (QuizProgress.unlockedPart == part) {
+                            QuizProgress.setUnlockedPart(part + 1);
                           }
-                          Navigator.pop(context);
+                          
+                          // Navigate to corresponding Quiz
+                          int quizPart = part;
+                          if (part == 3) {
+                            quizPart = 5;
+                          }
+                          
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute<void>(
+                              builder: (_) => QuizScreen(part: quizPart),
+                            ),
+                          );
                         },
                         child: const Text(
-                          'Complete Lesson',
+                          'Start Quiz',
                           style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w800,

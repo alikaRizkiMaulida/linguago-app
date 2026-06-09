@@ -38,7 +38,7 @@ class DailyCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
-              color: AppColors.primaryPurple.withOpacity(0.35),
+              color: AppColors.primaryPurple.withValues(alpha: 0.35),
               blurRadius: 14,
               offset: const Offset(0, 6),
             ),
@@ -53,7 +53,7 @@ class DailyCard extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                   decoration: BoxDecoration(
-                    color: (tagColor ?? Colors.white).withOpacity(0.2),
+                    color: (tagColor ?? Colors.white).withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Text(
@@ -80,7 +80,7 @@ class DailyCard extends StatelessWidget {
             Text(
               subtitle,
               style: TextStyle(
-                color: AppColors.white.withOpacity(0.8),
+                color: AppColors.white.withValues(alpha: 0.8),
                 fontSize: 12,
               ),
             ),
@@ -89,7 +89,7 @@ class DailyCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(8),
               child: LinearProgressIndicator(
                 value: progress,
-                backgroundColor: Colors.white.withOpacity(0.25),
+                backgroundColor: Colors.white.withValues(alpha: 0.25),
                 valueColor:
                     const AlwaysStoppedAnimation<Color>(AppColors.white),
                 minHeight: 6,
@@ -99,7 +99,7 @@ class DailyCard extends StatelessWidget {
             Text(
               '${(progress * 100).toInt()}% Complete',
               style: TextStyle(
-                color: AppColors.white.withOpacity(0.85),
+                color: AppColors.white.withValues(alpha: 0.85),
                 fontSize: 11,
                 fontWeight: FontWeight.w500,
               ),
@@ -139,7 +139,7 @@ class LessonCard extends StatelessWidget {
           border: Border.all(color: AppColors.disableBorder, width: 1),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.04),
+              color: Colors.black.withValues(alpha: 0.04),
               blurRadius: 6,
               offset: const Offset(0, 2),
             ),

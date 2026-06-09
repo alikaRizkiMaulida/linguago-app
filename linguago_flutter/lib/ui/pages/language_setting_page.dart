@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:linguago_flutter/core/constants/colors.dart';
+import 'package:linguago_flutter/core/constants/quiz_state.dart';
 import 'package:linguago_flutter/core/constants/language_preference.dart';
 
 class LanguageSettingPage extends StatefulWidget {
@@ -16,6 +17,7 @@ class _LanguageSettingPageState extends State<LanguageSettingPage> {
   @override
   void initState() {
     super.initState();
+    _learningLanguage = QuizProgress.learningLanguage;
     // Load current value from the global notifier
     _learningLanguage = LanguagePreference.current;
   }
@@ -101,6 +103,19 @@ class _LanguageSettingPageState extends State<LanguageSettingPage> {
               ),
               child: Column(
                 children: [
+                  _buildRadioTile('English', _learningLanguage == 'English', () async {
+                    setState(() => _learningLanguage = 'English');
+                    final navigator = Navigator.of(context);
+                    await QuizProgress.setLearningLanguage('English');
+                    navigator.pushNamedAndRemoveUntil('/home', (route) => false);
+                  }),
+                  const Divider(height: 1, indent: 20, endIndent: 20, color: AppColors.backgroundSoft),
+                  _buildRadioTile('Korea', _learningLanguage == 'Korea', () async {
+                    setState(() => _learningLanguage = 'Korea');
+                    final navigator = Navigator.of(context);
+                    await QuizProgress.setLearningLanguage('Korea');
+                    navigator.pushNamedAndRemoveUntil('/home', (route) => false);
+                  }),
                   _buildRadioTileWithFlag(
                     title: 'English',
                     flag: '🇬🇧',

@@ -1028,6 +1028,115 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
     },
     {
       'type': 'pronunciation',
+      'text': 'Which letter has the sound "E"?',
+      'options': ['l', 'ㅔ', 'ㅏ', 'ㅜ'],
+      'correct': 1,
+      'pose': MascotPose.confused,
+    },
+    {
+      'type': 'blackboard',
+      'text': 'What is the sound of ㄱ?',
+      'boardText': 'ㄱ',
+      'options': ['N', 'D', 'G', 'S'],
+      'correct': 2,
+      'pose': MascotPose.teaching,
+    },
+    {
+      'type': 'audio_choice',
+      'text': 'Which word did you think you heard?',
+      'audioWord': 'Hieut',
+      'options': ['ㅖ', 'ㄱ', 'ㅅ', 'ㅎ'],
+      'correct': 3,
+      'pose': MascotPose.listening,
+    },
+    {
+      'type': 'translation_large_cards',
+      'text': 'What is the Korean word for\n',
+      'targetWord': '"to go"?',
+      'options': [
+        {'hangul': '구다', 'roman': 'Guda'},
+        {'hangul': '게다', 'roman': 'Geda'},
+        {'hangul': '기다', 'roman': 'Gida'},
+        {'hangul': '가다', 'roman': 'Gada'},
+      ],
+      'correct': 3,
+      'pose': MascotPose.reading, // Not shown
+    },
+    {
+      'type': 'reading',
+      'text': 'How do you read this word?',
+      'word': '한',
+      'options': ['Han', 'Hin', 'Hun', 'Hon'],
+      'correct': 0,
+      'pose': MascotPose.reading,
+    },
+    {
+      'type': 'translation_large_cards',
+      'text': 'What does\n',
+      'targetWord': '나는 한국어를 배워요',
+      'postTargetWord': ' mean?',
+      'options': [
+        {'imageAsset': 'assets/quiz_img_1.png', 'text': 'I like Korean\nlanguage'},
+        {'imageAsset': 'assets/quiz_img_2.png', 'text': 'Korean\nLanguage'},
+        {'imageAsset': 'assets/quiz_img_3.png', 'text': 'I come from\nKorea'},
+        {'imageAsset': 'assets/quiz_img_4.png', 'text': 'I am learning\nKorean'},
+      ],
+      'correct': 3,
+      'pose': MascotPose.reading, // Not shown
+    },
+    {
+      'type': 'translation_large_cards',
+      'text': 'Which sentence means\n',
+      'targetWord': '"I am learning Korean"?',
+      'options': [
+        {'imageAsset': 'assets/quiz_img_3.png', 'text': '나는 한국에서\n왔지'},
+        {'imageAsset': 'assets/quiz_img_4.png', 'text': '나는 한국어를\n배워요'},
+        {'imageAsset': 'assets/quiz_img_1.png', 'text': '나는 한국어를\n좋아해'},
+        {'imageAsset': 'assets/quiz_img_2.png', 'text': '나는 한국 책을\n읽어'},
+      ],
+      'correct': 1,
+      'pose': MascotPose.reading, // Not shown
+    },
+    {
+      'type': 'blackboard',
+      'text': 'What is the name of the :',
+      'boardText': 'Korean alphabet\nsystem?',
+      'boardTextSize': 16.0,
+      'options': ['Hiragana', 'Hangul', 'Hangul-eo', 'Hanguk'],
+      'correct': 1,
+      'pose': MascotPose.teaching,
+    },
+    {
+      'type': 'audio_choice',
+      'text': 'Match the Hangul letter with its sound.',
+      'audioWord': 'Nieun-Digot-Shiot',
+      'options': ['ㄴ-ㄱ-ㅅ', 'ㄱ-ㅅ-ㄴ', 'ㄴ-ㄷ-ㅅ', 'ㅅ-ㄴ-ㄷ'],
+      'correct': 2,
+      'pose': MascotPose.listening,
+    },
+    {
+      'type': 'pronunciation',
+      'text': 'Which letter has the sound "I"?',
+      'options': ['ㅔ', 'ㅏ', 'ㅜ', 'ㅣ'],
+      'correct': 3,
+      'pose': MascotPose.confused,
+    },
+  ];
+
+  static const List<Map<String, dynamic>> _basicQuestionsEnglish = [
+    {
+      'type': 'arrange',
+      'text': 'Arrange these letters into:',
+      'target': 'CAT',
+      'letters': ['C', 'T', 'A', 'P'],
+      'correctAnswer': 'CAT',
+      'pose': MascotPose.reading,
+    },
+    {
+      'type': 'audio_choice',
+      'text': 'Which word did you think you heard?',
+      'audioWord': 'Apple',
+      'options': ['Apple', 'Banana', 'Cat', 'Dog'],
       'text': 'Which word means "Water" in Korean?',
       'options': ['물', '불', '풀', '줄'],
       'correct': 0, // 물
@@ -1066,6 +1175,11 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
       'pose': MascotPose.listening,
     },
     {
+      'type': 'reading',
+      'text': 'How do you read this word?',
+      'word': 'HELLO',
+      'options': ['Selamat Pagi', 'Halo / Hai', 'Terima Kasih', 'Selamat Tinggal'],
+      'correct': 1,
       'type': 'pronunciation',
       'text': 'Which word means "Teacher" in Korean?',
       'options': ['선생님', '학생', '친구', '학교'],
@@ -1073,15 +1187,155 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
       'pose': MascotPose.reading,
     },
     {
+      'type': 'true_false',
+      'text': 'The English alphabet has 26 letters.',
+      'options': ['True', 'False'],
+      'correct': 0,
+      'pose': MascotPose.confused,
+    },
+    {
+      'type': 'pronunciation',
+      'text': 'Which letter makes the sound /f/?',
+      'options': ['P', 'F', 'T', 'H'],
+      'correct': 1,
+      'pose': MascotPose.confused,
+    },
+    {
       'type': 'blackboard',
+      'text': 'Complete the word "B_G" (large):',
+      'options': ['I', 'O', 'U', 'E'],
+      'correct': 0,
+      'pose': MascotPose.teaching,
+    },
+  ];
+
+  static const List<Map<String, dynamic>> _listeningQuestionsEnglish = [
+    {
+      'type': 'blackboard',
+      'text': 'What is the short sound of letter A?',
+      'boardText': 'A',
+      'options': ['/ey/', '/ah/', '/ih/', '/oh/'],
+      'correct': 1,
+      'pose': MascotPose.teaching,
+    },
+    {
+      'type': 'audio_choice',
+      'text': 'Match the word with sound "Sun":',
+      'audioWord': 'Sun',
+      'options': ['Son', 'Sun', 'Sin', 'Run'],
+      'correct': 1,
+      'pose': MascotPose.listening,
+    },
+    {
+      'type': 'pronunciation',
+      'text': 'Which English vowel makes the sound /i/ in "pin"?',
+      'options': ['A', 'E', 'I', 'O'],
+      'correct': 2,
+      'pose': MascotPose.confused,
+    },
+    {
+      'type': 'reading',
+      'text': 'How do you read this word?',
+      'word': 'DOG',
+      'options': ['Anjing', 'Kucing', 'Kelinci', 'Burung'],
+      'correct': 0,
+      'pose': MascotPose.reading,
+    },
+    {
+      'type': 'reading',
+      'text': 'What does "English language" mean?',
+      'options': ['Bahasa Inggris', 'Bahasa Korea', 'Bahasa Indonesia', 'Bahasa Jerman'],
+      'correct': 0,
+      'pose': MascotPose.reading,
+    },
+    {
+      'type': 'true_false',
+      'text': 'The word "cat" is a noun.',
+      'options': ['True', 'False'],
+      'correct': 0,
+      'pose': MascotPose.confused,
+    },
+  ];
+
+  static const List<Map<String, dynamic>> _mixedQuestionsEnglish = [
+    {
+      'type': 'arrange',
+      'text': 'Arrange these letters into:',
+      'target': 'DOG',
+      'letters': ['D', 'O', 'G', 'T'],
+      'correctAnswer': 'DOG',
+      'pose': MascotPose.reading,
+    },
+    {
+      'type': 'blackboard',
+      'text': 'Complete the word to spell "HOME" (rumah):',
+      'options': ['A', 'E', 'I', 'O'],
+      'correct': 3,
+      'pose': MascotPose.teaching,
+    },
+    {
+      'type': 'reading',
+      'text': 'How do you read this word?',
+      'word': 'BOOK',
+      'options': ['Buku', 'Pena', 'Meja', 'Kursi'],
+      'correct': 0,
+      'pose': MascotPose.reading,
+    },
+    {
+      'type': 'pronunciation',
+      'text': 'Which letter blend makes the /sh/ sound?',
+      'options': ['CH', 'SH', 'TH', 'PH'],
+      'correct': 1,
+      'pose': MascotPose.confused,
+    },
+    {
+      'type': 'audio_choice',
+      'text': 'Match the sound "Welcome":',
+      'audioWord': 'Welcome',
+      'options': ['Selamat Datang', 'Selamat Jalan', 'Selamat Pagi', 'Halo'],
+      'correct': 0,
+      'pose': MascotPose.listening,
+    },
+  ];
+
+  static const List<Map<String, dynamic>> _finalQuestionsEnglish = [
+    {
+      'type': 'arrange',
+      'text': 'Arrange these letters into:',
+      'target': 'BOOK',
+      'letters': ['B', 'O', 'O', 'K'],
+      'correctAnswer': 'BOOK',
+      'pose': MascotPose.reading,
+    },
+    {
+      'type': 'audio_choice',
+      'text': 'Match the sound "Welcome":',
+      'audioWord': 'Welcome',
+      'options': ['Selamat Datang', 'Selamat Jalan', 'Selamat Pagi', 'Halo'],
+      'correct': 0,
+      'pose': MascotPose.listening,
+    },
+    {
+      'type': 'reading',
+      'text': 'How do you read this word?',
+      'word': 'SCHOOL',
+      'options': ['Sekolah', 'Rumah', 'Taman', 'Pasar'],
       'text': 'How do you write the syllable "Hap"?',
       'boardText': '합',
       'options': ['합', '한', '할', '함'],
       'correct': 0,
+      'pose': MascotPose.reading,
+    },
+    {
+      'type': 'blackboard',
+      'text': 'Complete the word to spell "GOOD" (baik):',
+      'options': ['A', 'O', 'E', 'U'],
+      'correct': 1,
       'pose': MascotPose.teaching,
     },
     {
       'type': 'true_false',
+      'text': 'The word "play" is a verb.',
       'text': 'The character "ㅎ" can sound silent in some words like "좋아".',
       'options': ['True', 'False'],
       'correct': 0, // True
@@ -1093,6 +1347,17 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
   void initState() {
     super.initState();
 
+    final bool isKorea = QuizProgress.learningLanguage == 'Korea';
+
+    final int step = widget.part % 5;
+    if (step == 2) {
+      _questions = isKorea ? _listeningQuestions : _listeningQuestionsEnglish;
+    } else if (step == 3) {
+      _questions = isKorea ? _mixedQuestions : _mixedQuestionsEnglish;
+    } else if (step == 0) {
+      _questions = isKorea ? _finalQuestions : _finalQuestionsEnglish;
+    } else {
+      _questions = isKorea ? _basicQuestions : _basicQuestionsEnglish;
     final bool isEnglish = LanguagePreference.current == 'English';
     if (isEnglish) {
       if (widget.part == 2) {
@@ -1186,6 +1451,11 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
 
   String _combineLetters(List<String> letters) {
     if (letters.isEmpty) return '';
+    
+    if (QuizProgress.learningLanguage == 'English') {
+      return letters.join('').toUpperCase();
+    }
+    
     final temp = letters.join('');
 
     // Multisyllable and custom arrange patterns
@@ -1312,6 +1582,11 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
       _progressController.animateTo(targetProgress, curve: Curves.easeOut);
     } else {
       // Unlock next parts on the map
+      final int step = widget.part % 5;
+      if ((step == 1 || step == 2) && QuizProgress.unlockedPart == widget.part + 1) {
+        QuizProgress.setUnlockedPart(widget.part + 2);
+      } else if (step == 0 && QuizProgress.unlockedPart == widget.part) {
+        QuizProgress.setUnlockedPart(widget.part + 1);
       if (widget.part == 1 && QuizProgress.unlockedPart == 2) {
         QuizProgress.setUnlockedPart(3);
       } else if (widget.part == 2 && QuizProgress.unlockedPart == 3) {
@@ -1375,10 +1650,15 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
     final bool isAudioChoice = qType == 'audio_choice';
     final bool isPronunciation = qType == 'pronunciation';
     final bool isReading = qType == 'reading';
+    final bool isTranslationLargeCards = qType == 'translation_large_cards';
+    final bool isQ5 = qType == 'true_false' || (_currentQuestionIndex == _questions.length - 1 && !isTranslationLargeCards);
     final bool isImageChoice = qType == 'image_choice';
     final bool isQ5 = qType == 'true_false' || (_currentQuestionIndex == _questions.length - 1);
 
-    final List<String> currentOptions = !isArrange ? List<String>.from(qData['options'] ?? []) : [];
+    final List<dynamic> currentOptionsRaw = !isArrange ? (qData['options'] ?? []) : [];
+    final List<String> currentOptions = !isArrange && !isTranslationLargeCards 
+        ? List<String>.from(currentOptionsRaw) 
+        : [];
 
     return Scaffold(
       backgroundColor: AppColors.backgroundSoft,
@@ -1492,6 +1772,33 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
                   padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
                   child: Align(
                     alignment: Alignment.centerLeft,
+                    child: RichText(
+                      text: TextSpan(
+                        text: currentQuestionText,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w800,
+                          color: AppColors.primaryText,
+                          fontFamily: 'Nunito',
+                        ),
+                        children: [
+                          if (qData['targetWord'] != null)
+                            TextSpan(
+                              text: qData['targetWord'] as String,
+                              style: const TextStyle(
+                                color: AppColors.primaryPurple,
+                              ),
+                            ),
+                          if (qData['postTargetWord'] != null)
+                            TextSpan(
+                              text: qData['postTargetWord'] as String,
+                              style: const TextStyle(
+                                color: AppColors.primaryText,
+                              ),
+                            ),
+                        ],
+                      ),
+                    ),
                     child: _buildQuestionTextWidget(currentQuestionText),
                   ),
                 ),
@@ -1596,10 +1903,11 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
                           height: 2.0,
                           color: const Color(0xFFE5E5EA),
                         ),
-                        const Spacer(),
                       ],
                     ),
                   )
+                else if (isTranslationLargeCards)
+                  const SizedBox(height: 8) // No mascot for this type
                 else if (isImageChoice)
                   Expanded(
                     child: Padding(
@@ -1649,7 +1957,7 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
                                     border: Border.all(color: const Color(0xFF8B5E3C), width: 6),
                                     boxShadow: [
                                       BoxShadow(
-                                        color: Colors.black.withOpacity(0.08),
+                                        color: Colors.black.withValues(alpha: 0.08),
                                         blurRadius: 10,
                                         offset: const Offset(0, 4),
                                       ),
@@ -1661,8 +1969,9 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
                                         if (qData.containsKey('boardText') && qData['boardText'] != null) {
                                           return Text(
                                             qData['boardText'] as String,
-                                            style: const TextStyle(
-                                              fontSize: 54, // larger for single characters like ㄴ
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: qData['boardTextSize'] != null ? (qData['boardTextSize'] as double) : 54, // larger for single characters like ㄴ
                                               fontWeight: FontWeight.w700,
                                               color: Colors.white,
                                             ),
@@ -1705,7 +2014,7 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
                                   style: TextStyle(
                                     fontSize: 160,
                                     fontWeight: FontWeight.w900,
-                                    color: const Color(0xFFE4D9F6).withOpacity(0.24),
+                                    color: const Color(0xFFE4D9F6).withValues(alpha: 0.24),
                                   ),
                                 ),
                               ),
@@ -1744,6 +2053,50 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
                   ),
 
                 // ── Options Grid or Row Layout ────────────────────────────────
+                if (isTranslationLargeCards)
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                      child: Builder(
+                        builder: (context) {
+                          Widget buildLargeOptionCard(int index, Map<String, String> optionData) {
+                            final bool isSelected = _selectedOptionIndex == index;
+                            final bool isCorrect = _hasChecked && (qData['correct'] == index);
+                            final bool isWrongSelected = _hasChecked && isSelected && !isCorrect;
+
+                            Color borderColor = AppColors.disableBorder;
+                            Color bgColor = Colors.white;
+
+                            if (isSelected) {
+                              borderColor = AppColors.primaryPurple;
+                              bgColor = Colors.white;
+                            }
+                            if (_hasChecked) {
+                              if (isCorrect) {
+                                borderColor = const Color(0xFF58CC02);
+                                bgColor = const Color(0xFF58CC02).withValues(alpha: 0.1);
+                              } else if (isWrongSelected) {
+                                borderColor = const Color(0xFFEA2B2B);
+                                bgColor = const Color(0xFFEA2B2B).withValues(alpha: 0.1);
+                              } else {
+                                borderColor = AppColors.disableBorder;
+                                bgColor = Colors.white;
+                              }
+                            }
+
+                            return GestureDetector(
+                              onTap: () => _onOptionTap(index),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: bgColor,
+                                  borderRadius: BorderRadius.circular(16),
+                                  border: Border.all(color: borderColor, width: 2.0),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: AppColors.primaryPurple.withValues(alpha: 0.06),
+                                      blurRadius: 10,
+                                      offset: const Offset(0, 4),
+                                    ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                   child: isImageChoice
@@ -1761,46 +2114,152 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
                                     Expanded(child: _buildArrangeOptionCard(1, letters.length > 1 ? letters[1] : '')),
                                   ],
                                 ),
-                                const SizedBox(height: 14),
-                                Row(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Expanded(child: _buildArrangeOptionCard(2, letters.length > 2 ? letters[2] : '')),
-                                    const SizedBox(width: 14),
-                                    Expanded(child: _buildArrangeOptionCard(3, letters.length > 3 ? letters[3] : '')),
+                                    if (optionData.containsKey('imageAsset')) ...[
+                                      Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(top: 12.0),
+                                          child: Image.asset(
+                                            optionData['imageAsset']!,
+                                            fit: BoxFit.contain,
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          optionData['text']!,
+                                          textAlign: TextAlign.center,
+                                          style: const TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w700,
+                                            color: AppColors.primaryText,
+                                          ),
+                                        ),
+                                      ),
+                                    ] else if (optionData.containsKey('svgAsset')) ...[
+                                      Expanded(
+                                        child: Center(
+                                          child: SvgPicture.asset(
+                                            optionData['svgAsset']!,
+                                            fit: BoxFit.contain,
+                                          ),
+                                        ),
+                                      ),
+                                    ] else ...[
+                                      Text(
+                                        optionData['hangul']!,
+                                        style: const TextStyle(
+                                          fontSize: 42,
+                                          fontWeight: FontWeight.w800,
+                                          color: AppColors.primaryText,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 12),
+                                      Text(
+                                        optionData['roman']!,
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w700,
+                                          color: AppColors.secondaryText,
+                                        ),
+                                      ),
+                                    ]
                                   ],
                                 ),
-                              ],
+                              ),
                             );
                           }
-                        )
-                      : currentOptions.length == 2
-                           ? Row(
-                               children: [
-                                 Expanded(child: _buildTrueFalseOptionCard(0, currentOptions[0])),
-                                 const SizedBox(width: 16),
-                                 Expanded(child: _buildTrueFalseOptionCard(1, currentOptions[1])),
-                               ],
-                             )
-                          : Column(
-                              children: [
-                                Row(
+
+                          final options = List<Map<String, String>>.from(
+                            (qData['options'] as List).map((e) => Map<String, String>.from(e as Map))
+                          );
+
+                          return Column(
+                            children: [
+                              Expanded(
+                                child: Row(
                                   children: [
-                                    Expanded(child: _buildOptionCard(0, currentOptions[0])),
-                                    const SizedBox(width: 14),
-                                    Expanded(child: _buildOptionCard(1, currentOptions[1])),
+                                    Expanded(child: buildLargeOptionCard(0, options[0])),
+                                    const SizedBox(width: 16),
+                                    Expanded(child: buildLargeOptionCard(1, options[1])),
                                   ],
                                 ),
-                                const SizedBox(height: 14),
-                                Row(
+                              ),
+                              const SizedBox(height: 16),
+                              Expanded(
+                                child: Row(
                                   children: [
-                                    Expanded(child: _buildOptionCard(2, currentOptions[2])),
-                                    const SizedBox(width: 14),
-                                    Expanded(child: _buildOptionCard(3, currentOptions[3])),
+                                    Expanded(child: buildLargeOptionCard(2, options[2])),
+                                    const SizedBox(width: 16),
+                                    Expanded(child: buildLargeOptionCard(3, options[3])),
                                   ],
                                 ),
-                              ],
-                            ),
-                ),
+                              ),
+                            ],
+                          );
+                        }
+                      ),
+                    ),
+                  )
+                else
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                    child: isArrange
+                        ? Builder(
+                            builder: (context) {
+                              final List<String> letters = List<String>.from(qData['letters'] ?? []);
+                              return Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Expanded(child: _buildArrangeOptionCard(0, letters.isNotEmpty ? letters[0] : '')),
+                                      const SizedBox(width: 14),
+                                      Expanded(child: _buildArrangeOptionCard(1, letters.length > 1 ? letters[1] : '')),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 14),
+                                  Row(
+                                    children: [
+                                      Expanded(child: _buildArrangeOptionCard(2, letters.length > 2 ? letters[2] : '')),
+                                      const SizedBox(width: 14),
+                                      Expanded(child: _buildArrangeOptionCard(3, letters.length > 3 ? letters[3] : '')),
+                                    ],
+                                  ),
+                                ],
+                              );
+                            }
+                          )
+                        : currentOptions.length == 2
+                             ? Row(
+                                 children: [
+                                   Expanded(child: _buildTrueFalseOptionCard(0, currentOptions[0])),
+                                   const SizedBox(width: 16),
+                                   Expanded(child: _buildTrueFalseOptionCard(1, currentOptions[1])),
+                                 ],
+                               )
+                            : Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Expanded(child: _buildOptionCard(0, currentOptions[0])),
+                                      const SizedBox(width: 14),
+                                      Expanded(child: _buildOptionCard(1, currentOptions[1])),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 14),
+                                  Row(
+                                    children: [
+                                      Expanded(child: _buildOptionCard(2, currentOptions[2])),
+                                      const SizedBox(width: 14),
+                                      Expanded(child: _buildOptionCard(3, currentOptions[3])),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                  ),
 
                 // ── Check Answer Button ──────────────────────────────────────
                 Padding(
@@ -1818,8 +2277,8 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.primaryPurple,
                             foregroundColor: Colors.white,
-                            disabledBackgroundColor: const Color(0xFFF3EEFB),
-                            disabledForegroundColor: const Color(0xFFC8B6F9),
+                            disabledBackgroundColor: const Color(0xFFDCD8E2),
+                            disabledForegroundColor: Colors.white,
                             elevation: 0,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(24),
@@ -1846,7 +2305,7 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
               GestureDetector(
                 onTap: () {}, // absorb tap events
                 child: Container(
-                  color: Colors.black.withOpacity(0.35),
+                  color: Colors.black.withValues(alpha: 0.35),
                 ),
               ),
               _buildBottomDialogOverlay(),
@@ -1868,7 +2327,7 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
         style: TextStyle(
           fontSize: size,
           fontWeight: FontWeight.w800,
-          color: const Color(0xFFE4D9F6).withOpacity(0.3),
+          color: const Color(0xFFE4D9F6).withValues(alpha: 0.3),
         ),
       ),
     );
@@ -1944,8 +2403,8 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
           boxShadow: [
             BoxShadow(
               color: isSelected
-                  ? AppColors.primaryPurple.withOpacity(0.12)
-                  : AppColors.primaryPurple.withOpacity(0.04),
+                  ? AppColors.primaryPurple.withValues(alpha: 0.12)
+                  : AppColors.primaryPurple.withValues(alpha: 0.04),
               blurRadius: 10,
               offset: const Offset(0, 3),
             ),
@@ -1985,7 +2444,7 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
               ? []
               : [
                   BoxShadow(
-                    color: AppColors.primaryPurple.withOpacity(0.04),
+                    color: AppColors.primaryPurple.withValues(alpha: 0.04),
                     blurRadius: 10,
                     offset: const Offset(0, 3),
                   ),
@@ -2021,8 +2480,8 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
           boxShadow: [
             BoxShadow(
               color: isSelected
-                  ? AppColors.primaryPurple.withOpacity(0.12)
-                  : AppColors.primaryPurple.withOpacity(0.04),
+                  ? AppColors.primaryPurple.withValues(alpha: 0.12)
+                  : AppColors.primaryPurple.withValues(alpha: 0.04),
               blurRadius: 12,
               offset: const Offset(0, 4),
             ),
@@ -2082,7 +2541,7 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
             ),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.06),
+                color: Colors.black.withValues(alpha: 0.06),
                 blurRadius: 4,
                 offset: const Offset(0, 2),
               ),
@@ -2113,6 +2572,15 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
           parent: ModalRoute.of(context)!.animation!,
           curve: Curves.easeOutQuad,
         )),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(24),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.12),
+                blurRadius: 20,
+                offset: const Offset(0, 4),
         child: Stack(
           clipBehavior: Clip.none,
           alignment: Alignment.topCenter,

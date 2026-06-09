@@ -110,9 +110,11 @@ class OnboardingLoadingBar extends StatelessWidget {
         builder: (context, constraints) {
           final trackWidth = constraints.maxWidth;
           final fillWidth = trackWidth * progress;
-          const starSize = 24.0;
-          const trackHeight = 4.0;
-          const fillHeight = 8.0;
+
+          // --- UKURAN BARU SESUAI REKUES ---
+          const starSize = 34.0; // Bintang sudah diperbesar
+          const barHeight =
+              12.0; // Ketebalan background (putih) dan progress (ungu) sudah disamakan
 
           return SizedBox(
             height: starSize,
@@ -120,36 +122,44 @@ class OnboardingLoadingBar extends StatelessWidget {
               clipBehavior: Clip.none,
               alignment: Alignment.centerLeft,
               children: [
+                // 1. TRACK BACKGROUND (Garis putih/abu-abu tipis lama sudah diganti setebal barHeight)
                 Positioned(
                   left: 0,
                   right: 0,
-                  top: (starSize - trackHeight) / 2,
+                  top: (starSize - barHeight) / 2,
                   child: Container(
-                    height: trackHeight,
+                    height: barHeight,
                     decoration: BoxDecoration(
                       color: _trackColor,
                       borderRadius: BorderRadius.circular(99),
                     ),
                   ),
                 ),
+
+                // 2. FILL PROGRESS (Garis Ungu)
                 AnimatedPositioned(
                   duration: const Duration(milliseconds: 450),
                   curve: Curves.easeInOutCubic,
                   left: 0,
-                  top: (starSize - fillHeight) / 2,
+                  top: (starSize - barHeight) / 2,
                   width: fillWidth,
                   child: Container(
-                    height: fillHeight,
+                    height: barHeight,
                     decoration: BoxDecoration(
                       color: _fillColor,
                       borderRadius: BorderRadius.circular(99),
                     ),
                   ),
                 ),
+
+                // 3. BINTANG PENANDA
                 AnimatedPositioned(
                   duration: const Duration(milliseconds: 450),
                   curve: Curves.easeInOutCubic,
-                  left: (fillWidth - starSize / 2).clamp(0.0, trackWidth - starSize),
+                  left: (fillWidth - starSize / 2).clamp(
+                    0.0,
+                    trackWidth - starSize,
+                  ),
                   top: 0,
                   child: SvgPicture.asset(
                     'assets/ic_round-star.svg',

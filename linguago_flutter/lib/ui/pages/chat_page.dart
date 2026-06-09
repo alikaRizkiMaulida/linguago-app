@@ -639,7 +639,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                 color: Colors.white,
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.primaryPurple.withOpacity(0.08),
+                    color: AppColors.primaryPurple.withValues(alpha: 0.08),
                     blurRadius: 10,
                     offset: const Offset(0, 2),
                   ),
@@ -672,7 +672,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             border: Border.all(
-                              color: AppColors.primaryPurple.withOpacity(0.4),
+                              color: AppColors.primaryPurple.withValues(alpha: 0.4),
                               width: 2,
                             ),
                             color: widget.avatarColor,
@@ -775,13 +775,13 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                           Icon(Icons.chat_bubble_outline_rounded,
                               size: 48,
                               color: AppColors.secondaryText
-                                  .withOpacity(0.3)),
+                                  .withValues(alpha: 0.3)),
                           const SizedBox(height: 12),
                           Text(
                             'Say hi to ${widget.friendName}! 👋',
                             style: TextStyle(
                               color: AppColors.secondaryText
-                                  .withOpacity(0.5),
+                                  .withValues(alpha: 0.5),
                               fontSize: 13,
                             ),
                           ),
@@ -813,7 +813,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                 color: Colors.white,
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.primaryPurple.withOpacity(0.08),
+                    color: AppColors.primaryPurple.withValues(alpha: 0.08),
                     blurRadius: 16,
                     offset: const Offset(0, -4),
                   ),
@@ -906,7 +906,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                         boxShadow: _msgCtrl.text.trim().isNotEmpty
                             ? [
                                 BoxShadow(
-                                  color: AppColors.primaryPurple.withOpacity(0.3),
+                                  color: AppColors.primaryPurple.withValues(alpha: 0.3),
                                   blurRadius: 8,
                                   offset: const Offset(0, 3),
                                 ),
@@ -983,8 +983,8 @@ class _MsgBubble extends StatelessWidget {
                         BoxShadow(
                           color: isMe
                               ? AppColors.primaryPurple
-                                  .withOpacity(0.25)
-                              : Colors.black.withOpacity(0.06),
+                                  .withValues(alpha: 0.25)
+                              : Colors.black.withValues(alpha: 0.06),
                           blurRadius: 6,
                           offset: const Offset(0, 2),
                         ),
@@ -1008,7 +1008,7 @@ class _MsgBubble extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 10,
                     color:
-                        AppColors.secondaryText.withOpacity(0.6),
+                        AppColors.secondaryText.withValues(alpha: 0.6),
                   ),
                 ),
               ],

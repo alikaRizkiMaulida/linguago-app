@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:linguago_flutter/core/constants/colors.dart';
 import 'package:linguago_flutter/ui/pages/change_email_page.dart';
+import 'package:linguago_flutter/data/datasource/auth_local_datasource.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class DeleteAccountPage extends StatefulWidget {
   const DeleteAccountPage({super.key});
@@ -16,7 +18,21 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
   @override
   void initState() {
     super.initState();
-    _emailController.text = 'evanganteng@gmail.com';
+    _emailController.text = 'user@gmail.com';
+    _loadAuthData();
+  }
+
+  Future<void> _loadAuthData() async {
+    try {
+      final authData = await AuthLocalDatasource().getAuthData();
+      if (authData.user != null && mounted) {
+        setState(() {
+          _emailController.text = authData.user!.email ?? 'user@gmail.com';
+        });
+      }
+    } catch (e) {
+      debugPrint("Error loading auth data: $e");
+    }
   }
 
   @override
@@ -26,11 +42,89 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
   }
 
   void _showLeavingLinguagoDialog() {
-    showModalBottomSheet(
+    showDialog(
       context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (context) => const _LeavingLinguagoBottomSheet(),
+      builder: (context) {
+        return Dialog(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          child: Stack(
+            alignment: Alignment.topCenter,
+            clipBehavior: Clip.none,
+            children: [
+              Container(
+                margin: const EdgeInsets.only(top: 60),
+                padding: const EdgeInsets.fromLTRB(24, 70, 24, 24),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(28),
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const SizedBox(height: 8),
+                    const Text(
+                      'Leaving Linguago?',
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.w800,
+                        color: AppColors.primaryText,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 12),
+                    const Text(
+                      'Your account and learning progress will be permanently deleted from Linguago ⚠️',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: AppColors.primaryText,
+                        height: 1.5,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                          AuthLocalDatasource().removeAuthData().then((_) {
+                            if (context.mounted) {
+                              Navigator.of(context).pushNamedAndRemoveUntil('/login', (route) => false);
+                            }
+                          });
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFFB197FC),
+                          padding: const EdgeInsets.symmetric(vertical: 14),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                          elevation: 0,
+                        ),
+                        child: const Text(
+                          'Delete Account',
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Positioned(
+                top: 0,
+                child: SvgPicture.asset(
+                  'assets/Group 36871.svg',
+                  height: 120,
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 
@@ -115,7 +209,7 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.primaryPurple,
+                  backgroundColor: const Color(0xFFB197FC),
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
@@ -307,101 +401,4 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
   }
 }
 
-// ─────────────────────────────────────────────
-// "Leaving Linguago?" bottom sheet  (Frame 1000002516)
-// ─────────────────────────────────────────────
-class _LeavingLinguagoBottomSheet extends StatelessWidget {
-  const _LeavingLinguagoBottomSheet();
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-      padding: const EdgeInsets.all(28),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(28),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.primaryPurple.withValues(alpha: 0.15),
-            blurRadius: 30,
-            offset: const Offset(0, 8),
-          ),
-        ],
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          // Mascot image
-          Image.asset(
-            'assets/Mascot Mascot.png',
-            height: 110,
-          ),
-
-          const SizedBox(height: 20),
-
-          // Title
-          Text(
-            'Leaving Linguago?',
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w800,
-              color: AppColors.primaryText,
-            ),
-          ),
-
-          const SizedBox(height: 10),
-
-          // Description
-          RichText(
-            textAlign: TextAlign.center,
-            text: TextSpan(
-              style: TextStyle(
-                fontSize: 13,
-                color: AppColors.secondaryText,
-                height: 1.6,
-              ),
-              children: const [
-                TextSpan(text: 'Your account and learning\nprogress will be '),
-                TextSpan(
-                  text: 'permanently deleted',
-                  style: TextStyle(fontWeight: FontWeight.w700),
-                ),
-                TextSpan(text: ' from Linguago 🔥'),
-              ],
-            ),
-          ),
-
-          const SizedBox(height: 28),
-
-          // Delete Account button
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context);
-                // TODO: call delete account API
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.primaryPurple,
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                elevation: 0,
-              ),
-              child: Text(
-                'Delete Account',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}

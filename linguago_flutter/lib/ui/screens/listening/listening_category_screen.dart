@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:linguago_flutter/core/constants/colors.dart';
+import 'package:linguago_flutter/core/constants/quiz_state.dart';
 import 'package:linguago_flutter/ui/screens/listening/hangul_grid_screen.dart';
 
 class ListeningCategoryScreen extends StatelessWidget {
   const ListeningCategoryScreen({super.key});
 
-  static const List<Map<String, dynamic>> _categories = [
+  static const List<Map<String, dynamic>> _categoriesKorea = [
     {
       'title': 'Vokal Dasar',
       'gridTitle': 'Basic Vowels',
@@ -63,8 +64,63 @@ class ListeningCategoryScreen extends StatelessWidget {
     },
   ];
 
+  static const List<Map<String, dynamic>> _categoriesEnglish = [
+    {
+      'title': 'Vokal Dasar',
+      'gridTitle': 'Basic Vowels',
+      'subtitle': 'A, E, I, O, U',
+      'desc': 'Vokal dasar bahasa Inggris adalah huruf utama untuk membentuk bunyi kata.',
+      'bg': Color(0xFFFFF0F5),
+      'illustration': '👄 〰️',
+      'items': [
+        HangulItem('A', 'Ah'), HangulItem('E', 'Eh'), HangulItem('I', 'Ih'),
+        HangulItem('O', 'Oh'), HangulItem('U', 'Uh'),
+      ],
+    },
+    {
+      'title': 'Konsonan Dasar (B-H)',
+      'gridTitle': 'Basic Consonants (B-H)',
+      'subtitle': 'Phonics Part 1',
+      'desc': 'Konsonan dasar bagian pertama untuk membentuk bunyi awal kata dalam bahasa Inggris.',
+      'bg': Color(0xFFFFF5E6),
+      'illustration': 'B C\nD F ✏️',
+      'items': [
+        HangulItem('B', 'Buh'), HangulItem('C', 'Kuh'), HangulItem('D', 'Duh'),
+        HangulItem('F', 'Fuh'), HangulItem('G', 'Guh'), HangulItem('H', 'Huh'),
+      ],
+    },
+    {
+      'title': 'Konsonan Dasar (J-P)',
+      'gridTitle': 'Basic Consonants (J-P)',
+      'subtitle': 'Phonics Part 2',
+      'desc': 'Konsonan dasar bagian kedua untuk membentuk bunyi awal kata dalam bahasa Inggris.',
+      'bg': Color(0xFFF3EEFB),
+      'illustration': 'J K\nL M ✏️',
+      'items': [
+        HangulItem('J', 'Juh'), HangulItem('K', 'Kuh'), HangulItem('L', 'Luh'),
+        HangulItem('M', 'Muh'), HangulItem('N', 'Nuh'), HangulItem('P', 'Puh'),
+      ],
+    },
+    {
+      'title': 'Konsonan Dasar (Q-Z)',
+      'gridTitle': 'Basic Consonants (Q-Z)',
+      'subtitle': 'Phonics Part 3',
+      'desc': 'Konsonan dasar bagian ketiga untuk membentuk bunyi awal kata dalam bahasa Inggris.',
+      'bg': Color(0xFFF3EEFB),
+      'illustration': 'Q R\nS T ⚡',
+      'items': [
+        HangulItem('Q', 'Kwuh'), HangulItem('R', 'Ruh'), HangulItem('S', 'Suh'),
+        HangulItem('T', 'Tuh'), HangulItem('V', 'Vuh'), HangulItem('W', 'Wuh'),
+        HangulItem('X', 'Eks'), HangulItem('Y', 'Yuh'), HangulItem('Z', 'Zuh'),
+      ],
+    },
+  ];
+
   @override
   Widget build(BuildContext context) {
+    final bool isKorea = QuizProgress.learningLanguage == 'Korea';
+    final categories = isKorea ? _categoriesKorea : _categoriesEnglish;
+
     return Scaffold(
       backgroundColor: const Color(0xFFFBF9FF),
       body: SafeArea(
@@ -87,7 +143,7 @@ class ListeningCategoryScreen extends StatelessWidget {
                     child: Text(
                       'Listening',
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w800,
                         color: AppColors.primaryText,
@@ -102,8 +158,8 @@ class ListeningCategoryScreen extends StatelessWidget {
 
             // ── Header ───────────────────────────────────────────────
             Text(
-              'Annyeong! 👋',
-              style: TextStyle(
+              isKorea ? 'Annyeong! 👋' : 'Hello! 👋',
+              style: const TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.w800,
                 color: AppColors.primaryPurple,
@@ -111,8 +167,10 @@ class ListeningCategoryScreen extends StatelessWidget {
             ),
             const SizedBox(height: 6),
             Text(
-              'Choose the Hangul category you want to learn.',
-              style: TextStyle(
+              isKorea
+                  ? 'Choose the Hangul category you want to learn.'
+                  : 'Choose the Phonics category you want to learn.',
+              style: const TextStyle(
                 fontSize: 11,
                 color: AppColors.primaryText,
                 fontWeight: FontWeight.w500,
@@ -124,10 +182,10 @@ class ListeningCategoryScreen extends StatelessWidget {
             Expanded(
               child: ListView.separated(
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                itemCount: _categories.length,
+                itemCount: categories.length,
                 separatorBuilder: (context, index) => const SizedBox(height: 16),
                 itemBuilder: (context, index) {
-                  final cat = _categories[index];
+                  final cat = categories[index];
                   return GestureDetector(
                     onTap: () {
                       Navigator.push(
@@ -183,7 +241,7 @@ class _ListeningCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: AppColors.primaryPurple.withOpacity(0.06),
+            color: AppColors.primaryPurple.withValues(alpha: 0.06),
             blurRadius: 16,
             offset: const Offset(0, 4),
           ),

@@ -377,7 +377,7 @@ class _ChatScreenState extends State<ChatScreen> {
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             border: Border.all(
-                              color: AppColors.primaryPurple.withOpacity(0.4),
+                              color: AppColors.primaryPurple.withValues(alpha: 0.4),
                               width: 2,
                             ),
                             color: Colors.white,
@@ -567,7 +567,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         boxShadow: _controller.text.trim().isNotEmpty
                             ? [
                                 BoxShadow(
-                                  color: AppColors.primaryPurple.withOpacity(0.3),
+                                  color: AppColors.primaryPurple.withValues(alpha: 0.3),
                                   blurRadius: 8,
                                   offset: const Offset(0, 3),
                                 ),
@@ -628,7 +628,7 @@ class _MessageBubble extends StatelessWidget {
             ),
             boxShadow: [
               BoxShadow(
-                color: AppColors.primaryPurple.withOpacity(0.08),
+                color: AppColors.primaryPurple.withValues(alpha: 0.08),
                 blurRadius: 8,
                 offset: const Offset(0, 2),
               ),

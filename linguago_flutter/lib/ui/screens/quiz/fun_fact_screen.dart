@@ -37,6 +37,19 @@ class _FunFactScreenState extends State<FunFactScreen>
 
   late final List<FunFactData> _facts;
 
+  static const List<FunFactData> _factsKorea = [
+    FunFactData(
+      title: "Korean Sounds Can Change",
+      description:
+          "Some Korean letters can sound slightly different depending on where they are placed in a word.\n\nExample:\nㄱ can sound like \"G\" or \"K\"",
+      svgAsset: "assets/Frame1000001911.svg",
+    ),
+    FunFactData(
+      title: "Hangul Has a Special Day in Korea",
+      description:
+          "South Korea celebrates Hangul Day every October 9th to honor the Korean alphabet created by King Sejong. Hangul helped many people learn to read and write more easily.",
+      svgAsset: "assets/Frame1000001918.svg",
+    ),
   static const List<FunFactData> _koreanFacts = [
     FunFactData(
       title: "Hangul Was Created by a King!",
@@ -56,16 +69,37 @@ class _FunFactScreenState extends State<FunFactScreen>
           "Many international fans learning Korean through:\n• song lyrics\n• idol names\n• dramas subtitles\n\nSo, Start with Hangul first!",
       svgAsset: "assets/Frame1000001909.svg",
     ),
+  ];
+
+  static const List<FunFactData> _factsEnglish = [
     FunFactData(
-      title: "Korean Sounds Can Change",
+      title: "English is a Germanic Language!",
       description:
-          "Some Korean letters can sound slightly different depending on where they are placed in a word.\n\nExample:\nㄱ can sound like \"G\" or \"K\"",
+          "Although many English words come from French or Latin, English is actually a Germanic language closely related to German and Dutch!",
+      svgAsset: "assets/Frame1000001900.svg",
+    ),
+    FunFactData(
+      title: "The Most Common Letter is 'E'",
+      description:
+          "The letter 'E' is the most commonly used letter in the English language, appearing in about 11% of all words, while 'Q' is the rarest!",
+      svgAsset: "assets/Frame1000001904.svg",
+    ),
+    FunFactData(
+      title: "Shakespeare Added 1,700 Words!",
+      description:
+          "William Shakespeare invented or introduced over 1,700 words to the English language, including words like 'fashionable', 'lonely', and 'gloomy'!",
+      svgAsset: "assets/Frame1000001909.svg",
+    ),
+    FunFactData(
+      title: "A Sentence with All 26 Letters!",
+      description:
+          "A sentence that contains every letter in the alphabet is called a 'pangram'. The most famous example is:\n'The quick brown fox jumps over the lazy dog'!",
       svgAsset: "assets/Frame1000001911.svg",
     ),
     FunFactData(
-      title: "Hangul Has a Special Day in Korea",
+      title: "The Shortest Complete Sentence",
       description:
-          "South Korea celebrates Hangul Day every October 9th to honor the Korean alphabet created by King Sejong. Hangul helped many people learn to read and write more easily.",
+          "The shortest grammatically correct and complete sentence in English is 'I am.', followed closely by commands like 'Go!' which have an understood subject.",
       svgAsset: "assets/Frame1000001918.svg",
     ),
   ];
@@ -136,6 +170,9 @@ class _FunFactScreenState extends State<FunFactScreen>
   @override
   void initState() {
     super.initState();
+    _facts = QuizProgress.learningLanguage == 'Korea'
+        ? _factsKorea
+        : _factsEnglish;
     final bool isEnglish = LanguagePreference.current == 'English';
     _facts = isEnglish ? _englishFacts : _koreanFacts;
 
@@ -172,9 +209,7 @@ class _FunFactScreenState extends State<FunFactScreen>
     _swipeAnimationController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         setState(() {
-          if (_currentIndex < _facts.length) {
-            _currentIndex++;
-          }
+          _currentIndex++;
           _dragOffset = Offset.zero;
         });
         _swipeAnimationController.reset();
@@ -255,14 +290,9 @@ class _FunFactScreenState extends State<FunFactScreen>
   }
 
   void _goToNext() {
-    if (_currentIndex < _facts.length - 1) {
+    if (_currentIndex < _facts.length) {
       setState(() {
         _currentIndex++;
-      });
-    } else {
-      // Last card → complete
-      setState(() {
-        _currentIndex = _facts.length;
       });
     }
   }
@@ -336,6 +366,9 @@ class _FunFactScreenState extends State<FunFactScreen>
                             ),
                           ),
                           Text(
+                            QuizProgress.learningLanguage == 'Korea'
+                                ? 'Lets learn interesting things about korea ✨'
+                                : 'Lets learn interesting things about English ✨',
                             LanguagePreference.current == 'English'
                                 ? 'Lets learn interesting things about English ✨'
                                 : 'Lets learn interesting things about korea ✨',
@@ -359,7 +392,7 @@ class _FunFactScreenState extends State<FunFactScreen>
                 child: isCompleted
                     ? _buildCompletionView(context)
                     : Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        padding: const EdgeInsets.only(left: 36, right: 36, top: 60, bottom: 20),
                         child: Stack(
                           clipBehavior: Clip.none,
                           children: _buildCards(progress),
@@ -367,7 +400,37 @@ class _FunFactScreenState extends State<FunFactScreen>
                       ),
               ),
 
-              const SizedBox(height: 24),
+              // Bottom Button
+              if (!isCompleted)
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 52,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.primaryPurple,
+                        foregroundColor: Colors.white,
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(26),
+                        ),
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _currentIndex = _facts.length; // skip to completion
+                        });
+                      },
+                      child: const Text(
+                        'Continue',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
             ],
           ),
         ),
@@ -377,12 +440,11 @@ class _FunFactScreenState extends State<FunFactScreen>
 
   List<Widget> _buildCards(double progress) {
     List<Widget> cards = [];
+    final int remaining = _facts.length - _currentIndex;
 
-    // Show up to 3 cards in the stack at once
-    for (int i = 2; i >= 0; i--) {
+    // Build from bottom of stack (highest index) to top (index 0)
+    for (int i = remaining - 1; i >= 0; i--) {
       final int factIndex = _currentIndex + i;
-      if (factIndex >= _facts.length) continue;
-
       final FunFactData fact = _facts[factIndex];
 
       if (i == 0) {
@@ -392,8 +454,7 @@ class _FunFactScreenState extends State<FunFactScreen>
           currentOffset = _swipeAnimation.value;
         }
 
-        final double rotation =
-            (currentOffset.dx / 1000.0).clamp(-0.15, 0.15);
+        final double rotation = (currentOffset.dx / 1000.0).clamp(-0.15, 0.15);
 
         cards.add(
           Positioned.fill(
@@ -404,20 +465,20 @@ class _FunFactScreenState extends State<FunFactScreen>
                 offset: currentOffset,
                 child: Transform.rotate(
                   angle: rotation,
-                  child: _buildCardContent(
-                    fact,
-                    isTopCard: true,
-                    factIndex: factIndex,
-                  ),
+                  child: _buildCardContent(fact),
                 ),
               ),
             ),
           ),
         );
-      } else if (i == 1) {
-        final double scale = 0.95 + (progress * 0.05);
-        final double translateY = 14.0 - (progress * 14.0);
-        final double opacity = (0.88 + (progress * 0.12)).clamp(0.0, 1.0);
+      } else {
+        // CARDS BEHIND
+        final double effectiveI = i - progress;
+        final double scale = (1.0 - (effectiveI * 0.05)).clamp(0.8, 1.0);
+        final double translateY = - (effectiveI * 14.0);
+        
+        // Alternating rotation for a messy stack effect
+        final double targetRot = (factIndex % 2 != 0) ? 0.03 : -0.03;
 
         cards.add(
           Positioned.fill(
@@ -425,38 +486,10 @@ class _FunFactScreenState extends State<FunFactScreen>
               offset: Offset(0.0, translateY),
               child: Transform.scale(
                 scale: scale,
-                alignment: Alignment.bottomCenter,
-                child: Opacity(
-                  opacity: opacity,
-                  child: _buildCardContent(
-                    fact,
-                    isTopCard: false,
-                    factIndex: factIndex,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        );
-      } else if (i == 2) {
-        final double scale = 0.90 + (progress * 0.05);
-        final double translateY = 28.0 - (progress * 14.0);
-        final double opacity = (0.55 + (progress * 0.33)).clamp(0.0, 1.0);
-
-        cards.add(
-          Positioned.fill(
-            child: Transform.translate(
-              offset: Offset(0.0, translateY),
-              child: Transform.scale(
-                scale: scale,
-                alignment: Alignment.bottomCenter,
-                child: Opacity(
-                  opacity: opacity,
-                  child: _buildCardContent(
-                    fact,
-                    isTopCard: false,
-                    factIndex: factIndex,
-                  ),
+                alignment: Alignment.topCenter,
+                child: Transform.rotate(
+                  angle: targetRot,
+                  child: _buildCardContent(fact),
                 ),
               ),
             ),
@@ -468,21 +501,13 @@ class _FunFactScreenState extends State<FunFactScreen>
     return cards;
   }
 
-  Widget _buildCardContent(
-    FunFactData fact, {
-    required bool isTopCard,
-    required int factIndex,
-  }) {
-    final bool isLastCard = factIndex == _facts.length - 1;
-
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(28),
-        border: Border.all(
-          color: AppColors.primaryPurple
-              .withValues(alpha: isTopCard ? 0.18 : 0.08),
-          width: isTopCard ? 1.5 : 1.0,
+  Widget _buildCardContent(FunFactData fact) {
+    return Center(
+      child: AspectRatio(
+        aspectRatio: 257 / 340,
+        child: SvgPicture.asset(
+          fact.svgAsset,
+          fit: BoxFit.contain,
         ),
         boxShadow: isTopCard
             ? [
@@ -707,6 +732,9 @@ class _FunFactScreenState extends State<FunFactScreen>
             const SizedBox(height: 20),
 
             Text(
+              QuizProgress.learningLanguage == 'Korea'
+                  ? 'Great! You discovered 5 Korean Fun Facts!'
+                  : 'Great! You discovered 5 English Fun Facts!',
               LanguagePreference.current == 'English'
                   ? 'Great! You discovered 5 English Fun Facts!'
                   : 'Great! You discovered 5 Korean Fun Facts!',
@@ -805,11 +833,12 @@ class _FunFactScreenState extends State<FunFactScreen>
                       ),
                       onPressed: () {
                         setState(() {
-                          _currentIndex = _facts.length - 1;
+                          _currentIndex = 0;
+                          _dragOffset = Offset.zero;
                         });
                       },
                       child: const Text(
-                        'Back',
+                        'Repeat',
                         style: TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.w800,
@@ -834,12 +863,16 @@ class _FunFactScreenState extends State<FunFactScreen>
                         ),
                       ),
                       onPressed: () {
+                        if (QuizProgress.unlockedPart == widget.part) {
+                          QuizProgress.setUnlockedPart(widget.part + 1);
                         if (QuizProgress.unlockedPart == 8) {
                           QuizProgress.setUnlockedPart(9);
                         }
+                        QuizProgress.setXp(QuizProgress.xp + 20);
                         Navigator.pop(context);
                       },
                       child: const Text(
+                        'Start Final Quiz',
                         'Finish',
                         style: TextStyle(
                           fontSize: 12,

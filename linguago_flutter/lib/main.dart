@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
         title: 'LinguaGo',
         debugShowCheckedModeBanner: false,
         theme: AppTheme.light(),
-        home: const HomeScreen(),
+        home: const OnboardingScreen(),
         routes: {
           '/onboarding': (_) => const OnboardingScreen(),
           '/login': (_) => const LoginScreen(),

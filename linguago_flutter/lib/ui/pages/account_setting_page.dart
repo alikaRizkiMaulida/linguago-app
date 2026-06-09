@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:linguago_flutter/core/constants/colors.dart';
 import 'package:linguago_flutter/ui/pages/change_email_page.dart';
+import 'package:linguago_flutter/data/datasource/auth_local_datasource.dart';
+import 'package:linguago_flutter/data/model/response/auth_response_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AccountSettingPage extends StatefulWidget {
   const AccountSettingPage({super.key});
@@ -19,25 +22,26 @@ class _AccountSettingPageState extends State<AccountSettingPage> {
   late FocusNode _usernameFocusNode;
   late FocusNode _bioFocusNode;
 
-  String _email = 'evanganteng@gmail.com';
+  String _email = 'user@gmail.com';
   String _birthday = 'Nov 15';
   String _password = '********';
+  final int _savedLessonsCount = 2; 
 
   @override
   void initState() {
     super.initState();
-    _usernameController = TextEditingController(text: 'evan ♩-.★');
-    _bioController = TextEditingController(text: 'warga solo');
+    _usernameController = TextEditingController(text: 'User');
+    _bioController = TextEditingController(text: '');
 
     _usernameFocusNode = FocusNode();
     _bioFocusNode = FocusNode();
 
-    // Listen to focus changes to save automatically when unfocused
     _usernameFocusNode.addListener(() {
       if (!_usernameFocusNode.hasFocus) {
         setState(() {
           _isEditingUsername = false;
         });
+        _saveUsername();
       }
     });
 
@@ -46,8 +50,115 @@ class _AccountSettingPageState extends State<AccountSettingPage> {
         setState(() {
           _isEditingBio = false;
         });
+        _saveBio();
       }
     });
+
+    _loadAuthData();
+  }
+
+  Future<void> _loadAuthData() async {
+    try {
+      final authData = await AuthLocalDatasource().getAuthData();
+      if (authData.user != null && mounted) {
+        final pref = await SharedPreferences.getInstance();
+        final userId = authData.user!.id;
+        final customBio = pref.getString('custom_bio_$userId');
+        final customBirthday = pref.getString('custom_birthday_$userId');
+        final currentUsername = authData.user!.name ?? authData.user!.username ?? 'User';
+
+        setState(() {
+          _usernameController.text = currentUsername;
+          _email = authData.user!.email ?? 'user@gmail.com';
+          
+          if (customBio != null) {
+            _bioController.text = customBio;
+          } else {
+            _bioController.text = (currentUsername == 'Potato_9595' || currentUsername == 'ikeufie' || currentUsername == 'hoonst4rs' || currentUsername == 'jung.jpeg')
+                ? 'warga solo'
+                : ''; 
+          }
+
+          if (customBirthday != null) {
+            _birthday = customBirthday;
+          } else {
+            _birthday = (currentUsername == 'Potato_9595' || currentUsername == 'ikeufie' || currentUsername == 'hoonst4rs' || currentUsername == 'jung.jpeg')
+                ? 'Nov 15'
+                : ''; 
+          }
+        });
+      }
+    } catch (e) {
+      debugPrint("Error loading auth data: $e");
+    }
+  }
+
+  Future<void> _saveUsername() async {
+    try {
+      final authData = await AuthLocalDatasource().getAuthData();
+      if (authData.user != null) {
+        final updatedUser = User(
+          id: authData.user!.id,
+          username: authData.user!.username,
+          email: authData.user!.email,
+          emailVerifiedAt: authData.user!.emailVerifiedAt,
+          name: _usernameController.text.trim(),
+          avatarUrl: authData.user!.avatarUrl,
+          totalXp: authData.user!.totalXp,
+          level: authData.user!.level,
+          gems: authData.user!.gems,
+          currentStreak: authData.user!.currentStreak,
+          longestStreak: authData.user!.longestStreak,
+          createdAt: authData.user!.createdAt,
+          updatedAt: authData.user!.updatedAt,
+        );
+        final updatedAuthData = AuthResponseModel(
+          user: updatedUser,
+          token: authData.token,
+        );
+        await AuthLocalDatasource().saveAuthData(updatedAuthData);
+      }
+    } catch (e) {
+      debugPrint("Error saving username: $e");
+    }
+  }
+
+  Future<void> _saveBio() async {
+    try {
+      final authData = await AuthLocalDatasource().getAuthData();
+      if (authData.user != null) {
+        final pref = await SharedPreferences.getInstance();
+        await pref.setString('custom_bio_${authData.user!.id}', _bioController.text);
+      }
+    } catch (e) {
+      debugPrint("Error saving bio: $e");
+    }
+  }
+
+  Future<void> _saveBirthday() async {
+    try {
+      final authData = await AuthLocalDatasource().getAuthData();
+      if (authData.user != null) {
+        final pref = await SharedPreferences.getInstance();
+        await pref.setString('custom_birthday_${authData.user!.id}', _birthday);
+      }
+    } catch (e) {
+      debugPrint("Error saving birthday: $e");
+    }
+  }
+
+  void _handleLogout() async {
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Logged out successfully!'), backgroundColor: Colors.orangeAccent),
+      );
+    }
+  }
+
+  void _handleDeleteAccount() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Account deletion requested.'), backgroundColor: Colors.redAccent),
+    );
   }
 
   @override
@@ -70,7 +181,7 @@ class _AccountSettingPageState extends State<AccountSettingPage> {
           icon: const Icon(Icons.chevron_left_rounded, color: AppColors.primaryText),
           onPressed: () => Navigator.pop(context),
         ),
-        title: Text(
+        title: const Text(
           'Account',
           style: TextStyle(
             fontSize: 18,
@@ -101,7 +212,7 @@ class _AccountSettingPageState extends State<AccountSettingPage> {
                         controller: _usernameController,
                         focusNode: _usernameFocusNode,
                         autofocus: true,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w700,
                           color: AppColors.primaryText,
@@ -115,13 +226,14 @@ class _AccountSettingPageState extends State<AccountSettingPage> {
                           setState(() {
                             _isEditingUsername = false;
                           });
+                          _saveUsername();
                         },
                       )
                     : Row(
                         children: [
                           Text(
                             _usernameController.text,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w700,
                               color: AppColors.primaryText,
@@ -146,7 +258,7 @@ class _AccountSettingPageState extends State<AccountSettingPage> {
                       controller: _bioController,
                       focusNode: _bioFocusNode,
                       autofocus: true,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
                         color: AppColors.primaryText,
@@ -160,6 +272,7 @@ class _AccountSettingPageState extends State<AccountSettingPage> {
                         setState(() {
                           _isEditingBio = false;
                         });
+                        _saveBio();
                       },
                     )
                   : Text(
@@ -172,7 +285,71 @@ class _AccountSettingPageState extends State<AccountSettingPage> {
                     ),
             ),
             const SizedBox(height: 24),
-            Text(
+            
+            // ================= KELOMPOK UTAMA: SETTING (Sesuai Gambar) =================
+            const Text(
+              'Setting',
+              style: TextStyle(
+                fontSize: 14,
+                color: AppColors.primaryText,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Column(
+                children: [
+                  // 1. Menu Account
+                  _buildSettingItem(
+                    icon: Icons.person_rounded,
+                    iconBgColor: const Color(0xFF9E86FF), // Warna ungu soft ikon Account
+                    title: 'Account',
+                    subtitle: 'Username, Bio, Email',
+                    onTap: () {},
+                  ),
+                  const Divider(height: 1, indent: 56, endIndent: 20, color: AppColors.backgroundSoft),
+                  
+                  // 2. Menu Notification & Sound
+                  _buildSettingItem(
+                    icon: Icons.notifications_rounded,
+                    iconBgColor: const Color(0xFFFFD466), // Warna kuning emas ikon Notif
+                    title: 'Notification & Sound',
+                    subtitle: 'Daily Goal, Study Reminder',
+                    onTap: () {},
+                  ),
+                  const Divider(height: 1, indent: 56, endIndent: 20, color: AppColors.backgroundSoft),
+                  
+                  // 3. Menu Saved Lessons (Sekarang sudah masuk ke dalam kelompok grup ini)
+                  _buildSettingItem(
+                    icon: Icons.bookmark_rounded,
+                    iconBgColor: const Color(0xFF66C2FF), // Warna biru soft ikon Saved Lessons
+                    title: 'Saved Lessons',
+                    subtitle: '$_savedLessonsCount Lessons Saved',
+                    onTap: () {
+                      // Navigator.push(context, MaterialPageRoute(builder: (_) => const SavedLessonsPage()));
+                    },
+                  ),
+                  const Divider(height: 1, indent: 56, endIndent: 20, color: AppColors.backgroundSoft),
+                  
+                  // 4. Menu Language
+                  _buildSettingItem(
+                    icon: Icons.g_translate_rounded,
+                    iconBgColor: const Color(0xFFFF769F), // Warna pink soft ikon Language
+                    title: 'Language',
+                    subtitle: 'English, Indonesian',
+                    onTap: () {},
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 24),
+
+            // ================= KELOMPOK PRIVASI DATA =================
+            const Text(
               'Your Privacy Account',
               style: TextStyle(
                 fontSize: 12,
@@ -188,8 +365,9 @@ class _AccountSettingPageState extends State<AccountSettingPage> {
               ),
               child: Column(
                 children: [
-                  _buildPrivacyItem(
+                  _buildSettingItem(
                     icon: Icons.email_rounded,
+                    iconBgColor: AppColors.primaryPurple,
                     title: _email,
                     subtitle: 'Email address',
                     onTap: () {
@@ -200,18 +378,53 @@ class _AccountSettingPageState extends State<AccountSettingPage> {
                     },
                   ),
                   const Divider(height: 1, indent: 56, endIndent: 20, color: AppColors.backgroundSoft),
-                  _buildPrivacyItem(
+                  _buildSettingItem(
                     icon: Icons.lock_rounded,
+                    iconBgColor: AppColors.primaryPurple,
                     title: _password,
                     subtitle: 'Password',
                     onTap: _showChangePasswordBottomSheet,
                   ),
                   const Divider(height: 1, indent: 56, endIndent: 20, color: AppColors.backgroundSoft),
-                  _buildPrivacyItem(
+                  _buildSettingItem(
                     icon: Icons.cake_rounded,
+                    iconBgColor: AppColors.primaryPurple,
                     title: _birthday,
                     subtitle: 'Birthday',
                     onTap: _selectBirthday,
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 24),
+
+            // ================= KELOMPOK UTILITIES BAWAH =================
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Column(
+                children: [
+                  _buildActionRowItem(
+                    icon: Icons.check_circle_outline_rounded,
+                    iconColor: Colors.teal.shade300,
+                    title: 'Privacy Policy',
+                    onTap: () {},
+                  ),
+                  const Divider(height: 1, indent: 56, endIndent: 20, color: AppColors.backgroundSoft),
+                  _buildActionRowItem(
+                    icon: Icons.logout_rounded,
+                    iconColor: Colors.redAccent.shade200,
+                    title: 'Log Out',
+                    onTap: _handleLogout,
+                  ),
+                  const Divider(height: 1, indent: 56, endIndent: 20, color: AppColors.backgroundSoft),
+                  _buildActionRowItem(
+                    icon: Icons.delete_outline_rounded,
+                    iconColor: Colors.grey.shade600,
+                    title: 'Delete Account',
+                    onTap: _handleDeleteAccount,
                   ),
                 ],
               ),
@@ -228,7 +441,7 @@ class _AccountSettingPageState extends State<AccountSettingPage> {
       children: [
         Text(
           title,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 12,
             color: AppColors.primaryPurple,
             fontWeight: FontWeight.w600,
@@ -285,6 +498,7 @@ class _AccountSettingPageState extends State<AccountSettingPage> {
       setState(() {
         _birthday = "${months[picked.month - 1]} ${picked.day}";
       });
+      _saveBirthday();
     }
   }
 
@@ -311,7 +525,7 @@ class _AccountSettingPageState extends State<AccountSettingPage> {
             borderRadius: BorderRadius.circular(28),
             boxShadow: [
               BoxShadow(
-                color: AppColors.primaryPurple.withOpacity(0.15),
+                color: AppColors.primaryPurple.withValues(alpha: 0.15),
                 blurRadius: 30,
                 offset: const Offset(0, 8),
               ),
@@ -432,8 +646,9 @@ class _AccountSettingPageState extends State<AccountSettingPage> {
     );
   }
 
-  Widget _buildPrivacyItem({
+  Widget _buildSettingItem({
     required IconData icon,
+    required Color iconBgColor,
     required String title,
     required String subtitle,
     VoidCallback? onTap,
@@ -448,7 +663,7 @@ class _AccountSettingPageState extends State<AccountSettingPage> {
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: AppColors.primaryPurple,
+                color: iconBgColor,
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Icon(icon, color: Colors.white, size: 16),
@@ -474,6 +689,44 @@ class _AccountSettingPageState extends State<AccountSettingPage> {
                     ),
                   ),
                 ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildActionRowItem({
+    required IconData icon,
+    required Color iconColor,
+    required String title,
+    required VoidCallback onTap,
+  }) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(16),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: iconColor.withValues(alpha: 0.15), 
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Icon(icon, color: iconColor, size: 20),
+            ),
+            const SizedBox(width: 14),
+            Expanded(
+              child: Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w700,
+                  color: AppColors.primaryText,
+                ),
               ),
             ),
           ],

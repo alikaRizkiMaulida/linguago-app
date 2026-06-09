@@ -33,14 +33,14 @@ class MoodCard extends StatelessWidget {
           boxShadow: isSelected
               ? [
                   BoxShadow(
-                    color: AppColors.primaryPurple.withOpacity(0.25),
+                    color: AppColors.primaryPurple.withValues(alpha: 0.25),
                     blurRadius: 8,
                     offset: const Offset(0, 3),
                   )
                 ]
               : [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.04),
+                    color: Colors.black.withValues(alpha: 0.04),
                     blurRadius: 4,
                     offset: const Offset(0, 2),
                   )
@@ -95,7 +95,7 @@ class _MoodCheckInCardState extends State<MoodCheckInCard> {
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.06),
+            color: Colors.black.withValues(alpha: 0.06),
             blurRadius: 10,
             offset: const Offset(0, 4),
           )
