@@ -141,21 +141,11 @@ class _FunFactScreenState extends State<FunFactScreen>
 
     _swipeAnimationController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-        if (_currentIndex < _facts.length - 1) {
-          setState(() {
-            _currentIndex++;
-            _dragOffset = Offset.zero;
-          });
-          _swipeAnimationController.reset();
-        } else {
-          // Last card swiped, return to map immediately
-          if (widget.part == 4 && QuizProgress.unlockedPart == 4) {
-            QuizProgress.setUnlockedPart(5);
-          } else if (widget.part == 9 && QuizProgress.unlockedPart == 9) {
-            QuizProgress.setUnlockedPart(10);
-          }
-          Navigator.pop(context);
-        }
+        setState(() {
+          _currentIndex++;
+          _dragOffset = Offset.zero;
+        });
+        _swipeAnimationController.reset();
       }
     });
 
@@ -233,18 +223,10 @@ class _FunFactScreenState extends State<FunFactScreen>
   }
 
   void _goToNext() {
-    if (_currentIndex < _facts.length - 1) {
+    if (_currentIndex < _facts.length) {
       setState(() {
         _currentIndex++;
       });
-    } else {
-      // Last card → complete and return to map
-      if (widget.part == 4 && QuizProgress.unlockedPart == 4) {
-        QuizProgress.setUnlockedPart(5);
-      } else if (widget.part == 9 && QuizProgress.unlockedPart == 9) {
-        QuizProgress.setUnlockedPart(10);
-      }
-      Navigator.pop(context);
     }
   }
 
@@ -365,15 +347,12 @@ class _FunFactScreenState extends State<FunFactScreen>
                         ),
                       ),
                       onPressed: () {
-                        if (QuizProgress.unlockedPart == 4) {
-                          QuizProgress.setUnlockedPart(5);
-                        }
                         setState(() {
                           _currentIndex = _facts.length; // skip to completion
                         });
                       },
                       child: const Text(
-                        'Continue to Final Quiz!',
+                        'Continue',
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w800,
@@ -620,11 +599,12 @@ class _FunFactScreenState extends State<FunFactScreen>
                       ),
                       onPressed: () {
                         setState(() {
-                          _currentIndex = _facts.length - 1;
+                          _currentIndex = 0;
+                          _dragOffset = Offset.zero;
                         });
                       },
                       child: const Text(
-                        'Back',
+                        'Repeat',
                         style: TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.w800,
@@ -649,13 +629,14 @@ class _FunFactScreenState extends State<FunFactScreen>
                         ),
                       ),
                       onPressed: () {
-                        if (QuizProgress.unlockedPart == 4) {
-                          QuizProgress.setUnlockedPart(5);
+                        if (QuizProgress.unlockedPart == widget.part) {
+                          QuizProgress.setUnlockedPart(widget.part + 1);
                         }
+                        QuizProgress.setXp(QuizProgress.xp + 20);
                         Navigator.pop(context);
                       },
                       child: const Text(
-                        'Continue to Final Quiz',
+                        'Start Final Quiz',
                         style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w800,

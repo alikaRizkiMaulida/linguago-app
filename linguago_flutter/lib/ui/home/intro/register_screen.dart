@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:linguago_flutter/core/constants/colors.dart';
+import 'package:linguago_flutter/core/constants/quiz_state.dart';
 import 'package:linguago_flutter/ui/bloc/auth/register/register_bloc.dart';
 import 'package:linguago_flutter/ui/home/intro/login_screen.dart';
-import 'package:linguago_flutter/ui/home/intro/verification_email_screen.dart';
 import 'package:linguago_flutter/ui/widgets/custom_button.dart';
 import 'package:linguago_flutter/ui/widgets/custom_textfield.dart';
 
@@ -74,17 +74,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
             loading: () {
               setState(() => _isLoading = true);
             },
-            success: () {
+            success: () async {
               setState(() => _isLoading = false);
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text('Registration successful!'), backgroundColor: Colors.green),
               );
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute<void>(
-                  builder: (_) => VerificationEmailScreen(email: _emailCtrl.text.trim()),
-                ),
-              );
+              await QuizProgress.loadProgress();
+              if (context.mounted) {
+                Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  '/home',
+                  (route) => false,
+                );
+              }
             },
             error: (message) {
               setState(() => _isLoading = false);
@@ -103,7 +105,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const SizedBox(height: 56),
+              const SizedBox(height: 130),
 
               // ── Title ─────────────────────────────────────────────────
               Text(
@@ -149,7 +151,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ),
               ),
-              const SizedBox(height: 14),
+              const SizedBox(height: 18),
 
               // ── Email field ────────────────────────────────────────────
               CustomTextField(
@@ -171,7 +173,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ),
               ),
-              const SizedBox(height: 14),
+              const SizedBox(height: 18),
 
               // ── Password field ─────────────────────────────────────────
               CustomTextField(
@@ -193,7 +195,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ),
               ),
-              const SizedBox(height: 14),
+              const SizedBox(height: 18),
 
               // ── Confirm Password field ─────────────────────────────────
               CustomTextField(
@@ -228,7 +230,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ),
               ],
-              const SizedBox(height: 32),
+              const SizedBox(height: 64),
 
               // ── Sign Up button ─────────────────────────────────────────
               CustomButton(
@@ -239,7 +241,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 onTap: _isFormValid ? _signUp : null,
               ),
 
-              const SizedBox(height: 28),
+              const SizedBox(height: 48),
 
               // ── Footer: Already have an account? ──────────────────────
               Center(
@@ -271,7 +273,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ),
               ),
-              const SizedBox(height: 32),
+              const SizedBox(height: 48),
             ],
           ),
         ),

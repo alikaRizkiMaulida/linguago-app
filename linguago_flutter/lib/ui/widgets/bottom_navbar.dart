@@ -23,7 +23,7 @@ class BottomNavbar extends StatelessWidget {
       label: 'Course',
     ),
     _NavItem(
-      svgAsset: 'assets/game-icons_achievement.svg',
+      svgAsset: 'assets/Frame.svg',
       label: 'Rank',
     ),
     _NavItem(

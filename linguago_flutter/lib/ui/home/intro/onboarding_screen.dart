@@ -142,7 +142,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                 style: bodyStyle,
                               ),
                             ),
-                            // Memberi jarak ekstra di bawah teks agar sejajar tingginya dengan figma
                             const SizedBox(height: 48), 
                           ],
                         ),
@@ -185,7 +184,7 @@ class _FloatingMascotState extends State<_FloatingMascot>
 
   late final Animation<Offset> _animation = Tween<Offset>(
     begin: const Offset(0, 0),
-    end: const Offset(0, -0.04), // Naik turun secara halus
+    end: const Offset(0, -0.04),
   ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
 
   @override
@@ -231,21 +230,23 @@ class _WelcomeIllustration extends StatelessWidget {
         alignment: Alignment.center,
         clipBehavior: Clip.none,
         children: [
-          // Bintang-bintang diposisikan persis dengan layout Figma
+          // Bintang Kiri Atas (Diperbesar ke 34 & digeser sedikit biar presisi)
           Positioned(
-            left: 10,
-            top: 40,
+            left: 2,
+            top: 30,
+            child: SvgPicture.asset('assets/Group 36697.svg', width: 34, colorFilter: const ColorFilter.mode(Color(0xFFFFE031), BlendMode.srcIn)),
+          ),
+          // Bintang Kiri Bawah (Diperbesar ke 22)
+          Positioned(
+            left: 30,
+            top: 75,
             child: SvgPicture.asset('assets/Group 36697.svg', width: 22, colorFilter: const ColorFilter.mode(Color(0xFFFFE031), BlendMode.srcIn)),
           ),
+          // Bintang Kanan Atas (Diperbesar ke 28)
           Positioned(
-            left: 36,
-            top: 70,
-            child: SvgPicture.asset('assets/Group 36697.svg', width: 14, colorFilter: const ColorFilter.mode(Color(0xFFFFE031), BlendMode.srcIn)),
-          ),
-          Positioned(
-            right: 20,
-            top: 50,
-            child: SvgPicture.asset('assets/Group 36697.svg', width: 18, colorFilter: const ColorFilter.mode(Color(0xFFFFE031), BlendMode.srcIn)),
+            right: 12,
+            top: 40,
+            child: SvgPicture.asset('assets/Group 36697.svg', width: 28, colorFilter: const ColorFilter.mode(Color(0xFFFFE031), BlendMode.srcIn)),
           ),
           Positioned(
             bottom: 30,
@@ -282,184 +283,38 @@ class _LessonIllustration extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      clipBehavior: Clip.none,
-      alignment: Alignment.center,
-      children: [
-        Container(
-          width: double.infinity,
-          constraints: const BoxConstraints(maxWidth: 320),
-          padding: const EdgeInsets.fromLTRB(14, 14, 14, 16),
-          decoration: BoxDecoration(
-            color: AppColors.white,
-            borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: const Color(0xFFEDE7F8)),
-            boxShadow: [
-              BoxShadow(
-                color: AppColors.primaryPurple.withValues(alpha: 0.08),
-                blurRadius: 20,
-                offset: const Offset(0, 6),
-              ),
-            ],
+    return Container(
+      constraints: const BoxConstraints(maxWidth: 320),
+      child: Stack(
+        clipBehavior: Clip.none,
+        alignment: Alignment.center,
+        children: [
+          // 1. Gambar utama SVG Onboarding 2
+          SvgPicture.asset(
+            'assets/onboarding 2.svg', 
+            width: double.infinity,
+            fit: BoxFit.contain,
           ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Icon(
-                    Icons.arrow_back_ios_new_rounded,
-                    size: 12,
-                    color: AppColors.secondaryText.withValues(alpha: 0.6),
-                  ),
-                  const SizedBox(width: 8),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 4,
-                    ),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFF3EEFB),
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: const Text(
-                      'Lesson 1',
-                      style: TextStyle(
-                        fontSize: 9,
-                        fontWeight: FontWeight.w700,
-                        color: Color(0xFF7C55C5),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  const Expanded(
-                    child: Text(
-                      'Introduction to Hangul',
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontSize: 11,
-                        fontWeight: FontWeight.w700,
-                        color: AppColors.primaryText,
-                      ),
-                    ),
-                  ),
-                ],
+          
+          // 2. Maskot ditaruh di posisi yang pas dan ukurannya disesuaikan 
+          // supaya tidak menutupi teks penting atau ikon bookmark di card.
+          Positioned(
+            right: -10,
+            bottom: 0,
+            child: _FloatingMascot(
+              child: SvgPicture.asset(
+                'assets/Group 36741.svg',
+                width: 100, // Disesuaikan sedikit agar proporsional dengan card
+                height: 100,
               ),
-              const SizedBox(height: 12),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: SizedBox(
-                  height: 130,
-                  width: double.infinity,
-                  child: Stack(
-                    fit: StackFit.expand,
-                    children: [
-                      Container(
-                        decoration: const BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [Color(0xFFE8DFF8), Color(0xFFC4B0E6)],
-                          ),
-                        ),
-                      ),
-                      Center(
-                        child: Icon(
-                          Icons.play_circle_fill_rounded,
-                          size: 40,
-                          color: AppColors.white.withValues(alpha: 0.95),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: 12),
-              const Text(
-                'Basic Hangul',
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w800,
-                  color: AppColors.primaryText,
-                ),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                'Learn how to greet and introduce yourself in Korean.',
-                style: TextStyle(
-                  fontSize: 11,
-                  height: 1.35,
-                  color: AppColors.secondaryText.withValues(alpha: 0.9),
-                ),
-              ),
-              const SizedBox(height: 10),
-              const Wrap(
-                spacing: 12,
-                runSpacing: 4,
-                children: [
-                  _LessonMeta(icon: Icons.schedule_rounded, label: '10m 15s'),
-                  _LessonMeta(
-                    icon: Icons.signal_cellular_alt_rounded,
-                    label: 'Beginner',
-                  ),
-                  _LessonMeta(
-                    icon: Icons.diamond_rounded,
-                    label: '+20 XP',
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-        // Maskot di posisikan pojok kanan bawah memotong kotak seperti di Figma
-        Positioned(
-          right: -20,
-          bottom: -20,
-          child: _FloatingMascot(
-            child: SvgPicture.asset(
-              'assets/Group_111.svg',
-              width: 120,
-              height: 120,
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
 
-class _LessonMeta extends StatelessWidget {
-  const _LessonMeta({
-    required this.icon,
-    required this.label,
-    this.iconColor,
-  });
-
-  final IconData icon;
-  final String label;
-  final Color? iconColor;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(icon, size: 12, color: iconColor ?? AppColors.secondaryText),
-        const SizedBox(width: 4),
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 10,
-            color: AppColors.secondaryText.withValues(alpha: 0.85),
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-// LAYOUT KUIS (ONBOARDING 3) DIROMBAK TOTAL MENGIKUTI FIGMA
 class _QuizIllustration extends StatelessWidget {
   const _QuizIllustration();
 
@@ -467,12 +322,11 @@ class _QuizIllustration extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: 280, // Mengunci tinggi area kuis agar konsisten
+      height: 280, 
       child: Stack(
         alignment: Alignment.center,
         clipBehavior: Clip.none,
         children: [
-          // 1. Teks Pertanyaan di Paling Atas (Tengah)
           const Positioned(
             top: 0,
             child: Text(
@@ -485,8 +339,6 @@ class _QuizIllustration extends StatelessWidget {
               ),
             ),
           ),
-          
-          // 2. Papan Tulis di Tengah
           Positioned(
             top: 45,
             child: Container(
@@ -494,10 +346,10 @@ class _QuizIllustration extends StatelessWidget {
               height: 140,
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: const Color(0xFF1C1135), // Hitam pekat papan tulis
+                color: const Color(0xFF1C1135), 
                 borderRadius: BorderRadius.circular(6),
                 border: Border.all(
-                  color: const Color(0xFFC49A6C), // Bingkai kayu cokelat
+                  color: const Color(0xFFC49A6C), 
                   width: 5,
                 ),
                 boxShadow: [
@@ -518,26 +370,22 @@ class _QuizIllustration extends StatelessWidget {
               ),
             ),
           ),
-
-          // 3. Maskot (Pakai Kacamata) di Kiri Bawah menimpa papan
           Positioned(
             left: 5, 
             bottom: 25,
             child: _FloatingMascot(
               child: SvgPicture.asset(
-                'assets/Group_110.svg',
+                'assets/Group 36726.svg',
                 width: 140, 
                 height: 140,
               ),
             ),
           ),
-
-          // 4. Tombol Pilihan Jawaban Kecil di Kanan Bawah
           Positioned(
-            right: 25, // Diatur agak ke kanan
+            right: 25, 
             bottom: 15,
             child: SizedBox(
-              width: 140, // Lebar area tombol jawaban dibatasi agar kecil
+              width: 140, 
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -581,23 +429,22 @@ class _QuizOption extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Menyesuaikan warna berdasarkan screenshot Figma
     Color bg = const Color(0xFFF7F5FA); 
     Color fg = AppColors.primaryText;
     Border? border = Border.all(color: const Color(0xFFE5DDF0), width: 1);
 
     if (isCorrect) {
-      bg = const Color(0xFF4ADE80); // Hijau
+      bg = const Color(0xFF4ADE80); 
       fg = Colors.white;
       border = null;
     } else if (isWrong) {
-      bg = const Color(0xFFFF6B6B); // Merah/Salmon
+      bg = const Color(0xFFFF6B6B); 
       fg = Colors.white;
       border = null;
     }
 
     return Container(
-      height: 32, // Lebih pendek persis seperti desain
+      height: 32, 
       alignment: Alignment.center,
       decoration: BoxDecoration(
         color: bg,

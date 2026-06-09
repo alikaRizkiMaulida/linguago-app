@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:linguago_flutter/data/datasource/auth_local_datasource.dart';
 
 class QuizProgress {
   /// Unlocked part index:
@@ -18,28 +19,48 @@ class QuizProgress {
   static int get hearts => heartsNotifier.value;
   static set hearts(int val) => heartsNotifier.value = val;
 
+  static final ValueNotifier<int> xpNotifier = ValueNotifier<int>(400);
+  static int get xp => xpNotifier.value;
+  static set xp(int val) => xpNotifier.value = val;
+
   static int checkInDays = 0; // Days checked in so far
-  static String learningLanguage = 'English'; // default to English for new users
+  static final ValueNotifier<String> learningLanguageNotifier = ValueNotifier<String>('English');
+  static String get learningLanguage => learningLanguageNotifier.value;
+  static set learningLanguage(String val) => learningLanguageNotifier.value = val;
 
   static const String _keyUnlockedPart = 'quiz_unlocked_part';
   static const String _keyCoins = 'quiz_coins';
   static const String _keyHearts = 'quiz_hearts';
+  static const String _keyXp = 'quiz_xp';
   static const String _keyCheckInDays = 'quiz_check_in_days';
   static const String _keyLearningLanguage = 'quiz_learning_language';
+
+  static Future<String> _getPrefix() async {
+    try {
+      final authData = await AuthLocalDatasource().getAuthData();
+      if (authData.user != null && authData.user!.id != null) {
+        return 'user_${authData.user!.id}_';
+      }
+    } catch (_) {}
+    return '';
+  }
 
   /// Load progress from SharedPreferences
   static Future<void> loadProgress() async {
     try {
+      final prefix = await _getPrefix();
       final prefs = await SharedPreferences.getInstance();
-      unlockedPart = prefs.getInt(_keyUnlockedPart) ?? 1;
-      coins = prefs.getInt(_keyCoins) ?? 10;
-      hearts = prefs.getInt(_keyHearts) ?? 5;
-      checkInDays = prefs.getInt(_keyCheckInDays) ?? 0;
-      learningLanguage = prefs.getString(_keyLearningLanguage) ?? 'English';
+      unlockedPart = prefs.getInt('$prefix$_keyUnlockedPart') ?? 1;
+      coins = prefs.getInt('$prefix$_keyCoins') ?? 10;
+      hearts = prefs.getInt('$prefix$_keyHearts') ?? 5;
+      xp = prefs.getInt('$prefix$_keyXp') ?? 400;
+      checkInDays = prefs.getInt('$prefix$_keyCheckInDays') ?? 0;
+      learningLanguage = prefs.getString('$prefix$_keyLearningLanguage') ?? 'English';
     } catch (e) {
       unlockedPart = 1;
       coins = 10;
       hearts = 5;
+      xp = 400;
       checkInDays = 0;
       learningLanguage = 'English';
     }
@@ -49,8 +70,9 @@ class QuizProgress {
   static Future<void> setCheckInDays(int value) async {
     checkInDays = value;
     try {
+      final prefix = await _getPrefix();
       final prefs = await SharedPreferences.getInstance();
-      await prefs.setInt(_keyCheckInDays, value);
+      await prefs.setInt('$prefix$_keyCheckInDays', value);
     } catch (e) {
       // ignore
     }
@@ -60,8 +82,9 @@ class QuizProgress {
   static Future<void> setUnlockedPart(int part) async {
     unlockedPart = part;
     try {
+      final prefix = await _getPrefix();
       final prefs = await SharedPreferences.getInstance();
-      await prefs.setInt(_keyUnlockedPart, part);
+      await prefs.setInt('$prefix$_keyUnlockedPart', part);
     } catch (e) {
       // ignore
     }
@@ -71,8 +94,9 @@ class QuizProgress {
   static Future<void> setCoins(int value) async {
     coins = value;
     try {
+      final prefix = await _getPrefix();
       final prefs = await SharedPreferences.getInstance();
-      await prefs.setInt(_keyCoins, value);
+      await prefs.setInt('$prefix$_keyCoins', value);
     } catch (e) {
       // ignore
     }
@@ -82,8 +106,21 @@ class QuizProgress {
   static Future<void> setHearts(int value) async {
     hearts = value;
     try {
+      final prefix = await _getPrefix();
       final prefs = await SharedPreferences.getInstance();
-      await prefs.setInt(_keyHearts, value);
+      await prefs.setInt('$prefix$_keyHearts', value);
+    } catch (e) {
+      // ignore
+    }
+  }
+
+  /// Update and save xp to SharedPreferences
+  static Future<void> setXp(int value) async {
+    xp = value;
+    try {
+      final prefix = await _getPrefix();
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setInt('$prefix$_keyXp', value);
     } catch (e) {
       // ignore
     }
@@ -93,8 +130,9 @@ class QuizProgress {
   static Future<void> setLearningLanguage(String lang) async {
     learningLanguage = lang;
     try {
+      final prefix = await _getPrefix();
       final prefs = await SharedPreferences.getInstance();
-      await prefs.setString(_keyLearningLanguage, lang);
+      await prefs.setString('$prefix$_keyLearningLanguage', lang);
     } catch (e) {
       // ignore
     }

@@ -2,6 +2,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:linguago_flutter/core/constants/colors.dart';
+import 'package:linguago_flutter/core/constants/quiz_state.dart';
 
 class QuizCompletedScreen extends StatefulWidget {
   final int part;
@@ -54,6 +55,8 @@ class _QuizCompletedScreenState extends State<QuizCompletedScreen> with TickerPr
   @override
   void initState() {
     super.initState();
+    // Credit earned XP immediately
+    QuizProgress.setXp(QuizProgress.xp + widget.xpEarned);
     
     // Zoom/excitement controller
     _zoomController = AnimationController(

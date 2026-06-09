@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:linguago_flutter/core/constants/colors.dart';
+import 'package:linguago_flutter/core/constants/quiz_state.dart';
 import 'package:linguago_flutter/ui/bloc/auth/login/login_bloc.dart';
 import 'package:linguago_flutter/ui/home/home_screen.dart';
 import 'package:linguago_flutter/ui/home/intro/forgot_password_screen.dart';
@@ -64,15 +65,18 @@ class _LoginScreenState extends State<LoginScreen> {
             loading: () {
               setState(() => _isLoading = true);
             },
-            success: () {
+            success: () async {
               setState(() => _isLoading = false);
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text('Login successful!'), backgroundColor: Colors.green),
               );
-              Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute<void>(builder: (_) => const HomeScreen()),
-                (_) => false,
-              );
+              await QuizProgress.loadProgress();
+              if (context.mounted) {
+                Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute<void>(builder: (_) => const HomeScreen()),
+                  (_) => false,
+                );
+              }
             },
             error: (message) {
               setState(() => _isLoading = false);
@@ -92,7 +96,7 @@ class _LoginScreenState extends State<LoginScreen> {
               // ── Top White Section ─────────────────────────────────────────
               SliverToBoxAdapter(
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(24, 36, 24, 20),
+                  padding: const EdgeInsets.fromLTRB(24, 90, 24, 20),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -163,7 +167,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
                           ),
-                          const SizedBox(height: 14),
+                           const SizedBox(height: 18),
 
                           // Password field
                           CustomTextField(
@@ -185,7 +189,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
                           ),
-                          const SizedBox(height: 8),
+                           const SizedBox(height: 12),
 
                           // Forgot Password
                           Align(
@@ -241,7 +245,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ],
                           ),
-                          const SizedBox(height: 16),
+                           const SizedBox(height: 24),
 
                           // Social login buttons
                           Row(
@@ -255,8 +259,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ],
                           ),
 
-                          const Spacer(),
-                          const SizedBox(height: 20),
+                           const SizedBox(height: 56),
 
                           // ── Footer: Don't have an account? Sign Up ──────────────────
                           Center(

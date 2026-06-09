@@ -84,14 +84,18 @@ class _LanguageSettingPageState extends State<LanguageSettingPage> {
               ),
               child: Column(
                 children: [
-                  _buildRadioTile('English', _learningLanguage == 'English', () {
+                  _buildRadioTile('English', _learningLanguage == 'English', () async {
                     setState(() => _learningLanguage = 'English');
-                    QuizProgress.setLearningLanguage('English');
+                    final navigator = Navigator.of(context);
+                    await QuizProgress.setLearningLanguage('English');
+                    navigator.pushNamedAndRemoveUntil('/home', (route) => false);
                   }),
                   const Divider(height: 1, indent: 20, endIndent: 20, color: AppColors.backgroundSoft),
-                  _buildRadioTile('Korea', _learningLanguage == 'Korea', () {
+                  _buildRadioTile('Korea', _learningLanguage == 'Korea', () async {
                     setState(() => _learningLanguage = 'Korea');
-                    QuizProgress.setLearningLanguage('Korea');
+                    final navigator = Navigator.of(context);
+                    await QuizProgress.setLearningLanguage('Korea');
+                    navigator.pushNamedAndRemoveUntil('/home', (route) => false);
                   }),
                 ],
               ),

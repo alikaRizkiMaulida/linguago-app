@@ -226,6 +226,19 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
       'pose': MascotPose.reading, // Not shown
     },
     {
+      'type': 'translation_large_cards',
+      'text': 'Which sentence means\n',
+      'targetWord': '"I am learning Korean"?',
+      'options': [
+        {'imageAsset': 'assets/quiz_img_3.png', 'text': '나는 한국에서\n왔지'},
+        {'imageAsset': 'assets/quiz_img_4.png', 'text': '나는 한국어를\n배워요'},
+        {'imageAsset': 'assets/quiz_img_1.png', 'text': '나는 한국어를\n좋아해'},
+        {'imageAsset': 'assets/quiz_img_2.png', 'text': '나는 한국 책을\n읽어'},
+      ],
+      'correct': 1,
+      'pose': MascotPose.reading, // Not shown
+    },
+    {
       'type': 'blackboard',
       'text': 'What is the name of the :',
       'boardText': 'Korean alphabet\nsystem?',
@@ -435,11 +448,12 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
 
     final bool isKorea = QuizProgress.learningLanguage == 'Korea';
 
-    if (widget.part == 2) {
+    final int step = widget.part % 5;
+    if (step == 2) {
       _questions = isKorea ? _listeningQuestions : _listeningQuestionsEnglish;
-    } else if (widget.part == 3) {
+    } else if (step == 3) {
       _questions = isKorea ? _mixedQuestions : _mixedQuestionsEnglish;
-    } else if (widget.part == 5) {
+    } else if (step == 0) {
       _questions = isKorea ? _finalQuestions : _finalQuestionsEnglish;
     } else {
       _questions = isKorea ? _basicQuestions : _basicQuestionsEnglish;
@@ -610,12 +624,11 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
       _progressController.animateTo(targetProgress, curve: Curves.easeOut);
     } else {
       // Unlock next parts on the map
-      if (widget.part == 1 && QuizProgress.unlockedPart == 2) {
-        QuizProgress.setUnlockedPart(3);
-      } else if (widget.part == 2 && QuizProgress.unlockedPart == 3) {
-        QuizProgress.setUnlockedPart(4);
-      } else if (widget.part == 5 && QuizProgress.unlockedPart == 5) {
-        QuizProgress.setUnlockedPart(6);
+      final int step = widget.part % 5;
+      if ((step == 1 || step == 2) && QuizProgress.unlockedPart == widget.part + 1) {
+        QuizProgress.setUnlockedPart(widget.part + 2);
+      } else if (step == 0 && QuizProgress.unlockedPart == widget.part) {
+        QuizProgress.setUnlockedPart(widget.part + 1);
       }
 
       Navigator.push(
@@ -1219,8 +1232,8 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
                           style: ElevatedButton.styleFrom(
                             backgroundColor: AppColors.primaryPurple,
                             foregroundColor: Colors.white,
-                            disabledBackgroundColor: const Color(0xFFF3EEFB),
-                            disabledForegroundColor: const Color(0xFFC8B6F9),
+                            disabledBackgroundColor: const Color(0xFFDCD8E2),
+                            disabledForegroundColor: Colors.white,
                             elevation: 0,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(24),

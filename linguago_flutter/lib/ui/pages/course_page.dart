@@ -4,7 +4,6 @@ import 'package:linguago_flutter/core/constants/colors.dart';
 import 'package:linguago_flutter/core/constants/quiz_state.dart';
 import 'package:linguago_flutter/ui/pages/lesson_detail_screen.dart';
 import 'package:linguago_flutter/ui/screens/quiz/fun_fact_screen.dart';
-import 'package:linguago_flutter/ui/screens/quiz/quiz_screen.dart';
 import 'package:linguago_flutter/ui/screens/quiz/quiz_intro_screen.dart';
 
 class CoursePage extends StatefulWidget {
@@ -17,15 +16,33 @@ class CoursePage extends StatefulWidget {
 class _CoursePageState extends State<CoursePage> with SingleTickerProviderStateMixin {
   late ScrollController _scrollController;
   late AnimationController _pinFloatController;
+  final int totalSteps = 30;
 
   @override
   void initState() {
     super.initState();
-    // Scroll to the bottom after layout to show START
     _scrollController = ScrollController();
+    
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (_scrollController.hasClients) {
-        _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+      if (_scrollController.hasClients && context.mounted) {
+        final double screenHeight = MediaQuery.of(context).size.height;
+        final double totalHeight = 150 + (totalSteps * 82.0);
+        
+        final int unlockedPart = QuizProgress.unlockedPart;
+        final int targetIndex = (unlockedPart - 1).clamp(0, totalSteps - 1);
+        
+        // Node's Y position in the Stack
+        final double yPos = totalHeight - 150 - (targetIndex * 82.0);
+        
+        // Calculate the exact offset to center the node
+        // 40 is top padding of SingleChildScrollView
+        // 22.5 is half of tileHeight (45/2)
+        double nodeCenterY = 40 + yPos + 22.5; 
+        double targetOffset = nodeCenterY - (screenHeight / 2);
+        
+        targetOffset = targetOffset.clamp(0.0, _scrollController.position.maxScrollExtent);
+        
+        _scrollController.jumpTo(targetOffset);
       }
     });
 
@@ -48,7 +65,8 @@ class _CoursePageState extends State<CoursePage> with SingleTickerProviderStateM
     final double screenWidth = MediaQuery.of(context).size.width;
     const double tileWidth = 90;
     const double tileHeight = 45;
-    const int totalSteps = 13;
+    
+    final double totalHeight = 150 + (totalSteps * 82.0);
 
     return Container(
       color: AppColors.backgroundSoft, // matching #F3EEFB
@@ -60,7 +78,7 @@ class _CoursePageState extends State<CoursePage> with SingleTickerProviderStateM
               controller: _scrollController,
               padding: const EdgeInsets.only(bottom: 120, top: 40), // extra padding for bottom nav
               child: SizedBox(
-                height: 1250,
+                height: totalHeight,
                 width: screenWidth,
                 child: ValueListenableBuilder<int>(
                   valueListenable: QuizProgress.unlockedPartNotifier,
@@ -109,7 +127,7 @@ class _CoursePageState extends State<CoursePage> with SingleTickerProviderStateM
                         // ─────────────────────────────────────────────────────────
                         ...List.generate(totalSteps, (index) {
                           // Calculate path positions using a math curve
-                          final double y = 1100 - (index * 82.0);
+                          final double y = totalHeight - 220 - (index * 82.0);
                           // Zig-zag offset function
                           final double xOffset = math.sin(index * 0.8) * 85.0;
                           final double x = (screenWidth / 2) - (tileWidth / 2) + xOffset;
@@ -118,160 +136,123 @@ class _CoursePageState extends State<CoursePage> with SingleTickerProviderStateM
                           final bool isActiveNode = index == (unlockedPart - 1);
                           final bool isLocked = index >= unlockedPart;
 
-                      return Positioned(
-                        left: x,
-                        top: y,
-                        child: _InteractiveTile(
-                          width: tileWidth,
-                          height: tileHeight,
-                          isLocked: isLocked,
-                          isActive: isActiveNode,
-                          showArrow: isStartNode,
-                          onTap: () {
-                            if (!isLocked) {
-                              if (index == 0) {
-                                // Node 1: Lesson Summary
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute<void>(
-                                    builder: (_) => const LessonDetailScreen(part: 1),
-                                  ),
-                                ).then((_) => setState(() {}));
-                              } else if (index == 1) {
-                                // Node 2: View Basic (Quiz Part 1)
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute<void>(
-                                    builder: (_) => const QuizIntroScreen(),
-                                  ),
-                                ).then((_) => setState(() {}));
-                              } else if (index == 2) {
-                                // Node 3: Listening (Quiz Part 2)
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute<void>(
-                                    builder: (_) => const QuizIntroScreen(),
-                                  ),
-                                ).then((_) => setState(() {}));
-                              } else if (index == 3) {
-                                // Node 4: Fun Fact Screen
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute<void>(
-                                    builder: (_) => const FunFactScreen(part: 4),
-                                  ),
-                                ).then((_) => setState(() {}));
-                              } else if (index == 4) {
-                                // Node 5: Final Quiz (Quiz Part 5)
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute<void>(
-                                    builder: (_) => const QuizIntroScreen(),
-                                  ),
-                                ).then((_) => setState(() {}));
-                              } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text('Level 2 is coming soon! Stay tuned!'),
-                                    behavior: SnackBarBehavior.floating,
-                                  ),
-                                );
-                              }
-                            }
+                          return Positioned(
+                            left: x,
+                            top: y,
+                            child: _InteractiveTile(
+                              width: tileWidth,
+                              height: tileHeight,
+                              isLocked: isLocked,
+                              isActive: isActiveNode,
+                              showArrow: isStartNode,
+                              onTap: () {
+                                if (!isLocked) {
+                                  final int stepNum = index + 1;
+                                  final int stepType = stepNum % 5;
+                                  final int levelNum = (index ~/ 5) + 1;
+
+                                  if (stepType == 1) {
+                                    // Step 1: Lesson Summary
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute<void>(
+                                        builder: (_) => LessonDetailScreen(part: stepNum),
+                                      ),
+                                    ).then((_) => setState(() {}));
+                                  } else if (stepType == 2 || stepType == 3 || stepType == 0) {
+                                    // Step 2, 3, 5: Quiz Intro Screen
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute<void>(
+                                        builder: (_) => QuizIntroScreen(level: levelNum),
+                                      ),
+                                    ).then((_) => setState(() {}));
+                                  } else if (stepType == 4) {
+                                    // Step 4: Fun Fact Screen
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute<void>(
+                                        builder: (_) => FunFactScreen(part: stepNum),
+                                      ),
+                                    ).then((_) => setState(() {}));
+                                  }
+                                }
+                              },
+                            ),
+                          );
+                        }),
+
+                        // ─────────────────────────────────────────────────────────
+                        // BOBBING MAP PIN MARKER (On the active Level 1 node)
+                        // ─────────────────────────────────────────────────────────
+                        AnimatedBuilder(
+                          animation: _pinFloatController,
+                          builder: (context, child) {
+                            final int pinIndex = (unlockedPart - 1).clamp(0, totalSteps - 1);
+                            final double y = totalHeight - 220 - (pinIndex * 82.0);
+                            final double xOffset = math.sin(pinIndex * 0.8) * 85.0;
+                            final double x = (screenWidth / 2) + xOffset;
+
+                            // Bobbing offset
+                            final floatOffset = math.sin(_pinFloatController.value * math.pi) * 8.0;
+
+                            return Positioned(
+                              left: x - 18, // center horizontally on tile (half of 36)
+                              top: y - 36 + floatOffset, // sit right on the tile
+                              child: GestureDetector(
+                                onTap: () {
+                                  final int unlocked = QuizProgress.unlockedPart;
+                                  final int stepType = unlocked % 5;
+                                  final int levelNum = ((unlocked - 1) ~/ 5) + 1;
+
+                                  if (stepType == 1) {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute<void>(
+                                        builder: (_) => LessonDetailScreen(part: unlocked),
+                                      ),
+                                    ).then((_) => setState(() {}));
+                                  } else if (stepType == 2 || stepType == 3 || stepType == 0) {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute<void>(
+                                        builder: (_) => QuizIntroScreen(level: levelNum),
+                                      ),
+                                    ).then((_) => setState(() {}));
+                                  } else if (stepType == 4) {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute<void>(
+                                        builder: (_) => FunFactScreen(part: unlocked),
+                                      ),
+                                    ).then((_) => setState(() {}));
+                                  }
+                                },
+                                child: Stack(
+                                  alignment: Alignment.center,
+                                  children: [
+                                    const Icon(
+                                      Icons.location_on_rounded,
+                                      size: 36,
+                                      color: AppColors.primaryPurple,
+                                    ),
+                                    Positioned(
+                                      top: 7,
+                                      child: Container(
+                                        width: 9,
+                                        height: 9,
+                                        decoration: const BoxDecoration(
+                                          color: Colors.white,
+                                          shape: BoxShape.circle,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
                           },
                         ),
-                      );
-                    }),
-
-                    // ─────────────────────────────────────────────────────────
-                    // BOBBING MAP PIN MARKER (On the active Level 1 node)
-                    // ─────────────────────────────────────────────────────────
-                    AnimatedBuilder(
-                      animation: _pinFloatController,
-                      builder: (context, child) {
-                        final int pinIndex = (unlockedPart - 1).clamp(0, totalSteps - 1);
-                        final double y = 1100 - (pinIndex * 82.0);
-                        final double xOffset = math.sin(pinIndex * 0.8) * 85.0;
-                        final double x = (screenWidth / 2) + xOffset;
-
-                        // Bobbing offset
-                        final floatOffset = math.sin(_pinFloatController.value * math.pi) * 8.0;
-
-                        return Positioned(
-                          left: x - 18, // center horizontally on tile (half of 36)
-                          top: y - 36 + floatOffset, // sit right on the tile
-                          child: GestureDetector(
-                            onTap: () {
-                              final int unlocked = QuizProgress.unlockedPart;
-                              if (unlocked == 1) {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute<void>(
-                                    builder: (_) => const LessonDetailScreen(part: 1),
-                                  ),
-                                ).then((_) => setState(() {}));
-                              } else if (unlocked == 2) {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute<void>(
-                                    builder: (_) => const QuizIntroScreen(),
-                                  ),
-                                ).then((_) => setState(() {}));
-                              } else if (unlocked == 3) {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute<void>(
-                                    builder: (_) => const QuizIntroScreen(),
-                                  ),
-                                ).then((_) => setState(() {}));
-                              } else if (unlocked == 4) {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute<void>(
-                                    builder: (_) => const FunFactScreen(part: 4),
-                                  ),
-                                ).then((_) => setState(() {}));
-                              } else if (unlocked == 5) {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute<void>(
-                                    builder: (_) => const QuizIntroScreen(),
-                                  ),
-                                ).then((_) => setState(() {}));
-                              } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text('All parts completed! Level 2 coming soon!'),
-                                    behavior: SnackBarBehavior.floating,
-                                  ),
-                                );
-                              }
-                            },
-                            child: Stack(
-                              alignment: Alignment.center,
-                              children: [
-                                const Icon(
-                                  Icons.location_on_rounded,
-                                  size: 36,
-                                  color: AppColors.primaryPurple,
-                                ),
-                                Positioned(
-                                  top: 7,
-                                  child: Container(
-                                    width: 9,
-                                    height: 9,
-                                    decoration: const BoxDecoration(
-                                      color: Colors.white,
-                                      shape: BoxShape.circle,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    ),
                       ],
                     );
                   },

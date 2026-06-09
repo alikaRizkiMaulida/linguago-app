@@ -12,6 +12,7 @@ import 'package:linguago_flutter/ui/screens/quiz/fun_fact_screen.dart';
 import 'package:linguago_flutter/ui/screens/quiz/quiz_screen.dart';
 import 'package:linguago_flutter/ui/pages/my_coins_page.dart';
 import 'package:linguago_flutter/ui/screens/leaderboard/leaderboard_screen.dart';
+import 'package:linguago_flutter/data/datasource/auth_local_datasource.dart';
 
 
 /// Home Page — konten tab pertama di HomeScreen.
@@ -34,7 +35,14 @@ class _HomePageState extends State<HomePage> {
           const SizedBox(height: 16),
           _UserHeader(context: context),
           const SizedBox(height: 12),
-          const _ExpBar(current: 400, total: 1000),
+          ValueListenableBuilder<int>(
+            valueListenable: QuizProgress.xpNotifier,
+            builder: (context, xpValue, _) {
+              int displayXp = xpValue % 1000;
+              if (xpValue > 0 && displayXp == 0) displayXp = 1000;
+              return _ExpBar(current: displayXp, total: 1000);
+            },
+          ),
           const SizedBox(height: 16),
           _StatsRow(onRefresh: () => setState(() {})),
           const SizedBox(height: 16),
@@ -78,12 +86,42 @@ class _HomePageState extends State<HomePage> {
 // ─────────────────────────────────────────────────────────────────────────────
 // USER HEADER
 // ─────────────────────────────────────────────────────────────────────────────
-class _UserHeader extends StatelessWidget {
+class _UserHeader extends StatefulWidget {
   final BuildContext context;
   const _UserHeader({required this.context});
 
   @override
-  Widget build(BuildContext _) {
+  State<_UserHeader> createState() => _UserHeaderState();
+}
+
+class _UserHeaderState extends State<_UserHeader> {
+  String _userName = 'User';
+  String _initial = 'U';
+
+  @override
+  void initState() {
+    super.initState();
+    _loadAuthData();
+  }
+
+  Future<void> _loadAuthData() async {
+    try {
+      final authData = await AuthLocalDatasource().getAuthData();
+      if (authData.user != null && mounted) {
+        setState(() {
+          _userName = authData.user!.name ?? authData.user!.username ?? 'User';
+          if (_userName.isNotEmpty) {
+            _initial = _userName[0].toUpperCase();
+          }
+        });
+      }
+    } catch (e) {
+      debugPrint("Error loading auth data: $e");
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -99,10 +137,10 @@ class _UserHeader extends StatelessWidget {
               end: Alignment.bottomRight,
             ),
           ),
-          child: const Center(
+          child: Center(
             child: Text(
-              'E',
-              style: TextStyle(
+              _initial,
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 20,
                 fontWeight: FontWeight.w800,
@@ -118,8 +156,8 @@ class _UserHeader extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    'evan',
-                    style: TextStyle(
+                    _userName,
+                    style: const TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.w800,
                       color: AppColors.primaryText,
@@ -146,7 +184,7 @@ class _UserHeader extends StatelessWidget {
                     ),
                     child: Text(
                       'Level ${QuizProgress.unlockedPart}',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 11,
                         fontWeight: FontWeight.w700,
                         color: Colors.white,
@@ -154,7 +192,15 @@ class _UserHeader extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 6),
-                  Text(QuizProgress.learningLanguage == 'Korea' ? '🇰🇷' : '🇬🇧', style: const TextStyle(fontSize: 16)),
+                  ValueListenableBuilder<String>(
+                    valueListenable: QuizProgress.learningLanguageNotifier,
+                    builder: (context, language, _) {
+                      return Text(
+                        language == 'Korea' ? '🇰🇷' : '🇬🇧',
+                        style: const TextStyle(fontSize: 16),
+                      );
+                    },
+                  ),
                 ],
               ),
             ],
@@ -442,14 +488,33 @@ class _DailyCheckInCardState extends State<_DailyCheckInCard> {
     final icon = _days[index]['icon'] as String;
     final amount = int.tryParse(rewardStr.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
 
+    String claimedMsg = '';
     if (icon == '🪙') {
       await QuizProgress.setCoins(QuizProgress.coins + amount);
+      claimedMsg = 'Successfully claimed Day ${index + 1} reward: $amount Coins! 🪙';
     } else if (icon == '❤️') {
-      await QuizProgress.setHearts(QuizProgress.hearts + amount);
+      if (QuizProgress.hearts >= 5) {
+        await QuizProgress.setCoins(QuizProgress.coins + 10);
+        claimedMsg = 'Hearts are already full! Successfully claimed 10 Coins instead! 🪙';
+      } else {
+        await QuizProgress.setHearts(QuizProgress.hearts + amount);
+        claimedMsg = 'Successfully claimed Day ${index + 1} reward: $amount Hearts! ❤️';
+      }
     }
 
     setState(() {});
     widget.onRefresh();
+
+    if (!mounted) return;
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(claimedMsg),
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: AppColors.primaryPurple,
+        duration: const Duration(seconds: 2),
+      ),
+    );
   }
 
   @override
@@ -501,6 +566,7 @@ class _DailyCheckInCardState extends State<_DailyCheckInCard> {
                   reward: d['reward'] as String,
                   icon: d['icon'] as String,
                   done: d['done'] as bool,
+                  isActive: index == QuizProgress.checkInDays,
                 ),
               );
             }),
@@ -516,12 +582,15 @@ class _DayTile extends StatelessWidget {
   final String reward;
   final String icon;
   final bool done;
+  final bool isActive;
 
-  const _DayTile(
-      {required this.day,
-      required this.reward,
-      required this.icon,
-      required this.done});
+  const _DayTile({
+    required this.day,
+    required this.reward,
+    required this.icon,
+    required this.done,
+    required this.isActive,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -530,8 +599,8 @@ class _DayTile extends StatelessWidget {
         Text(day,
             style: TextStyle(
                 fontSize: 9,
-                color: AppColors.secondaryText,
-                fontWeight: FontWeight.w500)),
+                color: done || isActive ? AppColors.primaryText : AppColors.secondaryText,
+                fontWeight: done || isActive ? FontWeight.bold : FontWeight.w500)),
         const SizedBox(height: 6),
         Container(
           width: 34,
@@ -540,11 +609,20 @@ class _DayTile extends StatelessWidget {
             shape: BoxShape.circle,
             color: done
                 ? AppColors.primaryPurple.withValues(alpha: 0.12)
-                : AppColors.backgroundSoft,
+                : (isActive ? const Color(0xFFF3EEFB) : AppColors.backgroundSoft),
             border: Border.all(
-              color: done ? AppColors.primaryPurple : AppColors.disableBorder,
-              width: 1.5,
+              color: done
+                  ? AppColors.primaryPurple
+                  : (isActive ? AppColors.primaryPurple : AppColors.disableBorder),
+              width: isActive ? 2.0 : 1.5,
             ),
+            boxShadow: isActive ? [
+              BoxShadow(
+                color: AppColors.primaryPurple.withValues(alpha: 0.2),
+                blurRadius: 6,
+                spreadRadius: 1,
+              )
+            ] : null,
           ),
           child: Center(
               child: Text(icon, style: const TextStyle(fontSize: 16))),
@@ -553,8 +631,8 @@ class _DayTile extends StatelessWidget {
         Text(reward,
             style: TextStyle(
                 fontSize: 9,
-                fontWeight: FontWeight.w600,
-                color: done
+                fontWeight: done || isActive ? FontWeight.bold : FontWeight.w600,
+                color: done || isActive
                     ? AppColors.primaryPurple
                     : AppColors.secondaryText)),
       ],
@@ -872,6 +950,8 @@ class _QuickActions extends StatelessWidget {
                 title: 'Listening',
                 subtitle: 'Listening Practice',
                 isLocked: false,
+                circleBgColor: const Color(0xFFFFB3BA),
+                iconColor: const Color(0xFFD61A54),
                 onTap: () {
                   Navigator.push(
                     context,
@@ -885,6 +965,8 @@ class _QuickActions extends StatelessWidget {
                 icon: Icons.assignment_add,
                 title: 'Script',
                 subtitle: 'Learning Letters',
+                circleBgColor: const Color(0xFFD4C4F0),
+                iconColor: const Color(0xFF6C4AB6),
                 onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute<void>(
@@ -896,6 +978,8 @@ class _QuickActions extends StatelessWidget {
                 icon: Icons.quiz_rounded,
                 title: 'Quiz',
                 subtitle: 'Practice Test',
+                circleBgColor: const Color(0xFFFFF0B3),
+                iconColor: const Color(0xFFB37400),
                 onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute<void>(
@@ -912,6 +996,8 @@ class _QuickActionCard extends StatelessWidget {
   final String subtitle;
   final bool isLocked;
   final VoidCallback onTap;
+  final Color circleBgColor;
+  final Color iconColor;
 
   const _QuickActionCard({
     required this.icon,
@@ -919,30 +1005,65 @@ class _QuickActionCard extends StatelessWidget {
     required this.subtitle,
     this.isLocked = false,
     required this.onTap,
+    required this.circleBgColor,
+    required this.iconColor,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 10),
-        decoration: BoxDecoration(
-          color: isLocked ? const Color(0xFFF5F3F7) : AppColors.white,
-          borderRadius: BorderRadius.circular(18),
-          boxShadow: isLocked
-              ? null
-              : [
-                  BoxShadow(
-                    color: AppColors.primaryPurple.withValues(alpha: 0.07),
-                    blurRadius: 12,
-                    offset: const Offset(0, 4),
+      child: Stack(
+        clipBehavior: Clip.none,
+        alignment: Alignment.topCenter,
+        children: [
+          // White Card Background
+          Container(
+            width: double.infinity,
+            margin: const EdgeInsets.only(top: 26),
+            padding: const EdgeInsets.fromLTRB(8, 38, 8, 14),
+            decoration: BoxDecoration(
+              color: isLocked ? const Color(0xFFF5F3F7) : AppColors.white,
+              borderRadius: BorderRadius.circular(18),
+              boxShadow: isLocked
+                  ? null
+                  : [
+                      BoxShadow(
+                        color: AppColors.primaryPurple.withValues(alpha: 0.07),
+                        blurRadius: 12,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  title,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w800,
+                    color: isLocked ? AppColors.secondaryText : AppColors.primaryText,
                   ),
-                ],
-        ),
-        child: Column(
-          children: [
-            Stack(
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  isLocked ? 'Locked' : subtitle,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 10,
+                    color: AppColors.secondaryText,
+                    height: 1.3,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          // Floating Circle at the top
+          Positioned(
+            top: 0,
+            child: Stack(
               alignment: Alignment.center,
               children: [
                 Container(
@@ -950,9 +1071,16 @@ class _QuickActionCard extends StatelessWidget {
                   height: 52,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: isLocked
-                        ? const Color(0xFFE0DCE4)
-                        : AppColors.primaryPurple.withValues(alpha: 0.12),
+                    color: isLocked ? const Color(0xFFE0DCE4) : circleBgColor,
+                    boxShadow: isLocked
+                        ? null
+                        : [
+                            BoxShadow(
+                              color: circleBgColor.withValues(alpha: 0.2),
+                              blurRadius: 6,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
                   ),
                   child: Center(
                     child: Opacity(
@@ -960,16 +1088,17 @@ class _QuickActionCard extends StatelessWidget {
                       child: icon is IconData
                           ? Icon(
                               icon as IconData,
-                              size: 26,
-                              color: isLocked ? AppColors.secondaryText : AppColors.primaryPurple,
+                              size: 24,
+                              color: isLocked ? AppColors.secondaryText : iconColor,
                             )
                           : SvgPicture.asset(
                               icon as String,
-                              width: 26,
-                              height: 26,
+                              width: 24,
+                              height: 24,
                               colorFilter: ColorFilter.mode(
-                                  isLocked ? AppColors.secondaryText : AppColors.primaryPurple,
-                                  BlendMode.srcIn),
+                                isLocked ? AppColors.secondaryText : iconColor,
+                                BlendMode.srcIn,
+                              ),
                             ),
                     ),
                   ),
@@ -993,19 +1122,8 @@ class _QuickActionCard extends StatelessWidget {
                   ),
               ],
             ),
-            const SizedBox(height: 10),
-            Text(title,
-                style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w700,
-                    color: isLocked ? AppColors.secondaryText : AppColors.primaryText)),
-            const SizedBox(height: 2),
-            Text(isLocked ? 'Locked' : subtitle,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: 10, color: AppColors.secondaryText)),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
