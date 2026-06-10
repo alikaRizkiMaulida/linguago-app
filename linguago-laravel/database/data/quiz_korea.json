@@ -1,0 +1,1123 @@
+[
+    {
+        "node_title": "Quiz Level 1 Bagian 1",
+        "quiz_title": "Quiz Level 1 Bagian 1",
+        "questions": [
+            {
+                "text": "What is the sound of ㄴ?",
+                "explanation": "Huruf ㄴ dibaca 'n' (nieun), seperti huruf N dalam alfabet Inggris.",
+                "options": [
+                    { "text": "g", "is_correct": false },
+                    { "text": "n", "is_correct": true },
+                    { "text": "d", "is_correct": false },
+                    { "text": "s", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Match the hangul letter with the correct sound:\n\nshiot",
+                "explanation": "Shiot (시옷) adalah huruf ㅅ yang berbunyi /s/.",
+                "options": [
+                    { "text": "ㄱ", "is_correct": false },
+                    { "text": "ㄷ", "is_correct": false },
+                    { "text": "ㅅ", "is_correct": true },
+                    { "text": "ㅏ", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Which hangul letter has the sound \"A\"?",
+                "explanation": "Huruf ㅏ (a) adalah vokal yang berbunyi /a/ seperti 'a' pada kata 'father'.",
+                "options": [
+                    { "text": "ㅏ", "is_correct": true },
+                    { "text": "ㅔ", "is_correct": false },
+                    { "text": "ㅜ", "is_correct": false },
+                    { "text": "ㅣ", "is_correct": false }
+                ]
+            },
+            {
+                "text": "How do you read this word?\n\n가다",
+                "explanation": "가다 dibaca 'gada' yang artinya 'pergi'.",
+                "options": [
+                    { "text": "nara", "is_correct": false },
+                    { "text": "gada", "is_correct": true },
+                    { "text": "hana", "is_correct": false },
+                    { "text": "guri", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Hangul is the Korean alphabet system.",
+                "explanation": "Benar! Hangul (한글) adalah sistem alfabet resmi Korea yang diciptakan oleh Raja Sejong pada tahun 1443.",
+                "options": [
+                    { "text": "True", "is_correct": true },
+                    { "text": "False", "is_correct": false }
+                ]
+            }
+        ]
+    },
+    {
+        "node_title": "Quiz Level 1 Bagian 2",
+        "quiz_title": "Quiz Level 1 Bagian 2",
+        "questions": [
+            {
+                "text": "Which letter is NOT used to spell \"HAN\" (한)?",
+                "explanation": "한 ditulis dengan ㅎ (h) + ㅏ (a) + ㄴ (n). Huruf ㄱ (g) tidak digunakan.",
+                "options": [
+                    { "text": "ㄴ", "is_correct": false },
+                    { "text": "ㅏ", "is_correct": false },
+                    { "text": "ㅎ", "is_correct": false },
+                    { "text": "ㄱ", "is_correct": true }
+                ]
+            },
+            {
+                "text": "Which word did you think you heard?\n\n*hada",
+                "explanation": "하다 (hada) berarti 'melakukan' dalam bahasa Korea.",
+                "options": [
+                    { "text": "하다", "is_correct": true },
+                    { "text": "한국어", "is_correct": false },
+                    { "text": "한", "is_correct": false },
+                    { "text": "나라", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Complete the word:\n\nㄱ ... 다",
+                "explanation": "ㄱ + ㅏ + 다 = 가다 (gada) yang berarti 'pergi'.",
+                "options": [
+                    { "text": "ㅔ", "is_correct": false },
+                    { "text": "ㅏ", "is_correct": true },
+                    { "text": "ㅜ", "is_correct": false },
+                    { "text": "ㅣ", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Which pronunciation letter has the sound \"ㄷ\"?",
+                "explanation": "ㄷ dibaca 'digot' (디귿), seperti huruf D dalam alfabet Inggris.",
+                "options": [
+                    { "text": "hieot", "is_correct": false },
+                    { "text": "gieok", "is_correct": false },
+                    { "text": "nieun", "is_correct": false },
+                    { "text": "digot", "is_correct": true }
+                ]
+            },
+            {
+                "text": "What does 한국어 mean?",
+                "explanation": "한국어 (hangugeo) berarti 'bahasa Korea'.\n한국 = Korea\n어 = bahasa",
+                "options": [
+                    { "text": "English language", "is_correct": false },
+                    { "text": "Korean student", "is_correct": false },
+                    { "text": "Korean teacher", "is_correct": false },
+                    { "text": "Korean language", "is_correct": true }
+                ]
+            }
+        ]
+    },
+    {
+        "node_title": "Quiz Final Level 1",
+        "quiz_title": "Quiz Final Level 1",
+        "questions": [
+            {
+                "text": "Which letter has the sound \"E\"?",
+                "explanation": "Huruf ㅔ (e) berbunyi /e/ seperti 'e' pada kata 'bed'.",
+                "options": [
+                    { "text": "ㅣ", "is_correct": false },
+                    { "text": "ㅔ", "is_correct": true },
+                    { "text": "ㅏ", "is_correct": false },
+                    { "text": "ㅜ", "is_correct": false }
+                ]
+            },
+            {
+                "text": "What is the sound of ㄱ?",
+                "explanation": "ㄱ (gieok) berbunyi /g/ atau /k/, seperti huruf G atau K dalam alfabet Inggris.",
+                "options": [
+                    { "text": "n", "is_correct": false },
+                    { "text": "d", "is_correct": false },
+                    { "text": "g", "is_correct": true },
+                    { "text": "s", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Which word did you think you heard?\n\n*hieut",
+                "explanation": "Hieut (히읗) adalah huruf ㅎ yang berbunyi /h/.",
+                "options": [
+                    { "text": "ㅔ", "is_correct": false },
+                    { "text": "ㄱ", "is_correct": false },
+                    { "text": "ㅅ", "is_correct": false },
+                    { "text": "ㅎ", "is_correct": true }
+                ]
+            },
+            {
+                "text": "What is the Korean word for \"to go\"?",
+                "explanation": "가다 (gada) adalah kata kerja yang berarti 'pergi'.",
+                "options": [
+                    { "text": "구다", "is_correct": false },
+                    { "text": "게다", "is_correct": false },
+                    { "text": "기다", "is_correct": false },
+                    { "text": "가다", "is_correct": true }
+                ]
+            },
+            {
+                "text": "How do you read this word?\n\n한",
+                "explanation": "한 (han) berarti 'satu' atau bisa menjadi bagian dari kata 한국 (Korea).",
+                "options": [
+                    { "text": "han", "is_correct": true },
+                    { "text": "hin", "is_correct": false },
+                    { "text": "hun", "is_correct": false },
+                    { "text": "hon", "is_correct": false }
+                ]
+            },
+            {
+                "text": "What does 나는 한국어를 배워요 mean?",
+                "explanation": "나는 한국어를 배워요 = Saya belajar bahasa Korea.\n나는 = Saya\n한국어 = bahasa Korea\n배워요 = belajar",
+                "options": [
+                    { "text": "I like Korean language", "is_correct": false },
+                    { "text": "Korean language", "is_correct": false },
+                    { "text": "I came from Korea", "is_correct": false },
+                    { "text": "I am learning Korean", "is_correct": true }
+                ]
+            },
+            {
+                "text": "What is the name of the Korean alphabet system?",
+                "explanation": "Hangul (한글) adalah sistem alfabet Korea yang diciptakan oleh Raja Sejong pada tahun 1443.",
+                "options": [
+                    { "text": "hiragana", "is_correct": false },
+                    { "text": "hangul", "is_correct": true },
+                    { "text": "hangul-eo", "is_correct": false },
+                    { "text": "hanguk", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Match the hangul letter with its sound:\n\nnieun - digot - shiot",
+                "explanation": "nieun = ㄴ, digot = ㄷ, shiot = ㅅ.\nJadi urutan yang benar adalah ㄴ-ㄷ-ㅅ.",
+                "options": [
+                    { "text": "ㄴ-ㄱ-ㅅ", "is_correct": false },
+                    { "text": "ㄱ-ㅅ-ㄴ", "is_correct": false },
+                    { "text": "ㄴ-ㄷ-ㅅ", "is_correct": true },
+                    { "text": "ㅅ-ㄴ-ㄷ", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Which letter has the sound \"I\"?",
+                "explanation": "Huruf ㅣ (i) berbunyi /i/ seperti 'ee' pada kata 'see'.",
+                "options": [
+                    { "text": "ㅔ", "is_correct": false },
+                    { "text": "ㅏ", "is_correct": false },
+                    { "text": "ㅜ", "is_correct": false },
+                    { "text": "ㅣ", "is_correct": true }
+                ]
+            },
+            {
+                "text": "Which sentence means \"I am learning Korean\"?",
+                "explanation": "나는 한국어를 배워요 adalah kalimat yang benar untuk 'Saya belajar bahasa Korea'.",
+                "options": [
+                    { "text": "나는 한국에서 왔어", "is_correct": false },
+                    { "text": "나는 한국어를 배워요", "is_correct": true },
+                    { "text": "나는 한국어를 좋아해", "is_correct": false },
+                    { "text": "나는 한국책을 읽어", "is_correct": false }
+                ]
+            }
+        ]
+    },
+    {
+        "node_title": "Quiz Level 2 Bagian 1",
+        "quiz_title": "Quiz Level 2 Bagian 1",
+        "questions": [
+            {
+                "text": "What is the pronunciation of ㅏ?",
+                "explanation": "Huruf vokal ㅏ dibaca 'a' seperti 'a' pada kata 'father'.",
+                "options": [
+                    { "text": "eo", "is_correct": false },
+                    { "text": "a", "is_correct": true },
+                    { "text": "o", "is_correct": false },
+                    { "text": "u", "is_correct": false }
+                ]
+            },
+            {
+                "text": "What is the pronunciation of ㅗ?",
+                "explanation": "Huruf vokal ㅗ dibaca 'o' seperti 'o' pada kata 'go'.",
+                "options": [
+                    { "text": "a", "is_correct": false },
+                    { "text": "eo", "is_correct": false },
+                    { "text": "o", "is_correct": true },
+                    { "text": "eu", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Which vowel is pronounced \"u\"?",
+                "explanation": "Huruf vokal ㅜ dibaca 'u' seperti 'u' pada kata 'moon'.",
+                "options": [
+                    { "text": "ㅜ", "is_correct": true },
+                    { "text": "ㅓ", "is_correct": false },
+                    { "text": "ㅣ", "is_correct": false },
+                    { "text": "ㅡ", "is_correct": false }
+                ]
+            },
+            {
+                "text": "What is the pronunciation of ㅣ?",
+                "explanation": "Huruf vokal ㅣ dibaca 'i' seperti 'ee' pada kata 'see'.",
+                "options": [
+                    { "text": "eu", "is_correct": false },
+                    { "text": "e", "is_correct": false },
+                    { "text": "i", "is_correct": true },
+                    { "text": "a", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Which vowel is pronounced \"eo\"?",
+                "explanation": "Huruf vokal ㅓ dibaca 'eo' (antara 'o' dan 'e'), bunyi yang tidak ada dalam bahasa Indonesia.",
+                "options": [
+                    { "text": "ㅗ", "is_correct": false },
+                    { "text": "ㅜ", "is_correct": false },
+                    { "text": "ㅓ", "is_correct": true },
+                    { "text": "ㅏ", "is_correct": false }
+                ]
+            }
+        ]
+    },
+    {
+        "node_title": "Quiz Level 2 Bagian 2",
+        "quiz_title": "Quiz Level 2 Bagian 2",
+        "questions": [
+            {
+                "text": "Which Hangul vowel sounds like \"a\"?",
+                "explanation": "Huruf ㅏ berbunyi 'a' seperti dalam kata 'father'.",
+                "options": [
+                    { "text": "ㅏ", "is_correct": true },
+                    { "text": "ㅓ", "is_correct": false },
+                    { "text": "ㅗ", "is_correct": false },
+                    { "text": "ㅜ", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Which Hangul vowel sounds like \"o\"?",
+                "explanation": "Huruf ㅗ berbunyi 'o' seperti dalam kata 'go'.",
+                "options": [
+                    { "text": "ㅣ", "is_correct": false },
+                    { "text": "ㅏ", "is_correct": false },
+                    { "text": "ㅗ", "is_correct": true },
+                    { "text": "ㅡ", "is_correct": false }
+                ]
+            },
+            {
+                "text": "What is the pronunciation of ㅡ?",
+                "explanation": "Huruf vokal ㅡ dibaca 'eu' seperti 'eu' dalam kata Perancis 'deux'.",
+                "options": [
+                    { "text": "eu", "is_correct": true },
+                    { "text": "u", "is_correct": false },
+                    { "text": "i", "is_correct": false },
+                    { "text": "eo", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Which vowel sounds like \"i\"?",
+                "explanation": "Huruf ㅣ berbunyi 'i' seperti 'ee' pada kata 'see'.",
+                "options": [
+                    { "text": "ㅗ", "is_correct": false },
+                    { "text": "ㅜ", "is_correct": false },
+                    { "text": "ㅓ", "is_correct": false },
+                    { "text": "ㅣ", "is_correct": true }
+                ]
+            },
+            {
+                "text": "Which vowel is pronounced \"eo\"?",
+                "explanation": "Huruf ㅓ dibaca 'eo', bunyi yang tidak umum dalam bahasa Indonesia.",
+                "options": [
+                    { "text": "ㅓ", "is_correct": true },
+                    { "text": "ㅏ", "is_correct": false },
+                    { "text": "ㅗ", "is_correct": false },
+                    { "text": "ㅣ", "is_correct": false }
+                ]
+            }
+        ]
+    },
+    {
+        "node_title": "Quiz Final Level 2",
+        "quiz_title": "Quiz Final Level 2",
+        "questions": [
+            {
+                "text": "What is the pronunciation of ㅏ?",
+                "explanation": "Huruf vokal ㅏ dibaca 'a'.",
+                "options": [
+                    { "text": "a", "is_correct": true },
+                    { "text": "eo", "is_correct": false },
+                    { "text": "o", "is_correct": false },
+                    { "text": "eu", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Which vowel sounds like \"o\"?",
+                "explanation": "Huruf ㅗ berbunyi 'o'.",
+                "options": [
+                    { "text": "ㅏ", "is_correct": false },
+                    { "text": "ㅗ", "is_correct": true },
+                    { "text": "ㅜ", "is_correct": false },
+                    { "text": "ㅓ", "is_correct": false }
+                ]
+            },
+            {
+                "text": "What is the pronunciation of ㅜ?",
+                "explanation": "Huruf vokal ㅜ dibaca 'u'.",
+                "options": [
+                    { "text": "eo", "is_correct": false },
+                    { "text": "eu", "is_correct": false },
+                    { "text": "u", "is_correct": true },
+                    { "text": "i", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Which vowel is pronounced \"i\"?",
+                "explanation": "Huruf ㅣ dibaca 'i'.",
+                "options": [
+                    { "text": "ㅣ", "is_correct": true },
+                    { "text": "ㅡ", "is_correct": false },
+                    { "text": "ㅏ", "is_correct": false },
+                    { "text": "ㅓ", "is_correct": false }
+                ]
+            },
+            {
+                "text": "What is the pronunciation of ㅓ?",
+                "explanation": "Huruf vokal ㅓ dibaca 'eo'.",
+                "options": [
+                    { "text": "o", "is_correct": false },
+                    { "text": "eo", "is_correct": true },
+                    { "text": "eu", "is_correct": false },
+                    { "text": "u", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Which vowel is pronounced \"eu\"?",
+                "explanation": "Huruf ㅡ dibaca 'eu'.",
+                "options": [
+                    { "text": "ㅜ", "is_correct": false },
+                    { "text": "ㅏ", "is_correct": false },
+                    { "text": "ㅣ", "is_correct": false },
+                    { "text": "ㅡ", "is_correct": true }
+                ]
+            },
+            {
+                "text": "Which Hangul vowel sounds like \"u\"?",
+                "explanation": "Huruf ㅜ berbunyi 'u' seperti 'oo' pada kata 'moon'.",
+                "options": [
+                    { "text": "ㅗ", "is_correct": false },
+                    { "text": "ㅜ", "is_correct": true },
+                    { "text": "ㅓ", "is_correct": false },
+                    { "text": "ㅏ", "is_correct": false }
+                ]
+            },
+            {
+                "text": "What is the pronunciation of ㅗ?",
+                "explanation": "Huruf vokal ㅗ dibaca 'o'.",
+                "options": [
+                    { "text": "o", "is_correct": true },
+                    { "text": "eo", "is_correct": false },
+                    { "text": "eu", "is_correct": false },
+                    { "text": "a", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Which vowel is commonly difficult for Indonesian learners?",
+                "explanation": "ㅓ (eo) sulit bagi pembelajar Indonesia karena bunyi ini tidak ada dalam bahasa Indonesia.",
+                "options": [
+                    { "text": "ㅓ (eo)", "is_correct": true },
+                    { "text": "ㅏ (a)", "is_correct": false },
+                    { "text": "ㅗ (o)", "is_correct": false },
+                    { "text": "ㅣ (i)", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Which statement is true?",
+                "explanation": "Setiap suku kata Hangul HARUS memiliki setidaknya satu vokal. Tidak ada suku kata tanpa vokal.",
+                "options": [
+                    {
+                        "text": "A Korean syllable can exist without a vowel.",
+                        "is_correct": false
+                    },
+                    {
+                        "text": "Every Korean syllable must have a vowel.",
+                        "is_correct": true
+                    },
+                    { "text": "Hangul has no vowels.", "is_correct": false },
+                    {
+                        "text": "Vowels are not important in Hangul.",
+                        "is_correct": false
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "node_title": "Quiz Level 3 Bagian 1",
+        "quiz_title": "Quiz Level 3 Bagian 1",
+        "questions": [
+            {
+                "text": "What is the pronunciation of ㄱ?",
+                "explanation": "ㄱ (gieok) dibaca 'g' atau 'k' seperti G atau K dalam alfabet Inggris.",
+                "options": [
+                    { "text": "n", "is_correct": false },
+                    { "text": "g/k", "is_correct": true },
+                    { "text": "m", "is_correct": false },
+                    { "text": "h", "is_correct": false }
+                ]
+            },
+            {
+                "text": "What is the pronunciation of ㄴ?",
+                "explanation": "ㄴ (nieun) dibaca 'n' seperti huruf N dalam alfabet Inggris.",
+                "options": [
+                    { "text": "n", "is_correct": true },
+                    { "text": "m", "is_correct": false },
+                    { "text": "b", "is_correct": false },
+                    { "text": "r", "is_correct": false }
+                ]
+            },
+            {
+                "text": "What is the pronunciation of ㅁ?",
+                "explanation": "ㅁ (mieum) dibaca 'm' seperti huruf M dalam alfabet Inggris.",
+                "options": [
+                    { "text": "n", "is_correct": false },
+                    { "text": "r", "is_correct": false },
+                    { "text": "m", "is_correct": true },
+                    { "text": "h", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Which consonant is pronounced \"h\"?",
+                "explanation": "ㅎ (hieut) dibaca 'h' seperti huruf H dalam alfabet Inggris.",
+                "options": [
+                    { "text": "ㅎ", "is_correct": true },
+                    { "text": "ㅊ", "is_correct": false },
+                    { "text": "ㅈ", "is_correct": false },
+                    { "text": "ㄹ", "is_correct": false }
+                ]
+            },
+            {
+                "text": "What is the pronunciation of ㅂ?",
+                "explanation": "ㅂ (bieup) dibaca 'p' atau 'b' tergantung posisinya dalam kata.",
+                "options": [
+                    { "text": "p/b", "is_correct": true },
+                    { "text": "n", "is_correct": false },
+                    { "text": "j", "is_correct": false },
+                    { "text": "ch", "is_correct": false }
+                ]
+            }
+        ]
+    },
+    {
+        "node_title": "Quiz Level 3 Bagian 2",
+        "quiz_title": "Quiz Level 3 Bagian 2",
+        "questions": [
+            {
+                "text": "Which consonant is pronounced \"j\"?",
+                "explanation": "ㅈ (jieut) dibaca 'j' seperti 'j' pada kata 'jungle'.",
+                "options": [
+                    { "text": "ㅈ", "is_correct": true },
+                    { "text": "ㅅ", "is_correct": false },
+                    { "text": "ㅎ", "is_correct": false },
+                    { "text": "ㄴ", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Which consonant is pronounced \"m\"?",
+                "explanation": "ㅁ (mieum) dibaca 'm' seperti huruf M.",
+                "options": [
+                    { "text": "ㄹ", "is_correct": false },
+                    { "text": "ㅁ", "is_correct": true },
+                    { "text": "ㄷ", "is_correct": false },
+                    { "text": "ㅂ", "is_correct": false }
+                ]
+            },
+            {
+                "text": "What is the pronunciation of ㄹ?",
+                "explanation": "ㄹ (rieul) dibaca 'r' atau 'l' tergantung posisinya dalam suku kata.",
+                "options": [
+                    { "text": "r/l", "is_correct": true },
+                    { "text": "h", "is_correct": false },
+                    { "text": "n", "is_correct": false },
+                    { "text": "m", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Which consonant is pronounced \"s\"?",
+                "explanation": "ㅅ (shiot) dibaca 's' seperti 's' pada kata 'snake'.",
+                "options": [
+                    { "text": "ㅈ", "is_correct": false },
+                    { "text": "ㅊ", "is_correct": false },
+                    { "text": "ㅅ", "is_correct": true },
+                    { "text": "ㅎ", "is_correct": false }
+                ]
+            },
+            {
+                "text": "What is special about ㅇ at the beginning of a syllable?",
+                "explanation": "ㅇ di awal suku kata TIDAK dibaca (silent). Tetapi di akhir suku kata, ㅇ dibaca 'ng'.\nContoh: 아 = a, 강 = gang",
+                "options": [
+                    { "text": "It sounds like \"ng\"", "is_correct": false },
+                    { "text": "It sounds like \"m\"", "is_correct": false },
+                    { "text": "It is silent", "is_correct": true },
+                    { "text": "It sounds like \"n\"", "is_correct": false }
+                ]
+            }
+        ]
+    },
+    {
+        "node_title": "Quiz Final Level 3",
+        "quiz_title": "Quiz Final Level 3",
+        "questions": [
+            {
+                "text": "What is the pronunciation of ㄷ?",
+                "explanation": "ㄷ (digot) dibaca 'd' atau 't' tergantung posisinya.",
+                "options": [
+                    { "text": "d/t", "is_correct": true },
+                    { "text": "n", "is_correct": false },
+                    { "text": "m", "is_correct": false },
+                    { "text": "h", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Which consonant is pronounced \"ch\"?",
+                "explanation": "ㅊ (chieut) dibaca 'ch' seperti 'ch' pada kata 'chair'.",
+                "options": [
+                    { "text": "ㅈ", "is_correct": false },
+                    { "text": "ㅊ", "is_correct": true },
+                    { "text": "ㅅ", "is_correct": false },
+                    { "text": "ㄹ", "is_correct": false }
+                ]
+            },
+            {
+                "text": "What is the pronunciation of ㅎ?",
+                "explanation": "ㅎ (hieut) dibaca 'h' seperti huruf H.",
+                "options": [
+                    { "text": "h", "is_correct": true },
+                    { "text": "j", "is_correct": false },
+                    { "text": "s", "is_correct": false },
+                    { "text": "r", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Which consonant is pronounced \"r/l\"?",
+                "explanation": "ㄹ (rieul) dapat dibaca 'r' atau 'l' tergantung posisi.",
+                "options": [
+                    { "text": "ㄱ", "is_correct": false },
+                    { "text": "ㄹ", "is_correct": true },
+                    { "text": "ㅂ", "is_correct": false },
+                    { "text": "ㅁ", "is_correct": false }
+                ]
+            },
+            {
+                "text": "What is the pronunciation of ㅈ?",
+                "explanation": "ㅈ (jieut) dibaca 'j' seperti 'j' pada kata 'jungle'.",
+                "options": [
+                    { "text": "h", "is_correct": false },
+                    { "text": "j", "is_correct": true },
+                    { "text": "ch", "is_correct": false },
+                    { "text": "s", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Which consonant is silent at the beginning of a syllable?",
+                "explanation": "ㅇ adalah satu-satunya konsonan yang tidak dibaca (silent) di awal suku kata.",
+                "options": [
+                    { "text": "ㅂ", "is_correct": false },
+                    { "text": "ㄴ", "is_correct": false },
+                    { "text": "ㅇ", "is_correct": true },
+                    { "text": "ㅅ", "is_correct": false }
+                ]
+            },
+            {
+                "text": "What is the pronunciation of ㅅ?",
+                "explanation": "ㅅ (shiot) dibaca 's' seperti 's' pada kata 'snake'.",
+                "options": [
+                    { "text": "s", "is_correct": true },
+                    { "text": "h", "is_correct": false },
+                    { "text": "ch", "is_correct": false },
+                    { "text": "j", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Which consonant is pronounced \"m\"?",
+                "explanation": "ㅁ (mieum) dibaca 'm' seperti huruf M.",
+                "options": [
+                    { "text": "ㄹ", "is_correct": false },
+                    { "text": "ㅁ", "is_correct": true },
+                    { "text": "ㄱ", "is_correct": false },
+                    { "text": "ㄷ", "is_correct": false }
+                ]
+            },
+            {
+                "text": "What is the pronunciation of ㄱ?",
+                "explanation": "ㄱ (gieok) dibaca 'g' atau 'k'.",
+                "options": [
+                    { "text": "g/k", "is_correct": true },
+                    { "text": "n", "is_correct": false },
+                    { "text": "r/l", "is_correct": false },
+                    { "text": "h", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Which syllable means \"ga\"?",
+                "explanation": "가 adalah gabungan ㄱ (g) + ㅏ (a) yang dibaca 'ga'.",
+                "options": [
+                    { "text": "나", "is_correct": false },
+                    { "text": "마", "is_correct": false },
+                    { "text": "가", "is_correct": true },
+                    { "text": "하", "is_correct": false }
+                ]
+            }
+        ]
+    },
+    {
+        "node_title": "Quiz Level 4 Bagian 1",
+        "quiz_title": "Quiz Level 4 Bagian 1",
+        "questions": [
+            {
+                "text": "What is the pronunciation of ㅘ?",
+                "explanation": "ㅘ adalah gabungan ㅗ + ㅏ, dibaca 'wa' seperti 'wa' pada kata 'water'.",
+                "options": [
+                    { "text": "wae", "is_correct": false },
+                    { "text": "wa", "is_correct": true },
+                    { "text": "wo", "is_correct": false },
+                    { "text": "wi", "is_correct": false }
+                ]
+            },
+            {
+                "text": "What is the pronunciation of ㅝ?",
+                "explanation": "ㅝ adalah gabungan ㅜ + ㅓ, dibaca 'wo'.",
+                "options": [
+                    { "text": "wa", "is_correct": false },
+                    { "text": "wi", "is_correct": false },
+                    { "text": "wo", "is_correct": true },
+                    { "text": "ui", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Which compound vowel is pronounced \"wi\"?",
+                "explanation": "ㅟ adalah vokal rangkap yang dibaca 'wi'.",
+                "options": [
+                    { "text": "ㅟ", "is_correct": true },
+                    { "text": "ㅚ", "is_correct": false },
+                    { "text": "ㅙ", "is_correct": false },
+                    { "text": "ㅢ", "is_correct": false }
+                ]
+            },
+            {
+                "text": "What is the pronunciation of ㅢ?",
+                "explanation": "ㅢ dibaca 'ui' atau 'eui', vokal rangkap yang unik dalam Hangul.",
+                "options": [
+                    { "text": "ui", "is_correct": true },
+                    { "text": "wi", "is_correct": false },
+                    { "text": "oe", "is_correct": false },
+                    { "text": "we", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Which vowel is pronounced \"wae\"?",
+                "explanation": "ㅙ dibaca 'wae', gabungan ㅗ + ㅐ.",
+                "options": [
+                    { "text": "ㅚ", "is_correct": false },
+                    { "text": "ㅞ", "is_correct": false },
+                    { "text": "ㅙ", "is_correct": true },
+                    { "text": "ㅢ", "is_correct": false }
+                ]
+            }
+        ]
+    },
+    {
+        "node_title": "Quiz Level 4 Bagian 2",
+        "quiz_title": "Quiz Level 4 Bagian 2",
+        "questions": [
+            {
+                "text": "Which compound vowel is formed from ㅗ + ㅏ?",
+                "explanation": "ㅗ + ㅏ = ㅘ (wa). Vokal rangkap dibentuk dengan menggabungkan dua vokal dasar.",
+                "options": [
+                    { "text": "ㅝ", "is_correct": false },
+                    { "text": "ㅘ", "is_correct": true },
+                    { "text": "ㅟ", "is_correct": false },
+                    { "text": "ㅢ", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Which compound vowel is pronounced \"oe\"?",
+                "explanation": "ㅚ dibaca 'oe', bunyi yang mirip dengan 'we' dalam Bahasa Inggris.",
+                "options": [
+                    { "text": "ㅚ", "is_correct": true },
+                    { "text": "ㅙ", "is_correct": false },
+                    { "text": "ㅞ", "is_correct": false },
+                    { "text": "ㅟ", "is_correct": false }
+                ]
+            },
+            {
+                "text": "What is the pronunciation of ㅞ?",
+                "explanation": "ㅞ dibaca 'we', gabungan ㅜ + ㅔ.",
+                "options": [
+                    { "text": "wa", "is_correct": false },
+                    { "text": "oe", "is_correct": false },
+                    { "text": "we", "is_correct": true },
+                    { "text": "ui", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Which compound vowel is pronounced \"wo\"?",
+                "explanation": "ㅝ (wo) adalah gabungan ㅜ + ㅓ.",
+                "options": [
+                    { "text": "ㅝ", "is_correct": true },
+                    { "text": "ㅘ", "is_correct": false },
+                    { "text": "ㅙ", "is_correct": false },
+                    { "text": "ㅚ", "is_correct": false }
+                ]
+            },
+            {
+                "text": "What is the pronunciation of ㅚ?",
+                "explanation": "ㅚ dibaca 'oe' (atau 'we' dalam pengucapan modern).",
+                "options": [
+                    { "text": "oe", "is_correct": true },
+                    { "text": "wae", "is_correct": false },
+                    { "text": "wi", "is_correct": false },
+                    { "text": "we", "is_correct": false }
+                ]
+            }
+        ]
+    },
+    {
+        "node_title": "Quiz Final Level 4",
+        "quiz_title": "Quiz Final Level 4",
+        "questions": [
+            {
+                "text": "What is the pronunciation of ㅘ?",
+                "explanation": "ㅘ dibaca 'wa' (ㅗ + ㅏ).",
+                "options": [
+                    { "text": "wa", "is_correct": true },
+                    { "text": "wo", "is_correct": false },
+                    { "text": "wi", "is_correct": false },
+                    { "text": "ui", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Which compound vowel is pronounced \"we\"?",
+                "explanation": "ㅞ dibaca 'we', gabungan ㅜ + ㅔ.",
+                "options": [
+                    { "text": "ㅙ", "is_correct": false },
+                    { "text": "ㅞ", "is_correct": true },
+                    { "text": "ㅚ", "is_correct": false },
+                    { "text": "ㅢ", "is_correct": false }
+                ]
+            },
+            {
+                "text": "What is the pronunciation of ㅟ?",
+                "explanation": "ㅟ dibaca 'wi'.",
+                "options": [
+                    { "text": "ui", "is_correct": false },
+                    { "text": "wa", "is_correct": false },
+                    { "text": "wi", "is_correct": true },
+                    { "text": "oe", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Which compound vowel is pronounced \"oe\"?",
+                "explanation": "ㅚ dibaca 'oe' atau 'we'.",
+                "options": [
+                    { "text": "ㅚ", "is_correct": true },
+                    { "text": "ㅙ", "is_correct": false },
+                    { "text": "ㅘ", "is_correct": false },
+                    { "text": "ㅝ", "is_correct": false }
+                ]
+            },
+            {
+                "text": "What is the pronunciation of ㅝ?",
+                "explanation": "ㅝ dibaca 'wo' (ㅜ + ㅓ).",
+                "options": [
+                    { "text": "wa", "is_correct": false },
+                    { "text": "wo", "is_correct": true },
+                    { "text": "we", "is_correct": false },
+                    { "text": "wi", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Which vowel is pronounced \"ui\"?",
+                "explanation": "ㅢ dibaca 'ui' atau 'eui'.",
+                "options": [
+                    { "text": "ㅞ", "is_correct": false },
+                    { "text": "ㅚ", "is_correct": false },
+                    { "text": "ㅢ", "is_correct": true },
+                    { "text": "ㅙ", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Which compound vowel is formed from ㅗ + ㅏ?",
+                "explanation": "ㅗ + ㅏ = ㅘ (wa).",
+                "options": [
+                    { "text": "ㅘ", "is_correct": true },
+                    { "text": "ㅝ", "is_correct": false },
+                    { "text": "ㅟ", "is_correct": false },
+                    { "text": "ㅢ", "is_correct": false }
+                ]
+            },
+            {
+                "text": "What is the pronunciation of ㅙ?",
+                "explanation": "ㅙ dibaca 'wae' (ㅗ + ㅐ).",
+                "options": [
+                    { "text": "wae", "is_correct": true },
+                    { "text": "wi", "is_correct": false },
+                    { "text": "we", "is_correct": false },
+                    { "text": "oe", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Which vowel is pronounced \"wo\"?",
+                "explanation": "ㅝ adalah satu-satunya yang dibaca 'wo'.",
+                "options": [
+                    { "text": "ㅞ", "is_correct": false },
+                    { "text": "ㅝ", "is_correct": true },
+                    { "text": "ㅚ", "is_correct": false },
+                    { "text": "ㅟ", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Which statement is true?",
+                "explanation": "Vokal rangkap (compound vowels) dibuat dengan menggabungkan dua vokal dasar.\nContoh: ㅗ + ㅏ = ㅘ",
+                "options": [
+                    {
+                        "text": "Compound vowels are made by combining basic vowels.",
+                        "is_correct": true
+                    },
+                    {
+                        "text": "Compound vowels cannot be used in Korean words.",
+                        "is_correct": false
+                    },
+                    {
+                        "text": "Korean only has basic vowels.",
+                        "is_correct": false
+                    },
+                    {
+                        "text": "Compound vowels are not part of Hangul.",
+                        "is_correct": false
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "node_title": "Quiz Level 5 Bagian 1",
+        "quiz_title": "Quiz Level 5 Bagian 1",
+        "questions": [
+            {
+                "text": "What is the pronunciation of ㄲ?",
+                "explanation": "ㄲ (ssang-gieok) adalah konsonan ganda yang dibaca 'kk', lebih tegas dari ㄱ.",
+                "options": [
+                    { "text": "k", "is_correct": false },
+                    { "text": "kk", "is_correct": true },
+                    { "text": "g", "is_correct": false },
+                    { "text": "ng", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Which double consonant is pronounced \"tt\"?",
+                "explanation": "ㄸ (ssang-digot) dibaca 'tt', versi tegas dari ㄷ.",
+                "options": [
+                    { "text": "ㄲ", "is_correct": false },
+                    { "text": "ㅃ", "is_correct": false },
+                    { "text": "ㄸ", "is_correct": true },
+                    { "text": "ㅉ", "is_correct": false }
+                ]
+            },
+            {
+                "text": "What is the pronunciation of ㅆ?",
+                "explanation": "ㅆ (ssang-shiot) dibaca 'ss', versi tegas dari ㅅ.",
+                "options": [
+                    { "text": "s", "is_correct": false },
+                    { "text": "ss", "is_correct": true },
+                    { "text": "sh", "is_correct": false },
+                    { "text": "ch", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Which double consonant is pronounced \"pp\"?",
+                "explanation": "ㅃ (ssang-bieup) dibaca 'pp', versi tegas dari ㅂ.",
+                "options": [
+                    { "text": "ㅉ", "is_correct": false },
+                    { "text": "ㄲ", "is_correct": false },
+                    { "text": "ㅃ", "is_correct": true },
+                    { "text": "ㄸ", "is_correct": false }
+                ]
+            },
+            {
+                "text": "What is the pronunciation of ㅉ?",
+                "explanation": "ㅉ (ssang-jieut) dibaca 'jj', versi tegas dari ㅈ.",
+                "options": [
+                    { "text": "ch", "is_correct": false },
+                    { "text": "jj", "is_correct": true },
+                    { "text": "j", "is_correct": false },
+                    { "text": "ss", "is_correct": false }
+                ]
+            }
+        ]
+    },
+    {
+        "node_title": "Quiz Level 5 Bagian 2",
+        "quiz_title": "Quiz Level 5 Bagian 2",
+        "questions": [
+            {
+                "text": "Which of the following is a double consonant?",
+                "explanation": "ㅆ (ssang-shiot) adalah konsonan ganda. ㄴ, ㄹ, ㅁ adalah konsonan tunggal.",
+                "options": [
+                    { "text": "ㄴ", "is_correct": false },
+                    { "text": "ㄹ", "is_correct": false },
+                    { "text": "ㅆ", "is_correct": true },
+                    { "text": "ㅁ", "is_correct": false }
+                ]
+            },
+            {
+                "text": "How many basic double consonants are there in Hangul?",
+                "explanation": "Ada 5 konsonan ganda: ㄲ, ㄸ, ㅃ, ㅆ, ㅉ.",
+                "options": [
+                    { "text": "3", "is_correct": false },
+                    { "text": "4", "is_correct": false },
+                    { "text": "5", "is_correct": true },
+                    { "text": "6", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Which pair shows a basic consonant and its double version?",
+                "explanation": "ㄱ → ㄲ adalah pasangan yang benar. Konsonan lainnya memiliki pola yang sama.",
+                "options": [
+                    { "text": "ㄱ → ㄲ", "is_correct": true },
+                    { "text": "ㄴ → ㄵ", "is_correct": false },
+                    { "text": "ㅁ → ㅄ", "is_correct": false },
+                    { "text": "ㅇ → ㅎ", "is_correct": false }
+                ]
+            },
+            {
+                "text": "What is the pronunciation of ㅃ?",
+                "explanation": "ㅃ dibaca 'pp', lebih tegas dari ㅂ (b/p).",
+                "options": [
+                    { "text": "b", "is_correct": false },
+                    { "text": "p", "is_correct": false },
+                    { "text": "pp", "is_correct": true },
+                    { "text": "bb", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Which consonant is pronounced \"ss\"?",
+                "explanation": "ㅆ (ssang-shiot) dibaca 'ss', berbeda dengan ㅅ yang dibaca 's'.",
+                "options": [
+                    { "text": "ㅅ", "is_correct": false },
+                    { "text": "ㅆ", "is_correct": true },
+                    { "text": "ㅈ", "is_correct": false },
+                    { "text": "ㅉ", "is_correct": false }
+                ]
+            }
+        ]
+    },
+    {
+        "node_title": "Quiz Final Level 5",
+        "quiz_title": "Quiz Final Level 5",
+        "questions": [
+            {
+                "text": "What is the pronunciation of ㄲ?",
+                "explanation": "ㄲ dibaca 'kk' (konsonan ganda dari ㄱ).",
+                "options": [
+                    { "text": "k", "is_correct": false },
+                    { "text": "kk", "is_correct": true },
+                    { "text": "g", "is_correct": false },
+                    { "text": "ng", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Which double consonant is pronounced \"pp\"?",
+                "explanation": "ㅃ dibaca 'pp', dari konsonan dasar ㅂ.",
+                "options": [
+                    { "text": "ㄲ", "is_correct": false },
+                    { "text": "ㄸ", "is_correct": false },
+                    { "text": "ㅃ", "is_correct": true },
+                    { "text": "ㅆ", "is_correct": false }
+                ]
+            },
+            {
+                "text": "What is the pronunciation of ㅉ?",
+                "explanation": "ㅉ dibaca 'jj', dari konsonan dasar ㅈ.",
+                "options": [
+                    { "text": "j", "is_correct": false },
+                    { "text": "ch", "is_correct": false },
+                    { "text": "jj", "is_correct": true },
+                    { "text": "ss", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Which double consonant is pronounced \"ss\"?",
+                "explanation": "ㅆ dibaca 'ss', dari konsonan dasar ㅅ.",
+                "options": [
+                    { "text": "ㅅ", "is_correct": false },
+                    { "text": "ㅆ", "is_correct": true },
+                    { "text": "ㅈ", "is_correct": false },
+                    { "text": "ㄷ", "is_correct": false }
+                ]
+            },
+            {
+                "text": "How many basic double consonants are there?",
+                "explanation": "Ada 5 konsonan ganda: ㄲ, ㄸ, ㅃ, ㅆ, ㅉ.",
+                "options": [
+                    { "text": "3", "is_correct": false },
+                    { "text": "4", "is_correct": false },
+                    { "text": "5", "is_correct": true },
+                    { "text": "6", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Which pair is correct?",
+                "explanation": "ㄱ → ㄲ adalah pasangan konsonan dasar ke konsonan ganda yang benar.",
+                "options": [
+                    { "text": "ㄱ → ㄲ", "is_correct": true },
+                    { "text": "ㄴ → ㄲ", "is_correct": false },
+                    { "text": "ㅁ → ㄸ", "is_correct": false },
+                    { "text": "ㅇ → ㅃ", "is_correct": false }
+                ]
+            },
+            {
+                "text": "What is the pronunciation of ㄸ?",
+                "explanation": "ㄸ dibaca 'tt', dari konsonan dasar ㄷ.",
+                "options": [
+                    { "text": "d", "is_correct": false },
+                    { "text": "tt", "is_correct": true },
+                    { "text": "t", "is_correct": false },
+                    { "text": "dd", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Which statement is true?",
+                "explanation": "Konsonan ganda diucapkan dengan lebih tegang (tension) dibanding konsonan biasa.",
+                "options": [
+                    {
+                        "text": "Double consonants are weaker than basic consonants.",
+                        "is_correct": false
+                    },
+                    {
+                        "text": "Double consonants are pronounced with more tension.",
+                        "is_correct": true
+                    },
+                    {
+                        "text": "Double consonants are silent.",
+                        "is_correct": false
+                    },
+                    {
+                        "text": "Double consonants are only used in writing.",
+                        "is_correct": false
+                    }
+                ]
+            },
+            {
+                "text": "What is the pronunciation of ㅃ?",
+                "explanation": "ㅃ dibaca 'pp' (lebih tegas dari ㅂ).",
+                "options": [
+                    { "text": "pp", "is_correct": true },
+                    { "text": "p", "is_correct": false },
+                    { "text": "b", "is_correct": false },
+                    { "text": "bb", "is_correct": false }
+                ]
+            },
+            {
+                "text": "Which of these is NOT a double consonant?",
+                "explanation": "ㄴ (nieun) adalah konsonan tunggal, bukan konsonan ganda. 5 konsonan ganda: ㄲ, ㄸ, ㅃ, ㅆ, ㅉ.",
+                "options": [
+                    { "text": "ㄲ", "is_correct": false },
+                    { "text": "ㅆ", "is_correct": false },
+                    { "text": "ㅉ", "is_correct": false },
+                    { "text": "ㄴ", "is_correct": true }
+                ]
+            }
+        ]
+    }
+]

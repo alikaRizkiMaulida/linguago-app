@@ -16,6 +16,8 @@ use Laravel\Sanctum\HasApiTokens;
         'password',
         'name',
         'avatar_url',
+        'bio',
+        'birthday',
         'total_xp',
         'level',
         'current_streak',
@@ -44,5 +46,66 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password'          => 'hashed',
         ];
+    }
+
+    public function streakLogs()
+    {
+        return $this->hasMany(StreakLog::class);
+    }
+
+    public function shadowingAttempts()
+    {
+        return $this->hasMany(UserShadowingAttempt::class);
+    }
+
+    public function writingProgresses()
+    {
+        return $this->hasMany(UserWritingProgress::class);
+    }
+
+    public function achievements()
+    {
+        return $this->belongsToMany(Achievement::class, 'user_achievements', 'user_id', 'achievement_id')
+                    ->withPivot('earned_at');
+    }
+
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'following_id', 'follower_id')
+                    ->withPivot('followed_at');
+    }
+
+    public function following()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'follower_id', 'following_id')
+                    ->withPivot('followed_at');
+    }
+
+    public function xpLogs()
+    {
+        return $this->hasMany(XpLog::class);
+    }
+
+    public function nodeProgresses()
+    {
+        return $this->hasMany(UserNodeProgress::class);
+    }
+
+    public function videoProgresses()
+    {
+        return $this->hasMany(UserVideoProgress::class);
+    }
+
+    public function quizAttempts()
+    {
+        return $this->hasMany(UserQuizAttempt::class);
+    }
+
+    public function conversations()
+    {
+        return $this->belongsToMany(Conversation::class, 'conversation_user')
+            ->withPivot('joined_at')
+            ->withTimestamps()
+            ->latest('updated_at');
     }
 }

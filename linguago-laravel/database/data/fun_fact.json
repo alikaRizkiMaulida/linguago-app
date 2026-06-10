@@ -1,0 +1,302 @@
+[
+  {
+    "node_title": "Fun Fact Alphabet",
+    "cards": [
+      {
+        "title": "English has silent letters",
+        "description": "Some English words have letters that are not pronounced, like:\nknee\nhour\nknife\n\nSilent letters are tricky.",
+        "svg_asset": "assets/Frame1000001900.svg"
+      },
+      {
+        "title": "\"e\" is the most used letter",
+        "description": "The letter E is the most commonly used letter in English words. You can find it in words like:\nsee\npeople",
+        "svg_asset": "assets/Frame1000001904.svg"
+      },
+      {
+        "title": "English words from many languages",
+        "description": "English has borrowed words from many languages like French, Latin, Korean, and Japanese. That's why some English words can sound and look very different.",
+        "svg_asset": "assets/Frame1000001909.svg"
+      },
+      {
+        "title": "One letter can have many sounds",
+        "description": "English letters can sound different depending on the word.\n\nExample:\na in \"name\"\na in \"car\"",
+        "svg_asset": "assets/Frame1000001911.svg"
+      },
+      {
+        "title": "English is spoken worldwide",
+        "description": "English is used by millions of people worldwide for communication, school, travel, and entertainment. That's why it is one of the most important international languages today.",
+        "svg_asset": "assets/Frame1000001918.svg"
+      }
+    ]
+  },
+  {
+    "node_title": "Fun Fact Numbers",
+    "cards": [
+      {
+        "title": "Zero Was Not Always Used",
+        "description": "The number zero was not part of many ancient number systems. Today, it is one of the most important numbers in mathematics and technology.",
+        "svg_asset": "assets/Frame1000001900.svg"
+      },
+      {
+        "title": "English Uses Special Number Words",
+        "description": "Some English numbers have unique names that do not follow regular patterns, such as eleven and twelve. This is why they must be memorized.",
+        "svg_asset": "assets/Frame1000001904.svg"
+      },
+      {
+        "title": "Forty Has No \"U\"",
+        "description": "Many learners mistakenly write fourty, but the correct spelling is forty. It is one of the most common spelling mistakes in English.",
+        "svg_asset": "assets/Frame1000001909.svg"
+      },
+      {
+        "title": "Numbers Are Everywhere",
+        "description": "English numbers are used in daily life for telling time, reading prices, sharing phone numbers, and talking about age.",
+        "svg_asset": "assets/Frame1000001911.svg"
+      },
+      {
+        "title": "One Hundred Is a Milestone Number",
+        "description": "The number 100 is often used to represent a complete set, a perfect score, or an important achievement in many countries.",
+        "svg_asset": "assets/Frame1000001918.svg"
+      }
+    ]
+  },
+  {
+    "node_title": "Fun Fact Dates",
+    "cards": [
+      {
+        "title": "English Uses Ordinal Numbers for Dates",
+        "description": "When reading dates, English uses ordinal numbers such as first, second, and third, instead of regular numbers.",
+        "svg_asset": "assets/Frame1000001900.svg"
+      },
+      {
+        "title": "Not All Ordinal Numbers End the Same Way",
+        "description": "Most ordinal numbers end in -th, but some are unique, such as first, second, and third.",
+        "svg_asset": "assets/Frame1000001904.svg"
+      },
+      {
+        "title": "Month Names Always Start with a Capital Letter",
+        "description": "In English, month names like January, April, and December always begin with a capital letter.",
+        "svg_asset": "assets/Frame1000001909.svg"
+      },
+      {
+        "title": "Dates Can Be Written Differently",
+        "description": "Some countries write dates as Month-Day-Year, while others use Day-Month-Year. The pronunciation usually stays the same.",
+        "svg_asset": "assets/Frame1000001911.svg"
+      },
+      {
+        "title": "Dates Are Used Every Day",
+        "description": "People use dates for birthdays, holidays, appointments, school schedules, and many other activities.",
+        "svg_asset": "assets/Frame1000001918.svg"
+      }
+    ]
+  },
+  {
+    "node_title": "Fun Fact Days",
+    "cards": [
+      {
+        "title": "Days Are Always Capitalized",
+        "description": "In English, the names of days always begin with a capital letter, such as Monday, Tuesday, and Sunday.",
+        "svg_asset": "assets/Frame1000001900.svg"
+      },
+      {
+        "title": "Sunday Was Named After the Sun",
+        "description": "The word Sunday comes from the Sun, while Monday comes from the Moon.",
+        "svg_asset": "assets/Frame1000001904.svg"
+      },
+      {
+        "title": "There Are 168 Hours in a Week",
+        "description": "A week has 7 days, and each day has 24 hours, making a total of 168 hours.",
+        "svg_asset": "assets/Frame1000001909.svg"
+      },
+      {
+        "title": "Weekend Traditions Differ Around the World",
+        "description": "In many countries, the weekend is Saturday and Sunday, but some countries have different weekend schedules.",
+        "svg_asset": "assets/Frame1000001911.svg"
+      },
+      {
+        "title": "Days Help Us Organize Time",
+        "description": "People use days of the week to plan school, work, meetings, holidays, and daily activities.",
+        "svg_asset": "assets/Frame1000001918.svg"
+      }
+    ]
+  },
+  {
+    "node_title": "Fun Fact Months",
+    "cards": [
+      {
+        "title": "July and August Are Named After Roman Leaders",
+        "description": "July was named after Julius Caesar, and August was named after Augustus Caesar.",
+        "svg_asset": "assets/Frame1000001900.svg"
+      },
+      {
+        "title": "February Is the Shortest Month",
+        "description": "February usually has 28 days, but it has 29 days during a leap year.",
+        "svg_asset": "assets/Frame1000001904.svg"
+      },
+      {
+        "title": "Month Names Always Start with a Capital Letter",
+        "description": "In English, month names such as January, May, and December always begin with a capital letter.",
+        "svg_asset": "assets/Frame1000001909.svg"
+      },
+      {
+        "title": "There Are Four Seasons in a Year",
+        "description": "Many countries divide the year into four seasons: Spring, Summer, Autumn (Fall), and Winter.",
+        "svg_asset": "assets/Frame1000001911.svg"
+      },
+      {
+        "title": "Some Holidays Are Named After Months",
+        "description": "For example, Halloween is celebrated in October, while Christmas is celebrated in December.",
+        "svg_asset": "assets/Frame1000001918.svg"
+      }
+    ]
+  },
+  {
+    "node_title": "Fun Fact Hangul",
+    "cards": [
+      {
+        "title": "Hangul Was Created by a King!",
+        "description": "Hangul was created by King Sejong in 1443 to help ordinary people read and write more easily. Before Hangul, Korean people used difficult Chinese characters.",
+        "svg_asset": "assets/Frame1000001900.svg"
+      },
+      {
+        "title": "Hangul Is One of the Easiest Alphabets",
+        "description": "Hangul is known as one of the easiest alphabets to learn because the letters follow simple patterns. Many beginners can start reading Korean in just a few days.",
+        "svg_asset": "assets/Frame1000001904.svg"
+      },
+      {
+        "title": "K-pop Fans Often Learn Hangul First",
+        "description": "Many international fans learning Korean through:\n- song lyrics\n- idol names\n- dramas subtitles\n\nSo, Start with Hangul first!",
+        "svg_asset": "assets/Frame1000001909.svg"
+      },
+      {
+        "title": "Korean Sounds Can Change",
+        "description": "Some Korean letters can sound slightly different depending on where they are placed in a word.\nExample: ㄱ can sound like \"G\" or \"K\".",
+        "svg_asset": "assets/Frame1000001911.svg"
+      },
+      {
+        "title": "Hangul Has a Special Day in Korea",
+        "description": "South Korea celebrates Hangul Day every October 9th to honor the Korean alphabet created by King Sejong. Hangul helped many people learn to read and write more easily.",
+        "svg_asset": "assets/Frame1000001918.svg"
+      }
+    ]
+  },
+  {
+    "node_title": "Fun Fact Vowels",
+    "cards": [
+      {
+        "title": "Hangul Vowels Follow a Pattern",
+        "description": "Most Hangul vowels are created using simple lines and dots. Once you understand the pattern, learning new vowels becomes much easier.",
+        "svg_asset": "assets/Frame1000001900.svg"
+      },
+      {
+        "title": "Korean Has Sounds That Don't Exist in Indonesian",
+        "description": "Sounds like ㅓ (eo) and ㅡ (eu) can be unfamiliar to Indonesian learners because they do not exist in everyday Indonesian pronunciation.",
+        "svg_asset": "assets/Frame1000001904.svg"
+      },
+      {
+        "title": "Hangul Was Designed to Be Easy to Learn",
+        "description": "Hangul was created in 1443 by King Sejong and his scholars so that ordinary people could learn to read and write more easily.",
+        "svg_asset": "assets/Frame1000001909.svg"
+      },
+      {
+        "title": "Every Korean Syllable Needs a Vowel",
+        "description": "Unlike some languages, every Hangul syllable must contain at least one vowel.\n\nExamples:\n아 (a)\n오 (o)\n우 (u)",
+        "svg_asset": "assets/Frame1000001911.svg"
+      },
+      {
+        "title": "Vowels Help Create Thousands of Korean Words",
+        "description": "By combining a few vowels with consonants, you can already read and pronounce many basic Korean words.",
+        "svg_asset": "assets/Frame1000001918.svg"
+      }
+    ]
+  },
+  {
+    "node_title": "Fun Fact Consonants",
+    "cards": [
+      {
+        "title": "Hangul Consonants Were Inspired by the Mouth",
+        "description": "Several Hangul consonants were designed based on the shape of the mouth and tongue when making the sound.\n\nFor example, ㄴ represents the tongue touching the upper gums.",
+        "svg_asset": "assets/Frame1000001900.svg"
+      },
+      {
+        "title": "ㅇ Has Two Different Functions",
+        "description": "The consonant ㅇ is silent at the beginning of a syllable, but sounds like \"ng\" when it appears at the end.\n\nExamples:\n아 → a\n강 → gang",
+        "svg_asset": "assets/Frame1000001904.svg"
+      },
+      {
+        "title": "Korean Has Fewer Consonants Than English",
+        "description": "Modern Korean uses only 14 basic consonants, making them easier to memorize than many learners expect.",
+        "svg_asset": "assets/Frame1000001909.svg"
+      },
+      {
+        "title": "Consonants Cannot Stand Alone",
+        "description": "In Korean, consonants usually need a vowel to create a complete syllable block.\n\nExample:\nㄱ + ㅏ = 가 (ga)\nㄴ + ㅏ = 나 (na)",
+        "svg_asset": "assets/Frame1000001911.svg"
+      },
+      {
+        "title": "You Can Already Read Simple Korean Words",
+        "description": "Once you know basic vowels and consonants, you can start reading many simple Korean syllables and words.",
+        "svg_asset": "assets/Frame1000001918.svg"
+      }
+    ]
+  },
+  {
+    "node_title": "Fun Fact Compound Vowels",
+    "cards": [
+      {
+        "title": "Compound Vowels Are Made from Basic Vowels",
+        "description": "Many Korean vowels are created by combining two basic vowels together.\n\nExample:\nㅗ + ㅏ = ㅘ (wa)\nㅜ + ㅓ = ㅝ (wo)",
+        "svg_asset": "assets/Frame1000001900.svg"
+      },
+      {
+        "title": "Some Compound Vowels Sound Similar",
+        "description": "In modern Korean, vowels like ㅐ and ㅔ are often pronounced very similarly by native speakers.",
+        "svg_asset": "assets/Frame1000001904.svg"
+      },
+      {
+        "title": "Compound Vowels Are Everywhere",
+        "description": "Many common Korean words contain compound vowels, so learning them will help you read more naturally.",
+        "svg_asset": "assets/Frame1000001909.svg"
+      },
+      {
+        "title": "Hangul Uses Logical Patterns",
+        "description": "Once you understand how basic vowels combine, it's easier to remember compound vowels because they follow consistent patterns.",
+        "svg_asset": "assets/Frame1000001911.svg"
+      },
+      {
+        "title": "Compound Vowels Make Korean More Expressive",
+        "description": "By combining vowels, Korean can create many different sounds while still using a simple writing system.",
+        "svg_asset": "assets/Frame1000001918.svg"
+      }
+    ]
+  },
+  {
+    "node_title": "Fun Fact Double Consonants",
+    "cards": [
+      {
+        "title": "Double Consonants Sound Stronger",
+        "description": "Double consonants are pronounced with more tension and emphasis than basic consonants. They are not simply pronounced louder.",
+        "svg_asset": "assets/Frame1000001900.svg"
+      },
+      {
+        "title": "Korean Learners Often Mix Them Up",
+        "description": "Many beginners confuse ㄱ and ㄲ, ㄷ and ㄸ, or ㅂ and ㅃ because the differences can be subtle at first.",
+        "svg_asset": "assets/Frame1000001904.svg"
+      },
+      {
+        "title": "Double Consonants Can Change Meaning",
+        "description": "A small pronunciation difference can create a completely different word.\n\nExample:\n가 (ga)\n까 (kka)",
+        "svg_asset": "assets/Frame1000001909.svg"
+      },
+      {
+        "title": "Not Every Consonant Has a Double Version",
+        "description": "Only five consonants have official double forms:\n\nㄲ\nㄸ\nㅃ\nㅆ\nㅉ",
+        "svg_asset": "assets/Frame1000001911.svg"
+      },
+      {
+        "title": "Native Speakers Use Them Every Day",
+        "description": "Double consonants appear in many common Korean words, making them an important part of everyday communication.",
+        "svg_asset": "assets/Frame1000001918.svg"
+      }
+    ]
+  }
+]
