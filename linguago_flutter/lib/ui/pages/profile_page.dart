@@ -7,6 +7,7 @@ import 'package:linguago_flutter/data/datasource/auth_local_datasource.dart';
 import 'package:linguago_flutter/ui/pages/account_setting_page.dart';
 import 'package:linguago_flutter/ui/pages/notification_setting_page.dart';
 import 'package:linguago_flutter/ui/pages/language_setting_page.dart';
+import 'package:linguago_flutter/ui/pages/saved_lesson.dart';
 import 'package:linguago_flutter/ui/pages/privacy_policy_page.dart';
 import 'package:linguago_flutter/ui/pages/delete_account_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -380,6 +381,16 @@ class _ProfilePageState extends State<ProfilePage> {
                   subtitle: 'Daily Goal, Study Reminder',
                   onTap: () {
                     Navigator.push(context, MaterialPageRoute(builder: (_) => const NotificationSettingPage()));
+                  },
+                ),
+                _SettingTile(
+                  icon: Icons.bookmark_rounded,
+                  iconColor: Colors.white,
+                  iconBgColor: const Color(0xFF6DE0C2),
+                  title: 'Saved Lessons',
+                  subtitle: 'View your saved lessons',
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (_) => const SavedLessonsPage()));
                   },
                 ),
                 _SettingTile(

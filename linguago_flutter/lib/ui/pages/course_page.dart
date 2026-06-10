@@ -132,7 +132,6 @@ class _CoursePageState extends State<CoursePage> with SingleTickerProviderStateM
                           final double xOffset = math.sin(index * 0.8) * 85.0;
                           final double x = (screenWidth / 2) - (tileWidth / 2) + xOffset;
 
-                          final bool isStartNode = index == 0;
                           final bool isActiveNode = index == (unlockedPart - 1);
                           final bool isLocked = index >= unlockedPart;
 
@@ -144,7 +143,7 @@ class _CoursePageState extends State<CoursePage> with SingleTickerProviderStateM
                               height: tileHeight,
                               isLocked: isLocked,
                               isActive: isActiveNode,
-                              showArrow: isStartNode,
+                              showArrow: index % 5 == 0,
                               onTap: () {
                                 if (!isLocked) {
                                   final int stepNum = index + 1;

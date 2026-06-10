@@ -13,9 +13,6 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> {
-  final TextEditingController _searchCtrl = TextEditingController();
-  String _searchQuery = '';
-
   @override
   void initState() {
     super.initState();
@@ -25,29 +22,14 @@ class _ChatPageState extends State<ChatPage> {
   @override
   void dispose() {
     ChatStore.instance.removeListener(_onStoreChanged);
-    _searchCtrl.dispose();
     super.dispose();
   }
 
   void _onStoreChanged() => setState(() {});
 
-  List<ChatConversation> get _filtered {
-    final all = ChatStore.instance.conversations;
-    if (_searchQuery.isEmpty) return all;
-    return all
-        .where((c) =>
-            c.friendName
-                .toLowerCase()
-                .contains(_searchQuery.toLowerCase()) ||
-            c.lastMessage
-                .toLowerCase()
-                .contains(_searchQuery.toLowerCase()))
-        .toList();
-  }
-
   @override
   Widget build(BuildContext context) {
-    final convs = _filtered;
+    final convs = ChatStore.instance.conversations;
 
     return Scaffold(
       backgroundColor: const Color(0xFFF3EEFB),
@@ -69,43 +51,6 @@ class _ChatPageState extends State<ChatPage> {
               ),
             ),
 
-            // ── Search Bar ───────────────────────────────────────────────────
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Container(
-                height: 44,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(16),
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppColors.primaryPurple.withValues(alpha: 0.07),
-                      blurRadius: 10,
-                      offset: const Offset(0, 3),
-                    ),
-                  ],
-                ),
-                child: TextField(
-                  controller: _searchCtrl,
-                  onChanged: (v) => setState(() => _searchQuery = v),
-                  style: TextStyle(fontSize: 13, color: AppColors.primaryText),
-                  decoration: InputDecoration(
-                    hintText: 'Search friends...',
-                    hintStyle: TextStyle(
-                      fontSize: 13,
-                      color: AppColors.secondaryText.withValues(alpha: 0.6),
-                    ),
-                    prefixIcon: Icon(
-                      Icons.search_rounded,
-                      color: AppColors.secondaryText,
-                      size: 20,
-                    ),
-                    border: InputBorder.none,
-                    contentPadding: const EdgeInsets.symmetric(vertical: 12),
-                  ),
-                ),
-              ),
-            ),
             const SizedBox(height: 16),
 
             // ── Conversation List ────────────────────────────────────────────

@@ -351,7 +351,11 @@ class _StatsRow extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               _StatChip(
-                icon: '❤️',
+                icon: SvgPicture.asset(
+                  'assets/noto-v1_heart-suit.svg',
+                  width: 18,
+                  height: 18,
+                ),
                 label: 'Heart',
                 value: '${QuizProgress.hearts} / 5',
                 iconBg: const Color(0xFFFFF0F0),
@@ -366,11 +370,15 @@ class _StatsRow extends StatelessWidget {
                   onRefresh();
                 },
                 behavior: HitTestBehavior.opaque,
-                child: const _StatChip(
-                  icon: '🔥',
+                child: _StatChip(
+                  icon: SvgPicture.asset(
+                    'assets/noto_fire.svg',
+                    width: 18,
+                    height: 18,
+                  ),
                   label: 'Streak',
                   value: '1 Days',
-                  iconBg: Color(0xFFFFF4EC),
+                  iconBg: const Color(0xFFFFF4EC),
                 ),
               ),
               _VertDivider(),
@@ -384,7 +392,7 @@ class _StatsRow extends StatelessWidget {
                 },
                 behavior: HitTestBehavior.opaque,
                 child: _StatChip(
-                  icon: '🪙',
+                  icon: const Text('🪙', style: TextStyle(fontSize: 18)),
                   label: 'Reward',
                   value: '${QuizProgress.coins} Coins',
                   iconBg: const Color(0xFFFFFBEC),
@@ -399,7 +407,7 @@ class _StatsRow extends StatelessWidget {
 }
 
 class _StatChip extends StatelessWidget {
-  final String icon;
+  final Widget icon;
   final String label;
   final String value;
   final Color iconBg;
@@ -420,7 +428,7 @@ class _StatChip extends StatelessWidget {
           height: 36,
           decoration: BoxDecoration(color: iconBg, shape: BoxShape.circle),
           child: Center(
-              child: Text(icon, style: const TextStyle(fontSize: 18))),
+              child: icon),
         ),
         const SizedBox(width: 8),
         Column(
@@ -1226,7 +1234,7 @@ class _LevelMapCardState extends State<_LevelMapCard>
       Navigator.push(
         context,
         MaterialPageRoute<void>(
-          builder: (_) => const QuizIntroScreen(),
+          builder: (_) => const QuizScreen(part: 5),
         ),
       ).then((_) => setState(() {}));
     } else if (nodeIndex == 5) {
@@ -1242,7 +1250,7 @@ class _LevelMapCardState extends State<_LevelMapCard>
       Navigator.push(
         context,
         MaterialPageRoute<void>(
-          builder: (_) => const QuizIntroScreen(), // Assuming intro screen or just QuizScreen(part: 7)
+          builder: (_) => const QuizIntroScreen(level: 2),
         ),
       ).then((_) => setState(() {}));
     } else if (nodeIndex == 7) {
@@ -1250,7 +1258,7 @@ class _LevelMapCardState extends State<_LevelMapCard>
       Navigator.push(
         context,
         MaterialPageRoute<void>(
-          builder: (_) => const QuizIntroScreen(),
+          builder: (_) => const QuizIntroScreen(level: 2),
         ),
       ).then((_) => setState(() {}));
     } else if (nodeIndex == 8) {
@@ -1266,7 +1274,7 @@ class _LevelMapCardState extends State<_LevelMapCard>
       Navigator.push(
         context,
         MaterialPageRoute<void>(
-          builder: (_) => const QuizIntroScreen(),
+          builder: (_) => const QuizScreen(part: 10),
         ),
       ).then((_) => setState(() {}));
     }

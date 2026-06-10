@@ -3,6 +3,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:linguago_flutter/data/datasource/auth_local_datasource.dart';
 
 class QuizProgress {
+  static VoidCallback? onDailyGoalCompleted;
+
   /// Unlocked part index:
   /// 1 = Part 1 unlocked (Part 2, 3 locked)
   /// 2 = Part 1 & 2 unlocked (Part 3 locked)
@@ -116,11 +118,15 @@ class QuizProgress {
 
   /// Update and save xp to SharedPreferences
   static Future<void> setXp(int value) async {
+    final bool xpThresholdPassed = xp < 450 && value >= 450;
     xp = value;
     try {
       final prefix = await _getPrefix();
       final prefs = await SharedPreferences.getInstance();
       await prefs.setInt('$prefix$_keyXp', value);
+      if (xpThresholdPassed) {
+        onDailyGoalCompleted?.call();
+      }
     } catch (e) {
       // ignore
     }

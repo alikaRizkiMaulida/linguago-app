@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:linguago_flutter/core/constants/colors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class NotificationSettingPage extends StatefulWidget {
   const NotificationSettingPage({super.key});
@@ -12,7 +13,48 @@ class NotificationSettingPage extends StatefulWidget {
 class _NotificationSettingPageState extends State<NotificationSettingPage> {
   bool _dailyGoal = true;
   bool _studyReminder = true;
+  bool _chatMessage = true;
   bool _soundEffect = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadPrefs();
+  }
+
+  Future<void> _loadPrefs() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _dailyGoal = prefs.getBool('daily_goal_notification') ?? true;
+      _chatMessage = prefs.getBool('chat_notification') ?? true;
+      _studyReminder = prefs.getBool('study_reminder_notification') ?? true;
+      _soundEffect = prefs.getBool('sound_effect_notification') ?? true;
+    });
+  }
+
+  Future<void> _setDailyGoalNotif(bool v) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('daily_goal_notification', v);
+    setState(() => _dailyGoal = v);
+  }
+
+  Future<void> _setChatNotif(bool v) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('chat_notification', v);
+    setState(() => _chatMessage = v);
+  }
+
+  Future<void> _setStudyReminderNotif(bool v) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('study_reminder_notification', v);
+    setState(() => _studyReminder = v);
+  }
+
+  Future<void> _setSoundEffectNotif(bool v) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('sound_effect_notification', v);
+    setState(() => _soundEffect = v);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,44 +82,74 @@ class _NotificationSettingPageState extends State<NotificationSettingPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Notifications',
-              style: TextStyle(
-                fontSize: 12,
-                color: AppColors.primaryPurple,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            const SizedBox(height: 8),
             Container(
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(16),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.04),
+                    blurRadius: 10,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
               ),
+              padding: const EdgeInsets.only(top: 16, bottom: 8),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _buildSwitchTile('Daily Goal', _dailyGoal, (v) => setState(() => _dailyGoal = v)),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Text(
+                      'Notifications',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: AppColors.primaryPurple,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  _buildSwitchTile('Daily Goal', _dailyGoal, _setDailyGoalNotif),
                   const Divider(height: 1, indent: 20, endIndent: 20, color: AppColors.backgroundSoft),
-                  _buildSwitchTile('Study Reminder', _studyReminder, (v) => setState(() => _studyReminder = v)),
+                  _buildSwitchTile('Study Reminder', _studyReminder, _setStudyReminderNotif),
+                  const Divider(height: 1, indent: 20, endIndent: 20, color: AppColors.backgroundSoft),
+                  _buildSwitchTile('Chat Messages', _chatMessage, _setChatNotif),
                 ],
               ),
             ),
             const SizedBox(height: 24),
-            Text(
-              'Sound',
-              style: TextStyle(
-                fontSize: 12,
-                color: AppColors.primaryPurple,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            const SizedBox(height: 8),
             Container(
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(16),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.04),
+                    blurRadius: 10,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
               ),
-              child: _buildSwitchTile('Sound Effect', _soundEffect, (v) => setState(() => _soundEffect = v)),
+              padding: const EdgeInsets.only(top: 16, bottom: 8),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Text(
+                      'Sound',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: AppColors.primaryPurple,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  _buildSwitchTile('Sound Effect', _soundEffect, _setSoundEffectNotif),
+                ],
+              ),
             ),
           ],
         ),
@@ -117,7 +189,7 @@ class _NotificationSettingPageState extends State<NotificationSettingPage> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(11),
                         color: value
-                            ? AppColors.disableBorder
+                            ? AppColors.secondary
                             : const Color(0xFFC9C6CF),
                       ),
                     ),

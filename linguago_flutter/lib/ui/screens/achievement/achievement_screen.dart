@@ -1,121 +1,126 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:linguago_flutter/core/constants/colors.dart';
+import 'package:linguago_flutter/core/constants/quiz_state.dart';
 
-/// Layar Achievement — menampilkan daftar pencapaian user.
+/// Layar Achievement — menampilkan daftar pencapaian user secara dinamis.
 class AchievementScreen extends StatelessWidget {
   const AchievementScreen({super.key});
 
-  static const List<Map<String, dynamic>> _achievements = [
-    {
-      'svg': 'assets/Group 36772.svg',
-      'title': 'Try all learning\nfeatures',
-      'unlocked': true,
-      'progress': 1.0,
-      'color': Color(0xFF7EC8E3),
-    },
-    {
-      'svg': 'assets/Group 36773.svg',
-      'title': 'Answer\nquizzes quickly',
-      'unlocked': true,
-      'progress': 1.0,
-      'color': Color(0xFFFFDFA0),
-    },
-    {
-      'svg': 'assets/Group 36774.svg',
-      'title': 'Completed\nlessons',
-      'unlocked': true,
-      'progress': 1.0,
-      'color': Color(0xFFC8A2C8),
-    },
-    {
-      'svg': 'assets/Group 36775.svg',
-      'title': 'Unlimited quiz\nhearts',
-      'unlocked': true,
-      'progress': 1.0,
-      'color': Color(0xFFFFB3BA),
-    },
-    {
-      'svg': 'assets/Group 36776-1.svg',
-      'title': 'Maintain a long\nlearning streak',
-      'unlocked': true,
-      'progress': 1.0,
-      'color': Color(0xFFE57373),
-    },
-    {
-      'svg': 'assets/Group 36778.svg',
-      'title': 'Reach top 3 on\nleaderboard',
-      'unlocked': false,
-      'progress': 0.0,
-      'color': Colors.transparent,
-    },
-    {
-      'svg': 'assets/Group 36779.svg',
-      'title': 'Complete many\nreading lessons',
-      'unlocked': false,
-      'progress': 0.0,
-      'color': Colors.transparent,
-    },
-    {
-      'svg': 'assets/Group 36780.svg',
-      'title': 'Keep learning\nafter quizzes',
-      'unlocked': false,
-      'progress': 0.0,
-      'color': Colors.transparent,
-    },
-    {
-      'svg': 'assets/Group 36780-1.svg',
-      'title': 'Reach rank #1\non leaderboard',
-      'unlocked': false,
-      'progress': 0.0,
-      'color': Colors.transparent,
-    },
-    {
-      'svg': 'assets/Group 36781.svg',
-      'title': 'Finish lessons\nsmoothly',
-      'unlocked': false,
-      'progress': 0.0,
-      'color': Colors.transparent,
-    },
-    {
-      'svg': 'assets/Group 36785.svg',
-      'title': 'Collect many\ngems/rewards',
-      'unlocked': false,
-      'progress': 0.0,
-      'color': Colors.transparent,
-    },
-    {
-      'svg': 'assets/Group 36786.svg',
-      'title': 'Complete a full\nlesson perfectly',
-      'unlocked': false,
-      'progress': 0.0,
-      'color': Colors.transparent,
-    },
-    {
-      'svg': 'assets/Group 36796.svg',
-      'title': 'Maintain a long\nlearning streak',
-      'unlocked': false,
-      'progress': 0.0,
-      'color': Colors.transparent,
-    },
-    {
-      'svg': 'assets/Group 36787.svg',
-      'title': 'Reach rank #2\non leaderboard',
-      'unlocked': false,
-      'progress': 0.0,
-      'color': Colors.transparent,
-    },
-    {
-      'svg': 'assets/Group 36788.svg',
-      'title': 'Get multiple\ncorrect answers',
-      'unlocked': false,
-      'progress': 0.0,
-      'color': Colors.transparent,
-    },
-  ];
+  List<Map<String, dynamic>> _getDynamicAchievements() {
+    return [
+      {
+        'svg': 'assets/Group 36772.svg',
+        'title': 'Try all learning\nfeatures',
+        'unlocked': QuizProgress.unlockedPart >= 2,
+        'progress': (QuizProgress.unlockedPart / 3).clamp(0.0, 1.0),
+        'color': const Color(0xFF7EC8E3),
+      },
+      {
+        'svg': 'assets/Group 36773.svg',
+        'title': 'Answer\nquizzes quickly',
+        'unlocked': QuizProgress.coins >= 20,
+        'progress': (QuizProgress.coins / 20).clamp(0.0, 1.0),
+        'color': const Color(0xFFFFDFA0),
+      },
+      {
+        'svg': 'assets/Group 36774.svg',
+        'title': 'Completed\nlessons',
+        'unlocked': QuizProgress.xp >= 450,
+        'progress': ((QuizProgress.xp - 400) / 50).clamp(0.0, 1.0),
+        'color': const Color(0xFFC8A2C8),
+      },
+      {
+        'svg': 'assets/Group 36775.svg',
+        'title': 'Unlimited quiz\nhearts',
+        'unlocked': QuizProgress.hearts >= 5,
+        'progress': (QuizProgress.hearts / 5).clamp(0.0, 1.0),
+        'color': const Color(0xFFFFB3BA),
+      },
+      {
+        'svg': 'assets/Group 36776-1.svg',
+        'title': 'Maintain a long\nlearning streak',
+        'unlocked': QuizProgress.checkInDays >= 3,
+        'progress': (QuizProgress.checkInDays / 3).clamp(0.0, 1.0),
+        'color': const Color(0xFFE57373),
+      },
+      {
+        'svg': 'assets/Group 36778.svg',
+        'title': 'Reach top 3 on\nleaderboard',
+        'unlocked': QuizProgress.xp >= 600,
+        'progress': (QuizProgress.xp / 600).clamp(0.0, 1.0),
+        'color': const Color(0xFFFFD54F),
+      },
+      {
+        'svg': 'assets/Group 36779.svg',
+        'title': 'Complete many\nreading lessons',
+        'unlocked': QuizProgress.unlockedPart >= 3,
+        'progress': (QuizProgress.unlockedPart / 3).clamp(0.0, 1.0),
+        'color': const Color(0xFF81C784),
+      },
+      {
+        'svg': 'assets/Group 36780.svg',
+        'title': 'Keep learning\nafter quizzes',
+        'unlocked': QuizProgress.xp >= 500,
+        'progress': (QuizProgress.xp / 500).clamp(0.0, 1.0),
+        'color': const Color(0xFF4DD0E1),
+      },
+      {
+        'svg': 'assets/Group 36780-1.svg',
+        'title': 'Reach rank #1\non leaderboard',
+        'unlocked': QuizProgress.xp >= 1000,
+        'progress': (QuizProgress.xp / 1000).clamp(0.0, 1.0),
+        'color': const Color(0xFFFF8A65),
+      },
+      {
+        'svg': 'assets/Group 36781.svg',
+        'title': 'Finish lessons\nsmoothly',
+        'unlocked': QuizProgress.hearts >= 5 && QuizProgress.xp >= 480,
+        'progress': (QuizProgress.xp / 480).clamp(0.0, 1.0),
+        'color': const Color(0xFFBA68C8),
+      },
+      {
+        'svg': 'assets/Group 36785.svg',
+        'title': 'Collect many\ngems/rewards',
+        'unlocked': QuizProgress.coins >= 50,
+        'progress': (QuizProgress.coins / 50).clamp(0.0, 1.0),
+        'color': const Color(0xFF90A4AE),
+      },
+      {
+        'svg': 'assets/Group 36786.svg',
+        'title': 'Complete a full\nlesson perfectly',
+        'unlocked': QuizProgress.xp >= 800,
+        'progress': (QuizProgress.xp / 800).clamp(0.0, 1.0),
+        'color': const Color(0xFFA1887F),
+      },
+      {
+        'svg': 'assets/Group 36796.svg',
+        'title': 'Maintain a long\nlearning streak',
+        'unlocked': QuizProgress.checkInDays >= 7,
+        'progress': (QuizProgress.checkInDays / 7).clamp(0.0, 1.0),
+        'color': const Color(0xFFF06292),
+      },
+      {
+        'svg': 'assets/Group 36787.svg',
+        'title': 'Reach rank #2\non leaderboard',
+        'unlocked': QuizProgress.xp >= 750,
+        'progress': (QuizProgress.xp / 750).clamp(0.0, 1.0),
+        'color': const Color(0xFF7986CB),
+      },
+      {
+        'svg': 'assets/Group 36788.svg',
+        'title': 'Get multiple\ncorrect answers',
+        'unlocked': QuizProgress.xp >= 550,
+        'progress': (QuizProgress.xp / 550).clamp(0.0, 1.0),
+        'color': const Color(0xFF4DB6AC),
+      },
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
+    final list = _getDynamicAchievements();
+
     return Scaffold(
       backgroundColor: AppColors.backgroundSoft,
       body: SafeArea(
@@ -161,9 +166,9 @@ class AchievementScreen extends StatelessWidget {
                   mainAxisSpacing: 24,
                   childAspectRatio: 0.62,
                 ),
-                itemCount: _achievements.length,
+                itemCount: list.length,
                 itemBuilder: (context, index) {
-                  final item = _achievements[index];
+                  final item = list[index];
                   return _AchievementItem(
                     svgAsset: item['svg'] as String,
                     title: item['title'] as String,
@@ -198,18 +203,36 @@ class _AchievementItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Widget badge = SizedBox(
+      width: 82,
+      height: 82,
+      child: SvgPicture.asset(
+        svgAsset,
+        fit: BoxFit.contain,
+      ),
+    );
+
+    // Gray out badge and text if not unlocked
+    if (!unlocked) {
+      badge = ColorFiltered(
+        colorFilter: const ColorFilter.matrix(<double>[
+          0.2126, 0.7152, 0.0722, 0, 0,
+          0.2126, 0.7152, 0.0722, 0, 0,
+          0.2126, 0.7152, 0.0722, 0, 0,
+          0,      0,      0,      1, 0,
+        ]),
+        child: Opacity(
+          opacity: 0.65,
+          child: badge,
+        ),
+      );
+    }
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        // Badge Image (drawn directly, without container circle/border, larger size)
-        SizedBox(
-          width: 82,
-          height: 82,
-          child: SvgPicture.asset(
-            svgAsset,
-            fit: BoxFit.contain,
-          ),
-        ),
+        // Badge Image
+        badge,
         const SizedBox(height: 12),
         // Title text
         Expanded(
@@ -220,7 +243,7 @@ class _AchievementItem extends StatelessWidget {
             style: TextStyle(
               fontSize: 10,
               fontWeight: FontWeight.w600,
-              color: AppColors.primaryText,
+              color: unlocked ? AppColors.primaryText : AppColors.secondaryText.withValues(alpha: 0.4),
               height: 1.3,
             ),
           ),
@@ -239,7 +262,7 @@ class _AchievementItem extends StatelessWidget {
             widthFactor: progress,
             child: Container(
               decoration: BoxDecoration(
-                color: AppColors.primaryPurple,
+                color: unlocked ? AppColors.primaryPurple : AppColors.primaryPurple.withValues(alpha: 0.4),
                 borderRadius: BorderRadius.circular(4),
               ),
             ),

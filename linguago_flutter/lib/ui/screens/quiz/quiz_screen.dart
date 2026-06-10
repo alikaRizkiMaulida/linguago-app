@@ -30,54 +30,6 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
 
   static const List<Map<String, dynamic>> _basicQuestions = [
     {
-      'type': 'arrange',
-      'text': 'Arrange these letters into:',
-      'target': 'HAN',
-      'letters': ['ㄴ', 'ㅏ', 'ㅎ', 'ㄱ'],
-      'correctAnswer': '한',
-      'pose': MascotPose.reading,
-    },
-    {
-      'type': 'audio_choice',
-      'text': 'Which word did you think you heard?',
-      'audioWord': 'Hada',
-      'options': ['하다', '한국어', '한', '나라'],
-      'correct': 0, // "하다"
-      'pose': MascotPose.listening,
-    },
-    {
-      'type': 'reading',
-      'text': 'How do you read this word?',
-      'word': '가다',
-      'options': ['Nara', 'Gada', 'Hane', 'Guri'],
-      'correct': 1, // "Gada"
-      'pose': MascotPose.reading,
-    },
-    {
-      'type': 'true_false',
-      'text': 'Hangul is the Korean alphabet system.',
-      'options': ['True', 'False'],
-      'correct': 0, // "True"
-      'pose': MascotPose.confused,
-    },
-    {
-      'type': 'pronunciation',
-      'text': 'Which Pronunciation letter has the sound "ㄷ"?',
-      'options': ['Hieut', 'Gieok', 'Nieun', 'Digot'],
-      'correct': 3, // "Digot"
-      'pose': MascotPose.confused,
-    },
-    {
-      'type': 'blackboard',
-      'text': 'Complete the word:',
-      'options': ['ㅓ', 'ㅏ', 'ㅜ', 'ㅣ'],
-      'correct': 1, // "ㅏ" -> "가다"
-      'pose': MascotPose.teaching,
-    },
-  ];
-
-  static const List<Map<String, dynamic>> _listeningQuestions = [
-    {
       'type': 'blackboard',
       'text': 'What is the sound of ㄴ?',
       'boardText': 'ㄴ',
@@ -96,9 +48,10 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
     {
       'type': 'pronunciation',
       'text': 'Which Hangul letter has the sound "A"?',
-      'options': ['ㅏ', 'ㅐ', 'ㅓ', 'ㅣ'],
-      'correct': 0, // 'ㅏ'
+      'options': ['ㅣ', 'ㅓ', 'ㅏ', 'ㅜ'],
+      'correct': 2, // 'ㅏ'
       'pose': MascotPose.confused,
+      'watermark': 'ㅏ',
     },
     {
       'type': 'reading',
@@ -109,19 +62,53 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
       'pose': MascotPose.reading,
     },
     {
-      'type': 'reading',
-      'text': 'What does 한국어 mean?',
-      'options': ['English language', 'Korean student', 'Korean teacher', 'Korean language'],
-      'correct': 3, // 'Korean language'
-      'pose': MascotPose.reading,
-      'watermark': '?',
-    },
-    {
       'type': 'true_false',
       'text': 'Hangul is the Korean alphabet system.',
       'options': ['True', 'False'],
       'correct': 0, // 'True'
       'pose': MascotPose.confused,
+    },
+  ];
+
+  static const List<Map<String, dynamic>> _listeningQuestions = [
+    {
+      'type': 'arrange',
+      'text': 'Arrange these letters into:',
+      'target': 'HAN',
+      'letters': ['ㄴ', 'ㅏ', 'ㅎ'],
+      'correctAnswer': '한',
+      'pose': MascotPose.reading,
+    },
+    {
+      'type': 'audio_choice',
+      'text': 'Which word did you hear?',
+      'audioWord': 'Hada',
+      'options': ['가다', '한국어', '한', '나라'],
+      'correct': 0, // '가다' (corresponding to audioWord: "Hada" from screenshots/json typo)
+      'pose': MascotPose.listening,
+    },
+    {
+      'type': 'blackboard',
+      'text': 'Complete the word:',
+      'options': ['ㅔ', 'ㅏ', 'ㅜ', 'ㅣ'],
+      'correct': 1, // 'ㅏ'
+      'pose': MascotPose.teaching,
+    },
+    {
+      'type': 'pronunciation',
+      'text': 'Which pronunciation letter has the sound "ㄷ"?',
+      'options': ['Hieot', 'Gieok', 'Nieun', 'Digot'],
+      'correct': 3, // 'Digot'
+      'pose': MascotPose.confused,
+      'watermark': 'ㄷ',
+    },
+    {
+      'type': 'reading',
+      'text': 'What does 한국어 mean?',
+      'options': ['English language', 'Korean student', 'Korean teacher', 'Korean language'],
+      'correct': 3, // 'Korean language'
+      'pose': MascotPose.reading,
+      'watermark': '? border',
     },
   ];
 
@@ -170,9 +157,10 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
     {
       'type': 'pronunciation',
       'text': 'Which letter has the sound "E"?',
-      'options': ['l', 'ㅔ', 'ㅏ', 'ㅜ'],
+      'options': ['ㅣ', 'ㅔ', 'ㅏ', 'ㅜ'],
       'correct': 1,
       'pose': MascotPose.confused,
+      'watermark': 'ㅔ',
     },
     {
       'type': 'blackboard',
@@ -184,9 +172,9 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
     },
     {
       'type': 'audio_choice',
-      'text': 'Which word did you think you heard?',
+      'text': 'Which letter did you hear?',
       'audioWord': 'Hieut',
-      'options': ['ㅖ', 'ㄱ', 'ㅅ', 'ㅎ'],
+      'options': ['ㅏ', 'ㄱ', 'ㅅ', 'ㅎ'],
       'correct': 3,
       'pose': MascotPose.listening,
     },
@@ -201,11 +189,11 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
         {'hangul': '가다', 'roman': 'Gada'},
       ],
       'correct': 3,
-      'pose': MascotPose.reading, // Not shown
+      'pose': MascotPose.reading,
     },
     {
       'type': 'reading',
-      'text': 'How do you read this word?',
+      'text': 'How do you read: 한',
       'word': '한',
       'options': ['Han', 'Hin', 'Hun', 'Hon'],
       'correct': 0,
@@ -217,26 +205,13 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
       'targetWord': '나는 한국어를 배워요',
       'postTargetWord': ' mean?',
       'options': [
-        {'imageAsset': 'assets/quiz_img_1.png', 'text': 'I like Korean\nlanguage'},
-        {'imageAsset': 'assets/quiz_img_2.png', 'text': 'Korean\nLanguage'},
-        {'imageAsset': 'assets/quiz_img_3.png', 'text': 'I come from\nKorea'},
-        {'imageAsset': 'assets/quiz_img_4.png', 'text': 'I am learning\nKorean'},
+        {'svgAsset': 'assets/Frame 1000002206.svg', 'text': 'I like Korean\nlanguage'},
+        {'svgAsset': 'assets/Frame 1000002206-2.svg', 'text': 'Korean\nLanguage'},
+        {'svgAsset': 'assets/Frame 1000002206-3.svg', 'text': 'I come from\nKorea'},
+        {'svgAsset': 'assets/Frame 1000002206-4.svg', 'text': 'I am learning\nKorean'},
       ],
       'correct': 3,
-      'pose': MascotPose.reading, // Not shown
-    },
-    {
-      'type': 'translation_large_cards',
-      'text': 'Which sentence means\n',
-      'targetWord': '"I am learning Korean"?',
-      'options': [
-        {'imageAsset': 'assets/quiz_img_3.png', 'text': '나는 한국에서\n왔지'},
-        {'imageAsset': 'assets/quiz_img_4.png', 'text': '나는 한국어를\n배워요'},
-        {'imageAsset': 'assets/quiz_img_1.png', 'text': '나는 한국어를\n좋아해'},
-        {'imageAsset': 'assets/quiz_img_2.png', 'text': '나는 한국 책을\n읽어'},
-      ],
-      'correct': 1,
-      'pose': MascotPose.reading, // Not shown
+      'pose': MascotPose.reading,
     },
     {
       'type': 'blackboard',
@@ -249,8 +224,8 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
     },
     {
       'type': 'audio_choice',
-      'text': 'Match the Hangul letter with its sound.',
-      'audioWord': 'Nieun-Digot-Shiot',
+      'text': 'Match the Hangul letters with their sounds.',
+      'audioWord': 'Nieun - Digot - Shiot',
       'options': ['ㄴ-ㄱ-ㅅ', 'ㄱ-ㅅ-ㄴ', 'ㄴ-ㄷ-ㅅ', 'ㅅ-ㄴ-ㄷ'],
       'correct': 2,
       'pose': MascotPose.listening,
@@ -261,102 +236,113 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
       'options': ['ㅔ', 'ㅏ', 'ㅜ', 'ㅣ'],
       'correct': 3,
       'pose': MascotPose.confused,
+      'watermark': 'ㅣ',
+    },
+    {
+      'type': 'translation_large_cards',
+      'text': 'Which sentence means\n',
+      'targetWord': '"I am learning Korean"?',
+      'options': [
+        {'svgAsset': 'assets/Frame 1000002206-3.svg', 'text': '나는 한국에서\n왔어'},
+        {'svgAsset': 'assets/Frame 1000002206-4.svg', 'text': '나는 한국어를\n배워요'},
+        {'svgAsset': 'assets/Frame 1000002206.svg', 'text': '나는 한국어를\n좋아해'},
+        {'svgAsset': 'assets/Frame 1000002206-2.svg', 'text': '나는 한국 책을\n읽어'},
+      ],
+      'correct': 1,
+      'pose': MascotPose.reading,
     },
   ];
 
   static const List<Map<String, dynamic>> _basicQuestionsEnglish = [
     {
-      'type': 'arrange',
-      'text': 'Arrange these letters into:',
-      'target': 'CAT',
-      'letters': ['C', 'T', 'A', 'P'],
-      'correctAnswer': 'CAT',
-      'pose': MascotPose.reading,
-    },
-    {
-      'type': 'audio_choice',
-      'text': 'Which word did you think you heard?',
-      'audioWord': 'Apple',
-      'options': ['Apple', 'Banana', 'Cat', 'Dog'],
-      'correct': 0,
-      'pose': MascotPose.listening,
-    },
-    {
       'type': 'reading',
-      'text': 'How do you read this word?',
-      'word': 'HELLO',
-      'options': ['Selamat Pagi', 'Halo / Hai', 'Terima Kasih', 'Selamat Tinggal'],
-      'correct': 1,
-      'pose': MascotPose.reading,
-    },
-    {
-      'type': 'true_false',
-      'text': 'The English alphabet has 26 letters.',
-      'options': ['True', 'False'],
-      'correct': 0,
-      'pose': MascotPose.confused,
-    },
-    {
-      'type': 'pronunciation',
-      'text': 'Which letter makes the sound /f/?',
-      'options': ['P', 'F', 'T', 'H'],
+      'text': 'What is the common sound of the letter A in "Name"?',
+      'explanation': 'Huruf A pada kata "name" dibaca /eɪ/ (Ey).',
+      'options': ['Ah', 'Ey', 'Ee', 'Oh'],
       'correct': 1,
       'pose': MascotPose.confused,
+      'watermark': 'Aa',
     },
     {
       'type': 'blackboard',
-      'text': 'Complete the word "B_G" (large):',
-      'options': ['I', 'O', 'U', 'E'],
-      'correct': 0,
+      'text': 'Which word has the "A" sound like in "Can"?',
+      'boardText': 'CAN',
+      'explanation': 'Kata "bad" memiliki bunyi vokal /æ/ yang sama dengan "can".',
+      'options': ['Care', 'Car', 'Bad', 'Name'],
+      'correct': 2,
       'pose': MascotPose.teaching,
+    },
+    {
+      'type': 'true_false',
+      'text': 'The letter "C" can sound like "S".',
+      'explanation': 'Benar (True), huruf C dibaca /s/ (soft C) ketika diikuti e, i, atau y (contoh: city, cell).',
+      'options': ['True', 'False'],
+      'correct': 0,
+      'pose': MascotPose.confused,
+      'watermark': 'Cc',
+    },
+    {
+      'type': 'reading',
+      'text': 'Which word has a silent "K"?',
+      'explanation': 'Pada kata "know", huruf K tidak dibaca (silent K).',
+      'options': ['King', 'Kite', 'Know', 'Kid'],
+      'correct': 2,
+      'pose': MascotPose.reading,
+    },
+    {
+      'type': 'reading',
+      'text': 'What sound can the letter "C" make?',
+      'explanation': 'Huruf C dapat berbunyi /k/ (hard C seperti "cat") atau /s/ (soft C seperti "city").',
+      'options': ['K / S', 'B / D', 'F / V', 'T / H'],
+      'correct': 0,
+      'pose': MascotPose.confused,
+      'watermark': 'Cc',
     },
   ];
 
   static const List<Map<String, dynamic>> _listeningQuestionsEnglish = [
     {
+      'type': 'reading',
+      'text': 'Which word has the "SH" sound?',
+      'explanation': 'Kata "show" memiliki bunyi /ʃ/ (SH).',
+      'options': ['Show', 'Sun', 'Rose', 'Bag'],
+      'correct': 0,
+      'pose': MascotPose.reading,
+    },
+    {
+      'type': 'reading',
+      'text': 'How is "PH" usually pronounced?',
+      'explanation': 'Gabungan huruf "PH" biasanya dibaca /f/ seperti pada kata "phone".',
+      'options': ['P', 'H', 'F', 'V'],
+      'correct': 2,
+      'pose': MascotPose.reading,
+    },
+    {
       'type': 'blackboard',
-      'text': 'What is the short sound of letter A?',
-      'boardText': 'A',
-      'options': ['/ey/', '/ah/', '/ih/', '/oh/'],
+      'text': 'Complete the word with the correct letter sound. _ag',
+      'boardText': '_ag',
+      'explanation': 'Kata "bag" diawali dengan huruf B.',
+      'options': ['S', 'B', 'V', 'G'],
       'correct': 1,
       'pose': MascotPose.teaching,
     },
     {
       'type': 'audio_choice',
-      'text': 'Match the word with sound "Sun":',
-      'audioWord': 'Sun',
-      'options': ['Son', 'Sun', 'Sin', 'Run'],
+      'text': 'What sound does the letter G make?',
+      'audioWord': 'page',
+      'explanation': 'Huruf G pada kata "page" dibaca /dʒ/ (soft G/J sound).',
+      'options': ['G', 'J', 'K', 'S'],
       'correct': 1,
       'pose': MascotPose.listening,
     },
     {
-      'type': 'pronunciation',
-      'text': 'Which English vowel makes the sound /i/ in "pin"?',
-      'options': ['A', 'E', 'I', 'O'],
-      'correct': 2,
-      'pose': MascotPose.confused,
-    },
-    {
-      'type': 'reading',
-      'text': 'How do you read this word?',
-      'word': 'DOG',
-      'options': ['Anjing', 'Kucing', 'Kelinci', 'Burung'],
-      'correct': 0,
-      'pose': MascotPose.reading,
-    },
-    {
-      'type': 'reading',
-      'text': 'What does "English language" mean?',
-      'options': ['Bahasa Inggris', 'Bahasa Korea', 'Bahasa Indonesia', 'Bahasa Jerman'],
-      'correct': 0,
-      'pose': MascotPose.reading,
-    },
-    {
       'type': 'true_false',
-      'text': 'The word "cat" is a noun.',
+      'text': 'English letter "R" is pronounced strongly like Indonesian R.',
+      'explanation': 'Salah (False). Huruf R dalam Bahasa Inggris dilafalkan lembut tanpa getaran lidah yang kuat seperti R Bahasa Indonesia.',
       'options': ['True', 'False'],
-      'correct': 0,
+      'correct': 1,
       'pose': MascotPose.confused,
+      'watermark': 'Rr',
     },
   ];
 
@@ -403,42 +389,93 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
 
   static const List<Map<String, dynamic>> _finalQuestionsEnglish = [
     {
-      'type': 'arrange',
-      'text': 'Arrange these letters into:',
-      'target': 'BOOK',
-      'letters': ['B', 'O', 'O', 'K'],
-      'correctAnswer': 'BOOK',
-      'pose': MascotPose.reading,
+      'type': 'blackboard',
+      'text': 'Which word has the "AI" sound?',
+      'boardText': 'AI',
+      'explanation': 'Kata "fine" dilafalkan dengan bunyi vokal panjang /aɪ/ (ai).',
+      'options': ['Bed', 'Sin', 'Run', 'Fine'],
+      'correct': 3,
+      'pose': MascotPose.teaching,
     },
     {
-      'type': 'audio_choice',
-      'text': 'Match the sound "Welcome":',
-      'audioWord': 'Welcome',
-      'options': ['Selamat Datang', 'Selamat Jalan', 'Selamat Pagi', 'Halo'],
+      'type': 'reading',
+      'text': 'What sound does "PH" make?',
+      'explanation': 'Kombinasi "ph" menghasilkan bunyi /f/.',
+      'options': ['F', 'P', 'H', 'SH'],
       'correct': 0,
       'pose': MascotPose.listening,
     },
     {
       'type': 'reading',
-      'text': 'How do you read this word?',
-      'word': 'SCHOOL',
-      'options': ['Sekolah', 'Rumah', 'Taman', 'Pasar'],
-      'correct': 0,
+      'text': 'Which word contains a silent H?',
+      'explanation': 'Pada kata "hour", huruf H tidak dilafalkan (dibaca /aʊə/).',
+      'options': ['Home', 'Happy', 'Hour', 'Hat'],
+      'correct': 2,
+      'pose': MascotPose.confused,
+      'watermark': 'Hh',
+    },
+    {
+      'type': 'reading',
+      'text': 'Which word has the "Z" sound?',
+      'explanation': 'Huruf s pada kata "rose" dilafalkan dengan bunyi /z/.',
+      'options': ['Show', 'Rose', 'Sun', 'Think'],
+      'correct': 1,
       'pose': MascotPose.reading,
     },
     {
-      'type': 'blackboard',
-      'text': 'Complete the word to spell "GOOD" (baik):',
-      'options': ['A', 'O', 'E', 'U'],
+      'type': 'reading',
+      'text': 'What is the pronunciation of the letter "V"?',
+      'explanation': 'Huruf v dibaca dengan menempelkan gigi atas ke bibir bawah (using lips and teeth).',
+      'options': ['Like F', 'Silent', 'Like B', 'using 👄 and 🦷'],
+      'correct': 3,
+      'pose': MascotPose.reading,
+    },
+    {
+      'type': 'reading',
+      'text': 'Which word has a long E sound?',
+      'explanation': 'Kata "bee" memiliki bunyi vokal panjang /iː/ (long E).',
+      'options': ['Bed', 'Bee', 'Run', 'Full'],
       'correct': 1,
-      'pose': MascotPose.teaching,
+      'pose': MascotPose.listening,
+    },
+    {
+      'type': 'reading',
+      'text': 'What sound does "TH" make in "Think"?',
+      'explanation': 'Kombinasi "th" pada "think" berbunyi /θ/ (voiceless th).',
+      'options': ['T', 'D', 'TH', 'F'],
+      'correct': 2,
+      'pose': MascotPose.confused,
+      'watermark': 'Th',
+    },
+    {
+      'type': 'reading',
+      'text': 'Which word has the "OU" sound?',
+      'explanation': 'Huruf o pada kata "rose" dibaca dengan bunyi glide /oʊ/ (ou).',
+      'options': ['Cool', 'Rose', 'Full', 'Sin'],
+      'correct': 1,
+      'pose': MascotPose.reading,
     },
     {
       'type': 'true_false',
-      'text': 'The word "play" is a verb.',
+      'text': 'The letter "C" can sound like "CH".',
+      'explanation': 'Benar (True). Huruf C kadangkala menghasilkan bunyi /tʃ/ (ch) pada kata pinjaman tertentu (seperti cello).',
       'options': ['True', 'False'],
       'correct': 0,
       'pose': MascotPose.confused,
+      'watermark': 'Cc',
+    },
+    {
+      'type': 'translation_large_cards',
+      'text': 'Which word is pronounced with a silent K?',
+      'explanation': 'Kata "knee" diawali dengan silent K.',
+      'options': [
+        {'svgAsset': 'assets/image 402.svg', 'text': 'Knee'},
+        {'svgAsset': 'assets/image 399.svg', 'text': 'King'},
+        {'svgAsset': 'assets/image 400.svg', 'text': 'Kite'},
+        {'svgAsset': 'assets/image 401.svg', 'text': 'Kid'},
+      ],
+      'correct': 0,
+      'pose': MascotPose.reading,
     },
   ];
 
@@ -876,6 +913,11 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Spacer(),
+                        MascotWidget(
+                          pose: currentPose,
+                          size: 140,
+                        ),
+                        const Spacer(),
                         GestureDetector(
                           onTap: () {
                             if (!_hasChecked) {
@@ -1096,13 +1138,40 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
                                       ),
                                     ] else if (optionData.containsKey('svgAsset')) ...[
                                       Expanded(
-                                        child: Center(
-                                          child: SvgPicture.asset(
-                                            optionData['svgAsset']!,
-                                            fit: BoxFit.contain,
+                                        flex: 3,
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(top: 12.0),
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(12),
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                color: const Color(0xFFF3EEFB),
+                                                borderRadius: BorderRadius.circular(12),
+                                              ),
+                                              child: SvgPicture.asset(
+                                                optionData['svgAsset']!,
+                                                fit: BoxFit.contain,
+                                                placeholderBuilder: (context) => Container(
+                                                  color: const Color(0xFFF3EEFB),
+                                                ),
+                                              ),
+                                            ),
                                           ),
                                         ),
                                       ),
+                                      if (optionData.containsKey('text'))
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text(
+                                            optionData['text']!,
+                                            textAlign: TextAlign.center,
+                                            style: const TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w700,
+                                              color: AppColors.primaryText,
+                                            ),
+                                          ),
+                                        ),
                                     ] else ...[
                                       Text(
                                         optionData['hangul']!,
@@ -1534,13 +1603,32 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
                         : (qData['options'] != null && qData['correct'] != null
                             ? qData['options'][qData['correct'] as int].toString()
                             : '');
-                    return Text(
-                      'Correct answer: $correctAnswerText',
-                      style: const TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.secondaryText,
-                      ),
+                    return Column(
+                      children: [
+                        Text(
+                          'Correct answer: $correctAnswerText',
+                          style: const TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.secondaryText,
+                          ),
+                        ),
+                        if (qData['explanation'] != null) ...[
+                          const SizedBox(height: 6),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            child: Text(
+                              qData['explanation'] as String,
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                fontSize: 11,
+                                fontWeight: FontWeight.w500,
+                                color: AppColors.secondaryText,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ],
                     );
                   },
                 ),

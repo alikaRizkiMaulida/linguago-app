@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:linguago_flutter/core/constants/colors.dart';
 import 'package:linguago_flutter/core/constants/quiz_state.dart';
+import 'package:linguago_flutter/ui/screens/quiz/quiz_intro_screen.dart';
 
 class FunFactData {
   final String title;
@@ -74,31 +75,31 @@ class _FunFactScreenState extends State<FunFactScreen>
       title: "English is a Germanic Language!",
       description:
           "Although many English words come from French or Latin, English is actually a Germanic language closely related to German and Dutch!",
-      svgAsset: "assets/Frame1000001900.svg",
+      svgAsset: "assets/card 22.svg",
     ),
     FunFactData(
       title: "The Most Common Letter is 'E'",
       description:
           "The letter 'E' is the most commonly used letter in the English language, appearing in about 11% of all words, while 'Q' is the rarest!",
-      svgAsset: "assets/Frame1000001904.svg",
+      svgAsset: "assets/card 24.svg",
     ),
     FunFactData(
       title: "Shakespeare Added 1,700 Words!",
       description:
           "William Shakespeare invented or introduced over 1,700 words to the English language, including words like 'fashionable', 'lonely', and 'gloomy'!",
-      svgAsset: "assets/Frame1000001909.svg",
+      svgAsset: "assets/card 26.svg",
     ),
     FunFactData(
       title: "A Sentence with All 26 Letters!",
       description:
           "A sentence that contains every letter in the alphabet is called a 'pangram'. The most famous example is:\n'The quick brown fox jumps over the lazy dog'!",
-      svgAsset: "assets/Frame1000001911.svg",
+      svgAsset: "assets/card 28.svg",
     ),
     FunFactData(
       title: "The Shortest Complete Sentence",
       description:
           "The shortest grammatically correct and complete sentence in English is 'I am.', followed closely by commands like 'Go!' which have an understood subject.",
-      svgAsset: "assets/Frame1000001918.svg",
+      svgAsset: "assets/card 30.svg",
     ),
   ];
 
@@ -146,6 +147,9 @@ class _FunFactScreenState extends State<FunFactScreen>
           _dragOffset = Offset.zero;
         });
         _swipeAnimationController.reset();
+        if (_currentIndex >= _facts.length) {
+          _navigateToQuizIntro();
+        }
       }
     });
 
@@ -161,6 +165,20 @@ class _FunFactScreenState extends State<FunFactScreen>
     _swipeAnimationController.dispose();
     _resetAnimationController.dispose();
     super.dispose();
+  }
+
+  void _navigateToQuizIntro() {
+    if (!mounted) return;
+    if (QuizProgress.unlockedPart == widget.part) {
+      QuizProgress.setUnlockedPart(widget.part + 1);
+    }
+    final int levelNum = ((widget.part - 1) ~/ 5) + 1;
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute<void>(
+        builder: (_) => QuizIntroScreen(level: levelNum),
+      ),
+    );
   }
 
   void _onPanUpdate(DragUpdateDetails details) {
@@ -219,14 +237,6 @@ class _FunFactScreenState extends State<FunFactScreen>
             ),
           );
       _resetAnimationController.forward(from: 0.0);
-    }
-  }
-
-  void _goToNext() {
-    if (_currentIndex < _facts.length) {
-      setState(() {
-        _currentIndex++;
-      });
     }
   }
 
@@ -320,7 +330,7 @@ class _FunFactScreenState extends State<FunFactScreen>
               // ── Card Stack or Completion View ────────────────────────────────
               Expanded(
                 child: isCompleted
-                    ? _buildCompletionView(context)
+                    ? const SizedBox.shrink()
                     : Padding(
                         padding: const EdgeInsets.only(left: 36, right: 36, top: 60, bottom: 20),
                         child: Stack(
@@ -346,13 +356,9 @@ class _FunFactScreenState extends State<FunFactScreen>
                           borderRadius: BorderRadius.circular(26),
                         ),
                       ),
-                      onPressed: () {
-                        setState(() {
-                          _currentIndex = _facts.length; // skip to completion
-                        });
-                      },
+                      onPressed: _navigateToQuizIntro,
                       child: const Text(
-                        'Continue',
+                        'Continue to Final Quiz',
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w800,
@@ -438,216 +444,6 @@ class _FunFactScreenState extends State<FunFactScreen>
         child: SvgPicture.asset(
           fact.svgAsset,
           fit: BoxFit.contain,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildCompletionView(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Container(
-        padding: const EdgeInsets.all(24),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(28),
-          border: Border.all(
-            color: AppColors.primaryPurple.withValues(alpha: 0.15),
-            width: 1.5,
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.primaryPurple.withValues(alpha: 0.1),
-              blurRadius: 24,
-              offset: const Offset(0, 8),
-            ),
-          ],
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // Illustration top area
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(vertical: 24),
-              decoration: BoxDecoration(
-                color: const Color(0xFFF3EEFB),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Column(
-                children: [
-                  Image.asset(
-                    'assets/Mascot Mascot.png',
-                    width: 100,
-                    height: 100,
-                    fit: BoxFit.contain,
-                    errorBuilder: (context, error, stackTrace) {
-                      return const Text('🎉', style: TextStyle(fontSize: 64));
-                    },
-                  ),
-                  const SizedBox(height: 12),
-                  const Text(
-                    'You\'re Amazing! 🎉',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w900,
-                      color: AppColors.primaryText,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-
-            const SizedBox(height: 20),
-
-            Text(
-              QuizProgress.learningLanguage == 'Korea'
-                  ? 'Great! You discovered 5 Korean Fun Facts!'
-                  : 'Great! You discovered 5 English Fun Facts!',
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w700,
-                color: AppColors.secondaryText,
-                height: 1.4,
-              ),
-            ),
-
-            const SizedBox(height: 20),
-
-            // Rewards row
-            Container(
-              padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
-              decoration: BoxDecoration(
-                color: const Color(0xFFF3EEFB),
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Row(
-                    children: [
-                      SvgPicture.asset(
-                        'assets/Vector 46.svg',
-                        width: 20,
-                        height: 20,
-                        colorFilter: const ColorFilter.mode(
-                          Color(0xFFFFB300),
-                          BlendMode.srcIn,
-                        ),
-                      ),
-                      const SizedBox(width: 6),
-                      const Text(
-                        '+20 XP',
-                        style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w800,
-                          color: AppColors.primaryText,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Container(
-                    width: 1,
-                    height: 20,
-                    color: AppColors.disableBorder,
-                  ),
-                  Row(
-                    children: [
-                      SvgPicture.asset(
-                        'assets/game-icons_achievement.svg',
-                        width: 20,
-                        height: 20,
-                        colorFilter: const ColorFilter.mode(
-                          AppColors.primaryPurple,
-                          BlendMode.srcIn,
-                        ),
-                      ),
-                      const SizedBox(width: 6),
-                      const Text(
-                        '+1 Badge',
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w800,
-                          color: AppColors.primaryText,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-
-            const SizedBox(height: 24),
-
-            // Buttons
-            Row(
-              children: [
-                Expanded(
-                  flex: 3,
-                  child: SizedBox(
-                    height: 48,
-                    child: OutlinedButton(
-                      style: OutlinedButton.styleFrom(
-                        side: const BorderSide(
-                          color: AppColors.primaryPurple,
-                          width: 1.5,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          _currentIndex = 0;
-                          _dragOffset = Offset.zero;
-                        });
-                      },
-                      child: const Text(
-                        'Repeat',
-                        style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w800,
-                          color: AppColors.primaryPurple,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  flex: 7,
-                  child: SizedBox(
-                    height: 48,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.primaryPurple,
-                        foregroundColor: Colors.white,
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                      ),
-                      onPressed: () {
-                        if (QuizProgress.unlockedPart == widget.part) {
-                          QuizProgress.setUnlockedPart(widget.part + 1);
-                        }
-                        QuizProgress.setXp(QuizProgress.xp + 20);
-                        Navigator.pop(context);
-                      },
-                      child: const Text(
-                        'Start Final Quiz',
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
         ),
       ),
     );

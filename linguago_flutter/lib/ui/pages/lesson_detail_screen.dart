@@ -4,10 +4,18 @@ import 'package:linguago_flutter/core/constants/colors.dart';
 import 'package:linguago_flutter/core/constants/quiz_state.dart';
 import 'package:linguago_flutter/ui/screens/quiz/quiz_screen.dart';
 
-class LessonDetailScreen extends StatelessWidget {
+class LessonDetailScreen extends StatefulWidget {
   final int part;
   const LessonDetailScreen({super.key, this.part = 1});
 
+  // List global static untuk menyimpan data pelajaran yang di-save
+  static final List<Map<String, dynamic>> savedLessonsData = [];
+
+  @override
+  State<LessonDetailScreen> createState() => _LessonDetailScreenState();
+}
+
+class _LessonDetailScreenState extends State<LessonDetailScreen> {
   static const List<Map<String, dynamic>> _lessonDataKorea = [
     {
       'number': 1,
@@ -60,10 +68,15 @@ class LessonDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final bool isKorea = QuizProgress.learningLanguage == 'Korea';
     final dataList = isKorea ? _lessonDataKorea : _lessonDataEnglish;
-    final data = dataList[(part - 1).clamp(0, 2)];
+    final data = dataList[(widget.part - 1).clamp(0, 2)];
+
+    // Cek apakah pelajaran ini sudah ada di dalam list savedLessonsData
+    final bool isSaved = LessonDetailScreen.savedLessonsData.any(
+      (element) => element['title'] == data['title'] && element['ytId'] == data['ytId'],
+    );
 
     return Scaffold(
-      backgroundColor: const Color(0xFFFBF9FF), // matching the #FBF9FF background
+      backgroundColor: const Color(0xFFFBF9FF),
       body: SafeArea(
         child: Column(
           children: [
@@ -78,7 +91,6 @@ class LessonDetailScreen extends StatelessWidget {
                     onPressed: () => Navigator.pop(context),
                   ),
                   const SizedBox(width: 4),
-                  // Lesson pill
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                     decoration: BoxDecoration(
@@ -95,7 +107,6 @@ class LessonDetailScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 8),
-                  // Title text
                   Expanded(
                     child: Text(
                       data['title'] as String,
@@ -136,7 +147,6 @@ class LessonDetailScreen extends StatelessWidget {
                       child: Stack(
                         fit: StackFit.expand,
                         children: [
-                          // Video Thumbnail
                           Image.network(
                             'https://img.youtube.com/vi/${data['ytId']}/hqdefault.jpg',
                             fit: BoxFit.cover,
@@ -153,11 +163,9 @@ class LessonDetailScreen extends StatelessWidget {
                               );
                             },
                           ),
-                          // Dark Overlay for contrast
                           Container(
                             color: Colors.black.withValues(alpha: 0.12),
                           ),
-                          // Play Button Overlay
                           Center(
                             child: Container(
                               width: 60,
@@ -173,13 +181,12 @@ class LessonDetailScreen extends StatelessWidget {
                                 ],
                               ),
                               child: const Icon(
-                               Icons.play_arrow_rounded,
+                                Icons.play_arrow_rounded,
                                 color: AppColors.primaryPurple,
                                 size: 36,
                               ),
                             ),
                           ),
-                          // "Kelas Bahasa Korea #1" Badge overlay
                           Positioned(
                             top: 12,
                             left: 12,
@@ -233,14 +240,26 @@ class LessonDetailScreen extends StatelessWidget {
                             ],
                           ),
                         ),
-                        // Bookmark button
+                        // 🌟 LOGIKA TOMBOL BOOKMARK (SAVE/UNSAVE)
                         IconButton(
-                          icon: const Icon(
-                            Icons.bookmark_border_rounded,
-                            color: AppColors.primaryText,
+                          icon: Icon(
+                            isSaved ? Icons.bookmark_rounded : Icons.bookmark_border_rounded,
+                            color: isSaved ? AppColors.primaryPurple : AppColors.primaryText,
                             size: 26,
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            setState(() {
+                              if (isSaved) {
+                                // Jika sudah di-save, hapus dari list
+                                LessonDetailScreen.savedLessonsData.removeWhere(
+                                  (element) => element['title'] == data['title'] && element['ytId'] == data['ytId'],
+                                );
+                              } else {
+                                // Jika belum di-save, masukkan ke list
+                                LessonDetailScreen.savedLessonsData.add(data);
+                              }
+                            });
+                          },
                         ),
                       ],
                     ),
@@ -302,7 +321,6 @@ class LessonDetailScreen extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(height: 18),
-
                           const Text(
                             'Key Points :',
                             style: TextStyle(
@@ -326,7 +344,6 @@ class LessonDetailScreen extends StatelessWidget {
                             _buildBulletPoint('The key is practicing sounds regularly'),
                           ],
                           const SizedBox(height: 20),
-
                           Text(
                             isKorea ? '4 Steps to Learn Hangul:' : '4 Steps to Learn English:',
                             style: const TextStyle(
@@ -336,35 +353,13 @@ class LessonDetailScreen extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(height: 14),
-
-                          // ── 4 Steps Columns ──────────────────────────────
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Expanded(
-                                child: _buildStepItem(
-                                  '1',
-                                  isKorea ? 'Learn\nconsonants &\nvowels' : 'Learn\nvowels &\nconsonants',
-                                ),
-                              ),
-                              Expanded(
-                                child: _buildStepItem(
-                                  '2',
-                                  isKorea ? 'Read\nsyllables' : 'Read\nshort words',
-                                ),
-                              ),
-                              Expanded(
-                                child: _buildStepItem(
-                                  '3',
-                                  isKorea ? 'Read\nvocabulary\nwords' : 'Read\ndaily vocab\nwords',
-                                ),
-                              ),
-                              Expanded(
-                                child: _buildStepItem(
-                                  '4',
-                                  isKorea ? 'Read simple\nsentences' : 'Read simple\nsentences',
-                                ),
-                              ),
+                              Expanded(child: _buildStepItem('1', isKorea ? 'Learn\nconsonants &\nvowels' : 'Learn\nvowels &\nconsonants')),
+                              Expanded(child: _buildStepItem('2', isKorea ? 'Read\nsyllables' : 'Read\nshort words')),
+                              Expanded(child: _buildStepItem('3', isKorea ? 'Read\nvocabulary\nwords' : 'Read\ndaily vocab\nwords')),
+                              Expanded(child: _buildStepItem('4', isKorea ? 'Read simple\nsentences' : 'Read simple\nsentences')),
                             ],
                           ),
                         ],
@@ -380,27 +375,19 @@ class LessonDetailScreen extends StatelessWidget {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.primaryPurple,
                           elevation: 0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                         ),
                         onPressed: () {
-                          // Update level progression if the user completes the lesson for the first time
-                          if (QuizProgress.unlockedPart == part) {
-                            QuizProgress.setUnlockedPart(part + 1);
+                          if (QuizProgress.unlockedPart == widget.part) {
+                            QuizProgress.setUnlockedPart(widget.part + 1);
                           }
-                          
-                          // Navigate to corresponding Quiz
-                          int quizPart = part;
-                          if (part == 3) {
+                          int quizPart = widget.part;
+                          if (widget.part == 3) {
                             quizPart = 5;
                           }
-                          
                           Navigator.pushReplacement(
                             context,
-                            MaterialPageRoute<void>(
-                              builder: (_) => QuizScreen(part: quizPart),
-                            ),
+                            MaterialPageRoute<void>(builder: (_) => QuizScreen(part: quizPart)),
                           );
                         },
                         child: const Text(
@@ -424,6 +411,7 @@ class LessonDetailScreen extends StatelessWidget {
     );
   }
 
+  // ... (Tetap pertahankan fungsi helper _buildMetaItem, _buildBulletPoint, dan _buildStepItem milikmu di bawah sini)
   Widget _buildMetaItem(IconData? icon, String text, {String? svgAsset, Color? color}) {
     return Row(
       mainAxisSize: MainAxisSize.min,
@@ -433,26 +421,12 @@ class LessonDetailScreen extends StatelessWidget {
             svgAsset,
             width: 14,
             height: 14,
-            colorFilter: ColorFilter.mode(
-              color ?? AppColors.primaryPurple,
-              BlendMode.srcIn,
-            ),
+            colorFilter: ColorFilter.mode(color ?? AppColors.primaryPurple, BlendMode.srcIn),
           )
         else if (icon != null)
-          Icon(
-            icon,
-            size: 14,
-            color: color ?? AppColors.primaryPurple,
-          ),
+          Icon(icon, size: 14, color: color ?? AppColors.primaryPurple),
         const SizedBox(width: 4),
-        Text(
-          text,
-          style: const TextStyle(
-            fontSize: 11,
-            fontWeight: FontWeight.w700,
-            color: AppColors.primaryText,
-          ),
-        ),
+        Text(text, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: AppColors.primaryText)),
       ],
     );
   }
@@ -463,24 +437,8 @@ class LessonDetailScreen extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            '• ',
-            style: TextStyle(
-              fontSize: 11,
-              fontWeight: FontWeight.w800,
-              color: AppColors.primaryText,
-            ),
-          ),
-          Expanded(
-            child: Text(
-              text,
-              style: const TextStyle(
-                fontSize: 10.5,
-                color: AppColors.secondaryText,
-                height: 1.35,
-              ),
-            ),
-          ),
+          const Text('• ', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w800, color: AppColors.primaryText)),
+          Expanded(child: Text(text, style: const TextStyle(fontSize: 10.5, color: AppColors.secondaryText, height: 1.35))),
         ],
       ),
     );
@@ -492,32 +450,11 @@ class LessonDetailScreen extends StatelessWidget {
         Container(
           width: 28,
           height: 28,
-          decoration: const BoxDecoration(
-            color: Color(0xFFF3EEFB),
-            shape: BoxShape.circle,
-          ),
-          child: Center(
-            child: Text(
-              number,
-              style: const TextStyle(
-                fontSize: 11,
-                fontWeight: FontWeight.w800,
-                color: AppColors.primaryPurple,
-              ),
-            ),
-          ),
+          decoration: const BoxDecoration(color: Color(0xFFF3EEFB), shape: BoxShape.circle),
+          child: Center(child: Text(number, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w800, color: AppColors.primaryPurple))),
         ),
         const SizedBox(height: 6),
-        Text(
-          label,
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-            fontSize: 8.5,
-            fontWeight: FontWeight.w700,
-            color: AppColors.primaryText,
-            height: 1.3,
-          ),
-        ),
+        Text(label, textAlign: TextAlign.center, style: const TextStyle(fontSize: 8.5, fontWeight: FontWeight.w700, color: AppColors.primaryText, height: 1.3)),
       ],
     );
   }

@@ -51,17 +51,6 @@ const _worldPlayers = [
   _Player(rank: 8, name: 'Potato_9595', avatarUrl: 'https://i.pravatar.cc/150?img=8', level: 33, exp: 77420, trend: 1),
 ];
 
-const _friendPlayers = [
-  _Player(rank: 1, name: '1009-eism',   avatarUrl: 'https://i.pravatar.cc/150?img=1', level: 58, exp: 85278, trend: 0),
-  _Player(rank: 2, name: 'sunoflers',  avatarUrl: 'https://i.pravatar.cc/150?img=2', level: 56, exp: 83653, trend: 0),
-  _Player(rank: 3, name: 'milk.도토리',  avatarUrl: 'https://i.pravatar.cc/150?img=3', level: 51, exp: 83692, isMe: true, trend: 0),
-  _Player(rank: 4, name: 'heesour',     avatarUrl: 'https://i.pravatar.cc/150?img=4', level: 48, exp: 80716, trend: 1),
-  _Player(rank: 5, name: 'rikiusier',  avatarUrl: 'https://i.pravatar.cc/150?img=5', level: 45, exp: 80631, trend: 1),
-  _Player(rank: 6, name: 'jwonusie',    avatarUrl: 'https://i.pravatar.cc/150?img=6', level: 41, exp: 80094, trend: 1),
-  _Player(rank: 7, name: 'ciellunoo',  avatarUrl: 'https://i.pravatar.cc/150?img=7', level: 36, exp: 80076, trend: -1),
-  _Player(rank: 8, name: 'Potato_9595', avatarUrl: 'https://i.pravatar.cc/150?img=8', level: 33, exp: 77420, trend: 1),
-];
-
 final _allFriends = [
   _Friend(name: '1009-eism',   avatarUrl: 'https://i.pravatar.cc/150?img=1',  level: 40, isFriend: true),
   _Friend(name: 'sunooflers',  avatarUrl: 'https://i.pravatar.cc/150?img=2',  level: 40, isFriend: true),
@@ -219,6 +208,23 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
     );
   }
 
+  List<_Player> get _friendPlayers {
+    final friends = _friends.where((f) => f.isFriend).toList();
+    friends.sort((a, b) => b.level.compareTo(a.level));
+    return List.generate(friends.length, (i) {
+      final f = friends[i];
+      return _Player(
+        rank: i + 1,
+        name: f.name,
+        avatarUrl: f.avatarUrl,
+        level: f.level,
+        exp: f.level * 1500,
+        isMe: f.name == 'milk.도토리',
+        trend: 0,
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -226,6 +232,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
       body: SafeArea(
         bottom: false,
         child: _LeaderboardPage(
+          friendPlayers: _friendPlayers,
           onPlayerTap: (p) => _onPlayerRowTap(context, p),
         ),
       ),
@@ -234,18 +241,31 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
 }
 
 // ─── Leaderboard Page ─────────────────────────────────────────────────────────
-class _LeaderboardPage extends StatelessWidget {
+class _LeaderboardPage extends StatefulWidget {
   final Function(_Player) onPlayerTap;
+  final List<_Player> friendPlayers;
 
   const _LeaderboardPage({
     required this.onPlayerTap,
+    required this.friendPlayers,
   });
 
   @override
+  State<_LeaderboardPage> createState() => _LeaderboardPageState();
+}
+
+class _LeaderboardPageState extends State<_LeaderboardPage> {
+  bool isFriendsTab = false;
+
+  @override
   Widget build(BuildContext context) {
+    final players =
+        isFriendsTab ? widget.friendPlayers : _worldPlayers;
+
     return Column(
       children: [
         const SizedBox(height: 16),
+
         const Text(
           'Leaderboard',
           style: TextStyle(
@@ -254,12 +274,124 @@ class _LeaderboardPage extends StatelessWidget {
             color: AppColors.primaryText,
           ),
         ),
+
         const SizedBox(height: 20),
+
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Container(
+            height: 46,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(30),
+              boxShadow: [
+                BoxShadow(
+                  color: AppColors.primaryPurple.withValues(alpha: 0.08),
+                  blurRadius: 10,
+                  offset: const Offset(0, 3),
+                ),
+              ],
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        isFriendsTab = false;
+                      });
+                    },
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 200),
+                      decoration: BoxDecoration(
+                        color: !isFriendsTab
+                            ? AppColors.primaryPurple
+                            : Colors.transparent,
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      child: Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.public_rounded,
+                              size: 16,
+                              color: !isFriendsTab
+                                  ? Colors.white
+                                  : AppColors.primaryText,
+                            ),
+                            const SizedBox(width: 6),
+                            Text(
+                              'World',
+                              style: TextStyle(
+                                color: !isFriendsTab
+                                    ? Colors.white
+                                    : AppColors.primaryText,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 13,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        isFriendsTab = true;
+                      });
+                    },
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 200),
+                      decoration: BoxDecoration(
+                        color: isFriendsTab
+                            ? AppColors.primaryPurple
+                            : Colors.transparent,
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      child: Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.people_rounded,
+                              size: 16,
+                              color: isFriendsTab
+                                  ? Colors.white
+                                  : AppColors.primaryText,
+                            ),
+                            const SizedBox(width: 6),
+                            Text(
+                              'Friends',
+                              style: TextStyle(
+                                color: isFriendsTab
+                                    ? Colors.white
+                                    : AppColors.primaryText,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 13,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+
+        const SizedBox(height: 16),
 
         Expanded(
           child: _RankList(
-            players: _worldPlayers,
-            onPlayerTap: onPlayerTap,
+            players: players,
+            onPlayerTap: widget.onPlayerTap,
+            isFriendsTab: isFriendsTab,
           ),
         ),
       ],

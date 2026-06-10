@@ -1,13 +1,14 @@
 import 'dart:async';
-import 'dart:math' as math;
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+// TODO: Sesuaikan import package di bawah ini dengan struktur project kamu
+import 'package:linguago_flutter/core/constants/colors.dart';
 import 'package:linguago_flutter/data/datasource/auth_local_datasource.dart';
 import 'package:linguago_flutter/ui/home/home_screen.dart';
 import 'package:linguago_flutter/ui/home/intro/onboarding_screen.dart';
 
-/// Splash sequence: mascot idle → bubble burst → logo → onboarding.
+/// Splash sequence: mascot centered & blinking -> mascot shrinks -> bubble cards burst -> logo centered -> home/onboarding.
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -15,136 +16,139 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen>
-    with TickerProviderStateMixin {
-  static const Color _lavender = Color(0xFFF3E8FF);
-
+class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMixin {
   static const List<String> _mascotFrames = [
-    'assets/Group_107.svg',
-    'assets/Group_108.svg',
-    'assets/Group_109.svg',
-    'assets/Group_110.svg',
-    'assets/Group_111.svg',
-  ];
-
-  static const List<String> _bubbleAssets = [
-    'assets/Ellipse209.svg',
-    'assets/Ellipse210.svg',
-    'assets/Ellipse213.svg',
-    'assets/Ellipse214.svg',
-    'assets/Ellipse216.svg',
-    'assets/Ellipse217.svg',
-    'assets/Ellipse219.svg',
-    'assets/Ellipse220.svg',
-    'assets/Ellipse221.svg',
+    'assets/Group 106.svg',
+    'assets/blink.svg',
   ];
 
   late final List<BubbleData> _bubbles;
-  late final AnimationController _mascotEntryController;
-  late final Animation<double> _mascotSlideAnimation;
-  late final AnimationController _mascotBlinkController;
+  
+  // Menggunakan Scale untuk efek maskot mengecil (menghilang)
+  late final AnimationController _mascotScaleController;
+  late final Animation<double> _mascotScaleAnimation;
+  
   late final AnimationController _bubbleController;
   late final AnimationController _logoController;
+  late final Animation<double> _logoFadeAnimation;
 
   int _mascotFrameIndex = 0;
-  bool _showMascot = true;
   bool _showBubbles = false;
   bool _fadeBubbles = false;
   bool _showLogo = false;
+  bool _showLogoText = false;
 
   @override
   void initState() {
     super.initState();
+    // Generate layout berbentuk grid untuk menyesuaikan dengan prototype
     _bubbles = _generateBubbleLayout();
 
-    _mascotEntryController = AnimationController(
+    // Animasi maskot mengecil sebelum menghilang
+    _mascotScaleController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 950),
+      duration: const Duration(milliseconds: 400),
+      value: 1.0, // Mulai dari ukuran penuh
     );
 
-    _mascotSlideAnimation = Tween<double>(begin: 350.0, end: 0.0).animate(
-      CurvedAnimation(
-        parent: _mascotEntryController,
-        curve: Curves.easeOutBack,
-      ),
+    _mascotScaleAnimation = CurvedAnimation(
+      parent: _mascotScaleController,
+      curve: Curves.easeInBack, // Efek mengecil dengan sedikit tarikan ke belakang
     );
-
-    _mascotBlinkController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 450),
-    )..addListener(() {
-        if (!_showMascot || !mounted) return;
-        final frame = _mascotBlinkController.value * _mascotFrames.length;
-        final next = frame.floor() % _mascotFrames.length;
-        if (next != _mascotFrameIndex) {
-          setState(() => _mascotFrameIndex = next);
-        }
-      });
 
     _bubbleController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1400),
+      duration: const Duration(milliseconds: 1000),
     );
 
     _logoController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 700),
+      duration: const Duration(milliseconds: 600),
+    );
+
+    _logoFadeAnimation = CurvedAnimation(
+      parent: _logoController,
+      curve: Curves.easeIn,
     );
 
     unawaited(_runSequence());
   }
 
   Future<void> _runSequence() async {
-    // 1. Maskot masuk dari bawah (slide up)
-    unawaited(_mascotEntryController.forward());
+    // 1. Jeda awal maskot di tengah
+    await Future<void>.delayed(const Duration(milliseconds: 500));
+    if (!mounted) return;
+    
+    // 2. Animasi berkedip (blink loop)
+    // Kedip 1: tutup mata
+    setState(() => _mascotFrameIndex = 1);
+    await Future<void>.delayed(const Duration(milliseconds: 150));
+    if (!mounted) return;
+
+    // Kedip 1: buka mata
+    setState(() => _mascotFrameIndex = 0);
     await Future<void>.delayed(const Duration(milliseconds: 1000));
-
     if (!mounted) return;
-    // 2. Kedap-kedip / animasi ekspresi (2.5 s)
-    _mascotBlinkController.repeat();
-    await Future<void>.delayed(const Duration(milliseconds: 2500));
 
+    // Kedip 2: tutup mata
+    setState(() => _mascotFrameIndex = 1);
+    await Future<void>.delayed(const Duration(milliseconds: 150));
     if (!mounted) return;
-    _mascotBlinkController.stop();
+
+    // Kedip 2: buka mata
+    setState(() => _mascotFrameIndex = 0);
+    await Future<void>.delayed(const Duration(milliseconds: 400));
+    if (!mounted) return;
+
+    // 3. Maskot mengecil (shrink to 0) dan gelembung bersiap
     setState(() {
-      _showMascot = false;
       _showBubbles = true;
     });
-
-    // Gelembung ungu tumbuh/muncul (1.4s)
+    
+    _mascotScaleController.reverse(); // Menjalankan animasi mengecil (1.0 -> 0.0)
+    await Future<void>.delayed(const Duration(milliseconds: 200)); // Overlap sedikit
+    
+    // 4. Gelembung/Cards muncul (Burst)
+    if (!mounted) return;
     await _bubbleController.forward();
-    await Future<void>.delayed(const Duration(milliseconds: 400));
-
+    
+    // Mulai memudarkan gelembung
     if (!mounted) return;
-    setState(() {
-      _showLogo = true;
-    });
-    
-    // Animasi logo muncul (0.7s)
-    await _logoController.forward();
-    
-    // Tunggu sebentar, lalu mudarkan gelembung secara halus
-    await Future<void>.delayed(const Duration(milliseconds: 300));
-    if (!mounted) return;
-    
     setState(() {
       _fadeBubbles = true;
     });
-    
-    // Tunggu efek memudar selesai
-    await Future<void>.delayed(const Duration(milliseconds: 600));
+    await Future<void>.delayed(const Duration(milliseconds: 500));
+
+    // Sembunyikan gelembung sepenuhnya
     if (!mounted) return;
-    
     setState(() {
       _showBubbles = false;
     });
     
-    // Tampilkan logo selama 1.2s sebelum beralih halaman
-    await Future<void>.delayed(const Duration(milliseconds: 1200));
+    // 5. Tampilkan logo tile
+    setState(() {
+      _showLogo = true;
+    });
+    
+    // Animasi logo muncul
+    await _logoController.forward();
+    await Future<void>.delayed(const Duration(milliseconds: 200));
+
+    // 6. Tampilkan tulisan Linguago bergeser
+    if (!mounted) return;
+    setState(() {
+      _showLogoText = true;
+    });
+    
+    // Tahan layar sejenak untuk membiarkan user melihat logo lengkap
+    await Future<void>.delayed(const Duration(milliseconds: 1500));
 
     if (!mounted) return;
+    
+    // 7. Cek status login & Navigasi halaman
     final isLoggedIn = await AuthLocalDatasource().isLogin();
     if (!mounted) return;
+    
     if (isLoggedIn) {
       await Navigator.of(context).pushReplacement(
         MaterialPageRoute<void>(builder: (_) => const HomeScreen()),
@@ -164,8 +168,7 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   void dispose() {
-    _mascotEntryController.dispose();
-    _mascotBlinkController.dispose();
+    _mascotScaleController.dispose();
     _bubbleController.dispose();
     _logoController.dispose();
     super.dispose();
@@ -174,14 +177,15 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: _lavender, // background lavender lembut yang konsisten
+      backgroundColor: AppColors.backgroundSoft, 
       body: Stack(
         fit: StackFit.expand,
         children: [
+          // --- 1. BUBBLES / CARDS BURST LAYER ---
           if (_showBubbles)
             AnimatedOpacity(
               opacity: _fadeBubbles ? 0.0 : 1.0,
-              duration: const Duration(milliseconds: 600),
+              duration: const Duration(milliseconds: 500),
               curve: Curves.easeInOut,
               child: AnimatedBuilder(
                 animation: _bubbleController,
@@ -191,52 +195,51 @@ class _SplashScreenState extends State<SplashScreen>
                 ),
               ),
             ),
-          AnimatedOpacity(
-            opacity: _showMascot ? 1.0 : 0.0,
-            duration: const Duration(milliseconds: 400),
-            curve: Curves.easeOut,
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: EdgeInsets.only(
-                  bottom: MediaQuery.paddingOf(context).bottom + 48,
-                ),
-                child: AnimatedBuilder(
-                  animation: _mascotEntryController,
-                  builder: (context, child) {
-                    return Transform.translate(
-                      offset: Offset(0.0, _mascotSlideAnimation.value),
-                      child: child,
-                    );
-                  },
-                  child: AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 200),
-                    child: SvgPicture.asset(
-                      _mascotFrames[_mascotFrameIndex],
-                      key: ValueKey<int>(_mascotFrameIndex),
-                      width: 260,
-                      height: 260,
-                    ),
-                  ),
+          
+          // --- 2. CENTERED & SHRINKING MASCOT ---
+          Center(
+            child: ScaleTransition(
+              scale: _mascotScaleAnimation,
+              child: AnimatedSwitcher(
+                duration: const Duration(milliseconds: 100),
+                child: SvgPicture.asset(
+                  _mascotFrames[_mascotFrameIndex],
+                  key: ValueKey<int>(_mascotFrameIndex),
+                  width: 270,
                 ),
               ),
             ),
           ),
+          
+          // --- 3. CENTERING LOGO ---
           FadeTransition(
-            opacity: _logoController,
+            opacity: _logoFadeAnimation,
             child: ScaleTransition(
-              scale: Tween<double>(begin: 0.92, end: 1).animate(
+              scale: Tween<double>(begin: 0.85, end: 1.0).animate(
                 CurvedAnimation(
                   parent: _logoController,
-                  curve: Curves.easeOutCubic,
+                  curve: Curves.easeOutBack,
                 ),
               ),
               child: IgnorePointer(
                 ignoring: !_showLogo,
                 child: Center(
-                  child: SvgPicture.asset(
-                    'assets/logo.svg',
-                    width: 213,
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 650),
+                    curve: Curves.easeInOutCubic,
+                    width: _showLogoText ? 213 : 53, // Efek melebar memunculkan text
+                    height: 53,
+                    child: ClipRect(
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: SvgPicture.asset(
+                          'assets/logo.svg',
+                          height: 53,
+                          width: 213,
+                          fit: BoxFit.none,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -247,23 +250,27 @@ class _SplashScreenState extends State<SplashScreen>
     );
   }
 
+  // Mengubah layout agar mirip dengan grid layout di Figma
   List<BubbleData> _generateBubbleLayout() {
     return const [
-      BubbleData(assetPath: 'assets/Ellipse209.svg', centerX: 0.15, centerY: 0.15, baseSize: 260, stagger: 0.0),
-      BubbleData(assetPath: 'assets/Ellipse210.svg', centerX: 0.85, centerY: 0.85, baseSize: 280, stagger: 0.05),
-      BubbleData(assetPath: 'assets/Ellipse212.svg', centerX: 0.4, centerY: 0.25, baseSize: 240, stagger: 0.02),
-      BubbleData(assetPath: 'assets/Ellipse213.svg', centerX: 0.9, centerY: 0.2, baseSize: 220, stagger: 0.08),
-      BubbleData(assetPath: 'assets/Ellipse214.svg', centerX: 0.15, centerY: 0.55, baseSize: 320, stagger: 0.12),
-      BubbleData(assetPath: 'assets/Ellipse216.svg', centerX: 0.5, centerY: 0.9, baseSize: 280, stagger: 0.06),
-      BubbleData(assetPath: 'assets/Ellipse217.svg', centerX: 0.7, centerY: 0.5, baseSize: 340, stagger: 0.15),
-      BubbleData(assetPath: 'assets/Ellipse218.svg', centerX: 0.2, centerY: 0.85, baseSize: 250, stagger: 0.1),
-      BubbleData(assetPath: 'assets/Ellipse219.svg', centerX: 0.85, centerY: 0.6, baseSize: 270, stagger: 0.14),
-      BubbleData(assetPath: 'assets/Ellipse220.svg', centerX: 0.45, centerY: 0.1, baseSize: 230, stagger: 0.04),
-      BubbleData(assetPath: 'assets/Ellipse221.svg', centerX: 0.55, centerY: 0.4, baseSize: 290, stagger: 0.18),
+      // Top Row
+      BubbleData(assetPath: 'assets/Frame 1000002826.svg', centerX: 0.2, centerY: 0.2, baseSize: 110, stagger: 0.0),
+      BubbleData(assetPath: 'assets/Frame 1000002826-1.svg', centerX: 0.5, centerY: 0.15, baseSize: 130, stagger: 0.05),
+      BubbleData(assetPath: 'assets/Frame 1000002826-2.svg', centerX: 0.8, centerY: 0.2, baseSize: 100, stagger: 0.02),
+      
+      // Middle Row
+      BubbleData(assetPath: 'assets/Frame 1000002826-3.svg', centerX: 0.15, centerY: 0.5, baseSize: 90, stagger: 0.08),
+      BubbleData(assetPath: 'assets/Frame 1000002826.svg', centerX: 0.85, centerY: 0.5, baseSize: 120, stagger: 0.12),
+      
+      // Bottom Row
+      BubbleData(assetPath: 'assets/Frame 1000002826-1.svg', centerX: 0.2, centerY: 0.8, baseSize: 110, stagger: 0.06),
+      BubbleData(assetPath: 'assets/Frame 1000002826-2.svg', centerX: 0.5, centerY: 0.85, baseSize: 140, stagger: 0.15),
+      BubbleData(assetPath: 'assets/Frame 1000002826-3.svg', centerX: 0.8, centerY: 0.8, baseSize: 105, stagger: 0.1),
     ];
   }
 }
 
+// ... Kelas BubbleData, _BubbleBurstLayer, dan _SingleBubble tetap sama ...
 class BubbleData {
   const BubbleData({
     required this.assetPath,
@@ -295,17 +302,17 @@ class _BubbleBurstLayer extends StatelessWidget {
 
     return IgnorePointer(
       child: Stack(
-          fit: StackFit.expand,
-          children: [
-            for (final bubble in bubbles)
-              _SingleBubble(
-                data: bubble,
-                progress: progress,
-                screenWidth: size.width,
-                screenHeight: size.height,
-              ),
-          ],
-        ),
+        fit: StackFit.expand,
+        children: [
+          for (final bubble in bubbles)
+            _SingleBubble(
+              data: bubble,
+              progress: progress,
+              screenWidth: size.width,
+              screenHeight: size.height,
+            ),
+        ],
+      ),
     );
   }
 }
@@ -326,8 +333,8 @@ class _SingleBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final local = ((progress - data.stagger) / (1 - data.stagger)).clamp(0.0, 1.0);
-    final eased = Curves.easeOutCubic.transform(local);
-    final scale = Tween<double>(begin: 0.0, end: 1.4).transform(eased);
+    final eased = Curves.easeOutBack.transform(local); // Menggunakan easeOutBack agar terkesan "pop"
+    final scale = Tween<double>(begin: 0.0, end: 1.2).transform(eased);
 
     final left = screenWidth * data.centerX - data.baseSize / 2;
     final top = screenHeight * data.centerY - data.baseSize / 2;

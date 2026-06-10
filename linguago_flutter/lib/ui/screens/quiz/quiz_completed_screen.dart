@@ -31,32 +31,20 @@ class _QuizCompletedScreenState extends State<QuizCompletedScreen> with TickerPr
   final math.Random _random = math.Random();
 
   String _getSmallMascotAsset() {
-    switch (widget.part) {
-      case 2:
-        return 'assets/Group 36776.svg';
-      case 3:
-        return 'assets/Group 36780.svg';
-      default:
-        return 'assets/Group 36716.svg';
-    }
+    return 'assets/Group 36716.svg';
   }
 
   String _getExcitingMascotAsset() {
-    switch (widget.part) {
-      case 2:
-        return 'assets/Group 36776-1.svg';
-      case 3:
-        return 'assets/Group 36781.svg';
-      default:
-        return 'assets/Group 61.svg';
-    }
+    return 'assets/Group 61.svg';
   }
 
   @override
   void initState() {
     super.initState();
-    // Credit earned XP immediately
-    QuizProgress.setXp(QuizProgress.xp + widget.xpEarned);
+    // Credit earned XP immediately after the build phase completes
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      QuizProgress.setXp(QuizProgress.xp + widget.xpEarned);
+    });
     
     // Zoom/excitement controller
     _zoomController = AnimationController(

@@ -12,6 +12,7 @@ import 'package:linguago_flutter/ui/home/intro/onboarding_screen.dart';
 import 'package:linguago_flutter/ui/home/intro/otp_screen.dart';
 import 'package:linguago_flutter/ui/home/intro/register_screen.dart';
 import 'package:linguago_flutter/ui/home/intro/verification_email_screen.dart';
+import 'package:linguago_flutter/ui/home/intro/splash_screen.dart';
 
 import 'package:linguago_flutter/core/constants/quiz_state.dart';
 
@@ -42,7 +43,7 @@ class MyApp extends StatelessWidget {
         title: 'LinguaGo',
         debugShowCheckedModeBanner: false,
         theme: AppTheme.light(),
-        home: const OnboardingScreen(),
+        home: const SplashScreen(),
         routes: {
           '/onboarding': (_) => const OnboardingScreen(),
           '/login': (_) => const LoginScreen(),

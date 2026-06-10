@@ -4,6 +4,7 @@ import 'package:linguago_flutter/core/constants/colors.dart';
 import 'package:linguago_flutter/ui/home/intro/onboarding_watermark.dart';
 import 'package:linguago_flutter/ui/home/intro/login_screen.dart';
 import 'package:linguago_flutter/ui/widgets/custom_button.dart';
+import 'package:linguago_flutter/ui/widgets/auth_widgets.dart';
 
 enum OnboardingIllustration { welcome, lesson, quiz }
 
@@ -100,12 +101,32 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             child: Column(
               children: [
                 const SizedBox(height: 10),
-                // Progress bar
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 70),
-                  child: OnboardingLoadingBar(
-                    step: _currentPage + 1,
-                    totalSteps: _pages.length,
+                // Header row with back button and loading bar
+                SizedBox(
+                  height: 48,
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      if (_currentPage > 0)
+                        Positioned(
+                          left: 16,
+                          child: AuthBackButton(
+                            onTap: () {
+                              _pageController.previousPage(
+                                duration: const Duration(milliseconds: 350),
+                                curve: Curves.easeInOut,
+                              );
+                            },
+                          ),
+                        ),
+                      SizedBox(
+                        width: 156, // Fixed width matching Figma center progress bar
+                        child: OnboardingLoadingBar(
+                          step: _currentPage + 1,
+                          totalSteps: _pages.length,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 const SizedBox(height: 20),
@@ -121,19 +142,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         padding: const EdgeInsets.symmetric(horizontal: 24),
                         child: Column(
                           children: [
-                            Expanded(
-                              child: Center(
-                                child: _OnboardingIllustration(
-                                  type: data.illustration,
-                                ),
-                              ),
+                            const Spacer(flex: 3),
+                            _OnboardingIllustration(
+                              type: data.illustration,
                             ),
+                            const SizedBox(height: 32),
                             Text(
                               data.title,
                               textAlign: TextAlign.center,
                               style: titleStyle,
                             ),
-                            const SizedBox(height: 10),
+                            const SizedBox(height: 8),
                             Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 40),
                               child: Text(
@@ -142,7 +161,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                 style: bodyStyle,
                               ),
                             ),
-                            const SizedBox(height: 48), 
+                            const Spacer(flex: 4),
                           ],
                         ),
                       );
@@ -154,6 +173,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   child: CustomButton(
                     label: _currentPage == _pages.length - 1 ? 'Start' : 'Next',
                     borderRadius: 28,
+                    height: 46, // Shorter height matching Figma mockup
                     onTap: _next,
                   ),
                 ),
@@ -225,7 +245,7 @@ class _WelcomeIllustration extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 240,
-      height: 240,
+      height: 195, // Diperkecil dari 240 agar baseline visual di bawah sama dengan halaman lain
       child: Stack(
         alignment: Alignment.center,
         clipBehavior: Clip.none,
@@ -233,23 +253,23 @@ class _WelcomeIllustration extends StatelessWidget {
           // Bintang Kiri Atas (Diperbesar ke 34 & digeser sedikit biar presisi)
           Positioned(
             left: 2,
-            top: 30,
+            top: 15, // Disesuaikan dengan tinggi baru
             child: SvgPicture.asset('assets/Group 36697.svg', width: 34, colorFilter: const ColorFilter.mode(Color(0xFFFFE031), BlendMode.srcIn)),
           ),
           // Bintang Kiri Bawah (Diperbesar ke 22)
           Positioned(
             left: 30,
-            top: 75,
+            top: 55, // Disesuaikan dengan tinggi baru
             child: SvgPicture.asset('assets/Group 36697.svg', width: 22, colorFilter: const ColorFilter.mode(Color(0xFFFFE031), BlendMode.srcIn)),
           ),
           // Bintang Kanan Atas (Diperbesar ke 28)
           Positioned(
             right: 12,
-            top: 40,
+            top: 20, // Disesuaikan dengan tinggi baru
             child: SvgPicture.asset('assets/Group 36697.svg', width: 28, colorFilter: const ColorFilter.mode(Color(0xFFFFE031), BlendMode.srcIn)),
           ),
           Positioned(
-            bottom: 30,
+            bottom: 7, // Di turunkan dari 30 agar mepet ke batas bawah container
             child: Container(
               width: 120,
               height: 16,
@@ -299,13 +319,13 @@ class _LessonIllustration extends StatelessWidget {
           // 2. Maskot ditaruh di posisi yang pas dan ukurannya disesuaikan 
           // supaya tidak menutupi teks penting atau ikon bookmark di card.
           Positioned(
-            right: -10,
-            bottom: 0,
+            right: -25,
+            bottom: -5, // Di turunkan agar bertumpukan di pojok kanan bawah seperti Figma
             child: _FloatingMascot(
               child: SvgPicture.asset(
                 'assets/Group 36741.svg',
-                width: 100, // Disesuaikan sedikit agar proporsional dengan card
-                height: 100,
+                width: 140, // Disesuaikan agar proporsional dan overlap seperti Figma
+                height: 140,
               ),
             ),
           ),
@@ -322,7 +342,7 @@ class _QuizIllustration extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: 280, 
+      height: 265, // Diperkecil dari 280 agar baseline visual di bawah sama dengan halaman lain
       child: Stack(
         alignment: Alignment.center,
         clipBehavior: Clip.none,
@@ -372,7 +392,7 @@ class _QuizIllustration extends StatelessWidget {
           ),
           Positioned(
             left: 5, 
-            bottom: 25,
+            bottom: 10, // Diturunkan dari 25 agar sejajar baseline bawahnya
             child: _FloatingMascot(
               child: SvgPicture.asset(
                 'assets/Group 36726.svg',
@@ -383,7 +403,7 @@ class _QuizIllustration extends StatelessWidget {
           ),
           Positioned(
             right: 25, 
-            bottom: 15,
+            bottom: 0, // Diturunkan dari 15 agar sejajar baseline bawahnya
             child: SizedBox(
               width: 140, 
               child: Column(

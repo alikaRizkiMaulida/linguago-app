@@ -27,7 +27,7 @@ class _ScriptCategoryScreenState extends State<ScriptCategoryScreen> {
       'emoji': 'ㅗ ㅚ\nㅏ ㅟ',
       'bg': Color(0xFFD4C4F0), // Light Purple
       'textColor': Color(0xFF6C4AB6),
-      'lockLevel': 2,
+      'lockLevel': 6,
     },
     {
       'title': 'Basic Consonants',
@@ -35,7 +35,7 @@ class _ScriptCategoryScreenState extends State<ScriptCategoryScreen> {
       'emoji': 'ㄱ ㄷ\nㅂ ㅈ',
       'bg': Color(0xFFFFF0B3), // Yellow
       'textColor': Color(0xFFB37400),
-      'lockLevel': 3,
+      'lockLevel': 11,
     },
     {
       'title': 'Compound Vowels',
@@ -43,7 +43,7 @@ class _ScriptCategoryScreenState extends State<ScriptCategoryScreen> {
       'emoji': 'ㅘ ㅙ\nㅚ ㅝ',
       'bg': Color(0xFFE8E8FF), // Light Blue/Purple
       'textColor': Color(0xFF4D4DFF),
-      'lockLevel': 4,
+      'lockLevel': 16,
     },
     {
       'title': 'Double Consonants',
@@ -51,7 +51,7 @@ class _ScriptCategoryScreenState extends State<ScriptCategoryScreen> {
       'emoji': 'ㄲ ㄸ\nㅃ ㅆ',
       'bg': Color(0xFFFFDAB9), // Peach
       'textColor': Color(0xFFD2691E),
-      'lockLevel': 5,
+      'lockLevel': 21,
     },
     {
       'title': 'Final Consonants',
@@ -59,7 +59,7 @@ class _ScriptCategoryScreenState extends State<ScriptCategoryScreen> {
       'emoji': '사\n람',
       'bg': Color(0xFFE0F7FA), // Light Cyan
       'textColor': Color(0xFF00838F),
-      'lockLevel': 6,
+      'lockLevel': 26,
     },
   ];
 
@@ -78,7 +78,7 @@ class _ScriptCategoryScreenState extends State<ScriptCategoryScreen> {
       'emoji': 'A E\nI O',
       'bg': Color(0xFFD4C4F0), // Light Purple
       'textColor': Color(0xFF6C4AB6),
-      'lockLevel': 2,
+      'lockLevel': 6,
     },
     {
       'title': 'Basic Consonants',
@@ -86,7 +86,7 @@ class _ScriptCategoryScreenState extends State<ScriptCategoryScreen> {
       'emoji': 'B C\nD F',
       'bg': Color(0xFFFFF0B3), // Yellow
       'textColor': Color(0xFFB37400),
-      'lockLevel': 3,
+      'lockLevel': 11,
     },
     {
       'title': 'Compound Vowels',
@@ -94,7 +94,7 @@ class _ScriptCategoryScreenState extends State<ScriptCategoryScreen> {
       'emoji': 'AI EA\nOU EE',
       'bg': Color(0xFFE8E8FF), // Light Blue/Purple
       'textColor': Color(0xFF4D4DFF),
-      'lockLevel': 4,
+      'lockLevel': 16,
     },
     {
       'title': 'Double Consonants',
@@ -102,7 +102,7 @@ class _ScriptCategoryScreenState extends State<ScriptCategoryScreen> {
       'emoji': 'SH CH\nTH PH',
       'bg': Color(0xFFFFDAB9), // Peach
       'textColor': Color(0xFFD2691E),
-      'lockLevel': 5,
+      'lockLevel': 21,
     },
     {
       'title': 'Final Consonants',
@@ -110,7 +110,7 @@ class _ScriptCategoryScreenState extends State<ScriptCategoryScreen> {
       'emoji': 'SIL\nENT',
       'bg': Color(0xFFE0F7FA), // Light Cyan
       'textColor': Color(0xFF00838F),
-      'lockLevel': 6,
+      'lockLevel': 26,
     },
   ];
 
@@ -336,7 +336,7 @@ class _ScriptCard extends StatelessWidget {
                           color: AppColors.navInActive, size: 14),
                       const SizedBox(width: 4),
                       Text(
-                        'Unlocked at Level $lockLevel',
+                        'Unlocked at Level ${((lockLevel - 1) ~/ 5 + 1)}',
                         style: const TextStyle(
                           fontSize: 10,
                           color: AppColors.navInActive,

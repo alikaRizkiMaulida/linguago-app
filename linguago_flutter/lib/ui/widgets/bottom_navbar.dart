@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:linguago_flutter/core/constants/colors.dart';
+import 'package:linguago_flutter/core/constants/chat_store.dart';
 
 class BottomNavbar extends StatelessWidget {
   final int currentIndex;
@@ -38,31 +39,41 @@ class BottomNavbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 64, // Slightly shorter for floating pill
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      decoration: BoxDecoration(
-        color: AppColors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.06),
-            blurRadius: 20,
-            offset: const Offset(0, 4),
+    return AnimatedBuilder(
+      animation: ChatStore.instance,
+      builder: (context, child) {
+        final int totalUnread = ChatStore.instance.conversations.fold<int>(
+          0,
+          (sum, c) => sum + c.unread,
+        );
+        return Container(
+          height: 64,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          decoration: BoxDecoration(
+            color: AppColors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.06),
+                blurRadius: 20,
+                offset: const Offset(0, 4),
+              ),
+            ],
+            borderRadius: BorderRadius.circular(40),
           ),
-        ],
-        borderRadius: BorderRadius.circular(40), // Fully rounded pill
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween, // Evenly spaced
-        children: List.generate(
-          _items.length,
-          (index) => _NavBarItem(
-            item: _items[index],
-            isActive: currentIndex == index,
-            onTap: () => onTap(index),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: List.generate(
+              _items.length,
+              (index) => _NavBarItem(
+                item: _items[index],
+                isActive: currentIndex == index,
+                onTap: () => onTap(index),
+                badgeCount: index == 3 ? totalUnread : 0,
+              ),
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
@@ -81,11 +92,13 @@ class _NavBarItem extends StatelessWidget {
   final _NavItem item;
   final bool isActive;
   final VoidCallback onTap;
+  final int badgeCount;
 
   const _NavBarItem({
     required this.item,
     required this.isActive,
     required this.onTap,
+    this.badgeCount = 0,
   });
 
   @override
@@ -107,14 +120,41 @@ class _NavBarItem extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            SvgPicture.asset(
-              item.svgAsset,
-              width: 24,
-              height: 24,
-              colorFilter: const ColorFilter.mode(
-                AppColors.primaryPurple,
-                BlendMode.srcIn,
-              ),
+            Stack(
+              children: [
+                SvgPicture.asset(
+                  item.svgAsset,
+                  width: 24,
+                  height: 24,
+                  colorFilter: const ColorFilter.mode(
+                    AppColors.primaryPurple,
+                    BlendMode.srcIn,
+                  ),
+                ),
+                if (badgeCount > 0)
+                  Positioned(
+                    right: -4,
+                    top: -4,
+                    child: Container(
+                      width: 18,
+                      height: 18,
+                      decoration: const BoxDecoration(
+                        color: Color(0xFFEF5350),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Center(
+                        child: Text(
+                          badgeCount > 9 ? '9+' : '$badgeCount',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 10,
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
             ),
             if (isActive) ...[
               const SizedBox(width: 6),

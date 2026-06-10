@@ -112,63 +112,63 @@
     "quiz_title": "Quiz Final Chapter 1",
     "questions": [
       {
-        "text": "Which word has the \"ai\" sound?",
+        "text": "Which word has the \"AI\" sound?",
         "explanation": "Kata \"fine\" dilafalkan dengan bunyi vokal panjang /aɪ/ (ai).",
         "options": [
-          { "text": "bed", "is_correct": false },
-          { "text": "sin", "is_correct": false },
-          { "text": "run", "is_correct": false },
-          { "text": "fine", "is_correct": true }
+          { "text": "Bed", "is_correct": false },
+          { "text": "Sin", "is_correct": false },
+          { "text": "Run", "is_correct": false },
+          { "text": "Fine", "is_correct": true }
         ]
       },
       {
-        "text": "What sound does \"ph\" make?",
+        "text": "What sound does \"PH\" make?",
         "explanation": "Kombinasi \"ph\" menghasilkan bunyi /f/.",
         "options": [
-          { "text": "f", "is_correct": true },
-          { "text": "p", "is_correct": false },
-          { "text": "h", "is_correct": false },
-          { "text": "sh", "is_correct": false }
+          { "text": "F", "is_correct": true },
+          { "text": "P", "is_correct": false },
+          { "text": "H", "is_correct": false },
+          { "text": "SH", "is_correct": false }
         ]
       },
       {
         "text": "Which word contains a silent H?",
         "explanation": "Pada kata \"hour\", huruf H tidak dilafalkan (dibaca /aʊə/).",
         "options": [
-          { "text": "home", "is_correct": false },
-          { "text": "happy", "is_correct": false },
-          { "text": "hour", "is_correct": true },
-          { "text": "hat", "is_correct": false }
+          { "text": "Home", "is_correct": false },
+          { "text": "Happy", "is_correct": false },
+          { "text": "Hour", "is_correct": true },
+          { "text": "Hat", "is_correct": false }
         ]
       },
       {
         "text": "Which word has the \"Z\" sound?",
         "explanation": "Huruf s pada kata \"rose\" dilafalkan dengan bunyi /z/.",
         "options": [
-          { "text": "show", "is_correct": false },
-          { "text": "rose", "is_correct": true },
-          { "text": "sun", "is_correct": false },
-          { "text": "think", "is_correct": false }
+          { "text": "Show", "is_correct": false },
+          { "text": "Rose", "is_correct": true },
+          { "text": "Sun", "is_correct": false },
+          { "text": "Think", "is_correct": false }
         ]
       },
       {
-        "text": "What is the pronunciation of the letter \"v\"?",
-        "explanation": "Huruf v dibaca dengan menempelkan gigi atas ke bibir bawah (using lips and tooth).",
+        "text": "What is the pronunciation of the letter \"V\"?",
+        "explanation": "Huruf v dibaca dengan menempelkan gigi atas ke bibir bawah (using lips and teeth).",
         "options": [
-          { "text": "like f", "is_correct": false },
-          { "text": "silent", "is_correct": false },
-          { "text": "like b", "is_correct": false },
-          { "text": "using lips and tooth", "is_correct": true }
+          { "text": "Like F", "is_correct": false },
+          { "text": "Silent", "is_correct": false },
+          { "text": "Like B", "is_correct": false },
+          { "text": "using 👄 and 🦷", "is_correct": true }
         ]
       },
       {
         "text": "Which word has a long E sound?",
         "explanation": "Kata \"bee\" memiliki bunyi vokal panjang /iː/ (long E).",
         "options": [
-          { "text": "bed", "is_correct": false },
-          { "text": "bee", "is_correct": true },
-          { "text": "run", "is_correct": false },
-          { "text": "full", "is_correct": false }
+          { "text": "Bed", "is_correct": false },
+          { "text": "Bee", "is_correct": true },
+          { "text": "Run", "is_correct": false },
+          { "text": "Full", "is_correct": false }
         ]
       },
       {

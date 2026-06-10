@@ -96,25 +96,30 @@ class OnboardingLoadingBar extends StatelessWidget {
   final int step;
   final int totalSteps;
 
-  static const _trackColor = Color(0xFFE9E4F2);
-  static const _fillColor = Color(0xFFAA86E7);
+  static const _trackColor = Color(0xFFF7F8FA);
+  static const _fillColor = Color(0xFF8C65D1);
   static const _starColor = Color(0xFFFFE031);
 
   @override
   Widget build(BuildContext context) {
-    final progress = (step / totalSteps).clamp(0.0, 1.0);
+    final double progress;
+    if (totalSteps <= 1) {
+      progress = 1.0;
+    } else {
+      progress = 0.25 + (step - 1) * (0.75 / (totalSteps - 1));
+    }
 
     return Padding(
-      padding: const EdgeInsets.fromLTRB(36, 6, 36, 0),
+      padding: const EdgeInsets.symmetric(vertical: 6),
       child: LayoutBuilder(
         builder: (context, constraints) {
           final trackWidth = constraints.maxWidth;
-          final fillWidth = trackWidth * progress;
 
-          // --- UKURAN BARU SESUAI REKUES ---
-          const starSize = 34.0; // Bintang sudah diperbesar
-          const barHeight =
-              12.0; // Ketebalan background (putih) dan progress (ungu) sudah disamakan
+          const starSize = 26.0;
+          const barHeight = 8.0;
+
+          final starLeft = progress * (trackWidth - starSize);
+          final fillWidth = progress == 1.0 ? trackWidth : (starLeft + starSize / 2);
 
           return SizedBox(
             height: starSize,
@@ -122,7 +127,7 @@ class OnboardingLoadingBar extends StatelessWidget {
               clipBehavior: Clip.none,
               alignment: Alignment.centerLeft,
               children: [
-                // 1. TRACK BACKGROUND (Garis putih/abu-abu tipis lama sudah diganti setebal barHeight)
+                // 1. TRACK BACKGROUND
                 Positioned(
                   left: 0,
                   right: 0,
@@ -156,10 +161,7 @@ class OnboardingLoadingBar extends StatelessWidget {
                 AnimatedPositioned(
                   duration: const Duration(milliseconds: 450),
                   curve: Curves.easeInOutCubic,
-                  left: (fillWidth - starSize / 2).clamp(
-                    0.0,
-                    trackWidth - starSize,
-                  ),
+                  left: starLeft,
                   top: 0,
                   child: SvgPicture.asset(
                     'assets/ic_round-star.svg',
