@@ -1,0 +1,129 @@
+[
+    {
+        "course_title": "English for Beginners",
+        "language": "English",
+        "description": "Belajar alfabet, angka, tanggal, hari, dan bulan dalam Bahasa Inggris.",
+        "thumbnail_url": "https://img.youtube.com/vi/75p-N9YKqNo/0.jpg",
+        "chapters": [
+            {
+                "chapter_number": 1,
+                "chapter_title": "Basic: Alphabet & Pronunciation",
+                "description": "Belajar alfabet A-Z, vokal & konsonan, serta phonics (bunyi huruf).",
+                "lessons": [
+                    {
+                        "title": "ABC Song",
+                        "video_url": "https://youtu.be/CU6x9olTzuo?si=6ACYhW3Nbi-Wgisk"
+                    }
+                ]
+            },
+            {
+                "chapter_number": 2,
+                "chapter_title": "Numbers 1-100",
+                "description": "Mengenal angka dasar, belasan, puluhan, dan membaca angka hingga 100.",
+                "lessons": [
+                    {
+                        "title": "Numbers Song 1-100",
+                        "video_url": "https://youtu.be/D0Ajq682yrA?si=m5l9Wn7VfJEq_k2W"
+                    }
+                ]
+            },
+            {
+                "chapter_number": 3,
+                "chapter_title": "Dates & Ordinals",
+                "description": "Membaca tanggal dalam Bahasa Inggris menggunakan ordinal numbers.",
+                "lessons": [
+                    {
+                        "title": "Reading Dates in English",
+                        "video_url": "https://youtu.be/Fe9B7y42898?si=Z6y_19_N2829y"
+                    }
+                ]
+            },
+            {
+                "chapter_number": 4,
+                "chapter_title": "Days of the Week",
+                "description": "Belajar nama-nama hari dan cara menggunakannya dalam percakapan sehari-hari.",
+                "lessons": [
+                    {
+                        "title": "Days of the Week Song",
+                        "video_url": "https://youtu.be/mXMofxtDPUQ?si=1fQYp3P9pI123"
+                    }
+                ]
+            },
+            {
+                "chapter_number": 5,
+                "chapter_title": "Months of the Year",
+                "description": "Belajar nama-nama bulan dan mengenali musim dalam setahun.",
+                "lessons": [
+                    {
+                        "title": "Months of the Year Song",
+                        "video_url": "https://youtu.be/Fe9B7y42898?si=Z6y_19_N2829y"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "course_title": "Bahasa Korea Dasar",
+        "language": "Korean",
+        "description": "Belajar Hangul, tata bahasa S-O-V, dan percakapan sehari-hari Korea.",
+        "thumbnail_url": "https://img.youtube.com/vi/PLSMQH6cfoHMZ/0.jpg",
+        "chapters": [
+            {
+                "chapter_number": 1,
+                "chapter_title": "Dasar: Huruf & Pelafalan",
+                "description": "Mengenal Hangul, vokal & konsonan, serta cara menulis dan membaca.",
+                "lessons": [
+                    {
+                        "title": "Belajar Hangul Dasar",
+                        "video_url": "https://youtu.be/pCht9llEugM?si=5XcKW4yF3x8InyDW"
+                    },
+                    {
+                        "title": "Vokal & Konsonan Korea",
+                        "video_url": "https://youtu.be/HX_LSjwmwWI?si=8OnFzVUUPxd5haRk"
+                    }
+                ]
+            },
+            {
+                "chapter_number": 2,
+                "chapter_title": "Kosakata & Frasa Dasar",
+                "description": "Belajar salam, angka Korea (1-100), dan perkenalan diri.",
+                "lessons": [
+                    {
+                        "title": "Salam & Ungkapan Dasar",
+                        "video_url": "https://youtu.be/nF2Lptz7IRE?si=f19srQaTMNEoyb86"
+                    },
+                    {
+                        "title": "Angka Korea (Sino & Native)",
+                        "video_url": "https://youtu.be/bNIBir9a-3g?si=iLcxRLHf8atfKjfv"
+                    }
+                ]
+            },
+            {
+                "chapter_number": 3,
+                "chapter_title": "Tata Bahasa Dasar",
+                "description": "Struktur kalimat S-O-V, partikel 은/n는, 이/가, dan bentuk sopan.",
+                "lessons": [
+                    {
+                        "title": "Struktur Kalimat & Partikel Dasar korea",
+                        "video_url": "https://youtu.be/3ldXXRLW9go?si=vvovtIV2uOt2cLEm"
+                    },
+                    {
+                        "title": "Kata Kerja & Akhiran Sopan korea",
+                        "video_url": "https://youtu.be/0IjzDtUBiBM?si=aFIeLYsEVZ6fRL5i"
+                    }
+                ]
+            },
+            {
+                "chapter_number": 4,
+                "chapter_title": "Percakapan Sehari-hari",
+                "description": "Latihan memesan makanan, bertanya arah, dan ekspresi harian.",
+                "lessons": [
+                    {
+                        "title": "Percakapan di Restoran & Jalan",
+                        "video_url": "https://youtu.be/2CXwo_O7xCg?si=oOHeM6X9dwFCJT4u"
+                    }
+                ]
+            }
+        ]
+    }
+]

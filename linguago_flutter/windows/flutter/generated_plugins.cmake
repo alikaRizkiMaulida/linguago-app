@@ -4,6 +4,10 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   connectivity_plus
+<<<<<<< HEAD
+=======
+  file_selector_windows
+>>>>>>> 9e5cef49e612700d4c5e23b9945d3b47589663e1
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST
