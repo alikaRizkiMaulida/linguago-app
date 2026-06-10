@@ -39,7 +39,7 @@ class ChatMessage {
 // SINGLETON STORE
 // ─────────────────────────────────────────────────────────────────────────────
 /// Shared state untuk semua percakapan.
-/// Diakses dari LeaderboardScreen (saat buka chat dari profil)
+/// Diakses dari LeaderboardPage (saat buka chat dari profil)
 /// dan ChatPage (menampilkan daftar & isi pesan).
 class ChatStore extends ChangeNotifier {
   static final ChatStore instance = ChatStore._();

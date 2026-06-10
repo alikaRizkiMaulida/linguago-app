@@ -4,15 +4,15 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:linguago_flutter/core/theme/app_theme.dart';
 import 'package:linguago_flutter/ui/bloc/auth/login/login_bloc.dart';
 import 'package:linguago_flutter/ui/bloc/auth/register/register_bloc.dart';
-import 'package:linguago_flutter/ui/home/home_screen.dart';
-import 'package:linguago_flutter/ui/home/intro/forgot_password_screen.dart';
-import 'package:linguago_flutter/ui/home/intro/login_screen.dart';
-import 'package:linguago_flutter/ui/home/intro/new_password_screen.dart';
-import 'package:linguago_flutter/ui/home/intro/onboarding_screen.dart';
-import 'package:linguago_flutter/ui/home/intro/otp_screen.dart';
-import 'package:linguago_flutter/ui/home/intro/register_screen.dart';
-import 'package:linguago_flutter/ui/home/intro/verification_email_screen.dart';
-import 'package:linguago_flutter/ui/home/intro/splash_screen.dart';
+import 'package:linguago_flutter/ui/pages/home/home_shell_page.dart';
+import 'package:linguago_flutter/ui/pages/auth/forgot_password_page.dart';
+import 'package:linguago_flutter/ui/pages/auth/login_page.dart';
+import 'package:linguago_flutter/ui/pages/auth/new_password_page.dart';
+import 'package:linguago_flutter/ui/pages/auth/onboarding_page.dart';
+import 'package:linguago_flutter/ui/pages/auth/otp_page.dart';
+import 'package:linguago_flutter/ui/pages/auth/register_page.dart';
+import 'package:linguago_flutter/ui/pages/auth/verification_email_page.dart';
+import 'package:linguago_flutter/ui/pages/auth/splash_page.dart';
 
 import 'package:linguago_flutter/core/constants/quiz_state.dart';
 
@@ -43,16 +43,16 @@ class MyApp extends StatelessWidget {
         title: 'LinguaGo',
         debugShowCheckedModeBanner: false,
         theme: AppTheme.light(),
-        home: const SplashScreen(),
+        home: const SplashPage(),
         routes: {
-          '/onboarding': (_) => const OnboardingScreen(),
-          '/login': (_) => const LoginScreen(),
-          '/register': (_) => const RegisterScreen(),
-          '/forgot-password': (_) => const ForgotPasswordScreen(),
-          '/otp': (_) => const OtpScreen(),
-          '/new-password': (_) => const NewPasswordScreen(),
-          '/verification-email': (_) => const VerificationEmailScreen(),
-          '/home': (_) => const HomeScreen(),
+          '/onboarding': (_) => const OnboardingPage(),
+          '/login': (_) => const LoginPage(),
+          '/register': (_) => const RegisterPage(),
+          '/forgot-password': (_) => const ForgotPasswordPage(),
+          '/otp': (_) => const OtpPage(),
+          '/new-password': (_) => const NewPasswordPage(),
+          '/verification-email': (_) => const VerificationEmailPage(),
+          '/home': (_) => const HomeShellPage(),
         },
       )
     );
