@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Helpers\NotificationHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Follow;
 use App\Models\User;
@@ -53,6 +54,9 @@ class FollowController extends Controller
             'following_id' => $userId,
             'followed_at'  => Carbon::now(),
         ]);
+
+        // Kirim notifikasi
+        NotificationHelper::followNotification($authUser, $targetUser);
 
         return response()->json([
             'status'  => 'success',
@@ -136,6 +140,10 @@ class FollowController extends Controller
                 'following_id' => $userId,
                 'followed_at'  => Carbon::now(),
             ]);
+
+            // Kirim notifikasi
+            NotificationHelper::followNotification($authUser, $targetUser);
+
             $isFollowing = true;
             $message = 'Berhasil follow ' . $targetUser->name;
         }

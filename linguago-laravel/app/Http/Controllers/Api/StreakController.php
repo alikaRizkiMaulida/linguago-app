@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Helpers\NotificationHelper;
 use App\Http\Controllers\Controller;
 use App\Models\StreakLog;
 use App\Models\User;
@@ -101,7 +102,19 @@ class StreakController extends Controller
         }
 
         // Update streak di user
+        $oldStreak = $user->current_streak;
         $this->recalculateStreak($user);
+
+        // Kirim notifikasi streak di milestone tertentu
+        $milestones = [3, 7, 14, 21, 30, 60, 100, 365];
+        if ($user->current_streak > $oldStreak && in_array($user->current_streak, $milestones)) {
+            NotificationHelper::streakNotification($user, $user->current_streak);
+        }
+
+        // Kirim notifikasi daily reward
+        if ($xpEarned > 0) {
+            NotificationHelper::dailyRewardNotification($user, $xpEarned, 0);
+        }
 
         return response()->json([
             'status'  => 'success',

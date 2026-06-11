@@ -108,4 +108,9 @@ class User extends Authenticatable
             ->withTimestamps()
             ->latest('updated_at');
     }
+
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class);
+    }
 }

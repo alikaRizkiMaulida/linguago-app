@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers\Api;
 
+use App\Helpers\NotificationHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Conversation;
 use App\Models\Message;
@@ -138,6 +139,20 @@ class ChatController extends Controller
         $conversation->touch();
 
         broadcast(new MessageSent($message))->toOthers();
+
+        // Kirim notifikasi ke peserta lain
+        $otherParticipants = $conversation->participants()
+            ->where('users.id', '!=', $user->id)
+            ->get();
+
+        foreach ($otherParticipants as $participant) {
+            NotificationHelper::chatNotification(
+                $participant,
+                $user,
+                $conversation->id,
+                $request->content
+            );
+        }
 
         return response()->json([
             'status' => 'success',

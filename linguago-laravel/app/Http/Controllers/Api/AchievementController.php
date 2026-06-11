@@ -9,6 +9,7 @@ use App\Models\StreakLog;
 use App\Models\User;
 use App\Models\UserAchievement;
 use App\Models\UserNodeProgress;
+use App\Helpers\NotificationHelper;
 use App\Services\LevelService;
 use App\Models\UserQuizAttempt;
 use App\Models\UserShadowingAttempt;
@@ -233,6 +234,11 @@ class AchievementController extends Controller
         if ($newlyEarned->isNotEmpty()) {
             $user->save();
             LevelService::recalculate($user);
+
+            // Kirim notifikasi untuk setiap achievement baru
+            foreach ($newlyEarned as $earned) {
+                NotificationHelper::achievementNotification($user, $earned['title']);
+            }
         }
 
         return $newlyEarned;
