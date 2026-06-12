@@ -4,9 +4,9 @@ import 'package:linguago_flutter/core/constants/colors.dart';
 import 'package:linguago_flutter/core/constants/language_preference.dart';
 import 'package:linguago_flutter/core/constants/quiz_state.dart';
 import 'package:linguago_flutter/ui/pages/home_page_english.dart';
-import 'package:linguago_flutter/ui/screens/streak/streak_screen.dart';
+import 'package:linguago_flutter/ui/streak/pages/streak_page.dart';
 import 'package:linguago_flutter/ui/screens/listening/listening_category_screen.dart' as linguago_flutter_listening;
-import 'package:linguago_flutter/ui/screens/script/script_category_screen.dart' as linguago_flutter_script;
+import 'package:linguago_flutter/ui/script/pages/script_page.dart';
 import 'package:linguago_flutter/ui/screens/quiz/quiz_intro_screen.dart';
 import 'package:linguago_flutter/ui/pages/lesson_detail_screen.dart';
 import 'package:linguago_flutter/ui/screens/quiz/fun_fact_screen.dart';
@@ -290,7 +290,7 @@ class _StatsRow extends StatelessWidget {
     return GestureDetector(
       onTap: () => Navigator.push(
         context,
-        MaterialPageRoute<void>(builder: (_) => const StreakScreen()),
+        MaterialPageRoute<void>(builder: (_) => const StreakPage()),
       ),
       child: Container(
         padding:
@@ -914,7 +914,7 @@ class _QuickActions extends StatelessWidget {
                 onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute<void>(
-                          builder: (_) => const linguago_flutter_script.ScriptCategoryScreen()),
+                          builder: (_) => const ScriptPage()),
                     ).then((_) => onRefresh()))),
         const SizedBox(width: 12),
         Expanded(

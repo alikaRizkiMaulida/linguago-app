@@ -2,7 +2,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:linguago_flutter/core/constants/colors.dart';
 import 'package:linguago_flutter/core/constants/chat_store.dart';
-import 'package:linguago_flutter/ui/pages/chat_page.dart';
+import 'package:linguago_flutter/ui/chat/pages/chat_detail_page.dart';
 
 // ─── Model ───────────────────────────────────────────────────────────────────
 class _Player {

@@ -17,6 +17,9 @@ import 'package:vector_graphics/vector_graphics.dart' as _vg;
 class Assets {
   const Assets._();
 
+  static const SvgGenImage component250 = SvgGenImage(
+    'assets/Component 250.svg',
+  );
   static const SvgGenImage ellipse209 = SvgGenImage('assets/Ellipse209.svg');
   static const SvgGenImage ellipse210 = SvgGenImage('assets/Ellipse210.svg');
   static const SvgGenImage ellipse212 = SvgGenImage('assets/Ellipse212.svg');
@@ -28,15 +31,95 @@ class Assets {
   static const SvgGenImage ellipse219 = SvgGenImage('assets/Ellipse219.svg');
   static const SvgGenImage ellipse220 = SvgGenImage('assets/Ellipse220.svg');
   static const SvgGenImage ellipse221 = SvgGenImage('assets/Ellipse221.svg');
+  static const SvgGenImage frame10000022061 = SvgGenImage(
+    'assets/Frame 1000002206-1.svg',
+  );
+  static const SvgGenImage frame10000022062 = SvgGenImage(
+    'assets/Frame 1000002206-2.svg',
+  );
+  static const SvgGenImage frame10000022063 = SvgGenImage(
+    'assets/Frame 1000002206-3.svg',
+  );
+  static const SvgGenImage frame10000022064 = SvgGenImage(
+    'assets/Frame 1000002206-4.svg',
+  );
+  static const SvgGenImage frame10000022065 = SvgGenImage(
+    'assets/Frame 1000002206-5.svg',
+  );
+  static const SvgGenImage frame10000022066 = SvgGenImage(
+    'assets/Frame 1000002206-6.svg',
+  );
+  static const SvgGenImage frame10000022067 = SvgGenImage(
+    'assets/Frame 1000002206-7.svg',
+  );
+  static const SvgGenImage frame1000002206 = SvgGenImage(
+    'assets/Frame 1000002206.svg',
+  );
   static const SvgGenImage frame37056 = SvgGenImage('assets/Frame 37056.svg');
+  static const SvgGenImage frame37140 = SvgGenImage('assets/Frame 37140.svg');
   static const SvgGenImage frame5 = SvgGenImage('assets/Frame 5.svg');
   static const SvgGenImage frame = SvgGenImage('assets/Frame.svg');
+  static const SvgGenImage frame1000001900 = SvgGenImage(
+    'assets/Frame1000001900.svg',
+  );
+  static const SvgGenImage frame1000001904 = SvgGenImage(
+    'assets/Frame1000001904.svg',
+  );
+  static const SvgGenImage frame1000001909 = SvgGenImage(
+    'assets/Frame1000001909.svg',
+  );
+  static const SvgGenImage frame1000001911 = SvgGenImage(
+    'assets/Frame1000001911.svg',
+  );
+  static const SvgGenImage frame1000001918 = SvgGenImage(
+    'assets/Frame1000001918.svg',
+  );
+  static const SvgGenImage frame1000002826 = SvgGenImage(
+    'assets/Frame_1000002826.svg',
+  );
+  static const SvgGenImage frame10000028261 = SvgGenImage(
+    'assets/Frame_1000002826_1.svg',
+  );
+  static const SvgGenImage frame10000028262 = SvgGenImage(
+    'assets/Frame_1000002826_2.svg',
+  );
+  static const SvgGenImage frame10000028263 = SvgGenImage(
+    'assets/Frame_1000002826_3.svg',
+  );
   static const SvgGenImage group107Svg = SvgGenImage('assets/Group 107.svg');
   static const SvgGenImage group107Svg_ = SvgGenImage('assets/Group_107.svg');
   static const SvgGenImage group36697 = SvgGenImage('assets/Group 36697.svg');
+  static const SvgGenImage group366982 = SvgGenImage(
+    'assets/Group 36698 (2).svg',
+  );
   static const SvgGenImage group36716 = SvgGenImage('assets/Group 36716.svg');
+  static const SvgGenImage group36772 = SvgGenImage('assets/Group 36772.svg');
+  static const SvgGenImage group36773 = SvgGenImage('assets/Group 36773.svg');
+  static const SvgGenImage group36774 = SvgGenImage('assets/Group 36774.svg');
+  static const SvgGenImage group36775 = SvgGenImage('assets/Group 36775.svg');
+  static const SvgGenImage group367761 = SvgGenImage(
+    'assets/Group 36776-1.svg',
+  );
+  static const SvgGenImage group36776 = SvgGenImage('assets/Group 36776.svg');
+  static const SvgGenImage group36778 = SvgGenImage('assets/Group 36778.svg');
+  static const SvgGenImage group36779 = SvgGenImage('assets/Group 36779.svg');
+  static const SvgGenImage group367801 = SvgGenImage(
+    'assets/Group 36780-1.svg',
+  );
+  static const SvgGenImage group36780 = SvgGenImage('assets/Group 36780.svg');
+  static const SvgGenImage group36781 = SvgGenImage('assets/Group 36781.svg');
+  static const SvgGenImage group36785 = SvgGenImage('assets/Group 36785.svg');
+  static const SvgGenImage group36786 = SvgGenImage('assets/Group 36786.svg');
+  static const SvgGenImage group36787 = SvgGenImage('assets/Group 36787.svg');
+  static const SvgGenImage group36788 = SvgGenImage('assets/Group 36788.svg');
+  static const SvgGenImage group36793 = SvgGenImage('assets/Group 36793.svg');
+  static const SvgGenImage group36794 = SvgGenImage('assets/Group 36794.svg');
+  static const SvgGenImage group36796 = SvgGenImage('assets/Group 36796.svg');
+  static const SvgGenImage group36872 = SvgGenImage('assets/Group 36872.svg');
+  static const SvgGenImage group36873 = SvgGenImage('assets/Group 36873.svg');
   static const SvgGenImage group61 = SvgGenImage('assets/Group 61.svg');
   static const AssetGenImage group7 = AssetGenImage('assets/Group 7.png');
+  static const SvgGenImage group106 = SvgGenImage('assets/Group_106.svg');
   static const SvgGenImage group108 = SvgGenImage('assets/Group_108.svg');
   static const SvgGenImage group109 = SvgGenImage('assets/Group_109.svg');
   static const SvgGenImage group110 = SvgGenImage('assets/Group_110.svg');
@@ -58,14 +141,32 @@ class Assets {
   static const SvgGenImage vector1 = SvgGenImage('assets/Vector (1).svg');
   static const SvgGenImage vector46 = SvgGenImage('assets/Vector 46.svg');
   static const SvgGenImage vector = SvgGenImage('assets/Vector.svg');
-  static const AssetGenImage b1431ed0062140189f1a709c041cd6cb1 = AssetGenImage(
-    'assets/b1431ed0-0621-4018-9f1a-709c041cd6cb 1.png',
-  );
+  static const SvgGenImage batMascot = SvgGenImage('assets/bat_mascot.svg');
   static const SvgGenImage biPeopleFill = SvgGenImage(
     'assets/bi_people-fill.svg',
   );
   static const SvgGenImage biPersonFill = SvgGenImage(
     'assets/bi_person-fill.svg',
+  );
+  static const SvgGenImage card1 = SvgGenImage('assets/card 1.svg');
+  static const SvgGenImage card2 = SvgGenImage('assets/card 2.svg');
+  static const SvgGenImage card3 = SvgGenImage('assets/card 3.svg');
+  static const SvgGenImage card4 = SvgGenImage('assets/card 4.svg');
+  static const SvgGenImage card5 = SvgGenImage('assets/card 5.svg');
+  static const AssetGenImage cartoonKid = AssetGenImage(
+    'assets/cartoon_kid.png',
+  );
+  static const AssetGenImage cartoonKing = AssetGenImage(
+    'assets/cartoon_king.png',
+  );
+  static const AssetGenImage cartoonKite = AssetGenImage(
+    'assets/cartoon_kite.png',
+  );
+  static const AssetGenImage cartoonKnee = AssetGenImage(
+    'assets/cartoon_knee.png',
+  );
+  static const AssetGenImage cartoonSun = AssetGenImage(
+    'assets/cartoon_sun.png',
   );
   static const SvgGenImage email = SvgGenImage('assets/email.svg');
   static const SvgGenImage epBack1 = SvgGenImage('assets/ep_back-1.svg');
@@ -108,6 +209,13 @@ class Assets {
   static const SvgGenImage iconamoonScreenFullFill = SvgGenImage(
     'assets/iconamoon_screen-full-fill.svg',
   );
+  static const SvgGenImage image4271 = SvgGenImage('assets/image 427-1.svg');
+  static const SvgGenImage image4272 = SvgGenImage('assets/image 427-2.svg');
+  static const SvgGenImage image4273 = SvgGenImage('assets/image 427-3.svg');
+  static const SvgGenImage image427 = SvgGenImage('assets/image 427.svg');
+  static const SvgGenImage image4281 = SvgGenImage('assets/image 428-1.svg');
+  static const SvgGenImage image428 = SvgGenImage('assets/image 428.svg');
+  static const SvgGenImage image429 = SvgGenImage('assets/image 429.svg');
   static const SvgGenImage iniYangMwDiPakek = SvgGenImage(
     'assets/ini yang mw di pakek.svg',
   );
@@ -152,14 +260,26 @@ class Assets {
   static const SvgGenImage mynauiTelephoneSolid = SvgGenImage(
     'assets/mynaui_telephone-solid.svg',
   );
+  static const SvgGenImage notoFire = SvgGenImage('assets/noto_fire.svg');
+  static const SvgGenImage onboarding2 = SvgGenImage('assets/onboarding_2.svg');
   static const SvgGenImage pepiconsPencilDotsY = SvgGenImage(
     'assets/pepicons-pencil_dots-y.svg',
   );
+  static const SvgGenImage questionMark = SvgGenImage(
+    'assets/question_mark.svg',
+  );
+  static const AssetGenImage redRose = AssetGenImage('assets/red_rose.png');
   static const SvgGenImage riGoogleFill = SvgGenImage(
     'assets/ri_google-fill.svg',
   );
   static const SvgGenImage solarShareLinear = SvgGenImage(
     'assets/solar_share-linear.svg',
+  );
+  static const AssetGenImage stageSpotlight = AssetGenImage(
+    'assets/stage_spotlight.png',
+  );
+  static const AssetGenImage stickmanThinking = AssetGenImage(
+    'assets/stickman_thinking.png',
   );
   static const SvgGenImage uilSetting = SvgGenImage('assets/uil_setting.svg');
   static const SvgGenImage weuiBackFilled1 = SvgGenImage(
@@ -174,6 +294,7 @@ class Assets {
 
   /// List of all assets
   static List<dynamic> get values => [
+    component250,
     ellipse209,
     ellipse210,
     ellipse212,
@@ -185,15 +306,55 @@ class Assets {
     ellipse219,
     ellipse220,
     ellipse221,
+    frame10000022061,
+    frame10000022062,
+    frame10000022063,
+    frame10000022064,
+    frame10000022065,
+    frame10000022066,
+    frame10000022067,
+    frame1000002206,
     frame37056,
+    frame37140,
     frame5,
     frame,
+    frame1000001900,
+    frame1000001904,
+    frame1000001909,
+    frame1000001911,
+    frame1000001918,
+    frame1000002826,
+    frame10000028261,
+    frame10000028262,
+    frame10000028263,
     group107Svg,
     group107Svg_,
     group36697,
+    group366982,
     group36716,
+    group36772,
+    group36773,
+    group36774,
+    group36775,
+    group367761,
+    group36776,
+    group36778,
+    group36779,
+    group367801,
+    group36780,
+    group36781,
+    group36785,
+    group36786,
+    group36787,
+    group36788,
+    group36793,
+    group36794,
+    group36796,
+    group36872,
+    group36873,
     group61,
     group7,
+    group106,
     group108,
     group109,
     group110,
@@ -207,9 +368,19 @@ class Assets {
     vector1,
     vector46,
     vector,
-    b1431ed0062140189f1a709c041cd6cb1,
+    batMascot,
     biPeopleFill,
     biPersonFill,
+    card1,
+    card2,
+    card3,
+    card4,
+    card5,
+    cartoonKid,
+    cartoonKing,
+    cartoonKite,
+    cartoonKnee,
+    cartoonSun,
     email,
     epBack1,
     epBack,
@@ -227,6 +398,13 @@ class Assets {
     iconamoonPlaylistShuffleDuotone,
     iconamoonProfileFill,
     iconamoonScreenFullFill,
+    image4271,
+    image4272,
+    image4273,
+    image427,
+    image4281,
+    image428,
+    image429,
     iniYangMwDiPakek,
     logo,
     lucideBellDot,
@@ -243,9 +421,15 @@ class Assets {
     mingcuteGame2Fill,
     mingcuteSearchLine,
     mynauiTelephoneSolid,
+    notoFire,
+    onboarding2,
     pepiconsPencilDotsY,
+    questionMark,
+    redRose,
     riGoogleFill,
     solarShareLinear,
+    stageSpotlight,
+    stickmanThinking,
     uilSetting,
     weuiBackFilled1,
     weuiBackFilled,

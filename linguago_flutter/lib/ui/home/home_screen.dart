@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:linguago_flutter/core/constants/colors.dart';
 import 'package:linguago_flutter/core/constants/language_preference.dart';
-import 'package:linguago_flutter/ui/pages/chat_page.dart';
+import 'package:linguago_flutter/ui/chat/pages/chat_list_page.dart';
 import 'package:linguago_flutter/ui/pages/course_page.dart';
 import 'package:linguago_flutter/ui/pages/english_course_page.dart';
 import 'package:linguago_flutter/ui/pages/home_page.dart';
@@ -58,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ? const CoursePage()
                     : const EnglishCoursePage(),
                 const LeaderboardScreen(),  // 2 - Rank
-                const ChatPage(),           // 3 - Chat
+                const ChatListPage(),           // 3 - Chat
                 const ProfilePage(),        // 4 - Profile
               ],
             ),
